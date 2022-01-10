@@ -1,0 +1,7 @@
+{
+  "${ModID}:Config": {
+    "TEXT_DICT": {
+      "Test": "This does nothing."
+    }
+  }
+}
