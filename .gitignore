@@ -1,7 +1,6 @@
 *.class
 
 pom.xml
-example-pom.xml
 
 # IntelliJ
 .idea/
