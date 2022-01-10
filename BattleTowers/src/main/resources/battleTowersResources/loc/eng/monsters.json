@@ -7,5 +7,15 @@
     "DIALOG": [
       ""
     ]
+  },
+  "${ModID}:ExampleMonster": {
+    "MOVES": [
+      "Sweep",
+      "Shriek",
+      "Double Hit"
+    ],
+    "NAME": "Example Monster",
+    "DIALOG": [
+    ]
   }
 }
