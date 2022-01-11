@@ -7,7 +7,7 @@
   },
   "${ModID}:FeelMyPainPower": {
     "NAME": "Feel My Pain",
-    "DESCRIPTIONS": ["The first time this creature loses HP each turn, you also receive that much damage."]
+    "DESCRIPTIONS": ["The first time this creature loses HP each round, you also receive that much damage."]
   },
   "${ModID}:PetrificationPower": {
     "NAME": "Petrification",
