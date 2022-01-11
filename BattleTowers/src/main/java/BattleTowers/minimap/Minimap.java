@@ -28,6 +28,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static BattleTowers.BattleTowers.makeImagePath;
 import static BattleTowers.BattleTowers.makeUIPath;
 
 public class Minimap {
@@ -386,7 +387,8 @@ public class Minimap {
         BattleTower.Node[] rowStructure;
         MinimapNode[] row;
         float[] x;
-        float y = 0;
+        float y = renderY + 300.0f * Settings.scale;
+        offsetY = targetOffsetY = maxScroll * 0.66f;
 
         for (List<BattleTower.Node[]> layoutRow : layout.getRows()) {
             rowStructure = layoutRow.get(0);
@@ -526,7 +528,7 @@ public class Minimap {
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
-                            transitionWaitTimer = 0.25F;
+                            transitionWaitTimer = 0.3F;
                             nextNode = this;
                             interactable = false;
                         }
@@ -637,8 +639,8 @@ public class Minimap {
                     outline = ImageMaster.MAP_NODE_ELITE_OUTLINE;
                     break;
                 case REST:
-                    img = ImageMaster.MAP_NODE_REST;
-                    outline = ImageMaster.MAP_NODE_REST_OUTLINE;
+                    img = TextureLoader.getTexture(makeUIPath("smallfire.png"));
+                    outline = TextureLoader.getTexture(makeUIPath("smallfireoutline.png"));
                     break;
                 case SHOP:
                     img = ImageMaster.MAP_NODE_MERCHANT;
