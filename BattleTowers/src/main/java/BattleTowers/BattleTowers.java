@@ -1,5 +1,6 @@
 package BattleTowers;
 
+import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
@@ -86,10 +87,15 @@ public class BattleTowers implements
         BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
 
         addMonsters();
+        addEvents();
     }
 
     private static void addMonsters() {
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+    }
+
+    private static void addEvents() {
+        BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
     }
 
     @Override

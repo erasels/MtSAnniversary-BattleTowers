@@ -3,17 +3,19 @@ package BattleTowers.events.phases;
 import BattleTowers.events.PhasedEvent;
 import BattleTowers.util.Method;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class TextPhase extends EventPhase {
+public class TextPhase extends ImageEventPhase {
     private final String body;
     private final List<OptionInfo> options;
-    private final List<Method> optionResults;
+    private final List<Consumer<Integer>> optionResults;
 
     public TextPhase(String bodyText) {
         body = bodyText;
@@ -22,16 +24,18 @@ public class TextPhase extends EventPhase {
     }
 
     public void transition(PhasedEvent event) {
+        AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
+        GenericEventDialog.show();
         event.imageEventText.updateBodyText(getBody());
         setOptions(event);
     }
 
-    public EventPhase addOption(String optionText, Method onClick) {
+    public TextPhase addOption(String optionText, Consumer<Integer> onClick) {
         options.add(new OptionInfo(optionText));
         optionResults.add(onClick);
         return this;
     }
-    public EventPhase addOption(OptionInfo option, Method onClick) {
+    public TextPhase addOption(OptionInfo option, Consumer<Integer> onClick) {
         options.add(option);
         optionResults.add(onClick);
         return this;
@@ -47,9 +51,10 @@ public class TextPhase extends EventPhase {
             option.set(e.imageEventText);
         }
     }
+    @Override
     public void optionChosen(int index) {
         if (index <= optionResults.size()) {
-            optionResults.get(index).execute();
+            optionResults.get(index).accept(index);
         }
     }
 
