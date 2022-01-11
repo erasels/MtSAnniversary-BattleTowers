@@ -3,6 +3,7 @@ package BattleTowers.monsters.CardboardGolem.cardmods;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.CardboardGolem.powers.CardEaterPower;
 import basemod.abstracts.AbstractCardModifier;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -20,6 +21,16 @@ public class CardWillBeEatenMod extends AbstractCardModifier {
             //GK don't look at this line
             AbstractDungeon.actionManager.addToBottom(new HealAction(AbstractDungeon.getCurrRoom().monsters.monsters.get(0), AbstractDungeon.getCurrRoom().monsters.monsters.get(0), AbstractDungeon.getCurrRoom().monsters.monsters.get(0).getPower(CardEaterPower.POWER_ID).amount));
         }
+    }
+
+    @Override
+    public void onInitialApplication(AbstractCard card) {
+        card.glowColor = Color.RED.cpy();
+    }
+
+    @Override
+    public boolean removeAtEndOfTurn(AbstractCard card) {
+        return true;
     }
 
     @Override

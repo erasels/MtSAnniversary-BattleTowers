@@ -10,7 +10,7 @@ public class BlankColorlessCard extends CustomCard {
     public static final String ID = makeID(BlankColorlessCard.class.getSimpleName());
 
     public BlankColorlessCard() {
-        super(ID, "", "", 0, "", CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
+        super(ID, "", "status/beta", 0, "", CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
     }
 
     @Override
