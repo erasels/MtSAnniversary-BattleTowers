@@ -120,6 +120,6 @@ public class CardboardHeart extends CustomRelic {
          }
          sb.setLength(sb.length() - 1);
          sb.append("[#").append(color.toString()).append("]");
-         return sb.toString();
+         return sb.toString().trim();
      }
 }

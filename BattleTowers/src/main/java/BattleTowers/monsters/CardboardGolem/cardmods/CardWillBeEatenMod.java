@@ -12,6 +12,8 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class CardWillBeEatenMod extends AbstractCardModifier {
 
+    private Color oldGlowColor;
+
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
         card.exhaust = true;
@@ -26,6 +28,7 @@ public class CardWillBeEatenMod extends AbstractCardModifier {
 
     @Override
     public void onInitialApplication(AbstractCard card) {
+        oldGlowColor = card.glowColor;
         card.glowColor = Color.RED.cpy();
     }
 
@@ -37,5 +40,10 @@ public class CardWillBeEatenMod extends AbstractCardModifier {
     @Override
     public AbstractCardModifier makeCopy() {
         return new CardWillBeEatenMod();
+    }
+
+    @Override
+    public void onRemove(AbstractCard card) {
+        card.glowColor = oldGlowColor;
     }
 }

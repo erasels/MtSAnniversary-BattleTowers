@@ -1,6 +1,7 @@
 {
   "${ModID}:CardboardHeart": {
     "NAME": "Cardboard Heart",
+    "FLAVOR": "Slain adventurer's decks form this lump of fibrous board.",
     "DESCRIPTIONS": [
       "At the start of each combat, choose between ",
       ", ",

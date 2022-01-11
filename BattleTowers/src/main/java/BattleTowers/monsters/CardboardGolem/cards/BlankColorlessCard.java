@@ -2,15 +2,19 @@ package BattleTowers.monsters.CardboardGolem.cards;
 
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import static BattleTowers.BattleTowers.makeCardPath;
 import static BattleTowers.BattleTowers.makeID;
 
 public class BlankColorlessCard extends CustomCard {
     public static final String ID = makeID(BlankColorlessCard.class.getSimpleName());
+    public static CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings("BlankCard");
 
     public BlankColorlessCard() {
-        super(ID, "", "status/beta", 0, "", CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
+        super(ID, cardStrings.NAME, makeCardPath("nothing.png"), 0, cardStrings.DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
     }
 
     @Override

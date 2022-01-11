@@ -3,6 +3,7 @@ package BattleTowers.monsters.CardboardGolem;
 import BattleTowers.monsters.AbstractBTMonster;
 import BattleTowers.monsters.CardboardGolem.cards.BlankColorlessCard;
 import BattleTowers.monsters.CardboardGolem.powers.CardEaterPower;
+import BattleTowers.relics.CardboardHeart;
 import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.BiteEffect;
 
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class CardboardGolem extends AbstractBTMonster
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(HEAD_BASH, Intent.ATTACK_DEBUFF, calcAscensionDamage(18));
-        addMove(CHOW_DOWN, Intent.ATTACK_BUFF);
+        addMove(CHOW_DOWN, Intent.ATTACK_BUFF, calcAscensionDamage(14));
         addMove(SHRED_SKIN, Intent.DEFEND_DEBUFF);
         addMove(SMITH_SELF, Intent.BUFF);
     }
@@ -86,6 +88,7 @@ public class CardboardGolem extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new CardEaterPower(this, 10), 10));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new CardboardHeart()));
     }
 
     @Override
