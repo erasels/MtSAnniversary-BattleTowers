@@ -18,6 +18,17 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:VoodooDoll": {
+    "MOVES": [
+      "Curse",
+      "Pins and Needles",
+      "Smother"
+    ],
+    "NAME": "Voodoo Doll",
+    "DIALOG": [
+      "This enemy intends to lose #b", " HP and inflict a powerful #yNegative #yEffect on you."
+    ]
+  },
   "${ModID}:Gorgon": {
     "MOVES": [
       "Petrifying Gaze",
