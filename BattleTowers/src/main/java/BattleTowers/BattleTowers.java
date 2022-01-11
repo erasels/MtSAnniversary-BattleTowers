@@ -2,9 +2,11 @@ package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.monsters.DoomedSoul;
+import BattleTowers.monsters.GigaSlime;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.monsters.VoodooDoll;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
+import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
@@ -87,6 +89,7 @@ public class BattleTowers implements
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
         BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
+        BaseMod.subscribe(new TriggerSlimeFilledRoomPowerPostExhaustSubscriber());
 
         addMonsters();
         addEvents();
@@ -96,6 +99,7 @@ public class BattleTowers implements
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
     }
 
     private static void addEvents() {

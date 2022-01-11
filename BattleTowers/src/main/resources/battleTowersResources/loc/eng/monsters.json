@@ -45,5 +45,13 @@
       "Envy"
     ],
     "NAME": "Doomed Soul"
+  },
+  "${ModID}:GigaSlime": {
+    "MOVES": [
+      "Goop Spray",
+      "Tackle and Lick",
+      "Lesser Slam"
+    ],
+    "NAME": "Giga Slime"
   }
 }
