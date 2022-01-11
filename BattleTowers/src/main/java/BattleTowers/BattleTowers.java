@@ -1,6 +1,9 @@
 package BattleTowers;
 
+import BattleTowers.monsters.Gorgon;
+import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
+import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -9,6 +12,8 @@ import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -17,6 +22,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,7 +83,13 @@ public class BattleTowers implements
 
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
+        BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
 
+        addMonsters();
+    }
+
+    private static void addMonsters() {
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
     }
 
     @Override
@@ -174,11 +186,27 @@ public class BattleTowers implements
         return getModID() + "Resources/loc/" + resourcePath;
     }
 
+    public static void LoadPowerImage(AbstractPower power) {
+        Texture tex84 = TextureLoader.getTexture(makePowerPath(removeModId(power.ID) + "84.png"));
+        Texture tex32 = TextureLoader.getTexture(makePowerPath(removeModId(power.ID) + "32.png"));
+        power.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
+        power.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
+    }
+
     public static String getModID() {
         return "battleTowers";
     }
 
     public static String makeID(String input) {
         return getModID() + ":" + input;
+    }
+
+    public static String removeModId(String id) {
+        if (id.startsWith(getModID() + ":")) {
+            return id.substring(id.indexOf(':') + 1);
+        } else {
+            logger.warn("Missing mod id on: " + id);
+            return id;
+        }
     }
 }
