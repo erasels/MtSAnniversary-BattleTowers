@@ -46,9 +46,11 @@ public class CardEaterPower extends AbstractPower {
 
     @Override
     public void atStartOfTurnPostDraw() {
+        AbstractPower p = this;
         addToBot(new AbstractGameAction() {
             @Override
             public void update() {
+                p.flash();
                 isDone = true;
                 AbstractCard chosen = AbstractDungeon.player.hand.getRandomCard(AbstractDungeon.cardRandomRng);
                 CardModifierManager.addModifier(chosen, new CardWillBeEatenMod());

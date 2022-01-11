@@ -19,6 +19,7 @@ public class CardWillBeEatenMod extends AbstractCardModifier {
 
         if (AbstractDungeon.getCurrRoom().monsters.monsters.get(0) instanceof CardboardGolem) {
             //GK don't look at this line
+            AbstractDungeon.getCurrRoom().monsters.monsters.get(0).getPower(CardEaterPower.POWER_ID).flash();
             AbstractDungeon.actionManager.addToBottom(new HealAction(AbstractDungeon.getCurrRoom().monsters.monsters.get(0), AbstractDungeon.getCurrRoom().monsters.monsters.get(0), AbstractDungeon.getCurrRoom().monsters.monsters.get(0).getPower(CardEaterPower.POWER_ID).amount));
         }
     }
