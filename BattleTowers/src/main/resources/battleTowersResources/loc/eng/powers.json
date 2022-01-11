@@ -27,6 +27,13 @@
   },
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
-    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn"]
+    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn."]
+  },
+  "${ModID}:GreedWrathEnvyPower": {
+    "NAME": "Greed, Wrath, Envy",
+    "DESCRIPTIONS": [
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card.",
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Ritual for each #yBoss #yrelic, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card."
+    ]
   }
 }
