@@ -3,6 +3,10 @@
     "NAME": "PoggyWoggy",
     "DESCRIPTION": "Does some pog shit if it existed."
   },
+  "${ModID}:Prick": {
+    "NAME": "Prick",
+    "DESCRIPTION": "If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
+  },
   "${ModID}:AvertYourGaze": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTION": "Retain. NL You do not gain *Petrification from dealing damage or applying debuffs this turn. NL Exhaust."

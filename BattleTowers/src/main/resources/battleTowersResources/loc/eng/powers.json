@@ -5,6 +5,10 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:FeelMyPainPower": {
+    "NAME": "Feel My Pain",
+    "DESCRIPTIONS": ["The first time this creature loses HP each turn, you also receive that much damage."]
+  },
   "${ModID}:PetrificationPower": {
     "NAME": "Petrification",
     "DESCRIPTIONS": ["If #yPetrification is #b{0} or higher at the start of your turn, remove all #yPetrification, lose #b{1} temporary #yStrength, lose #b{2} temporary #yDexterity, and you cannot draw cards this turn."]

@@ -2,6 +2,7 @@ package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.monsters.Gorgon;
+import BattleTowers.monsters.VoodooDoll;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
@@ -91,6 +92,7 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
+        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
     }
 
