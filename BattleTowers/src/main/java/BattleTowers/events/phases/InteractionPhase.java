@@ -3,6 +3,7 @@ package BattleTowers.events.phases;
 import BattleTowers.events.PhasedEvent;
 import BattleTowers.util.Method;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 
 import java.util.function.Consumer;
@@ -29,8 +30,7 @@ public class InteractionPhase extends EventPhase {
 
     @Override
     public void transition(PhasedEvent event) {
-        event.imageEventText.clearAllDialogs();
-        GenericEventDialog.hide();
+        AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
         handler.begin(event);
     }
 
@@ -47,6 +47,11 @@ public class InteractionPhase extends EventPhase {
     @Override
     public void renderAboveTopPanel(SpriteBatch sb) {
         handler.renderAboveTopPanel(sb);
+    }
+
+    @Override
+    public void hide(PhasedEvent event) {
+
     }
 
     public interface InteractionHandler {
