@@ -1,6 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.util.KeywordWithProper;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
@@ -18,6 +19,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -79,6 +81,12 @@ public class BattleTowers implements
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
+            @Override
+            public AbstractMonster get() {
+                return new CardboardGolem();
+            }
+        });
     }
 
     @Override

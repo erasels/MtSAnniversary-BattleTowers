@@ -17,5 +17,16 @@
     "NAME": "Example Monster",
     "DIALOG": [
     ]
+  },
+  "${ModID}:CardboardGolem": {
+    "MOVES": [
+      "Head Bash",
+      "Chow Down",
+      "Shred Skin",
+      "Smith Self"
+    ],
+    "NAME": "Cardboard Golem",
+    "DIALOG": [
+    ]
   }
 }
