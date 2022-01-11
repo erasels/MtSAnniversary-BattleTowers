@@ -53,5 +53,21 @@
       "Lesser Slam"
     ],
     "NAME": "Giga Slime"
+  },
+  "${ModID}:MinotaurGladiator": {
+    "MOVES": [
+      "Chop",
+      "Break",
+      "Gore"
+    ],
+    "NAME": "Giga Slime"
+  },
+  "${ModID}:BurningShambler": {
+    "MOVES": [
+      "Flicker of Flame",
+      "Bonfire",
+      "Rush"
+    ],
+    "NAME": "Giga Slime"
   }
 }
