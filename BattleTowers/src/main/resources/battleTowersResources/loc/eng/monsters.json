@@ -17,5 +17,14 @@
     "NAME": "Example Monster",
     "DIALOG": [
     ]
+  },
+  "${ModID}:Gorgon": {
+    "MOVES": [
+      "Petrifying Gaze",
+      "Biting Snakes",
+      "Tail Slam",
+      "Petrify Limb"
+    ],
+    "NAME": "Gorgon"
   }
 }
