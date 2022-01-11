@@ -2,11 +2,14 @@ package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.relics.CardboardHeart;
 import BattleTowers.util.KeywordWithProper;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.RelicType;
 import basemod.interfaces.EditKeywordsSubscriber;
+import basemod.interfaces.EditRelicsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
@@ -23,6 +26,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.smartcardio.Card;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -31,7 +35,8 @@ import java.util.Properties;
 public class BattleTowers implements
         PostInitializeSubscriber,
         EditStringsSubscriber,
-        EditKeywordsSubscriber
+        EditKeywordsSubscriber,
+        EditRelicsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -99,6 +104,7 @@ public class BattleTowers implements
         BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
         BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+        BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
 
         lang = getLangString();
         if (lang.equals(defaultLoc())) return;
@@ -111,6 +117,7 @@ public class BattleTowers implements
             BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
             BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
             BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+            BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
         }
         catch (Exception e)
         {
@@ -189,5 +196,10 @@ public class BattleTowers implements
 
     public static String makeID(String input) {
         return getModID() + ":" + input;
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
     }
 }
