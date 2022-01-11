@@ -51,7 +51,7 @@ public class VoodooDoll extends AbstractBTMonster
     }
 
     public VoodooDoll(final float x, final float y) {
-        super(NAME, ID, 140, 0.0F, 0.0f, 200.0f, 180.0f, IMG, x, y);
+        super(NAME, ID, 140, 0.0F, 0.0f, 180.0f, 170.0f, IMG, x, y);
         setHp(calcAscensionTankiness(200));
         addMove(CURSE, Intent.STRONG_DEBUFF);
         addMove(PINS, Intent.ATTACK_DEBUFF, calcAscensionDamage(12));

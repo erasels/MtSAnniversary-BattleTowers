@@ -49,6 +49,9 @@ public class Prick extends CustomCard {
 
     @Override
     public void upgrade() {
-        upgradeBaseCost(UP_COST);
+        if (!upgraded) {
+            upgradeName();
+            upgradeBaseCost(UP_COST);
+        }
     }
 }
