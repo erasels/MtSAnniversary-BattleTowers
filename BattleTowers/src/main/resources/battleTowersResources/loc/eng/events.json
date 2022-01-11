@@ -26,5 +26,26 @@
       "[Bye]",
       "[Fight your way to Japan]"
     ]
+  },
+  "${ModID}:NewBonfireEvent": {
+    "NAME": "An Event",
+    "DESCRIPTIONS": [
+      "You happen upon a group of what looks like ~spicy~ #ppurple #pfire #pspirits ~dancing~ around a large bonfire. NL ",
+      "The spirits toss small bones and fragments into the fire, which ~brilliantly~ ~erupts~ each time. NL As you approach, the spirits all turn to you, expectantly... NL",
+      "They also are eyeing one of your #yrelics ...",
+      "This is Brazil. You can only go to Antarctica from here.",
+      "This is Japan. You can go to Brazil or Trip and Fall.",
+      "This is Antarctica. You can Trip and Fall.",
+      "Ouch."
+    ],
+    "OPTIONS": [
+      "[Offer: ",
+      "] #rLose #rthis #rrelic. #gChoose #ga #grare #gCard #gto #gobtain.",
+      "[Offer] Receive a reward based on the offer.",
+      "[Go to Antarctica]",
+      "[Trip and fall]",
+      "[Bye]",
+      "[Fight your way to Japan]"
+    ]
   }
 }

@@ -1,6 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.events.NewBonfireEvent;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
@@ -96,6 +97,7 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(NewBonfireEvent.ID, NewBonfireEvent.class, "");
     }
 
     @Override
