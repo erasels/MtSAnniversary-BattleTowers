@@ -1,5 +1,7 @@
 package BattleTowers.monsters;
 
+import BattleTowers.BattleTowers;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
@@ -35,6 +37,8 @@ public class ExampleMonster extends AbstractBTMonster
         this(0.0f, 0.0f);
     }
 
+    private InvisibleIntentDisplayer secondIntent = new InvisibleIntentDisplayer(-100, 100);
+
     public ExampleMonster(final float x, final float y) {
         // maxHealth param doesn't matter, we will override it with setHP
         // hb_x and hb_y shifts the monster's AND its health bar's position around on the screen, usually you don't need to change these values
@@ -42,6 +46,7 @@ public class ExampleMonster extends AbstractBTMonster
         super(NAME, ID, 140, 0.0F, 0.0f, 200.0f, 220.0f, null, x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
+        loadAnimation(BattleTowers.makeMonsterPath("iceSlimeL/skeleton.atlas"), BattleTowers.makeMonsterPath("iceSlimeL/skeleton.json"), 1.0F);
 
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
@@ -92,6 +97,10 @@ public class ExampleMonster extends AbstractBTMonster
                 break;
             }
         }
+
+        secondIntent.flashIntent();
+        addToBot(new DamageAction(AbstractDungeon.player, new DamageInfo(this, 5, DamageInfo.DamageType.HP_LOSS)));
+
         addToBot(new RollMoveAction(this));
     }
 
@@ -148,6 +157,19 @@ public class ExampleMonster extends AbstractBTMonster
         } else {
             setMoveShortcut(DOUBLE_HIT, MOVES[DOUBLE_HIT]);
         }
+
+        secondIntent.setIntent(Intent.ATTACK_BUFF, 5);
     }
 
+    @Override
+    public void render(SpriteBatch sb) {
+        super.render(sb);
+        secondIntent.render(sb);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        secondIntent.update();
+    }
 }

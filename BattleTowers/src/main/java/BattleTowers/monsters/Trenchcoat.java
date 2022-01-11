@@ -17,10 +17,12 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.SplitPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
 
@@ -49,6 +51,12 @@ public class Trenchcoat extends AbstractBTMonster {
 
     private float saveX;
     private float saveY;
+
+    private Intent secondIntent;
+    private Intent thirdIntent;
+
+    private InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(-50, 10);
+    private InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(-10, 50);
 
     //defaults enemy placement to 0, 0
     public Trenchcoat() {
