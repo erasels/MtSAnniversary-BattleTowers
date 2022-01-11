@@ -2,12 +2,12 @@
   "${ModID}:CardboardHeart": {
     "NAME": "Cardboard Heart",
     "DESCRIPTIONS": [
-      "At the start of each combat, choose between #y",
-      ", #y",
-      ", and #y",
-      ". Add the chosen card into your hand with Retain.",
+      "At the start of each combat, choose between ",
+      ", ",
+      ", and ",
+      ". Add the chosen card into your hand with #yRetain.",
       "Choose a card to add into your hand.",
-      "When obtained, picks 3 random cards. Choose 1 of 3 of the set to add into your hand with Retain each combat."
+      "When obtained, picks #b3 random cards. Choose #b1 of #b3 of the set to add into your hand with #yRetain each combat."
     ]
   }
 }
