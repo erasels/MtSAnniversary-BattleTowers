@@ -26,5 +26,55 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
+  }, "${ModID}:FireSlimeL": {
+  "MOVES": [
+    "Corrosive Spit",
+    "Split",
+    "Lick"
+  ],
+  "NAME": "Fire Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:FireSlimeM": {
+    "MOVES": [
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Fire Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  }, "${ModID}:IceSlimeL": {
+  "MOVES": [
+    "Corrosive Spit",
+    "Split",
+    "Lick"
+  ],
+  "NAME": "Ice Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:IceSlimeM": {
+    "MOVES": [
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Ice Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:Trenchcoat": {
+    "MOVES": [
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Bronze Automaton?",
+    "DIALOG": [
+      ""
+    ]
   }
 }

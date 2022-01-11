@@ -1,7 +1,10 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
+import BattleTowers.monsters.IceSlimeL;
+import BattleTowers.monsters.Trenchcoat;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
@@ -23,6 +26,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -91,7 +96,16 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
+
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(makeID("SlimeOfIceAndFire"), () -> new MonsterGroup(
+                new AbstractMonster[]{
+                        new FireSlimeL(-385.0F, 20.0F),
+                        new IceSlimeL(120.0F, -8.0F)
+                }));
+
+        BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
+
     }
 
     private static void addEvents() {
@@ -171,6 +185,10 @@ public class BattleTowers implements
 
     public static String makeImagePath(String resourcePath) {
         return getModID() + "Resources/img/" + resourcePath;
+    }
+
+    public static String makeMonsterPath(String resourcePath) {
+        return getModID() + "Resources/img/monsters/" + resourcePath;
     }
 
     public static String makeCardPath(String resourcePath) {

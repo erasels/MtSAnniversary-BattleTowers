@@ -59,12 +59,12 @@ public class Trenchcoat extends AbstractBTMonster {
         // maxHealth param doesn't matter, we will override it with setHP
         // hb_x and hb_y shifts the monster's AND its health bar's position around on the screen, usually you don't need to change these values
         // hb_w affects how wide the monster's health bar is. hb_h affects how far up the monster's intent image is. Adjust these values until they look good
-        super(NAME, ID, 140, 0.0F, 0.0f, 300.0f, 180.0f, null, x, y);
+        super(NAME, ID, 140, 0.0F, 0.0f, 250.0f, 400.0f, null, x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
-        loadAnimation(BattleTowers.makeMonsterPath("fireSlimeL/skeleton.atlas"), BattleTowers.makeMonsterPath("fireSlimeL/skeleton.json"), 1.0F);
+        loadAnimation(BattleTowers.makeMonsterPath("trenchcoat/skeleton.atlas"), BattleTowers.makeMonsterPath("trenchcoat/skeleton.json"), 1.25F);
 
-        AnimationState.TrackEntry e = this.state.setAnimation(0, "Idle", true);
+        AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         this.state.addListener(new com.megacrit.cardcrawl.helpers.SlimeAnimListener());
 
