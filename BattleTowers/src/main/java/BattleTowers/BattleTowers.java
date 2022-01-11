@@ -1,5 +1,6 @@
 package BattleTowers;
 
+import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.util.KeywordWithProper;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
@@ -77,7 +78,7 @@ public class BattleTowers implements
 
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
-
+        BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
     }
 
     @Override

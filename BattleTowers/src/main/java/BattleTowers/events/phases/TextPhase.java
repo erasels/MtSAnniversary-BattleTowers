@@ -26,12 +26,12 @@ public class TextPhase extends EventPhase {
         setOptions(event);
     }
 
-    public EventPhase addOption(String optionText, Method onClick) {
+    public TextPhase addOption(String optionText, Method onClick) {
         options.add(new OptionInfo(optionText));
         optionResults.add(onClick);
         return this;
     }
-    public EventPhase addOption(OptionInfo option, Method onClick) {
+    public TextPhase addOption(OptionInfo option, Method onClick) {
         options.add(option);
         optionResults.add(onClick);
         return this;

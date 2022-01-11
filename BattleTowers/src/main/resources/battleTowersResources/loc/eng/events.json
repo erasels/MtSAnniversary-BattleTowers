@@ -8,5 +8,22 @@
       "[Enter] Oh boy, I can't wait to go inside this tower!",
       "[Leave] ..."
     ]
+  },
+  "${ModID}:Example": {
+    "NAME": "An Event",
+    "DESCRIPTIONS": [
+      "Initial Selection",
+      "This is Brazil. You can only go to Antarctica from here.",
+      "This is Japan. You can go to Brazil or Trip and Fall.",
+      "This is Antarctica. You can Trip and Fall.",
+      "Ouch."
+    ],
+    "OPTIONS": [
+      "[Go To Brazil]",
+      "[Go To Japan]",
+      "[Go To Antarctica]",
+      "[Trip and Fall]",
+      "[Bye]"
+    ]
   }
 }

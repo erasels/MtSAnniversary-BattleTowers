@@ -50,6 +50,11 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     }
 
     @Override
+    public void onEnterRoom() {
+        super.onEnterRoom();
+    }
+
+    @Override
     protected void buttonEffect(int i) {
         if (currentPhase instanceof TextPhase) {
             ((TextPhase) currentPhase).optionChosen(i);

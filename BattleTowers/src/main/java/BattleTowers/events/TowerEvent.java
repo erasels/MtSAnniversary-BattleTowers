@@ -8,7 +8,10 @@ import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
 
 import static BattleTowers.BattleTowers.*;
@@ -39,30 +42,45 @@ public class TowerEvent extends PhasedEvent {
     }
 
 
-    @Override
-    public void onEnterRoom() {
-        super.onEnterRoom();
-    }
-
-
     private static class MapHandler implements InteractionPhase.InteractionHandler {
+        private static final Color NOT_TAKEN_COLOR = new Color(0.34F, 0.34F, 0.34F, 1.0F);
+        private static final float MAX_Y = Settings.HEIGHT - (80.0f * Settings.scale);
+
         private final Texture mapTexture = TextureLoader.getTexture(makeUIPath("minimap.png"));
-        private final Color renderColor = Color.WHITE.cpy();
+        private Color baseMapColor;
+
+        private float targetAlpha;
+        private float height;
+        private float renderY;
+
+        public MapHandler() {
+            baseMapColor = Color.WHITE.cpy();
+            baseMapColor.a = 0;
+            targetAlpha = 0;
+
+            height = (Settings.WIDTH / 1920.0f) * 1600.0f;
+            renderY = MAX_Y - height;
+        }
 
         @Override
         public void begin(PhasedEvent event) {
-
+            targetAlpha = 1;
+            if (MathUtils.randomBoolean()) {
+                CardCrawlGame.sound.play("MAP_OPEN", 0.1F);
+            } else {
+                CardCrawlGame.sound.play("MAP_OPEN_2", 0.1F);
+            }
         }
 
         @Override
         public void update() {
-
+            this.baseMapColor.a = MathHelper.fadeLerpSnap(this.baseMapColor.a, this.targetAlpha);
         }
 
         @Override
         public void render(SpriteBatch sb) {
-            sb.setColor(renderColor);
-            sb.draw(mapTexture, 0, 0);
+            sb.setColor(baseMapColor);
+            sb.draw(mapTexture, 0, renderY, Settings.WIDTH, height);
         }
     }
 }
