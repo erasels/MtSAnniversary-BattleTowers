@@ -37,7 +37,7 @@ public class TowerEvent extends PhasedEvent {
 
         for (int i = 0; i < NUM_OPTIONS; ++i) {
             BattleTower t = new BattleTower(room.towerRng);
-            initial.addOption(OPTIONS[0] + t.getTitle() + "!", (index)->{
+            initial.addOption(OPTIONS[0] + " " + t.getTitle(), (index)->{
                 chosenIndex = index;
                 this.mapHandler.setTower(t, room.towerRng);
                 this.transitionKey("map");
@@ -83,7 +83,7 @@ public class TowerEvent extends PhasedEvent {
             map.update();
             if (map.isDone && !fadingOut) {
                 fadingOut = true;
-                fadeTimer = Settings.FAST_MODE ? 0.1f : 0.8f;
+                fadeTimer = Settings.FAST_MODE ? 0.25f : 0.7f;
             }
 
             if (fadingOut) { //out
@@ -158,7 +158,7 @@ public class TowerEvent extends PhasedEvent {
                 case EVENT:
                     return new WrappedEventPhase(target.getKey()).setNextKey("map");
                 case REST:
-                    //return new RestRoom();
+                    return new MiniRestPhase().setNextKey("map");
                 case MONSTER:
                 case ELITE:
                     return new CombatPhase(target.getKey(), true).setNextKey("map");

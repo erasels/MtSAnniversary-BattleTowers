@@ -67,7 +67,7 @@ public class CombatPhase extends EventPhase {
             AbstractDungeon.player.movePosition((float)Settings.WIDTH * 0.25F, AbstractDungeon.floorY);
             AbstractDungeon.player.flipHorizontal = false;
         }
-        event.enterCombat();
+        event.enterCombat(); //sets rs
 
         if (followupType == FollowupType.NONE) {
             event.currentPhase = null;

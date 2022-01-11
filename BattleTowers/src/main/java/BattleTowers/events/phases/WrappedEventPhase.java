@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
-import com.megacrit.cardcrawl.events.exordium.Mushrooms;
 import com.megacrit.cardcrawl.helpers.EventHelper;
 
 import java.lang.reflect.InvocationTargetException;
@@ -17,7 +16,7 @@ import static BattleTowers.BattleTowers.logger;
 
 public class WrappedEventPhase extends ImageEventPhase {
     private PhasedEvent event;
-    private String followupKey = null;
+    private Object followupKey = null;
     private final String eventKey;
     private boolean imageEvent = true;
 
@@ -68,7 +67,7 @@ public class WrappedEventPhase extends ImageEventPhase {
         }
     }
 
-    public EventPhase setNextKey(String key) {
+    public EventPhase setNextKey(Object key) {
         this.followupKey = key;
         return this;
     }
