@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class EventPhase {
     public abstract void transition(PhasedEvent event);
+    public abstract void hide(PhasedEvent event);
 
     public void update() {
 
@@ -15,4 +16,5 @@ public abstract class EventPhase {
     public void renderAboveTopPanel(SpriteBatch sb) {
 
     }
+
 }

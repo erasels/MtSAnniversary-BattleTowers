@@ -19,11 +19,12 @@
       "Ouch."
     ],
     "OPTIONS": [
-      "[Go To Brazil]",
-      "[Go To Japan]",
-      "[Go To Antarctica]",
-      "[Trip and Fall]",
-      "[Bye]"
+      "[Go to Brazil]",
+      "[Go to Japan]",
+      "[Go to Antarctica]",
+      "[Trip and fall]",
+      "[Bye]",
+      "[Fight your way to Japan]"
     ]
   }
 }

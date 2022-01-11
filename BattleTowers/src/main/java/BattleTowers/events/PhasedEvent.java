@@ -3,13 +3,17 @@ package BattleTowers.events;
 import BattleTowers.BattleTowers;
 import BattleTowers.events.phases.CombatPhase;
 import BattleTowers.events.phases.EventPhase;
+import BattleTowers.events.phases.ImageEventPhase;
 import BattleTowers.events.phases.TextPhase;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
+import com.megacrit.cardcrawl.events.RoomEventDialog;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.scene.EventBgParticle;
 
 import java.util.HashMap;
@@ -17,7 +21,7 @@ import java.util.Map;
 
 public abstract class PhasedEvent extends AbstractImageEvent {
     private final Map<Object, EventPhase> phases;
-    private EventPhase currentPhase;
+    public EventPhase currentPhase;
 
     public PhasedEvent(String title, String imgUrl) {
         super(title, "", imgUrl);
@@ -43,8 +47,8 @@ public abstract class PhasedEvent extends AbstractImageEvent {
             }
         }
         else {
+            currentPhase.hide(this);
             currentPhase = next;
-
             next.transition(this);
         }
     }
@@ -56,8 +60,21 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     @Override
     protected void buttonEffect(int i) {
-        if (currentPhase instanceof TextPhase) {
-            ((TextPhase) currentPhase).optionChosen(i);
+        if (currentPhase instanceof ImageEventPhase) {
+            ((ImageEventPhase) currentPhase).optionChosen(i);
+        }
+    }
+
+    @Override
+    public void reopen() {
+        if (currentPhase instanceof CombatPhase && ((CombatPhase) currentPhase).hasFollowup()) {
+            AbstractDungeon.resetPlayer();
+            AbstractDungeon.player.preBattlePrep();
+            this.finishCombat();
+            ((CombatPhase) currentPhase).postCombat(this);
+        }
+        else {
+            openMap();
         }
     }
 
@@ -74,17 +91,20 @@ public abstract class PhasedEvent extends AbstractImageEvent {
                 this.waitTimer -= Gdx.graphics.getDeltaTime();
                 if (this.waitTimer <= 0.0F) {
                     started = true;
-                    this.imageEventText.show(title, this.body);
+                    this.imageEventText.show(this.title, this.body);
                     this.waitTimer = 0.0F;
                 }
             }
             else {
-                if (currentPhase != null)
-                    currentPhase.update();
-
                 if (!GenericEventDialog.waitForInput) {
                     this.buttonEffect(GenericEventDialog.getSelectedOption());
                 }
+                else if (!RoomEventDialog.waitForInput) {
+                    this.buttonEffect(this.roomEventText.getSelectedOption());
+                }
+
+                if (currentPhase != null)
+                    currentPhase.update();
             }
         }
     }
@@ -101,7 +121,33 @@ public abstract class PhasedEvent extends AbstractImageEvent {
             currentPhase.renderAboveTopPanel(sb);
     }
 
+    @Override
+    public void enterCombat() {
+        AbstractDungeon.getCurrRoom().smoked = false;
+        AbstractDungeon.player.isEscaping = false;
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
+        AbstractDungeon.getCurrRoom().monsters.init();
+        AbstractRoom.waitTimer = 0.1F;
+        AbstractDungeon.player.preBattlePrep();
+        this.hasFocus = false;
+        CardCrawlGame.fadeIn(1.5F);
+        AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+        this.combatTime = true;
+    }
+
+    public void finishCombat() {
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+        AbstractDungeon.getCurrRoom().isBattleOver = false;
+        AbstractDungeon.getCurrRoom().monsters.monsters.clear();
+        AbstractDungeon.getCurrRoom().rewards.clear();
+        //this.hasDialog = true; only relevant for non-ImageEvents
+        this.hasFocus = true;
+        this.combatTime = false;
+        CardCrawlGame.fadeIn(1.5F);
+    }
+
+    //see patches.EventPlayerRender
     public boolean renderPlayer() {
-        return currentPhase instanceof CombatPhase;
+        return currentPhase instanceof CombatPhase || AbstractDungeon.rs == AbstractDungeon.RenderScene.NORMAL;
     }
 }
