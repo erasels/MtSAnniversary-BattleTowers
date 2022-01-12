@@ -23,7 +23,7 @@
     "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
     "DESCRIPTIONS": [
       "At the start of combat, gain 1 Ritual and lose 2 Strength.",
-      "#gGain #gCultist #gWar #gBanner"
+      "#gGain #gCultist #gWar #gBanner."
     ]
   },
   "${ModID}:WarBannerLouse": {
@@ -31,15 +31,15 @@
     "FLAVOR": "Be one with the snail.",
     "DESCRIPTIONS": [
       "At the start of combat, gain 10 Curl Up. When Curl Up is triggered, Block is not lost this turn.",
-      "#gGain #gLouse #gWar #gBanner"
+      "#gGain #gLouse #gWar #gBanner."
     ]
   },
   "${ModID}:WarBannerNob": {
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first 3 enemy actions each combat that are not attacks grant you 1 Strength.",
-      "#gGain #gNob #gWar #gBanner"
+      "The first 3 enemy actions each combat that are not attacks grant you 1 Strength. Start each combat with 2 Vulnerable.",
+      "#gGain #gNob #gWar #gBanner."
     ]
   },
   "${ModID}:WarBannerSnecko": {
@@ -47,7 +47,7 @@
     "FLAVOR": "This pattern. It's... mesmerizing.",
     "DESCRIPTIONS": [
       "At the start of combat, become Confused.",
-      "#gGain #gSnecko #gWar #gBanner"
+      "#gGain #gSnecko #gWar #gBanner."
     ]
   }
 }
