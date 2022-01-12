@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.powers.SplitPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
@@ -102,7 +103,7 @@ public class IceSlimeL extends AbstractBTMonster {
         switch (this.nextMove) {
             case DEBUFF: {
                 useSlowAttackAnimation();
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, STATUS, true), STATUS));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, STATUS, true), STATUS));
 
                 break;
             }

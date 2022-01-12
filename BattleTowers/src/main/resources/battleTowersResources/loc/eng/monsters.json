@@ -28,9 +28,10 @@
     "NAME": "Gorgon"
   }, "${ModID}:FireSlimeL": {
   "MOVES": [
-    "Corrosive Spit",
-    "Split",
-    "Lick"
+    "Incendiary Spit",
+    "Tackle",
+    "Lick",
+    "Split"
   ],
   "NAME": "Fire Slime (L)",
   "DIALOG": [
@@ -39,7 +40,8 @@
 },
   "${ModID}:FireSlimeM": {
     "MOVES": [
-      "Corrosive Spit",
+      "Incendiary Spit",
+      "Tackle",
       "Lick"
     ],
     "NAME": "Fire Slime (M)",
@@ -48,9 +50,10 @@
     ]
   }, "${ModID}:IceSlimeL": {
   "MOVES": [
-    "Corrosive Spit",
-    "Split",
-    "Lick"
+    "Frigid Spit",
+    "Tackle",
+    "Lick",
+    "Split"
   ],
   "NAME": "Ice Slime (L)",
   "DIALOG": [
@@ -59,7 +62,8 @@
 },
   "${ModID}:IceSlimeM": {
     "MOVES": [
-      "Corrosive Spit",
+      "Frigid Spit",
+      "Tackle",
       "Lick"
     ],
     "NAME": "Ice Slime (M)",
