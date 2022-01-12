@@ -1,7 +1,6 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
-import BattleTowers.util.Method;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;

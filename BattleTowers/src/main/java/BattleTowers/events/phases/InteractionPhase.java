@@ -1,10 +1,9 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
-import BattleTowers.util.Method;
+import BattleTowers.interfaces.Method;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import java.util.function.Consumer;

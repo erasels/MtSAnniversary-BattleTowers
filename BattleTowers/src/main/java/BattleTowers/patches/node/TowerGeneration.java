@@ -19,7 +19,8 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
         clz = AbstractDungeon.class,
         method = "generateMap"
 )
-public class TowerPathGeneration {
+public class TowerGeneration {
+    public static boolean DEBUG = true;
     public static float appearRate = 1.0f; //config option?
 
     /*
@@ -32,7 +33,7 @@ public class TowerPathGeneration {
     )
     public static void GenerateTower() {
         //Should it be any act 2 or just the city?
-        if (TheCity.ID.equals(AbstractDungeon.id) && mapRng.randomBoolean(appearRate)) {
+        if ((DEBUG || TheCity.ID.equals(AbstractDungeon.id)) && mapRng.randomBoolean(appearRate)) {
             //Time to catalogue some paths
             Map<MapRoomNode, Set<MapRoomNode>> prior = scorePrior(8);
             Map<MapRoomNode, Set<MapRoomNode>> following = scoreFollowing(8);
