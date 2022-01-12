@@ -100,6 +100,13 @@ public class BattleTowers implements
                         new GoldenLouse(-150.0F, 0.0F),
                         new SilverLouse(100.0F, 0.0F),
                 }));
+        BaseMod.addMonster(AbstractElementalSentry.ENCOUNTER, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SentryRed(-500.0F, 25.0F),
+                        new SentryGreen(-320.0F, 10.0F),
+                        new SentryPurple(-140.0F, 30.0F),
+                        new SentryHuge(140.0F, 0.0F)
+                }));
     }
 
     private static void addEvents() {
