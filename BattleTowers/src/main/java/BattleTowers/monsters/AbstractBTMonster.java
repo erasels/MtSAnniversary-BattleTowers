@@ -43,7 +43,7 @@ public abstract class AbstractBTMonster extends CustomMonster {
         this.addMove(moveCode, intent, baseDamage, 0);
     }
     protected void addMove(byte moveCode, Intent intent, int baseDamage, int multiplier) {
-        this.addMove(moveCode, intent, baseDamage, multiplier, false);
+        this.addMove(moveCode, intent, baseDamage, multiplier, true);
     }
     protected void addMove(byte moveCode, Intent intent, int baseDamage, int multiplier, boolean isMultiDamage) {
         this.moves.put(moveCode, new EnemyMoveInfo(moveCode, intent, baseDamage, multiplier, isMultiDamage));
