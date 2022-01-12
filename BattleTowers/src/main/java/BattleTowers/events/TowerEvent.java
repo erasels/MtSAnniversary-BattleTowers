@@ -108,6 +108,7 @@ public class TowerEvent extends PhasedEvent {
             topPanel.unhoverHitboxes();
             combatRewardScreen.clear();
             gridSelectScreen.upgradePreviewCard = null;
+            previousScreen = null;
 
             if (RestRoom.lastFireSoundId != 0L) {
                 CardCrawlGame.sound.fadeOut("REST_FIRE_WET", RestRoom.lastFireSoundId);
@@ -163,6 +164,7 @@ public class TowerEvent extends PhasedEvent {
                     return new MiniRestPhase().setNextKey(followup);
                 case MONSTER:
                 case ELITE:
+                case BOSS:
                     return new CombatPhase(target.getKey(), true).setNextKey(followup);
             }
             return null;
