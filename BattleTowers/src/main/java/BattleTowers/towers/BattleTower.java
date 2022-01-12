@@ -18,7 +18,7 @@ public class BattleTower {
     public BattleTower(Random rng) {
         this.layout = layouts.get(rng.random(layouts.size() - 1)).randomize(rng);
         this.content = contents.get(rng.random(contents.size() - 1)).copy();
-        this.title = " Random int: " + rng.random(0, 1000);
+        this.title = layout.title + " | " + content.title;
     }
 
     public String getTitle() {
@@ -40,7 +40,7 @@ public class BattleTower {
     static {
         layouts = new ArrayList<>();
 
-        layouts.add(new TowerLayout()
+        layouts.add(new TowerLayout("Default")
                 .addRow(NodeType.MONSTER)
                 .addRow(NodeType.EVENT)
                 .addRow(NodeType.ELITE)
@@ -48,10 +48,18 @@ public class BattleTower {
                 .addRow(NodeType.REST, NodeType.SHOP).addAlternate(NodeType.SHOP, NodeType.REST)
                 .connect(0).connect(1).connect(2).connect(3)
         );
+        layouts.add(new TowerLayout("Debug")
+                .addRow(NodeType.REST)
+                .addRow(NodeType.SHOP)
+                .addRow(NodeType.EVENT)
+                .addRow(NodeType.MONSTER)
+                .addRow(NodeType.ELITE)
+                .connect(0).connect(1).connect(2).connect(3)
+        );
 
         contents = new ArrayList<>();
 
-        contents.add(new TowerContents()
+        contents.add(new TowerContents("Default")
                 .addNormalEncounter(MonsterHelper.CULTIST_ENC)
                 .addNormalEncounter(MonsterHelper.JAW_WORM_ENC)
                 .addNormalEncounter(MonsterHelper.THREE_DARKLINGS_ENC)
@@ -66,6 +74,15 @@ public class BattleTower {
 
     public static class TowerLayout {
         List<List<Node[]>> layout = new ArrayList<>();
+
+        private String title;
+        public TowerLayout(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
+        }
 
         public TowerLayout addRow(NodeType... nodes) {
             List<Node[]> row = new ArrayList<>();
@@ -104,7 +121,7 @@ public class BattleTower {
         }
 
         public TowerLayout randomize(Random rng) {
-            TowerLayout singleResult = new TowerLayout();
+            TowerLayout singleResult = new TowerLayout(title);
 
             List<Node[]> row;
             for (List<Node[]> possible : layout) {
@@ -126,8 +143,14 @@ public class BattleTower {
         private final List<String> eliteEncounters = new ArrayList<>();
         private final List<String> events = new ArrayList<>();
 
-        public TowerContents() {
+        private String title;
 
+        public TowerContents(String title) {
+            this.title = title;
+        }
+
+        public String getTitle() {
+            return title;
         }
 
         public TowerContents addNormalEncounter(String key) {
@@ -144,7 +167,7 @@ public class BattleTower {
         }
 
         public TowerContents copy() {
-            TowerContents copy = new TowerContents();
+            TowerContents copy = new TowerContents(title);
             copy.normalEncounters.addAll(normalEncounters);
             copy.eliteEncounters.addAll(eliteEncounters);
             copy.events.addAll(events);

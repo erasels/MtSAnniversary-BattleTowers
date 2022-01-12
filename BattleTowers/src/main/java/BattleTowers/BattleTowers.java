@@ -1,9 +1,12 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.relics.CardboardHeart;
+import BattleTowers.monsters.*;
+import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
+import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
 import BattleTowers.util.KeywordWithProper;
+import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -14,6 +17,8 @@ import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -23,6 +28,8 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,6 +92,26 @@ public class BattleTowers implements
 
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
+        BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
+        BaseMod.subscribe(new TriggerSlimeFilledRoomPowerPostExhaustSubscriber());
+
+        addMonsters();
+        addEvents();
+    }
+
+    private static void addMonsters() {
+        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
+        BaseMod.addMonster(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new BurningShambler(-350.0F, 0.0F),
+                        new MinotaurGladiator(100.0F, 0.0F)
+                }));
+    }
+
+    private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
             @Override
@@ -190,6 +217,13 @@ public class BattleTowers implements
         return getModID() + "Resources/loc/" + resourcePath;
     }
 
+    public static void LoadPowerImage(AbstractPower power) {
+        Texture tex84 = TextureLoader.getTexture(makePowerPath(removeModId(power.ID) + "84.png"));
+        Texture tex32 = TextureLoader.getTexture(makePowerPath(removeModId(power.ID) + "32.png"));
+        power.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
+        power.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
+    }
+
     public static String getModID() {
         return "battleTowers";
     }
@@ -201,5 +235,14 @@ public class BattleTowers implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        }
+        
+    public static String removeModId(String id) {
+        if (id.startsWith(getModID() + ":")) {
+            return id.substring(id.indexOf(':') + 1);
+        } else {
+            logger.warn("Missing mod id on: " + id);
+            return id;
+        }
     }
 }

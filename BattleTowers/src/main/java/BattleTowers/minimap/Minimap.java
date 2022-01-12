@@ -17,7 +17,6 @@ import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.map.Legend;
-import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
@@ -46,7 +45,7 @@ public class Minimap {
     private final Color baseMapColor;
 
     private final float height; //render height of map img for scaling with resolution
-    private float renderY, nodeBaseY; //base positions
+    private float renderY; //base positions
     private float maxScroll; //farthest it can scroll
     private float targetOffsetY, offsetY; //offset for scrolling. Min 0.
     private float grabStartY;
@@ -101,7 +100,6 @@ public class Minimap {
                     }
                 }
                 current = nextNode;
-                current.taken = true;
                 nextNode = null;
                 transitionWaitTimer = 0;
 
@@ -386,7 +384,8 @@ public class Minimap {
         BattleTower.Node[] rowStructure;
         MinimapNode[] row;
         float[] x;
-        float y = 0;
+        float y = renderY + 300.0f * Settings.scale;
+        offsetY = targetOffsetY = maxScroll * 0.66f;
 
         for (List<BattleTower.Node[]> layoutRow : layout.getRows()) {
             rowStructure = layoutRow.get(0);
@@ -526,23 +525,23 @@ public class Minimap {
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
-                            transitionWaitTimer = 0.25F;
+                            transitionWaitTimer = 0.3F;
                             nextNode = this;
                             interactable = false;
                         }
 
                         this.highlighted = true;
                     } else {
-                        this.color = AVAILABLE_COLOR;
+                        this.color = AVAILABLE_COLOR.cpy();
                     }
                     this.oscillateColor();
                 }
                 else { //can't go here
                     if (this.hb.hovered && !this.taken) {
                         this.scale = 1.0F;
-                        this.color = AVAILABLE_COLOR;
+                        this.color = AVAILABLE_COLOR.cpy();
                     } else {
-                        this.color = NOT_TAKEN_COLOR;
+                        this.color = NOT_TAKEN_COLOR.cpy();
                     }
                 }
             }
@@ -618,6 +617,9 @@ public class Minimap {
             return hb.cY - 64.0f;
         }
 
+        public boolean hasEdges() {
+            return !edges.isEmpty();
+        }
         public MinimapEdge getEdgeConnectedTo(MinimapNode nextNode) {
             for (MinimapEdge edge : edges) {
                 if (nextNode.equals(edge.dst))
@@ -637,8 +639,8 @@ public class Minimap {
                     outline = ImageMaster.MAP_NODE_ELITE_OUTLINE;
                     break;
                 case REST:
-                    img = ImageMaster.MAP_NODE_REST;
-                    outline = ImageMaster.MAP_NODE_REST_OUTLINE;
+                    img = TextureLoader.getTexture(makeUIPath("smallfire.png"));
+                    outline = TextureLoader.getTexture(makeUIPath("smallfireoutline.png"));
                     break;
                 case SHOP:
                     img = ImageMaster.MAP_NODE_MERCHANT;
@@ -710,7 +712,7 @@ public class Minimap {
 
         public void markAsTaken() {
             this.taken = true;
-            this.color = MapRoomNode.AVAILABLE_COLOR;
+            this.color = MapRoomNode.AVAILABLE_COLOR.cpy();
         }
 
         public void render(SpriteBatch sb) {

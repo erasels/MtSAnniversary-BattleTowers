@@ -29,12 +29,14 @@ public class CombatPhase extends EventPhase {
 
     public CombatPhase setNextPhase(EventPhase postCombat) {
         followup = postCombat;
-        followupType = FollowupType.PHASE;
+        if (followup != null)
+            followupType = FollowupType.PHASE;
         return this;
     }
     public CombatPhase setNextKey(Object postCombatKey) {
         key = postCombatKey;
-        followupType = FollowupType.KEY;
+        if (key != null)
+            followupType = FollowupType.KEY;
         return this;
     }
 
@@ -58,6 +60,9 @@ public class CombatPhase extends EventPhase {
         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(encounterKey);
         AbstractDungeon.lastCombatMetricKey = encounterKey;
 
+        event.resetCardRarity();
+        event.allowRarityAltering = true;
+
         AbstractDungeon.getCurrRoom().rewards.clear();
         AbstractDungeon.getCurrRoom().rewardAllowed = allowRewards;
 
@@ -67,7 +72,7 @@ public class CombatPhase extends EventPhase {
             AbstractDungeon.player.movePosition((float)Settings.WIDTH * 0.25F, AbstractDungeon.floorY);
             AbstractDungeon.player.flipHorizontal = false;
         }
-        event.enterCombat();
+        event.enterCombat(); //sets rs
 
         if (followupType == FollowupType.NONE) {
             event.currentPhase = null;
