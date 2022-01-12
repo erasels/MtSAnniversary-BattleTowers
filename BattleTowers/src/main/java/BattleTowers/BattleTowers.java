@@ -1,14 +1,15 @@
 package BattleTowers;
 
 import BattleTowers.cards.*;
+import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.events.OttoEvent;
+import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.monsters.IceSlimeL;
 import BattleTowers.monsters.Trenchcoat;
-import BattleTowers.relics.OttosDeck;
-import BattleTowers.relics.CardboardHeart;
+import BattleTowers.relics.*;
 import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -32,6 +33,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
@@ -54,7 +56,7 @@ public class BattleTowers implements
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
         EditCardsSubscriber,
-        EditRelicsSubscriber
+        PreMonsterTurnSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -130,17 +132,19 @@ public class BattleTowers implements
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
-    }
-
-    private static void addEvents() {
-        BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
             @Override
             public AbstractMonster get() {
                 return new CardboardGolem();
             }
         });
+    }
+
+    private static void addEvents() {
+        BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+
     }
 
     @Override
@@ -261,6 +265,11 @@ public class BattleTowers implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
         }
         
     public static String removeModId(String id) {
@@ -273,11 +282,6 @@ public class BattleTowers implements
     }
 
     @Override
-    public void receiveEditRelics() {
-        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
-    }
-
-    @Override
     public void receiveEditCards() {
         BaseMod.addCard(new BishopsPrayer());
         BaseMod.addCard(new KingsCommand());
@@ -285,5 +289,18 @@ public class BattleTowers implements
         BaseMod.addCard(new PawnsAdvance());
         BaseMod.addCard(new QueensGrace());
         BaseMod.addCard(new RooksCharge());
+        BaseMod.addCard(new CursedTapestry());
+    }
+
+    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
+
+        if (AbstractDungeon.player.hasRelic(WarBannerNob.ID)) {
+
+            if (abstractMonster.getIntentBaseDmg() <= 0) {
+                AbstractDungeon.player.getRelic(WarBannerNob.ID).onTrigger();
+            }
+        }
+
+        return true;
     }
 }
