@@ -1,0 +1,9 @@
+{
+  "${ModID}:OttosDeck": {
+    "NAME": "Otto's Deck",
+    "FLAVOR": "Otto's deck is chess themed. Hm.",
+    "DESCRIPTIONS": [
+      "Upon pickup, replace your basic #yStrikes and #yDefends with #yPawn's #yAdvances. Obtain a random #bUncommon and #yRare #pChess #pCard."
+    ]
+  }
+}

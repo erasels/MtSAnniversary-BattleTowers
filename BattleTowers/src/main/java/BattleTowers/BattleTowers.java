@@ -1,19 +1,20 @@
 package BattleTowers;
 
+import BattleTowers.cards.*;
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.monsters.IceSlimeL;
 import BattleTowers.monsters.Trenchcoat;
+import BattleTowers.relics.OttosDeck;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
-import basemod.interfaces.EditKeywordsSubscriber;
-import basemod.interfaces.EditStringsSubscriber;
-import basemod.interfaces.PostInitializeSubscriber;
+import basemod.helpers.RelicType;
+import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +32,7 @@ import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.security.provider.SHA;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +42,9 @@ import java.util.Properties;
 public class BattleTowers implements
         PostInitializeSubscriber,
         EditStringsSubscriber,
-        EditKeywordsSubscriber
+        EditKeywordsSubscriber,
+        EditRelicsSubscriber,
+        EditCardsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -122,6 +126,7 @@ public class BattleTowers implements
         BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
         BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+        BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
 
         lang = getLangString();
         if (lang.equals(defaultLoc())) return;
@@ -134,6 +139,7 @@ public class BattleTowers implements
             BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
             BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
             BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+            BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
         }
         catch (Exception e)
         {
@@ -232,5 +238,20 @@ public class BattleTowers implements
             logger.warn("Missing mod id on: " + id);
             return id;
         }
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
+    }
+
+    @Override
+    public void receiveEditCards() {
+        BaseMod.addCard(new BishopsPrayer());
+        BaseMod.addCard(new KingsCommand());
+        BaseMod.addCard(new KnightsManeuver());
+        BaseMod.addCard(new PawnsAdvance());
+        BaseMod.addCard(new QueensGrace());
+        BaseMod.addCard(new RooksCharge());
     }
 }
