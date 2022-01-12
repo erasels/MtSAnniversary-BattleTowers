@@ -1,5 +1,6 @@
 package BattleTowers.powers;
 
+import basemod.interfaces.CloneablePowerInterface;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -8,7 +9,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class ProtectedPower extends AbstractPower {
+public class ProtectedPower extends AbstractPower implements CloneablePowerInterface {
     public static final String POWER_ID = makeID(ProtectedPower.class.getSimpleName());
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
@@ -39,5 +40,10 @@ public class ProtectedPower extends AbstractPower {
     @Override
     public void updateDescription() {
         this.description = DESCRIPTIONS[0];
+    }
+
+    @Override
+    public AbstractPower makeCopy() {
+        return new ProtectedPower(owner);
     }
 }

@@ -132,7 +132,7 @@ public class GoldenLouse extends AbstractBTMonster {
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
         boolean needHeal = false;
-        boolean canBuff = buffStacks < maxBuffStacks;
+        boolean canBuff = buffStacks < maxBuffStacks && !firstMove;
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (m.maxHealth - m.currentHealth >= HEAL_AMOUNT) {
                 needHeal = true;
@@ -148,7 +148,7 @@ public class GoldenLouse extends AbstractBTMonster {
                 possibilities.add(BUFF);
             }
 
-            if (!this.lastMove(BITE)) {
+            if (!this.lastMove(BITE) || (!canBuff)) {
                 possibilities.add(BITE);
             }
         }
@@ -156,6 +156,7 @@ public class GoldenLouse extends AbstractBTMonster {
         //randomly choose one with each possibility having equal weight
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
         setMoveShortcut(move, MOVES[move]);
+        firstMove = false;
     }
 
     public void changeState(String stateName) {
