@@ -6,5 +6,9 @@
   "${ModID}:AvertYourGaze": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTION": "Retain. NL You do not gain *Petrification from dealing damage or applying debuffs this turn. NL Exhaust."
+  },
+  "${ModID}:Chilled": {
+    "NAME": "Chilled",
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose 1 Energy, then draw a card."
   }
 }
