@@ -29,8 +29,9 @@ public class OttosDeck extends CustomRelic {
     public void onEquip() {
         for (int i = 0; i < AbstractDungeon.player.masterDeck.size() - 1; i++) {
             AbstractCard c = AbstractDungeon.player.masterDeck.group.get(i);
-            if (c.hasTag(AbstractCard.CardTags.STARTER_DEFEND) || c.hasTag(AbstractCard.CardTags.STARTER_DEFEND)) {
+            if (c.hasTag(AbstractCard.CardTags.STARTER_STRIKE) || c.hasTag(AbstractCard.CardTags.STARTER_DEFEND)) {
                 AbstractDungeon.player.masterDeck.removeCard(c);
+                i--;
                 AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(new PawnsAdvance(), (float) Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F));
             }
         }
