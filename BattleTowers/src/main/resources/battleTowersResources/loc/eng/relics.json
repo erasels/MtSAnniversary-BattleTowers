@@ -1,0 +1,54 @@
+{
+  "${ModID}:OttosDeck": {
+    "NAME": "Otto's Deck",
+    "FLAVOR": "Otto's deck is chess themed. Hm.",
+    "DESCRIPTIONS": [
+      "Upon pickup, replace your basic #yStrikes and #yDefends with #yPawn's #yAdvances. Obtain a random #bUncommon and #yRare #pChess #pCard."
+    ]
+  },
+  "${ModID}:CardboardHeart": {
+    "NAME": "Cardboard Heart",
+    "FLAVOR": "Slain adventurer's decks form this lump of fibrous board.",
+    "DESCRIPTIONS": [
+      "At the start of each combat, choose between ",
+      ", ",
+      ", and ",
+      ". Add the chosen card into your hand with #yRetain.",
+      "Choose a card to add into your hand.",
+      "When obtained, picks #b3 random cards. Choose #b1 of #b3 of the set to add into your hand with #yRetain each combat."
+    ]
+  },
+  "${ModID}:WarBannerCultist": {
+    "NAME": "Cultist War Banner",
+    "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
+    "DESCRIPTIONS": [
+      "At the start of combat, gain 1 Ritual and lose 2 Strength.",
+      "#gGain #gCultist #gWar #gBanner."
+    ]
+  },
+  "${ModID}:WarBannerLouse": {
+    "NAME": "Louse War Banner",
+    "FLAVOR": "Be one with the snail.",
+    "DESCRIPTIONS": [
+      "At the start of combat, gain 10 Curl Up. When Curl Up is triggered, Block is not lost this turn.",
+      "#gGain #gLouse #gWar #gBanner."
+    ]
+  },
+  "${ModID}:WarBannerNob": {
+    "NAME": "Nob War Banner",
+    "FLAVOR": "RRrroohrrRGHHhhh!!",
+    "DESCRIPTIONS": [
+      "The first 3 enemy actions each combat that are not attacks grant you 1 Strength. Start each combat with 2 Vulnerable.",
+      "#gGain #gNob #gWar #gBanner."
+    ]
+  },
+  "${ModID}:WarBannerSnecko": {
+    "NAME": "Snecko War Banner",
+    "FLAVOR": "This pattern. It's... mesmerizing.",
+    "DESCRIPTIONS": [
+      "At the start of combat, become Confused.",
+      "#gGain #gSnecko #gWar #gBanner."
+    ]
+  }
+}
+

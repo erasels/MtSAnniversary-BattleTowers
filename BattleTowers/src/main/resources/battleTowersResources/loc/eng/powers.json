@@ -5,21 +5,42 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:CardEaterPower": {
+    "NAME": "Card Eater",
+    "DESCRIPTIONS": [
+      "At the start of your turn, Cardboard Golem picks a card in your hand. If you play it, it is #yExhausted afterwards and Cardboard Golem heals for #b",
+      " HP."
+    ]
+  },
+  "${ModID}:FeelMyPainPower": {
+    "NAME": "Feel My Pain",
+    "DESCRIPTIONS": [
+      "The first time this creature loses HP each round, you also receive that much damage."
+    ]
+  },
   "${ModID}:PetrificationPower": {
     "NAME": "Petrification",
-    "DESCRIPTIONS": ["If #yPetrification is #b{0} or higher at the start of your turn, remove all #yPetrification, lose #b{1} temporary #yStrength, lose #b{2} temporary #yDexterity, and you cannot draw cards this turn."]
+    "DESCRIPTIONS": [
+      "If #yPetrification is #b{0} or higher at the start of your turn, remove all #yPetrification, lose #b{1} temporary #yStrength, lose #b{2} temporary #yDexterity, and you cannot draw cards this turn."
+    ]
   },
   "${ModID}:PetrifyingGazePower": {
     "NAME": "Petrifying Gaze",
-    "DESCRIPTIONS": ["Whenever you deal damage or apply a debuff to this enemy, gain #b1 #yPetrification."]
+    "DESCRIPTIONS": [
+      "Whenever you deal damage or apply a debuff to this enemy, gain #b1 #yPetrification."
+    ]
   },
   "${ModID}:PetrifyingTouchPower": {
     "NAME": "Petrifying Touch",
-    "DESCRIPTIONS": ["Whenever you receive attack damage from this enemy, gain #b1 #yPetrification."]
+    "DESCRIPTIONS": [
+      "Whenever you receive attack damage from this enemy, gain #b1 #yPetrification."
+    ]
   },
   "${ModID}:GainDexterityPower": {
     "NAME": "Gain Dexterity",
-    "DESCRIPTIONS": ["At the end of its turn, gains #b{0} #yDexterity."]
+    "DESCRIPTIONS": [
+      "At the end of its turn, gains #b{0} #yDexterity."
+    ]
   },
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
@@ -32,5 +53,47 @@
   "${ModID}:VengeancePower": {
     "NAME": "Vengeance",
     "DESCRIPTIONS": [""," gains #b"," Strength when this creature dies."]
+  },
+  "${ModID}:TrenchcoatPower": {
+    "NAME": "Unsturdy Construct",
+    "DESCRIPTIONS": [
+      "This Automaton looks highly unstable. A good hit should topple it right over... 20 unblocked damage or more will do the trick."
+    ]
+  },
+  "${ModID}:PawnBuffPower": {
+    "NAME": "Pawn Combo!",
+    "DESCRIPTIONS": [
+      "This turn, #yPawn's Advances deal #b",
+      " additional damage and grant #b",
+      " additional #yBlock."
+    ],
+    "DESCRIPTIONS": [
+      "You do not gain #yPetrification from dealing damage or applying debuffs this turn."
+    ]
+  },
+  "${ModID}:GreedWrathEnvyPower": {
+    "NAME": "Greed, Wrath, Envy",
+    "DESCRIPTIONS": [
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card.",
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Ritual for each #yBoss #yrelic, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card."
+    ]
+  },
+  "${ModID}:SlimeFilledRoomPower": {
+    "NAME": "Slime Filled Room",
+    "DESCRIPTIONS": [
+      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1#yStrength."
+    ]
+  },
+  "${ModID}:PlayerCurlUpPower": {
+    "NAME": "Curl Up",
+    "DESCRIPTIONS": [
+    ]
+  },
+  "${ModID}:PlayerEnragePower": {
+    "NAME": "Enrage",
+    "DESCRIPTIONS": [
+      "Enemy actions that are not attacks grant you 1 Strength, up to ",
+      " more this combat."
+    ]
   }
 }

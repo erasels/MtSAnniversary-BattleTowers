@@ -1,11 +1,11 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
-import BattleTowers.util.Method;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,11 @@ public class TextPhase extends ImageEventPhase {
 
     public void transition(PhasedEvent event) {
         AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+
+        event.resetCardRarity();
+        event.allowRarityAltering = true;
+
         GenericEventDialog.show();
         event.imageEventText.updateBodyText(getBody());
         setOptions(event);

@@ -22,6 +22,7 @@ import java.util.Map;
 public abstract class PhasedEvent extends AbstractImageEvent {
     private final Map<Object, EventPhase> phases;
     public EventPhase currentPhase;
+    public boolean allowRarityAltering = true;
 
     public PhasedEvent(String title, String imgUrl) {
         super(title, "", imgUrl);
@@ -38,9 +39,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         if (currentPhase == null) {
             if (next instanceof TextPhase) {
                 currentPhase = next;
-
                 this.body = ((TextPhase) next).getBody();
-                ((TextPhase) next).setOptions(this);
             }
             else {
                 BattleTowers.logger.error("Attempted to start event with non-TextPhase.");
@@ -55,7 +54,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     @Override
     public void onEnterRoom() {
-        super.onEnterRoom();
+
     }
 
     @Override
@@ -67,13 +66,24 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     @Override
     public void reopen() {
-        if (currentPhase instanceof CombatPhase && ((CombatPhase) currentPhase).hasFollowup()) {
-            AbstractDungeon.resetPlayer();
-            AbstractDungeon.player.preBattlePrep();
-            this.finishCombat();
-            ((CombatPhase) currentPhase).postCombat(this);
+        if (currentPhase instanceof CombatPhase) {
+            if (((CombatPhase) currentPhase).waitingRewards) {
+                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
+                ((CombatPhase) currentPhase).waitingRewards = false;
+                waitTimer = 69; //will not reopen again until reward screen is finished
+                if (!((CombatPhase) currentPhase).hasFollowup()) {
+                    currentPhase = null;
+                }
+            }
+            else {
+                AbstractDungeon.resetPlayer();
+                AbstractDungeon.player.preBattlePrep();
+                this.finishCombat();
+                ((CombatPhase) currentPhase).postCombat(this);
+            }
         }
         else {
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
             openMap();
         }
     }
@@ -92,6 +102,9 @@ public abstract class PhasedEvent extends AbstractImageEvent {
                 if (this.waitTimer <= 0.0F) {
                     started = true;
                     this.imageEventText.show(this.title, this.body);
+                    if (currentPhase instanceof TextPhase) {
+                        ((TextPhase) currentPhase).setOptions(this);
+                    }
                     this.waitTimer = 0.0F;
                 }
             }
@@ -125,6 +138,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     public void enterCombat() {
         AbstractDungeon.getCurrRoom().smoked = false;
         AbstractDungeon.player.isEscaping = false;
+        AbstractDungeon.getCurrRoom().isBattleOver = false;
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
         AbstractDungeon.getCurrRoom().monsters.init();
         AbstractRoom.waitTimer = 0.1F;
@@ -137,10 +151,6 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     public void finishCombat() {
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
-        AbstractDungeon.getCurrRoom().isBattleOver = false;
-        AbstractDungeon.getCurrRoom().monsters.monsters.clear();
-        AbstractDungeon.getCurrRoom().rewards.clear();
-        //this.hasDialog = true; only relevant for non-ImageEvents
         this.hasFocus = true;
         this.combatTime = false;
         CardCrawlGame.fadeIn(1.5F);
@@ -149,5 +159,13 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     //see patches.EventPlayerRender
     public boolean renderPlayer() {
         return currentPhase instanceof CombatPhase || AbstractDungeon.rs == AbstractDungeon.RenderScene.NORMAL;
+    }
+
+    public void resetCardRarity() {
+        setCardRarity(3, 37);
+    }
+    public void setCardRarity(int baseUncommonChance, int baseRareChance) {
+        AbstractDungeon.getCurrRoom().baseUncommonCardChance = baseUncommonChance;
+        AbstractDungeon.getCurrRoom().baseRareCardChance = baseRareChance;
     }
 }
