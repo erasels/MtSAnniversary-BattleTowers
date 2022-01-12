@@ -114,7 +114,7 @@ public class CardboardHeart extends CustomRelic {
          String name = c.name;
          StringBuilder sb = new StringBuilder();
 
-         Color color = Color.YELLOW.cpy();
+         Color color = Color.GRAY.cpy();
          for (AbstractPlayer p : CardCrawlGame.characterManager.getAllCharacters()) {
              if (p.getCardColor() == c.color) {
                  color = p.getCardTrailColor();
