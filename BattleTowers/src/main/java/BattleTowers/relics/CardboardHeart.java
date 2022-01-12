@@ -36,7 +36,12 @@ public class CardboardHeart extends CustomRelic {
         super(ID, TextureLoader.getTexture(makeRelicPath("cardboard_heart.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         if (CardCrawlGame.isInARun()) {
             card1 = returnTrulyRandomPrediCard(c -> c.rarity == AbstractCard.CardRarity.UNCOMMON, true);
-            card2 = returnTrulyRandomPrediCard(c -> c.rarity == AbstractCard.CardRarity.RARE, true);
+            if (AbstractDungeon.cardRandomRng.random(0, 9) == 9) {
+                card2 = returnTrulyRandomPrediCard(c -> c.rarity == AbstractCard.CardRarity.RARE, true);
+            }
+            else {
+                card2 = returnTrulyRandomPrediCard(c -> c.rarity == AbstractCard.CardRarity.UNCOMMON, true);
+            }
             card3 = returnTrulyRandomPrediCard(c -> c.rarity == AbstractCard.CardRarity.UNCOMMON, true);
         }
         description = getUpdatedDescription();
