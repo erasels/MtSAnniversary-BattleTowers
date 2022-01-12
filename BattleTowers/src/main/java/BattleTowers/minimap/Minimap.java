@@ -17,7 +17,6 @@ import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.map.Legend;
-import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
@@ -28,7 +27,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static BattleTowers.BattleTowers.makeImagePath;
 import static BattleTowers.BattleTowers.makeUIPath;
 
 public class Minimap {
@@ -47,7 +45,7 @@ public class Minimap {
     private final Color baseMapColor;
 
     private final float height; //render height of map img for scaling with resolution
-    private float renderY, nodeBaseY; //base positions
+    private float renderY; //base positions
     private float maxScroll; //farthest it can scroll
     private float targetOffsetY, offsetY; //offset for scrolling. Min 0.
     private float grabStartY;
