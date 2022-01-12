@@ -1,6 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.relics.CardboardHeart;
 import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -9,7 +10,9 @@ import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.RelicType;
 import basemod.interfaces.EditKeywordsSubscriber;
+import basemod.interfaces.EditRelicsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
 import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
@@ -30,6 +33,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.smartcardio.Card;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -38,7 +42,8 @@ import java.util.Properties;
 public class BattleTowers implements
         PostInitializeSubscriber,
         EditStringsSubscriber,
-        EditKeywordsSubscriber
+        EditKeywordsSubscriber,
+        EditRelicsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -108,6 +113,12 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
+            @Override
+            public AbstractMonster get() {
+                return new CardboardGolem();
+            }
+        });
     }
 
     @Override
@@ -120,6 +131,7 @@ public class BattleTowers implements
         BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
         BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+        BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
 
         lang = getLangString();
         if (lang.equals(defaultLoc())) return;
@@ -132,6 +144,7 @@ public class BattleTowers implements
             BaseMod.loadCustomStringsFile(PotionStrings.class, makeLocalizationPath(lang + "/potions.json"));
             BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
             BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
+            BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
         }
         catch (Exception e)
         {
@@ -219,6 +232,11 @@ public class BattleTowers implements
         return getModID() + ":" + input;
     }
 
+    @Override
+    public void receiveEditRelics() {
+        BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        }
+        
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
             return id.substring(id.indexOf(':') + 1);

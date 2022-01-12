@@ -3,6 +3,10 @@
     "NAME": "PoggyWoggy",
     "DESCRIPTION": "Does some pog shit if it existed."
   },
+  "${ModID}:BlankCard": {
+    "NAME": "Blank Card",
+    "DESCRIPTION": ""
+  },
   "${ModID}:Prick": {
     "NAME": "Prick",
     "DESCRIPTION": "If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
