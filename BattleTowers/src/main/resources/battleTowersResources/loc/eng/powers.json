@@ -5,6 +5,17 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:CardEaterPower": {
+    "NAME": "Card Eater",
+    "DESCRIPTIONS": [
+      "At the start of your turn, Cardboard Golem picks a card in your hand. If you play it, it is #yExhausted afterwards and Cardboard Golem heals for #b",
+      " HP."
+    ]
+  },
+  "${ModID}:FeelMyPainPower": {
+    "NAME": "Feel My Pain",
+    "DESCRIPTIONS": ["The first time this creature loses HP each round, you also receive that much damage."]
+  },
   "${ModID}:PetrificationPower": {
     "NAME": "Petrification",
     "DESCRIPTIONS": ["If #yPetrification is #b{0} or higher at the start of your turn, remove all #yPetrification, lose #b{1} temporary #yStrength, lose #b{2} temporary #yDexterity, and you cannot draw cards this turn."]
@@ -36,5 +47,17 @@
       " additional damage and grant #b",
       " additional #yBlock."
     ]
+    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn."]
+  },
+  "${ModID}:GreedWrathEnvyPower": {
+    "NAME": "Greed, Wrath, Envy",
+    "DESCRIPTIONS": [
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card.",
+      "At the start of combat, this enemy gains #b1 #yStrength for each #ynon-Starter #yrelic you have, #b1 Ritual for each #yBoss #yrelic, #b1 Artifact for each #yRare card, and #b1 #yMetallicize for each #yUncommon card."
+    ]
+  },
+  "${ModID}:SlimeFilledRoomPower": {
+    "NAME": "Slime Filled Room",
+    "DESCRIPTIONS": ["At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1#yStrength."]
   }
 }

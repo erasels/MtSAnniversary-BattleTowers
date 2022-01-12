@@ -48,12 +48,12 @@ public class BattleTower {
                 .addRow(NodeType.REST, NodeType.SHOP).addAlternate(NodeType.SHOP, NodeType.REST)
                 .connect(0).connect(1).connect(2).connect(3)
         );
-        layouts.add(new TowerLayout("Rest")
+        layouts.add(new TowerLayout("Debug")
                 .addRow(NodeType.REST)
-                .addRow(NodeType.REST)
-                .addRow(NodeType.REST)
-                .addRow(NodeType.REST)
-                .addRow(NodeType.REST)
+                .addRow(NodeType.SHOP)
+                .addRow(NodeType.EVENT)
+                .addRow(NodeType.MONSTER)
+                .addRow(NodeType.ELITE)
                 .connect(0).connect(1).connect(2).connect(3)
         );
 

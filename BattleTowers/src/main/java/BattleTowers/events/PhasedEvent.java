@@ -22,6 +22,7 @@ import java.util.Map;
 public abstract class PhasedEvent extends AbstractImageEvent {
     private final Map<Object, EventPhase> phases;
     public EventPhase currentPhase;
+    public boolean allowRarityAltering = true;
 
     public PhasedEvent(String title, String imgUrl) {
         super(title, "", imgUrl);
@@ -74,6 +75,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
             ((CombatPhase) currentPhase).postCombat(this);
         }
         else {
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
             openMap();
         }
     }
@@ -149,5 +151,13 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     //see patches.EventPlayerRender
     public boolean renderPlayer() {
         return currentPhase instanceof CombatPhase || AbstractDungeon.rs == AbstractDungeon.RenderScene.NORMAL;
+    }
+
+    public void resetCardRarity() {
+        setCardRarity(3, 37);
+    }
+    public void setCardRarity(int baseUncommonChance, int baseRareChance) {
+        AbstractDungeon.getCurrRoom().baseUncommonCardChance = baseUncommonChance;
+        AbstractDungeon.getCurrRoom().baseRareCardChance = baseRareChance;
     }
 }
