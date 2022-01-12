@@ -1,7 +1,7 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
-import BattleTowers.util.Method;
+import BattleTowers.interfaces.Method;
 import BattleTowers.vfx.MiniCampfireSleepEffect;
 import BattleTowers.vfx.MiniCampfireSmithEffect;
 import com.badlogic.gdx.Gdx;
