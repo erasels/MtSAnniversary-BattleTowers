@@ -1,9 +1,9 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.monsters.Gorgon;
-import BattleTowers.monsters.VoodooDoll;
+import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
+import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
@@ -24,6 +24,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,6 +88,7 @@ public class BattleTowers implements
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
         BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
+        BaseMod.subscribe(new TriggerSlimeFilledRoomPowerPostExhaustSubscriber());
 
         addMonsters();
         addEvents();
@@ -94,6 +97,13 @@ public class BattleTowers implements
     private static void addMonsters() {
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
+        BaseMod.addMonster(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new BurningShambler(-350.0F, 0.0F),
+                        new MinotaurGladiator(100.0F, 0.0F)
+                }));
     }
 
     private static void addEvents() {

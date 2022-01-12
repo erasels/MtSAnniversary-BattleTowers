@@ -37,5 +37,37 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
+  },
+  "${ModID}:DoomedSoul": {
+    "MOVES": [
+      "Greed",
+      "Wrath",
+      "Envy"
+    ],
+    "NAME": "Doomed Soul"
+  },
+  "${ModID}:GigaSlime": {
+    "MOVES": [
+      "Goop Spray",
+      "Tackle and Lick",
+      "Lesser Slam"
+    ],
+    "NAME": "Giga Slime"
+  },
+  "${ModID}:MinotaurGladiator": {
+    "MOVES": [
+      "Chop",
+      "Break",
+      "Gore"
+    ],
+    "NAME": "Giga Slime"
+  },
+  "${ModID}:BurningShambler": {
+    "MOVES": [
+      "Flicker of Flame",
+      "Bonfire",
+      "Rush"
+    ],
+    "NAME": "Giga Slime"
   }
 }
