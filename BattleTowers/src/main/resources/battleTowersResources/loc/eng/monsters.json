@@ -30,7 +30,7 @@
   "${ModID}:GoldenLouse": {
     "MOVES": [
       "Bite",
-      "Plating",
+      "Protect",
       "Heal"
     ],
     "NAME": "Golden Louse",
