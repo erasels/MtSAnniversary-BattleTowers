@@ -44,9 +44,15 @@
   },
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
-    "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn"
-    ]
+    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn"]
+  },
+  "${ModID}:ProtectedPower": {
+    "NAME": "Protected",
+    "DESCRIPTIONS": ["This creature receives #b50% less damage from attacks as it is protected by the monsters surrounding it."]
+  },
+  "${ModID}:VengeancePower": {
+    "NAME": "Vengeance",
+    "DESCRIPTIONS": [""," gains #b"," Strength when this creature dies."]
   },
   "${ModID}:TrenchcoatPower": {
     "NAME": "Unsturdy Construct",

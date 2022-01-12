@@ -48,7 +48,64 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
-  }, "${ModID}:FireSlimeL": {
+  },
+  "${ModID}:GoldenLouse": {
+    "MOVES": [
+      "Bite",
+      "Protect",
+      "Heal"
+    ],
+    "NAME": "Golden Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SilverLouse": {
+    "MOVES": [
+      "Bite",
+      "Buff",
+      "Scratch"
+    ],
+    "NAME": "Silver Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryRed": {
+    "MOVES": [
+      "Beam",
+      "Burn"
+    ],
+    "NAME": "Red Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryGreen": {
+    "MOVES": [
+      "Beam",
+      "Splatter"
+    ],
+    "NAME": "Green Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryPurple": {
+    "MOVES": [
+      "Beam",
+      "Drain"
+    ],
+    "NAME": "Purple Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryHuge": {
+    "MOVES": [
+      "Double Beam",
+      "Annoy"
+    ],
+    "NAME": "Huge Sentry",
+    "DIALOG": [
+    ]
+  }, 
+  "${ModID}:FireSlimeL": {
   "MOVES": [
     "Incendiary Spit",
     "Tackle",

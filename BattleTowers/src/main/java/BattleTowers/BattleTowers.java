@@ -115,6 +115,19 @@ public class BattleTowers implements
     private static void addMonsters() {
 
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(SilverLouse.METAL_LOUSES,  () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SilverLouse(-400.0F, 0.0F),
+                        new GoldenLouse(-150.0F, 0.0F),
+                        new SilverLouse(100.0F, 0.0F),
+                }));
+        BaseMod.addMonster(AbstractElementalSentry.ENCOUNTER, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SentryRed(-500.0F, 25.0F),
+                        new SentryGreen(-320.0F, 10.0F),
+                        new SentryPurple(-140.0F, 30.0F),
+                        new SentryHuge(140.0F, 0.0F)
+                }));
         BaseMod.addMonster(makeID("SlimeOfIceAndFire"), () -> new MonsterGroup(
                 new AbstractMonster[]{
                         new FireSlimeL(-385.0F, 20.0F),
