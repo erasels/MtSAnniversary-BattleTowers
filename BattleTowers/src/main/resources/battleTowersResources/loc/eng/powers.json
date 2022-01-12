@@ -32,7 +32,7 @@
   "${ModID}:PawnBuffPower": {
     "NAME": "Pawn Combo!",
     "DESCRIPTIONS": [
-      "This turn, #yPawns deal #b",
+      "This turn, #yPawn's Advances deal #b",
       " additional damage and grant #b",
       " additional #yBlock."
     ]

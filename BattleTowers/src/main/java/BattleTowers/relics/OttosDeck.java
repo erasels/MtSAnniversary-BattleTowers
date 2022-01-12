@@ -21,7 +21,7 @@ public class OttosDeck extends CustomRelic {
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
     public OttosDeck() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("cardboard_heart.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("OttosDeck.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
     }
 

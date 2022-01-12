@@ -58,6 +58,8 @@ public class PawnsAdvance extends CustomCard {
         if (!upgraded) {
             upgradeName();
             upgradeMagicNumber(1);
+            upgradeDamage(1);
+            upgradeBlock(1);
         }
     }
 }

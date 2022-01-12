@@ -2,6 +2,7 @@ package BattleTowers;
 
 import BattleTowers.cards.*;
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.events.OttoEvent;
 import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.monsters.IceSlimeL;
@@ -114,6 +115,8 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+
     }
 
     @Override

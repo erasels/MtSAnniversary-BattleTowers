@@ -26,11 +26,11 @@
   },
   "${ModID}:PawnsAdvance": {
     "NAME": "Pawn's Advance",
-    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL This turn, Pawns gain !M! bonus damage and Block."
+    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL This turn, all Pawn's Advances gain !M! bonus damage and Block."
   },
   "${ModID}:KingsCommand": {
     "NAME": "King's Command",
-    "DESCRIPTION": "Unplayable. NL When you play a card to the left or right of this card, deal !M! damage to a random enemy.",
+    "DESCRIPTION": "Unplayable. NL When you play another card, deal !M! damage to a random enemy.",
     "UPGRADE_DESCRIPTION": "I can't play this."
   },
   "${ModID}:KnightsManeuver": {
