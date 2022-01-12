@@ -30,17 +30,18 @@ import java.util.Set;
 import static BattleTowers.BattleTowers.makeUIPath;
 
 public class Minimap {
-    //Node properties
+    //I Love Numbers
     private static final int IMG_WIDTH = (int)(64.0F * Settings.xScale);
     private static final float MIN_SPACING_X = Settings.isMobile ? IMG_WIDTH * 2.2F : IMG_WIDTH * 2.0F;
     private static final float MAX_SPACING_X = IMG_WIDTH * 3.0F;
     private static final float JITTER_X = Settings.isMobile ? 10.0F * Settings.xScale : 20.0F * Settings.xScale;
     private static final float JITTER_Y = Settings.isMobile ? 6.0F * Settings.xScale : 10.0F * Settings.xScale;
+    private static final float BOSS_OFFSET_Y = 400.0f * Settings.scale;
 
-    //Map stuff
     private static final float TOP_Y = Settings.HEIGHT - (20.0f * Settings.scale);
     private static final float RETICLE_DIST = 20.0F * Settings.scale;
 
+    //Map Stuff
     private final Texture mapTexture = TextureLoader.getTexture(makeUIPath("minimap.png"));
     private final Color baseMapColor;
 
@@ -116,7 +117,6 @@ public class Minimap {
 
         legend.update(baseMapColor.a, interactable);
         baseMapColor.a = MathHelper.fadeLerpSnap(baseMapColor.a, targetAlpha);
-        updateReticle();
 
         //Update boss hb if that's something that is done
 
@@ -130,6 +130,7 @@ public class Minimap {
                     hovered = n;
             }
         }
+        updateReticle();
 
         if (interactable && !AbstractDungeon.isScreenUp) {
             updateYOffset();
@@ -384,8 +385,9 @@ public class Minimap {
         BattleTower.Node[] rowStructure;
         MinimapNode[] row;
         float[] x;
-        float y = renderY + 300.0f * Settings.scale;
-        offsetY = targetOffsetY = maxScroll * 0.66f;
+        float bossY = TOP_Y - BOSS_OFFSET_Y;
+        float y = bossY - (Settings.MAP_DST_Y * (1 + layout.getRows().size()));
+        offsetY = targetOffsetY = Math.max(0, Math.min(maxScroll, -y + 150.0f));
 
         for (List<BattleTower.Node[]> layoutRow : layout.getRows()) {
             rowStructure = layoutRow.get(0);
@@ -425,6 +427,20 @@ public class Minimap {
             }
         }
 
+        //Boss
+        BattleTower.BossInfo boss = contents.getBoss(towerRng);
+        row = new MinimapNode[1];
+        MinimapNode bossNode = new BossNode(Settings.WIDTH / 2.0f, bossY);
+        row[0] = bossNode;
+        row[0].setKey(boss.id);
+        loadBossImg(boss);
+        map.add(row);
+
+        //add edges to connect to boss node
+        for (MinimapNode n : map.get(map.size() - 2)) {
+            n.edges.add(new MinimapEdge(n, bossNode, true));
+        }
+
         for (MinimapNode n : map.get(0)) {
             available.add(n);
         }
@@ -445,21 +461,23 @@ public class Minimap {
 
     public class MinimapNode {
         private final Color HIGHLIGHT_COLOR = new Color(0.9F, 0.9F, 0.9F, 1.0F);
-        private final Color AVAILABLE_COLOR = new Color(0.09F, 0.13F, 0.17F, 1.0F);
-        private final Color NOT_TAKEN_COLOR = new Color(0.34F, 0.34F, 0.34F, 1.0F);
+        protected final Color AVAILABLE_COLOR = new Color(0.09F, 0.13F, 0.17F, 1.0F);
+        protected final Color NOT_TAKEN_COLOR = new Color(0.34F, 0.34F, 0.34F, 1.0F);
         private final Color OUTLINE_COLOR = Color.valueOf("8c8c80ff");
 
-        private boolean visible;
+        protected boolean visible;
         private final List<MinimapEdge> edges; //probably need a custom similar class due to relying on indices for positioning
         private final BattleTower.NodeType type;
-        private Texture img, outline;
-        private float cx, cy;
-        private float scale;
+        protected Texture img;
+        protected Texture outline;
+        protected float cx;
+        protected float cy;
+        protected float scale;
         private float angle = MathUtils.random(360.0F);
         private float oscillateTimer;
-        private Color color;
+        protected Color color;
 
-        private boolean highlighted = false;
+        protected boolean highlighted = false;
         public boolean taken = false;
 
         public Hitbox hb;
@@ -628,7 +646,7 @@ public class Minimap {
             return null;
         }
 
-        private void getImg() {
+        protected void getImg() {
             switch (type) {
                 case MONSTER:
                     img = ImageMaster.MAP_NODE_ENEMY;
@@ -662,6 +680,8 @@ public class Minimap {
                     return "R";
                 case SHOP:
                     return "$";
+                case BOSS:
+                    return "B";
                 default:
                     return "?";
             }
@@ -672,6 +692,80 @@ public class Minimap {
         }
         public void setKey(String key) {
             this.key = key;
+        }
+    }
+
+    private static final float BOSS_W = Settings.isMobile ? 560.0F * Settings.scale : 512.0F * Settings.scale;
+    private static Texture bossImg, bossImgOutline;
+    public void loadBossImg(BattleTower.BossInfo boss) {
+        if (bossImg != null) {
+            bossImg.dispose();
+            bossImg = null;
+        }
+        if (bossImgOutline != null) {
+            bossImgOutline.dispose();
+            bossImgOutline = null;
+        }
+        bossImg = boss.loadBossIcon();
+        bossImgOutline = boss.loadBossIconOutline();
+    }
+    private class BossNode extends MinimapNode {
+        public BossNode(float x, float y) {
+            super(BattleTower.NodeType.BOSS, x, y);
+
+            hb = new Hitbox(400.0F * Settings.scale, 360.0F * Settings.scale);
+        }
+
+        public boolean update() {
+            this.scale = Settings.scale;
+
+            this.hb.move(this.cx, cy + offsetY);
+            this.hb.update();
+
+            visible = true;
+            //no edges
+
+            if (interactable) {
+                if (this.hb.hovered || this.equals(current)) {
+                    color = AVAILABLE_COLOR.cpy();
+                }
+                else {
+                    this.color.lerp(NOT_TAKEN_COLOR, Gdx.graphics.getDeltaTime() * 8.0F);
+                }
+
+                if (available.contains(this) && this.hb.hovered && clicked) {
+                    clicked = false;
+                    clickTimer = 0;
+
+                    transitionWaitTimer = 0.1F;
+                    nextNode = this;
+                    interactable = false;
+                }
+            }
+            else if (this.hb.hovered || this.equals(current)) {
+                color = AVAILABLE_COLOR.cpy();
+            }
+            else {
+                this.color.lerp(NOT_TAKEN_COLOR, Gdx.graphics.getDeltaTime() * 8.0F);
+            }
+
+            return hb.hovered;
+        }
+
+        private final Color outlineColor = Color.WHITE.cpy();
+        @Override
+        public void render(SpriteBatch sb) {
+            if (bossImg != null &&  bossImgOutline != null) {
+                outlineColor.a = this.color.a;
+                sb.draw(bossImgOutline, hb.cX - BOSS_W / 2.0F, hb.cY - BOSS_W / 2.0F, BOSS_W, BOSS_W);
+
+                sb.setColor(this.color);
+                sb.draw(bossImg, hb.cX - BOSS_W / 2.0F, hb.cY - BOSS_W / 2.0F, BOSS_W, BOSS_W);
+
+                if (!AbstractDungeon.isScreenUp) {// 254
+                    this.hb.render(sb);// 255
+                }
+            }
         }
     }
 

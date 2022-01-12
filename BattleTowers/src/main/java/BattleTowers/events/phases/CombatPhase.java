@@ -5,10 +5,13 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
 
+import static BattleTowers.BattleTowers.logger;
+
 public class CombatPhase extends EventPhase {
     //For combat rewards: See AbstractRoom's update method.
     private final String encounterKey;
     private final boolean allowRewards;
+    public boolean waitingRewards;
     //patch line 440 of AbstractRoom to prevent save if followup exists even if reward is allowed
     //(Or to adjust the save to load properly mid-tower)
     private EventPhase followup = null;
@@ -24,6 +27,7 @@ public class CombatPhase extends EventPhase {
     public CombatPhase(String encounterKey, boolean allowRewards) {
         this.encounterKey = encounterKey;
         this.allowRewards = allowRewards;
+        waitingRewards = false;
         followupType = FollowupType.NONE;
     }
 
@@ -45,13 +49,18 @@ public class CombatPhase extends EventPhase {
     }
 
     public void postCombat(PhasedEvent event) {
-        switch (followupType) {
-            case PHASE:
-                event.transitionPhase(followup);
-                break;
-            case KEY:
-                event.transitionKey(key);
-                break;
+        if (hasFollowup()) {
+            switch (followupType) {
+                case PHASE:
+                    event.transitionPhase(followup);
+                    break;
+                case KEY:
+                    event.transitionKey(key);
+                    break;
+            }
+        }
+        else {
+            logger.error("Reached postCombat of CombatPhase with no follow up");
         }
     }
 
@@ -74,17 +83,21 @@ public class CombatPhase extends EventPhase {
         }
         event.enterCombat(); //sets rs
 
-        if (followupType == FollowupType.NONE) {
-            event.currentPhase = null;
-        }
-        else if (allowRewards) {
+        if (allowRewards) {
             //has a followup and has rewards
-            event.waitTimer = 69; //Set to a non-0 value (see EventRoom's update method and patches.ShowEventLater)
+            waitingRewards = true;
         }
+        /*if (followupType == FollowupType.NONE) {
+            event.currentPhase = null;
+        }*/
     }
 
     @Override
     public void hide(PhasedEvent event) {
-
+        AbstractDungeon.getCurrRoom().monsters.monsters.clear();
+        AbstractDungeon.getCurrRoom().rewards.clear();
+        AbstractDungeon.getCurrRoom().cannotLose = false;
+        AbstractDungeon.getCurrRoom().isBattleOver = false;
+        AbstractDungeon.getCurrRoom().rewardTime = false;
     }
 }

@@ -1,13 +1,18 @@
 package BattleTowers.towers;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.events.shrines.PurificationShrine;
 import com.megacrit.cardcrawl.events.shrines.Transmogrifier;
 import com.megacrit.cardcrawl.events.shrines.UpgradeShrine;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.monsters.exordium.TheGuardian;
 import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static BattleTowers.BattleTowers.makeUIPath;
 
 public class BattleTower {
     private final TowerLayout layout;
@@ -68,6 +73,8 @@ public class BattleTower {
                 .addEvent(UpgradeShrine.ID)
                 .addEvent(Transmogrifier.ID)
                 .addEvent(PurificationShrine.ID)
+                .addBoss(MonsterHelper.GUARDIAN_ENC)
+                .addBoss(MonsterHelper.HEXAGHOST_ENC)
         );
     }
 
@@ -141,6 +148,7 @@ public class BattleTower {
     public static class TowerContents {
         private final List<String> normalEncounters = new ArrayList<>();
         private final List<String> eliteEncounters = new ArrayList<>();
+        private final List<BossInfo> bosses = new ArrayList<>();
         private final List<String> events = new ArrayList<>();
 
         private String title;
@@ -153,16 +161,23 @@ public class BattleTower {
             return title;
         }
 
-        public TowerContents addNormalEncounter(String key) {
-            normalEncounters.add(key);
+        public TowerContents addNormalEncounter(String id) {
+            normalEncounters.add(id);
             return this;
         }
-        public TowerContents addEliteEncounter(String key) {
-            eliteEncounters.add(key);
+        public TowerContents addEliteEncounter(String id) {
+            eliteEncounters.add(id);
             return this;
         }
         public TowerContents addEvent(String key) {
             events.add(key);
+            return this;
+        }
+        public TowerContents addBoss(String id) {
+            return addBoss(id, makeUIPath("OldBossIcon.png"), makeUIPath("OldBossIconOutline.png"));
+        }
+        public TowerContents addBoss(String id, String mapIcon, String mapIconOutline) {
+            bosses.add(new BossInfo(id, mapIcon, mapIconOutline));
             return this;
         }
 
@@ -171,19 +186,44 @@ public class BattleTower {
             copy.normalEncounters.addAll(normalEncounters);
             copy.eliteEncounters.addAll(eliteEncounters);
             copy.events.addAll(events);
+            copy.bosses.addAll(bosses);
             return copy;
         }
 
-        public String getNormalEncounter(Random towerRng) {
-            return normalEncounters.remove(towerRng.random(normalEncounters.size() - 1));
+        public String getNormalEncounter(Random rng) {
+            return normalEncounters.remove(rng.random(normalEncounters.size() - 1));
         }
 
-        public String getEliteEncounter(Random towerRng) {
-            return eliteEncounters.remove(towerRng.random(eliteEncounters.size() - 1));
+        public String getEliteEncounter(Random rng) {
+            return eliteEncounters.remove(rng.random(eliteEncounters.size() - 1));
         }
 
-        public String getEvent(Random towerRng) {
-            return events.remove(towerRng.random(events.size() - 1));
+        public String getEvent(Random rng) {
+            return events.remove(rng.random(events.size() - 1));
+        }
+
+        public BossInfo getBoss(Random rng) {
+            return bosses.remove(rng.random(bosses.size() - 1));
+        }
+    }
+
+    public static class BossInfo {
+        public final String id;
+        private final String bossMap;
+        private final String bossMapOutline;
+
+        private BossInfo(String id, String mapIcon, String mapIconOutline) {
+            this.id = id;
+            this.bossMap = mapIcon;
+            this.bossMapOutline = mapIconOutline;
+        }
+
+        public Texture loadBossIcon() {
+            return ImageMaster.loadImage(this.bossMap);
+        }
+
+        public Texture loadBossIconOutline() {
+            return ImageMaster.loadImage(this.bossMapOutline);
         }
     }
 
@@ -207,6 +247,7 @@ public class BattleTower {
         ELITE,
         EVENT,
         REST,
-        SHOP
+        SHOP,
+        BOSS
     }
 }
