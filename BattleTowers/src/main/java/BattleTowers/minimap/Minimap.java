@@ -102,7 +102,6 @@ public class Minimap {
                     }
                 }
                 current = nextNode;
-                current.taken = true;
                 nextNode = null;
                 transitionWaitTimer = 0;
 
@@ -535,16 +534,16 @@ public class Minimap {
 
                         this.highlighted = true;
                     } else {
-                        this.color = AVAILABLE_COLOR;
+                        this.color = AVAILABLE_COLOR.cpy();
                     }
                     this.oscillateColor();
                 }
                 else { //can't go here
                     if (this.hb.hovered && !this.taken) {
                         this.scale = 1.0F;
-                        this.color = AVAILABLE_COLOR;
+                        this.color = AVAILABLE_COLOR.cpy();
                     } else {
-                        this.color = NOT_TAKEN_COLOR;
+                        this.color = NOT_TAKEN_COLOR.cpy();
                     }
                 }
             }
@@ -620,6 +619,9 @@ public class Minimap {
             return hb.cY - 64.0f;
         }
 
+        public boolean hasEdges() {
+            return !edges.isEmpty();
+        }
         public MinimapEdge getEdgeConnectedTo(MinimapNode nextNode) {
             for (MinimapEdge edge : edges) {
                 if (nextNode.equals(edge.dst))
@@ -712,7 +714,7 @@ public class Minimap {
 
         public void markAsTaken() {
             this.taken = true;
-            this.color = MapRoomNode.AVAILABLE_COLOR;
+            this.color = MapRoomNode.AVAILABLE_COLOR.cpy();
         }
 
         public void render(SpriteBatch sb) {
