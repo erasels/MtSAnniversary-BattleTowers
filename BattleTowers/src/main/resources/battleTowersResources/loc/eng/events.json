@@ -58,7 +58,7 @@
  ],
     "OPTIONS": [
       "[Locked] Requires 100 Gold.",
-      "[Buy] #rSpend #r100 #r Gold. ",
+      "[Buy] #rSpend #r100 Gold.",
       "[Steal] #gGain #gCursed #gTapestry. #rCursed #r- #rPain.",
       "[Leave]"
     ]

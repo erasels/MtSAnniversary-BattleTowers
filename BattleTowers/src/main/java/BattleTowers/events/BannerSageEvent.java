@@ -67,7 +67,7 @@ public class BannerSageEvent extends AbstractImageEvent {
         }
 
         this.imageEventText.setDialogOption(OPTIONS[2], new CursedTapestry());
-        this.imageEventText.setDialogOption(OPTIONS[3]);
+       // this.imageEventText.setDialogOption(OPTIONS[3]);
 
 
     }

@@ -44,8 +44,8 @@ public class CursedTapestry extends CustomCard {
 
     public CursedTapestry() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
-        baseDamage = 20;
-        baseMagicNumber = magicNumber = 20;
+        baseDamage = 30;
+        baseMagicNumber = magicNumber = 5;
         FleetingField.fleeting.set(this, true);
     }
 

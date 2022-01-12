@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.powers.RitualPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 import java.util.ArrayList;
@@ -44,7 +45,8 @@ public class WarBannerNob extends CustomRelic {
     public void atBattleStart() {
 
         flash();
-        addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlayerEnragePower(AbstractDungeon.player), 1));
+        addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new PlayerEnragePower(AbstractDungeon.player), 3));
+        addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new VulnerablePower(AbstractDungeon.player, 2, false), 2));
 
         addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
     }

@@ -61,7 +61,7 @@ public class OttoEvent extends AbstractImageEvent {
         }
 
         this.imageEventText.setDialogOption(OPTIONS[4]);
-        this.imageEventText.setDialogOption(OPTIONS[5]);
+        //this.imageEventText.setDialogOption(OPTIONS[5]);
 
 
     }
