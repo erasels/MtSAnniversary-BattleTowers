@@ -26,5 +26,25 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
+  },
+  "${ModID}:GoldenLouse": {
+    "MOVES": [
+      "Bite",
+      "Plating",
+      "Heal"
+    ],
+    "NAME": "Golden Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SilverLouse": {
+    "MOVES": [
+      "Bite",
+      "Buff",
+      "Scratch"
+    ],
+    "NAME": "Silver Louse",
+    "DIALOG": [
+    ]
   }
 }

@@ -1,7 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.monsters.Gorgon;
+import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
@@ -23,6 +23,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -92,6 +94,12 @@ public class BattleTowers implements
 
     private static void addMonsters() {
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(SilverLouse.METAL_LOUSES,  () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SilverLouse(-400.0F, 0.0F),
+                        new GoldenLouse(-150.0F, 0.0F),
+                        new SilverLouse(100.0F, 0.0F),
+                }));
     }
 
     private static void addEvents() {
