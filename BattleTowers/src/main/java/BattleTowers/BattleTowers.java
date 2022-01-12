@@ -1,6 +1,13 @@
 package BattleTowers;
 
+import BattleTowers.cards.*;
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.events.OttoEvent;
+import BattleTowers.monsters.FireSlimeL;
+import BattleTowers.monsters.Gorgon;
+import BattleTowers.monsters.IceSlimeL;
+import BattleTowers.monsters.Trenchcoat;
+import BattleTowers.relics.OttosDeck;
 import BattleTowers.relics.CardboardHeart;
 import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
@@ -11,6 +18,7 @@ import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.helpers.RelicType;
+import basemod.interfaces.*;
 import basemod.interfaces.EditKeywordsSubscriber;
 import basemod.interfaces.EditRelicsSubscriber;
 import basemod.interfaces.EditStringsSubscriber;
@@ -32,6 +40,7 @@ import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.security.provider.SHA;
 
 import javax.smartcardio.Card;
 import java.io.IOException;
@@ -43,6 +52,8 @@ public class BattleTowers implements
         PostInitializeSubscriber,
         EditStringsSubscriber,
         EditKeywordsSubscriber,
+        EditRelicsSubscriber,
+        EditCardsSubscriber,
         EditRelicsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
@@ -100,6 +111,16 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
+
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(makeID("SlimeOfIceAndFire"), () -> new MonsterGroup(
+                new AbstractMonster[]{
+                        new FireSlimeL(-385.0F, 20.0F),
+                        new IceSlimeL(120.0F, -8.0F)
+                }));
+
+        BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
+
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
@@ -113,6 +134,7 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
             @Override
             public AbstractMonster get() {
@@ -198,6 +220,10 @@ public class BattleTowers implements
         return getModID() + "Resources/img/" + resourcePath;
     }
 
+    public static String makeMonsterPath(String resourcePath) {
+        return getModID() + "Resources/img/monsters/" + resourcePath;
+    }
+
     public static String makeCardPath(String resourcePath) {
         return getModID() + "Resources/img/cards/" + resourcePath;
     }
@@ -244,5 +270,20 @@ public class BattleTowers implements
             logger.warn("Missing mod id on: " + id);
             return id;
         }
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
+    }
+
+    @Override
+    public void receiveEditCards() {
+        BaseMod.addCard(new BishopsPrayer());
+        BaseMod.addCard(new KingsCommand());
+        BaseMod.addCard(new KnightsManeuver());
+        BaseMod.addCard(new PawnsAdvance());
+        BaseMod.addCard(new QueensGrace());
+        BaseMod.addCard(new RooksCharge());
     }
 }

@@ -48,6 +48,71 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
+  }, "${ModID}:FireSlimeL": {
+  "MOVES": [
+    "Incendiary Spit",
+    "Tackle",
+    "Lick",
+    "Split"
+  ],
+  "NAME": "Fire Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:FireSlimeM": {
+    "MOVES": [
+      "Incendiary Spit",
+      "Tackle",
+      "Lick"
+    ],
+    "NAME": "Fire Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  }, "${ModID}:IceSlimeL": {
+  "MOVES": [
+    "Frigid Spit",
+    "Tackle",
+    "Lick",
+    "Split"
+  ],
+  "NAME": "Ice Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:IceSlimeM": {
+    "MOVES": [
+      "Frigid Spit",
+      "Tackle",
+      "Lick"
+    ],
+    "NAME": "Ice Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:Trenchcoat": {
+    "MOVES": [
+      "",
+      "",
+      "",
+      "Power Up",
+      "Topple"
+    ],
+    "NAME": "Bronze Automaton?",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:InvisibleIntentDisplayer": {
+    "MOVES": [
+    ],
+    "NAME": "",
+    "DIALOG": [
+      ""
+    ]
   },
   "${ModID}:DoomedSoul": {
     "MOVES": [
