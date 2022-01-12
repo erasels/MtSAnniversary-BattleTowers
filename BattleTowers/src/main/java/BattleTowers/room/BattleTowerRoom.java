@@ -51,7 +51,6 @@ public class BattleTowerRoom extends AbstractRoom {
         }
 
         if (this.event.waitTimer == 0.0F && !this.event.hasFocus && this.phase != RoomPhase.COMBAT) {
-            this.phase = RoomPhase.COMPLETE;
             this.event.reopen();
         }
     }

@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.helpers.EventHelper;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -30,6 +31,10 @@ public class WrappedEventPhase extends ImageEventPhase {
     public void transition(PhasedEvent event) {
         this.event = event;
         baseEvent = EventHelper.getEvent(eventKey);
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+
+        event.resetCardRarity();
+        event.allowRarityAltering = true;
 
         if (baseEvent instanceof AbstractImageEvent) {
             AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;

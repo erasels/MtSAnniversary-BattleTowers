@@ -1,15 +1,17 @@
 package BattleTowers;
 
 import BattleTowers.cards.*;
-import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.events.OttoEvent;
 import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
 import BattleTowers.monsters.IceSlimeL;
 import BattleTowers.monsters.Trenchcoat;
-import BattleTowers.relics.*;
+import BattleTowers.relics.OttosDeck;
+import BattleTowers.relics.CardboardHeart;
+import BattleTowers.monsters.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
+import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
 import BattleTowers.util.KeywordWithProper;
 import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
@@ -17,6 +19,10 @@ import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import basemod.interfaces.EditKeywordsSubscriber;
+import basemod.interfaces.EditRelicsSubscriber;
+import basemod.interfaces.EditStringsSubscriber;
+import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,7 +32,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
@@ -37,6 +42,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import sun.security.provider.SHA;
 
+import javax.smartcardio.Card;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -48,7 +54,7 @@ public class BattleTowers implements
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
         EditCardsSubscriber,
-        PreMonsterTurnSubscriber
+        EditRelicsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -98,6 +104,7 @@ public class BattleTowers implements
         BaseMod.registerModBadge(ImageMaster.loadImage("battleTowersResources/img/modBadge.png"), "Battle Towers", "erasels", "TODO", settingsPanel);
 
         BaseMod.subscribe(new PetrifyingGazeApplyPowerSubscriber());
+        BaseMod.subscribe(new TriggerSlimeFilledRoomPowerPostExhaustSubscriber());
 
         addMonsters();
         addEvents();
@@ -114,13 +121,26 @@ public class BattleTowers implements
 
         BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
 
+        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
+        BaseMod.addMonster(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new BurningShambler(-350.0F, 0.0F),
+                        new MinotaurGladiator(100.0F, 0.0F)
+                }));
     }
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
-
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
+            @Override
+            public AbstractMonster get() {
+                return new CardboardGolem();
+            }
+        });
     }
 
     @Override
@@ -238,6 +258,11 @@ public class BattleTowers implements
         return getModID() + ":" + input;
     }
 
+    @Override
+    public void receiveEditRelics() {
+        BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        }
+        
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
             return id.substring(id.indexOf(':') + 1);
@@ -250,10 +275,6 @@ public class BattleTowers implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
-        BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
-        BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
-        BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
-        BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
     }
 
     @Override
@@ -264,19 +285,5 @@ public class BattleTowers implements
         BaseMod.addCard(new PawnsAdvance());
         BaseMod.addCard(new QueensGrace());
         BaseMod.addCard(new RooksCharge());
-        BaseMod.addCard(new CursedTapestry());
-    }
-
-    @Override
-    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-
-        if (AbstractDungeon.player.hasRelic(WarBannerNob.ID)) {
-
-            if (abstractMonster.getIntentBaseDmg() <= 0) {
-                AbstractDungeon.player.getRelic(WarBannerNob.ID).onTrigger();
-            }
-        }
-
-        return true;
     }
 }
