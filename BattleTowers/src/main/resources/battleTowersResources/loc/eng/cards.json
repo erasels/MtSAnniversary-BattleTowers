@@ -43,5 +43,9 @@
       "Gain 3 Strength and lose 1 Dexterity.",
       "Choose an option."
     ]
+  },
+  "${ModID}:CursedTapestry": {
+    "NAME": "Cursed Tapestry",
+    "DESCRIPTION": "Fleeting. NL Lose !M! HP. NL Deal !D! Damage. NL Gain a random Common Relic."
   }
 }

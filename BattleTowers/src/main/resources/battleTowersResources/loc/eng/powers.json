@@ -36,5 +36,17 @@
       " additional damage and grant #b",
       " additional #yBlock."
     ]
+  },
+  "${ModID}:PlayerCurlUpPower": {
+    "NAME": "Curl Up",
+    "DESCRIPTIONS": [
+    ]
+  },
+  "${ModID}:PlayerEnragePower": {
+    "NAME": "Enrage",
+    "DESCRIPTIONS": [
+      "Enemy actions that are not attacks grant you 1 Strength, up to ",
+      " more this combat."
+    ]
   }
 }

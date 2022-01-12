@@ -49,7 +49,7 @@ public class OttoEvent extends AbstractImageEvent {
         super(NAME, DESCRIPTIONS[0], BattleTowers.makeImagePath("events/otto.png"));
 
         if (getUncommonCards().size() == 0 || getRareCards().size() == 0) {
-            this.imageEventText.setDialogOption(OPTIONS[0], true, new OttosDeck());
+            this.imageEventText.setDialogOption(OPTIONS[0], true);
         } else {
             this.imageEventText.setDialogOption(OPTIONS[1], new OttosDeck());
         }
