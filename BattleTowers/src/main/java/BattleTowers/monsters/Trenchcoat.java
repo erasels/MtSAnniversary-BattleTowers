@@ -1,10 +1,15 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.actions.NonStackingStasisAction;
+import BattleTowers.powers.NonStackingStasisPower;
+import BattleTowers.powers.TrenchcoatPower;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.IntentFlashAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateShakeAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
@@ -19,9 +24,9 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.SplitPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
+import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
@@ -49,14 +54,11 @@ public class Trenchcoat extends AbstractBTMonster {
 
     private boolean splitTriggered;
 
-    private float saveX;
-    private float saveY;
+    private final float saveX;
+    private final float saveY;
 
-    private Intent secondIntent;
-    private Intent thirdIntent;
-
-    private InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(-50, 10);
-    private InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(-10, 50);
+    private final InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(0F, 180F);
+    private final InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(120F, 180F);
 
     //defaults enemy placement to 0, 0
     public Trenchcoat() {
@@ -79,10 +81,12 @@ public class Trenchcoat extends AbstractBTMonster {
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
         // if you pass only 1 value to set HP it will use that as the HP value
-        setHp(calcAscensionTankiness(87), calcAscensionTankiness(90));
+        setHp(calcAscensionTankiness(150));
 
         this.saveX = x;
         this.saveY = y;
+
+        intentOffsetX = -240F;
 
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -94,7 +98,7 @@ public class Trenchcoat extends AbstractBTMonster {
 
         this.splitTriggered = false;
 
-        this.powers.add(new SplitPower(this));
+        this.powers.add(new TrenchcoatPower(this));
     }
 
     @Override
@@ -104,41 +108,52 @@ public class Trenchcoat extends AbstractBTMonster {
         this.type = EnemyType.NORMAL;
     }
 
-    @Override
-    public void takeTurn() {
-        //Automatically grabs the damage values and number of hits value from the moves hashmap based on the currently set move
-        DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
-
-        if (info.base > -1) {
-            info.applyPowers(this, AbstractDungeon.player);
-        }
-
-        //carries out actions based on the current move
-        //useFastAttackAnimation causes the monster to jump forward when it attacks
-        switch (this.nextMove) {
+    public void takeTurnActions(byte move, DamageInfo info) {
+        switch (move) {
             case STASIS: {
-                AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
+                AbstractDungeon.actionManager.addToBottom(new NonStackingStasisAction(this));
                 break;
             }
             case BLOCK: {
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 12));
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 8));
                 break;
             }
             case DAMAGE: {
                 addToBot(new com.megacrit.cardcrawl.actions.utility.SFXAction("ATTACK_MAGIC_BEAM_SHORT", 0.5F));
                 addToBot(new VFXAction(new BorderFlashEffect(Color.SKY)));
-                   addToBot(new VFXAction(new SmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY), 0.3F));
+                addToBot(new VFXAction(new SmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY), 0.3F));
 
-                      addToBot(new DamageAction(AbstractDungeon.player,
+                addToBot(new DamageAction(AbstractDungeon.player,
                         info, com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect.NONE));
                 break;
             }
             case STRENGTH: {
-                    addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
+                break;
             }
             case SPLIT: {
+
+
+                AbstractPower stasis1 = null;
+                AbstractPower stasis2 = null;
+                AbstractPower stasis3 = null;
+                int count = 0;
+                for (AbstractPower p : powers) {
+                    if (p instanceof NonStackingStasisPower) {
+                        switch (count) {
+                            case 0:
+                                stasis1 = p;
+                            case 1:
+                                stasis2 = p;
+                            case 2:
+                                stasis3 = p;
+                        }
+                        count++;
+                    }
+                }
+                if (stasis1 != null) this.powers.remove(stasis1);
+                if (stasis2 != null) this.powers.remove(stasis2);
+                if (stasis3 != null) this.powers.remove(stasis3);
 
                 addToBot(new CannotLoseAction());
                 addToBot(new AnimateShakeAction(this, 1.0F, 0.1F));
@@ -150,48 +165,88 @@ public class Trenchcoat extends AbstractBTMonster {
                 int str = 0;
                 if (this.hasPower(StrengthPower.POWER_ID)) str = this.getPower(StrengthPower.POWER_ID).amount;
 
-                //TODO: Carry over the Stasis powers, one into each Orb.
-                addToBot(new SpawnMonsterAction(new TrenchcoatOrb(this.saveX - 134.0F, this.saveY +
+                addToBot(new SpawnMonsterAction(new TrenchcoatOrb(this.saveX - 200F, this.saveY +
 
-                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth /3, str), false));
+                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth / 3, str, stasis1), false));
 
                 addToBot(new SpawnMonsterAction(new TrenchcoatOrb(this.saveX, this.saveY +
 
-                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth /3, str), false));
+                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth / 3, str, stasis2), false));
 
-                addToBot(new SpawnMonsterAction(new TrenchcoatOrb(this.saveX + 134.0F, this.saveY +
+                addToBot(new SpawnMonsterAction(new TrenchcoatOrb(this.saveX + 200F, this.saveY +
 
-                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth /3, str), false));
+                        MathUtils.random(-4.0F, 4.0F), 0, this.currentHealth / 3, str, stasis3), false));
 
 
                 addToBot(new com.megacrit.cardcrawl.actions.unique.CanLoseAction());
+                firstOne.shouldRenderIntent = false;
+                secondOne.shouldRenderIntent = false;
                 setMove(MOVES[SPLIT], (byte) 3, Intent.UNKNOWN);
+                break;
             }
         }
+    }
+
+    @Override
+    public void takeTurn() {
+        //Automatically grabs the damage values and number of hits value from the moves hashmap based on the currently set move
+
+        DamageInfo info;
+        int damageModded = 0;
+
+        damageModded = this.moves.get(nextMove).baseDamage;
+        info = new DamageInfo(this, damageModded, DamageInfo.DamageType.NORMAL);
+        if (info.base > -1) {
+            info.applyPowers(this, AbstractDungeon.player);
+        }
+        takeTurnActions(this.nextMove, info);
+
+        if (this.nextMove != SPLIT) {
+            damageModded = this.moves.get(firstOne.nextMove).baseDamage;
+            if (this.nextMove == STRENGTH) damageModded++;
+            info = new DamageInfo(this, damageModded, DamageInfo.DamageType.NORMAL);
+            if (info.base > -1) {
+                info.applyPowers(this, AbstractDungeon.player);
+            }
+            addToBot(new IntentFlashAction(firstOne));
+            takeTurnActions(firstOne.nextMove, info);
+        }
+
+        if (this.nextMove != SPLIT) {
+            damageModded = this.moves.get(nextMove).baseDamage;
+            if (this.nextMove == STRENGTH) damageModded++;
+            if (firstOne.nextMove == STRENGTH) damageModded++;
+            info = new DamageInfo(this, damageModded, DamageInfo.DamageType.NORMAL);
+            if (info.base > -1) {
+                info.applyPowers(this, AbstractDungeon.player);
+            }
+            addToBot(new IntentFlashAction(secondOne));
+            takeTurnActions(secondOne.nextMove, info);
+        }
+
+
         addToBot(new RollMoveAction(this));
     }
 
     @Override
     protected void getMove(final int num) {
+        int damagemodifier = 0;
+        byte leftmove;
         //This is where we determine what move the monster should do next
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
 
         if (!this.firstMove) {
-            //lastTwoMoves returns True if the move being passed was consecutively used for the last 2 turns
-            //Since we are doing !this.lastTwoMoves(SWEEP), that means only add SWEEP as a possibility if it wasn't just used twice in a row
             if (!this.lastTwoMoves(BLOCK)) {
                 possibilities.add(BLOCK);
             }
 
-            //lastMove returns True if the move being passed was the most recently used move.
+
             if (!this.lastMove(DAMAGE)) {
                 possibilities.add(DAMAGE);
             }
 
-            //lastMoveBefore returns True if the move being passed was used 2 turns ago
-            //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
-            // That means we only add DOUBLE HIT to the possibilities if it wasn't used for either of the last 2 turns
+
             if (!this.lastMove(STRENGTH)) {
                 possibilities.add(STRENGTH);
             }
@@ -199,27 +254,100 @@ public class Trenchcoat extends AbstractBTMonster {
             possibilities.add(STASIS);
         }
 
-        //randomly choose one with each possibility having equal weight
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
-
-        // set the monster's new move
-        // MOVES[move] is the name of the move, and is the text that appears when the monster uses the move.
-        // You can pass null instead if you don't care about the move name
-        // This system assumes that your MOVES json is in the same order as the bytes you assigned the moves, aka
-        // if your MOVES JSON looks like this:
-        /* "MOVES": [
-          "Sweep",
-          "Shriek",
-          "Double Hit"
-        ],
-        then your move bytes should look like this
-        private static final byte SWEEP = 0;
-        private static final byte SHRIEK = 1;
-        private static final byte DOUBLE_HIT = 2;
-        since it is using the value of the byte to get the corresponding text from the MOVES array
-        */
+        if (move == STRENGTH) damagemodifier++;
+        leftmove = move;
         setMoveShortcut(move, MOVES[move]);
 
+        possibilities.clear();
+
+        boolean forceRightToChange = false;
+
+        if (splitTriggered == false) {
+            for (int i = 0; i < 2; i++) {
+                InvisibleIntentDisplayer inviso;
+                if (i == 0) {
+                    inviso = firstOne;
+                } else {
+                    inviso = secondOne;
+                }
+                if (!firstMove) {
+                    if (i == 1 && forceRightToChange) {
+                        if (leftmove == BLOCK) {
+                            possibilities.add(STRENGTH);
+                            possibilities.add(DAMAGE);
+                        } else if (leftmove == STRENGTH) {
+                            possibilities.add(DAMAGE);
+                            possibilities.add(BLOCK);
+                        } else {
+                            possibilities.add(STRENGTH);
+                            possibilities.add(BLOCK);
+                        }
+                    } else {
+                        if (!inviso.returnLastTwoMoves(BLOCK)) {
+                            possibilities.add(BLOCK);
+                        }
+
+                        if (!inviso.returnLastTwoMoves(DAMAGE)) {
+                            possibilities.add(DAMAGE);
+                        }
+
+                        if (!inviso.returnLastTwoMoves(STRENGTH)) {
+                            possibilities.add(STRENGTH);
+                        }
+                    }
+                } else {
+                    possibilities.add(STASIS);
+                }
+
+                move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
+                if (i == 0 && move == leftmove) forceRightToChange = true;
+
+                EnemyMoveInfo infobyte = this.moves.get(move);
+
+                DamageInfo info = new DamageInfo(this, this.moves.get(move).baseDamage, DamageInfo.DamageType.NORMAL);
+                if (info.base > -1) {
+                    info.applyPowers(this, AbstractDungeon.player);
+                }
+
+                inviso.setIntent(infobyte.intent, info.output + damagemodifier);
+                inviso.recordMove(move);
+
+                if (i == 0 && move == STRENGTH) damagemodifier++;
+                possibilities.clear();
+            }
+        }
+
+        firstMove = false;
+    }
+
+    @Override
+    public void applyPowers() {
+        super.applyPowers();
+        if (splitTriggered == false) {
+            int damage;
+
+            for (int i = 0; i < 2; i++) {
+                InvisibleIntentDisplayer inviso;
+                if (i == 0) {
+                    inviso = firstOne;
+                } else {
+                    inviso = secondOne;
+                }
+
+                DamageInfo info = new DamageInfo(this, this.moves.get(inviso.nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
+                if (info.base > -1) {
+                    info.applyPowers(this, AbstractDungeon.player);
+                }
+
+                damage = info.output;
+                if (this.nextMove == STRENGTH) damage++;
+                if (i == 1 && firstOne.nextMove == STRENGTH) damage++;
+
+                inviso.updateIntent(info.output);
+
+            }
+        }
     }
 
     public void damage(DamageInfo info) {
@@ -231,8 +359,24 @@ public class Trenchcoat extends AbstractBTMonster {
             createIntent();
             addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
             addToBot(new SetMoveAction(this, MOVES[SPLIT], SPLIT, Intent.UNKNOWN));
+            firstOne.setIntent(Intent.UNKNOWN, 0);
+            secondOne.setIntent(Intent.UNKNOWN, 0);
             this.splitTriggered = true;
         }
     }
 
+    @Override
+    public void render(SpriteBatch sb) {
+        super.render(sb);
+        if (firstOne.shouldRenderIntent) firstOne.render(sb);
+        if (secondOne.shouldRenderIntent) secondOne.render(sb);
+    }
+
+
+    @Override
+    public void update() {
+        super.update();
+        if (firstOne.shouldRenderIntent) firstOne.update();
+        if (secondOne.shouldRenderIntent) secondOne.update();
+    }
 }

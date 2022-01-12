@@ -69,10 +69,21 @@
   },
   "${ModID}:Trenchcoat": {
     "MOVES": [
-      "Corrosive Spit",
-      "Lick"
+      "",
+      "",
+      "",
+      "Power Up",
+      "Topple"
     ],
     "NAME": "Bronze Automaton?",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:InvisibleIntentDisplayer": {
+    "MOVES": [
+    ],
+    "NAME": "",
     "DIALOG": [
       ""
     ]

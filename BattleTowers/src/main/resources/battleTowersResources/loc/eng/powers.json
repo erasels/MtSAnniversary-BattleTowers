@@ -24,5 +24,9 @@
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn"]
+  },
+  "${ModID}:TrenchcoatPower": {
+    "NAME": "Unsturdy Construct",
+    "DESCRIPTIONS": ["This Automaton looks highly unstable. A good hit should topple it right over... 20 unblocked damage or more will do the trick."]
   }
 }

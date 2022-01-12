@@ -17,6 +17,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.monsters.city.BronzeOrb;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 import com.megacrit.cardcrawl.powers.SplitPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
@@ -29,7 +31,7 @@ import static BattleTowers.BattleTowers.makeID;
 
 public class TrenchcoatOrb extends AbstractBTMonster {
     public static final String ID = makeID(TrenchcoatOrb.class.getSimpleName());
-    private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID);
+    private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(BronzeOrb.ID);
     public static final String NAME = monsterStrings.NAME;
     public static final String[] MOVES = monsterStrings.MOVES;
     public static final String[] DIALOG = monsterStrings.DIALOG;
@@ -44,16 +46,24 @@ public class TrenchcoatOrb extends AbstractBTMonster {
     //calcAscensionSpecial automatically scales the number of status cards based on ascension and enemy type
     private final int STATUS = calcAscensionSpecial(2);
 
-    private boolean splitTriggered;
+    private boolean hasStasis;
 
     //defaults enemy placement to 0, 0
     public TrenchcoatOrb() {
         this(0.0f, 0.0f);
     }
 
-    public TrenchcoatOrb(final float x, final float y, int poisonAmount, int newHealth, int strengthAmount) {
+    public TrenchcoatOrb(final float x, final float y, int poisonAmount, int newHealth, int strengthAmount, AbstractPower stasisPower) {
         this(x,y);
 
+        if (stasisPower != null) {
+            this.powers.add(stasisPower);
+            stasisPower.owner = this;
+            hasStasis = true;
+        }
+        if (strengthAmount >= 1) {
+            this.powers.add(new StrengthPower(this, strengthAmount));
+        }
         if (poisonAmount >= 1) {
             this.powers.add(new PoisonPower(this, this, poisonAmount / 3));
         }
@@ -64,14 +74,9 @@ public class TrenchcoatOrb extends AbstractBTMonster {
         // maxHealth param doesn't matter, we will override it with setHP
         // hb_x and hb_y shifts the monster's AND its health bar's position around on the screen, usually you don't need to change these values
         // hb_w affects how wide the monster's health bar is. hb_h affects how far up the monster's intent image is. Adjust these values until they look good
-        super(NAME, ID, 140, 0.0F, 0.0f, 300.0f, 180.0f, null, x, y);
+        super(NAME, ID, 140, 0.0F, 0.0f, 160.0F, 160.0F,  "images/monsters/theCity/automaton/orb.png", x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
-        loadAnimation(BattleTowers.makeMonsterPath("fireSlimeL/skeleton.atlas"), BattleTowers.makeMonsterPath("fireSlimeL/skeleton.json"), 1.0F);
-
-        AnimationState.TrackEntry e = this.state.setAnimation(0, "Idle", true);
-        e.setTime(e.getEndTime() * MathUtils.random());
-        this.state.addListener(new com.megacrit.cardcrawl.helpers.SlimeAnimListener());
 
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
@@ -84,11 +89,6 @@ public class TrenchcoatOrb extends AbstractBTMonster {
         addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
         addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
         addMove(STRENGTH, Intent.BUFF);
-        addMove(SPLIT, Intent.UNKNOWN);
-
-        this.splitTriggered = false;
-
-        this.powers.add(new SplitPower(this));
     }
 
     @Override
@@ -112,12 +112,11 @@ public class TrenchcoatOrb extends AbstractBTMonster {
         switch (this.nextMove) {
             case STASIS: {
                 AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
-                AbstractDungeon.actionManager.addToBottom(new ApplyStasisAction(this));
+                hasStasis = true;
                 break;
             }
             case BLOCK: {
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 12));
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 8));
                 break;
             }
             case DAMAGE: {
@@ -142,58 +141,34 @@ public class TrenchcoatOrb extends AbstractBTMonster {
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
 
-        //lastTwoMoves returns True if the move being passed was consecutively used for the last 2 turns
-        //Since we are doing !this.lastTwoMoves(SWEEP), that means only add SWEEP as a possibility if it wasn't just used twice in a row
-        if (!this.lastTwoMoves(BLOCK)) {
-            possibilities.add(BLOCK);
-        }
+        if (hasStasis) {
+            //lastTwoMoves returns True if the move being passed was consecutively used for the last 2 turns
+            //Since we are doing !this.lastTwoMoves(SWEEP), that means only add SWEEP as a possibility if it wasn't just used twice in a row
+            if (!this.lastTwoMoves(BLOCK)) {
+                possibilities.add(BLOCK);
+            }
 
-        //lastMove returns True if the move being passed was the most recently used move.
-        if (!this.lastMove(DAMAGE)) {
-            possibilities.add(DAMAGE);
-        }
+            //lastMove returns True if the move being passed was the most recently used move.
+            if (!this.lastMove(DAMAGE)) {
+                possibilities.add(DAMAGE);
+            }
 
-        //lastMoveBefore returns True if the move being passed was used 2 turns ago
-        //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
-        // That means we only add DOUBLE HIT to the possibilities if it wasn't used for either of the last 2 turns
-        if (!this.lastMove(STRENGTH)) {
-            possibilities.add(STRENGTH);
+            //lastMoveBefore returns True if the move being passed was used 2 turns ago
+            //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
+            // That means we only add DOUBLE HIT to the possibilities if it wasn't used for either of the last 2 turns
+            if (!this.lastMove(STRENGTH)) {
+                possibilities.add(STRENGTH);
+            }
+        } else {
+            possibilities.add(STASIS);
+            firstMove = false;
         }
 
         //randomly choose one with each possibility having equal weight
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
 
-        // set the monster's new move
-        // MOVES[move] is the name of the move, and is the text that appears when the monster uses the move.
-        // You can pass null instead if you don't care about the move name
-        // This system assumes that your MOVES json is in the same order as the bytes you assigned the moves, aka
-        // if your MOVES JSON looks like this:
-        /* "MOVES": [
-          "Sweep",
-          "Shriek",
-          "Double Hit"
-        ],
-        then your move bytes should look like this
-        private static final byte SWEEP = 0;
-        private static final byte SHRIEK = 1;
-        private static final byte DOUBLE_HIT = 2;
-        since it is using the value of the byte to get the corresponding text from the MOVES array
-        */
-        setMoveShortcut(move, MOVES[move]);
+        setMoveShortcut(move);
 
-    }
-
-    public void damage(DamageInfo info) {
-        super.damage(info);
-
-        if ((!this.isDying) && (this.currentHealth <= this.maxHealth / 2.0F) && (this.nextMove != SPLIT) && (!this.splitTriggered)) {
-
-            setMove(MOVES[SPLIT], SPLIT, Intent.UNKNOWN);
-            createIntent();
-            addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
-            addToBot(new SetMoveAction(this, MOVES[SPLIT], SPLIT, Intent.UNKNOWN));
-            this.splitTriggered = true;
-        }
     }
 
 }
