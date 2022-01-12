@@ -28,5 +28,13 @@
   "${ModID}:TrenchcoatPower": {
     "NAME": "Unsturdy Construct",
     "DESCRIPTIONS": ["This Automaton looks highly unstable. A good hit should topple it right over... 20 unblocked damage or more will do the trick."]
+  },
+  "${ModID}:PawnBuffPower": {
+    "NAME": "Pawn Combo!",
+    "DESCRIPTIONS": [
+      "This turn, #yPawns deal #b",
+      " additional damage and grant #b",
+      " additional #yBlock."
+    ]
   }
 }
