@@ -21,7 +21,7 @@ public class AvertYourGazePower extends AbstractPower {
         this.owner = owner;
         this.updateDescription();
         this.priority = 50;
-        this.type = PowerType.DEBUFF;
+        this.type = PowerType.BUFF;
         BattleTowers.LoadPowerImage(this);
     }
 

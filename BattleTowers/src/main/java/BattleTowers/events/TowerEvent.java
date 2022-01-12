@@ -62,7 +62,7 @@ public class TowerEvent extends PhasedEvent {
 
         private BattleTower tower;
 
-        private float fadeTimer = 0;
+        private float fadeTimer = 0, fadeTime = 0;
         private boolean fadingOut = false;
         //AbstractDungeon can handle fading back in with no issues.
         //This handler won't be updating at that point anyways.
@@ -83,17 +83,18 @@ public class TowerEvent extends PhasedEvent {
             map.update();
             if (map.isDone && !fadingOut) {
                 fadingOut = true;
-                fadeTimer = Settings.FAST_MODE ? 0.25f : 0.7f;
+                fadeTime = fadeTimer = Settings.FAST_MODE ? 0.25f : 0.7f;
             }
 
             if (fadingOut) { //out
                 fadeTimer -= Gdx.graphics.getDeltaTime();
-                AbstractDungeon.fadeColor.a = Interpolation.fade.apply(1.0F, 0.0F, fadeTimer / 0.8F);
+                AbstractDungeon.fadeColor.a = Interpolation.fade.apply(1.0F, 0.0F, fadeTimer / fadeTime);
                 if (fadeTimer <= 0.0F) {
                     fadeTimer = 0.0F;
                     fadingOut = false;
                     AbstractDungeon.fadeColor.a = 1.0F;
                     if (map.current != null) {
+                        map.current.taken = true;
                         this.transition(map.current);
                     }
                     //else No more nodes. What the Heck. Why is the map open.
@@ -107,6 +108,7 @@ public class TowerEvent extends PhasedEvent {
             topPanel.unhoverHitboxes();
             combatRewardScreen.clear();
             gridSelectScreen.upgradePreviewCard = null;
+            previousScreen = null;
 
             if (RestRoom.lastFireSoundId != 0L) {
                 CardCrawlGame.sound.fadeOut("REST_FIRE_WET", RestRoom.lastFireSoundId);
@@ -152,16 +154,24 @@ public class TowerEvent extends PhasedEvent {
         }
 
         private EventPhase getPhase(Minimap.MinimapNode target) {
+            Object followup = getFollowup(target);
             switch (target.getType()) {
                 case SHOP:
-                    //return new ShopRoom();
+                    return new ShopPhase().setNextKey(followup);
                 case EVENT:
-                    return new WrappedEventPhase(target.getKey()).setNextKey("map");
+                    return new WrappedEventPhase(target.getKey()).setNextKey(followup);
                 case REST:
-                    return new MiniRestPhase().setNextKey("map");
+                    return new MiniRestPhase().setNextKey(followup);
                 case MONSTER:
                 case ELITE:
-                    return new CombatPhase(target.getKey(), true).setNextKey("map");
+                case BOSS:
+                    return new CombatPhase(target.getKey(), true).setNextKey(followup);
+            }
+            return null;
+        }
+        private Object getFollowup(Minimap.MinimapNode from) {
+            if (from.hasEdges()) {
+                return "map";
             }
             return null;
         }

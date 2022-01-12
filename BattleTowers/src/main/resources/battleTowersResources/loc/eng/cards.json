@@ -3,8 +3,57 @@
     "NAME": "PoggyWoggy",
     "DESCRIPTION": "Does some pog shit if it existed."
   },
+  "${ModID}:BlankCard": {
+    "NAME": "Blank Card",
+    "DESCRIPTION": ""
+  },
+  "${ModID}:Prick": {
+    "NAME": "Prick",
+    "DESCRIPTION": "If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
+  },
   "${ModID}:AvertYourGaze": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTION": "Retain. NL You do not gain *Petrification from dealing damage or applying debuffs this turn. NL Exhaust."
+  },
+  "${ModID}:Chilled": {
+    "NAME": "Chilled",
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose 1 Energy, then draw a card."
+  },
+  "${ModID}:QueensGrace": {
+    "NAME": "Queen's Grace",
+    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E]. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E] [E]. NL Exhaust."
+  },
+  "${ModID}:RooksCharge": {
+    "NAME": "Rook's Charge",
+    "DESCRIPTION": "Deal !D! damage. NL Repeat for each other Attack in your hand."
+  },
+  "${ModID}:BishopsPrayer": {
+    "NAME": "Bishop's Prayer",
+    "DESCRIPTION": "Gain !B! Block. NL Draw 1 card. NL Shuffle this card back into your draw pile."
+  },
+  "${ModID}:PawnsAdvance": {
+    "NAME": "Pawn's Advance",
+    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL This turn, all Pawn's Advances gain !M! bonus damage and Block."
+  },
+  "${ModID}:KingsCommand": {
+    "NAME": "King's Command",
+    "DESCRIPTION": "Unplayable. NL When you play another card, deal !M! damage to a random enemy.",
+    "UPGRADE_DESCRIPTION": "I can't play this."
+  },
+  "${ModID}:KnightsManeuver": {
+    "NAME": "Knight's Maneuver",
+    "DESCRIPTION": "Choose: Gain 3 Dexterity and lose 1 Strength, or gain 3 Strength and lose 1 Dexterity.",
+    "EXTENDED_DESCRIPTION": [
+      "Defensive",
+      "Gain 3 Dexterity and lose 1 Strength.",
+      "Offensive",
+      "Gain 3 Strength and lose 1 Dexterity.",
+      "Choose an option."
+    ]
+  },
+  "${ModID}:CursedTapestry": {
+    "NAME": "Cursed Tapestry",
+    "DESCRIPTION": "Fleeting. NL Lose !M! HP. NL Deal !D! Damage. NL Gain a random Common Relic."
   }
 }

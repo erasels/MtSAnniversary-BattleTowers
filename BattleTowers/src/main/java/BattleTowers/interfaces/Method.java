@@ -1,4 +1,4 @@
-package BattleTowers.util;
+package BattleTowers.interfaces;
 
 @FunctionalInterface
 public interface Method {

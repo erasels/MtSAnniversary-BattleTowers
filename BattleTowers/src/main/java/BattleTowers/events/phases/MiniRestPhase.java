@@ -1,7 +1,7 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
-import BattleTowers.util.Method;
+import BattleTowers.interfaces.Method;
 import BattleTowers.vfx.MiniCampfireSleepEffect;
 import BattleTowers.vfx.MiniCampfireSmithEffect;
 import com.badlogic.gdx.Gdx;
@@ -58,7 +58,11 @@ public class MiniRestPhase extends EventPhase {
     @Override
     public void transition(PhasedEvent event) {
         this.event = event;
+        AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
         AbstractDungeon.rs = AbstractDungeon.RenderScene.CAMPFIRE;
+
+        event.resetCardRarity();
+        event.allowRarityAltering = false;
 
         if (!AbstractDungeon.id.equals(TheEnding.ID)) {
             CardCrawlGame.music.silenceBGM();

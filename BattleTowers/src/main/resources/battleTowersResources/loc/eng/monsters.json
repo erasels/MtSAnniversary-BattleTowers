@@ -18,6 +18,28 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:CardboardGolem": {
+    "MOVES": [
+      "Head Bash",
+      "Chow Down",
+      "Shred Skin",
+      "Smith Self"
+    ],
+    "NAME": "Cardboard Golem",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:VoodooDoll": {
+    "MOVES": [
+      "Curse",
+      "Pins and Needles",
+      "Smother"
+    ],
+    "NAME": "Voodoo Doll",
+    "DIALOG": [
+      "This enemy intends to lose #b", " HP and inflict a powerful #yNegative #yEffect on you."
+    ]
+  },
   "${ModID}:Gorgon": {
     "MOVES": [
       "Petrifying Gaze",
@@ -26,5 +48,159 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
+  },
+  "${ModID}:GoldenLouse": {
+    "MOVES": [
+      "Bite",
+      "Protect",
+      "Heal"
+    ],
+    "NAME": "Golden Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SilverLouse": {
+    "MOVES": [
+      "Bite",
+      "Buff",
+      "Scratch"
+    ],
+    "NAME": "Silver Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryRed": {
+    "MOVES": [
+      "Beam",
+      "Burn"
+    ],
+    "NAME": "Red Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryGreen": {
+    "MOVES": [
+      "Beam",
+      "Splatter"
+    ],
+    "NAME": "Green Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryPurple": {
+    "MOVES": [
+      "Beam",
+      "Drain"
+    ],
+    "NAME": "Purple Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryHuge": {
+    "MOVES": [
+      "Double Beam",
+      "Annoy"
+    ],
+    "NAME": "Huge Sentry",
+    "DIALOG": [
+    ]
+  }, 
+  "${ModID}:FireSlimeL": {
+  "MOVES": [
+    "Incendiary Spit",
+    "Tackle",
+    "Lick",
+    "Split"
+  ],
+  "NAME": "Fire Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:FireSlimeM": {
+    "MOVES": [
+      "Incendiary Spit",
+      "Tackle",
+      "Lick"
+    ],
+    "NAME": "Fire Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  }, "${ModID}:IceSlimeL": {
+  "MOVES": [
+    "Frigid Spit",
+    "Tackle",
+    "Lick",
+    "Split"
+  ],
+  "NAME": "Ice Slime (L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "${ModID}:IceSlimeM": {
+    "MOVES": [
+      "Frigid Spit",
+      "Tackle",
+      "Lick"
+    ],
+    "NAME": "Ice Slime (M)",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:Trenchcoat": {
+    "MOVES": [
+      "",
+      "",
+      "",
+      "Power Up",
+      "Topple"
+    ],
+    "NAME": "Bronze Automaton?",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:InvisibleIntentDisplayer": {
+    "MOVES": [
+    ],
+    "NAME": "",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:DoomedSoul": {
+    "MOVES": [
+      "Greed",
+      "Wrath",
+      "Envy"
+    ],
+    "NAME": "Doomed Soul"
+  },
+  "${ModID}:GigaSlime": {
+    "MOVES": [
+      "Goop Spray",
+      "Tackle and Lick",
+      "Lesser Slam"
+    ],
+    "NAME": "Giga Slime"
+  },
+  "${ModID}:MinotaurGladiator": {
+    "MOVES": [
+      "Chop",
+      "Break",
+      "Gore"
+    ],
+    "NAME": "Giga Slime"
+  },
+  "${ModID}:BurningShambler": {
+    "MOVES": [
+      "Flicker of Flame",
+      "Bonfire",
+      "Rush"
+    ],
+    "NAME": "Giga Slime"
   }
 }
