@@ -47,5 +47,20 @@
       "[Leave]",
       "Choose a Card to Remove."
     ]
+  },
+  "${ModID}:BannerSageEvent": {
+    "NAME": "The Banner Sage",
+    "DESCRIPTIONS": [
+      "Oddly enough, this Battle Tower houses a small shopping distrct. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
+      "Never before have you seen such delicate craftsmanship! You simply must have this gorgeous war banner on offer, and happily pay the price. River thanks you for your patronage as you and your new incredible banner continue up the tower.",
+      "River seems like a tough opponent, but with the other customers here, you realize he couldn't risk leaving his wares in the open. There's nothing stopping you from grabbing one and running, and that thought is just too tempting. NL NL As you make haste with your new banner in hand, the fabric becomes excruciating to touch! Suddenly, the cloth changes from a vibrant warm color to a harsh deep purple, and where once was an embroidered image now lies a horribly inked skull. It appears the Giant had some protection on his wares after all.",
+      "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse for awhile, but then continue up the Battle Tower."
+ ],
+    "OPTIONS": [
+      "[Locked] Requires 100 Gold.",
+      "[Buy] #rSpend #r100 #r Gold. ",
+      "[Steal] #gGain #gCursed #gTapestry. #rCursed #r- #rPain.",
+      "[Leave]"
+    ]
   }
 }
