@@ -135,7 +135,7 @@ public class BattleTowers implements
                 }));
 
         BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
-
+        BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);

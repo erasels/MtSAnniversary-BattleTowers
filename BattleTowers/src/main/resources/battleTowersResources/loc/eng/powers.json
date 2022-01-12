@@ -12,6 +12,12 @@
       " HP."
     ]
   },
+  "${ModID}:MakeAWishPower": {
+    "NAME": "Make a Wish",
+    "DESCRIPTIONS": [
+      "You have #b", " #yWishes available. NL Whenever this creature takes a turn, you may use a #yWish to cause this creature to perform a corresponding beneficial effect for you instead."
+    ]
+  },
   "${ModID}:FeelMyPainPower": {
     "NAME": "Feel My Pain",
     "DESCRIPTIONS": [
