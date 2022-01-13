@@ -141,9 +141,11 @@ public class BattleTower {
                 .addEliteEncounter(VoodooDoll.ID)
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
+                .addEliteEncounter(ItozusTheWindwalker.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addBoss(CardboardGolem.ID)
+                .addBoss(Dijinn.ID)
         );
     }
 
