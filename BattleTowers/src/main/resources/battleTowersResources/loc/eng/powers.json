@@ -12,6 +12,12 @@
       " HP."
     ]
   },
+  "${ModID}:MakeAWishPower": {
+    "NAME": "Make a Wish",
+    "DESCRIPTIONS": [
+      "You have #b", " #yWishes available. NL Whenever this creature takes a turn, you may use a #yWish to cause this creature to perform a corresponding beneficial effect for you instead."
+    ]
+  },
   "${ModID}:FeelMyPainPower": {
     "NAME": "Feel My Pain",
     "DESCRIPTIONS": [
@@ -66,9 +72,6 @@
       "This turn, #yPawn's Advances deal #b",
       " additional damage and grant #b",
       " additional #yBlock."
-    ],
-    "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn."
     ]
   },
   "${ModID}:GreedWrathEnvyPower": {
@@ -92,7 +95,7 @@
   "${ModID}:PlayerEnragePower": {
     "NAME": "Enrage",
     "DESCRIPTIONS": [
-      "Enemy actions that are not attacks grant you 1 Strength, up to ",
+      "Enemy actions that are not attacks grant you #b1 #yStrength, up to #b",
       " more this combat."
     ]
   }

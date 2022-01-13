@@ -6,7 +6,7 @@
     ],
     "OPTIONS": [
       "[Enter] Oh boy, I can't wait to go inside this tower!",
-      "[Leave] ..."
+      "[Leave] Don't risk it, take the treasure"
     ]
   },
   "${ModID}:Example": {
@@ -65,7 +65,7 @@
       "[Trade Deck] #rRemove #r1 #rUncommon #rand #r1 #rRare #rcard. #gGain #gOtto’s #gDeck.",
       "[Play Fair] #g50%: #gWin #g75 #gGold. #r50%: #rLose #r75 #rGold.",
       "[Locked] Requires 75 Gold.",
-      "[Cheat] #gWin #g75 #gGold. #rBecome #rCursed #r- #rShame",
+      "[Cheat] #gWin #g75 Gold. #rBecome #rCursed #r- #rShame",
       "[Leave]",
       "Choose a Card to Remove."
     ]
@@ -80,8 +80,27 @@
  ],
     "OPTIONS": [
       "[Locked] Requires 100 Gold.",
-      "[Buy] #rSpend #r100 Gold.",
-      "[Steal] #gGain #gCursed #gTapestry. #rCursed #r- #rPain.",
+      "[Buy] #rSpend #r100 Gold. ",
+      "[Steal] #gGain #gCursed #gTapestry. #rBecome #rCursed #r- #rPain.",
+      "[Leave]"
+    ]
+  },
+  "${ModID}:PotOfGoldEvent": {
+    "NAME": "Pot of Gold",
+    "DESCRIPTIONS": [
+      "You stumble upon a glimmering pot, sitting plainly in a hallway of the Battle Tower. You don't see anyone around to guard it, but gold pieces fill it to the brim! A sign next to it reads: NL NL #bGive #bto #band #bdo #bnot #btake #bfrom #bthis #bshiny #bbowl, NL #bFor #bavarice #bpoisons #band #bblackens #bthe #bsoul...",
+      "As you drain the pot of its last gold piece, the sign transforms before your eyes, the words reshaping and turning purple. It now reads: NL NL #pThough #pyour #ppockets #pare #pnow #plined #pwith #pgold, NL #pA #psteeper #ppayment #pmust #pnow #punfold. NL NL ",
+      "You leave the empty pot behind, slightly concerned that you've been inflicted with some horrible spell.",
+      "Though slightly concerned that you've been inflicted with some horrible spell, you decide that the damage has already been done. No sense leaving behind this useful pot.",
+      "Heeding the words of warning on the sign, you scoop some gold coin out of your pack and drop them into the pot. The sound of the gold landing reverberates nicely in the metal chamber, creating a most enjoyable sound. NL NL Hopefully other adventurers more in need than you are will appreciate this bounty.",
+      "Whoever wrote this warning surely put some sort of curse or spell upon it, inflicting something upon anyone who takes from it. That kind of magic could be useful. NL NL Like everyone, you know how to negate whatever this enchantment is. You rip the sign from the post on the ground and smash it over your head! Ow! NL NL The sign explodes into purple dust, raining down into your body and invigorating it with new power. When you recover from your head injury and look back to claim the pot, it is no longer there. The City's thieves must have been keeping an eye out for just such an opportunity to swipe the loot."
+    ],
+    "OPTIONS": [
+      "[Donate] #rLose #r20 Gold. #gGain #gLucky.",
+      "[Locked] Requires 20 Gold.",
+      "[Take Gold] #gGain #g75 Gold. #rCursed #r- #rGreedy.",
+      "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
+      "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
       "[Leave]"
     ]
   }

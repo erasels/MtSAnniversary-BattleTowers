@@ -42,14 +42,18 @@ public class QueensGrace extends CustomCard {
         this.exhaust = true;
         baseDamage = 10;
         baseBlock = 10;
-        baseMagicNumber = magicNumber = 1;
+        baseMagicNumber = magicNumber = 3;
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new GainBlockAction(p, block));
         addToBot(new DamageAction(m, new DamageInfo(p, damage, damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        addToBot(new DrawCardAction(p, 3));
-        addToBot(new GainEnergyAction(magicNumber));
+        addToBot(new DrawCardAction(p, magicNumber));
+        if (upgraded){
+            addToBot(new GainEnergyAction(2));
+        } else {
+            addToBot(new GainEnergyAction(1));
+        }
     }
 
     public AbstractCard makeCopy() {

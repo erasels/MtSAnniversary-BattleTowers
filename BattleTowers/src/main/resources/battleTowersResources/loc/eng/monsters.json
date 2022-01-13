@@ -29,6 +29,21 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:Dijinn": {
+    "MOVES": [
+      "Empower",
+      "Corruption",
+      "Golden Crucible"
+    ],
+    "NAME": "Dijinn",
+    "DIALOG": [
+      "Who dares to challenge me?",
+      "This wish is but a temporary reprieve . . .",
+      "Your wish is my will . . . for now.",
+      "Be careful what you wish for.",
+      "Now, I am free!"
+    ]
+  },
   "${ModID}:VoodooDoll": {
     "MOVES": [
       "Curse",

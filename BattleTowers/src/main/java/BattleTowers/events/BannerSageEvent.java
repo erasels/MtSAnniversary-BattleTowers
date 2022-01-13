@@ -47,7 +47,7 @@ public class BannerSageEvent extends AbstractImageEvent {
     public BannerSageEvent() {
         super(NAME, DESCRIPTIONS[0], BattleTowers.makeImagePath("events/bannersage.png"));
 
-        ArrayList<AbstractRelic> banners = new ArrayList();
+        ArrayList<AbstractRelic> banners = new ArrayList<>();
         banners.add(new WarBannerLouse());
         banners.add(new WarBannerNob());
         banners.add(new WarBannerCultist());

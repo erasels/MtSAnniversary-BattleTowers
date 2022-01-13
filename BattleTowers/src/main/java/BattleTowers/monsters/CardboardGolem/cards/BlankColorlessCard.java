@@ -11,7 +11,7 @@ import static BattleTowers.BattleTowers.makeID;
 
 public class BlankColorlessCard extends CustomCard {
     public static final String ID = makeID(BlankColorlessCard.class.getSimpleName());
-    public static CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings("BlankCard");
+    public static CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(makeID("BlankCard"));
 
     public BlankColorlessCard() {
         super(ID, cardStrings.NAME, makeCardPath("nothing.png"), 0, cardStrings.DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);

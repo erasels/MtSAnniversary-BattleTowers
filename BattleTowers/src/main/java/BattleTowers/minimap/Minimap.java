@@ -2,6 +2,7 @@ package BattleTowers.minimap;
 
 import BattleTowers.towers.BattleTower;
 import BattleTowers.util.TextureLoader;
+import basemod.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,20 +15,21 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.Hitbox;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
+import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.map.Legend;
+import com.megacrit.cardcrawl.map.LegendItem;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
 import com.megacrit.cardcrawl.vfx.MapCircleEffect;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.lang.reflect.Field;
+import java.util.*;
 
-import static BattleTowers.BattleTowers.makeUIPath;
+import static BattleTowers.BattleTowers.*;
 
 public class Minimap {
     //I Love Numbers
@@ -40,6 +42,22 @@ public class Minimap {
 
     private static final float TOP_Y = Settings.HEIGHT - (20.0f * Settings.scale);
     private static final float RETICLE_DIST = 20.0F * Settings.scale;
+
+    private static final Texture smallFire = TextureLoader.getTexture(makeUIPath("smallfire.png"));
+    private static final Texture smallFireOutline = TextureLoader.getTexture(makeUIPath("smallfireoutline.png"));
+
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("FightPreview"));
+
+    private static Field legendItemImg;
+    static {
+        try {
+            legendItemImg = LegendItem.class.getDeclaredField("img");
+            legendItemImg.setAccessible(true);
+        } catch (NoSuchFieldException e) {
+            logger.error("Failed to access field \"img\" of LegendItem");
+            e.printStackTrace();
+        }
+    }
 
     //Map Stuff
     private final Texture mapTexture = TextureLoader.getTexture(makeUIPath("minimap.png"));
@@ -78,6 +96,15 @@ public class Minimap {
         renderY = TOP_Y - height;
 
         this.legend = new Legend();
+        try {
+            for (LegendItem item : legend.items) {
+                if (ImageMaster.MAP_NODE_REST.equals(legendItemImg.get(item))) {
+                    legendItemImg.set(item, smallFire);
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         this.targetOffsetY = offsetY = 0; //goes positive to scroll down (move map up)
         maxScroll = height - Settings.HEIGHT;
@@ -88,6 +115,69 @@ public class Minimap {
         this.grabbedScreen = false;
         this.clicked = false;
         this.clickTimer = 0;
+    }
+
+    public void loadPathTaken(List<Pair<Integer, Integer>> pathTaken) {
+        if (!pathTaken.isEmpty()) {
+            available.clear();
+
+            int index = 0;
+            Pair<Integer, Integer> pos;
+            MinimapNode[] row;
+            MinimapNode last = null;
+            MinimapEdge connectedEdge;
+
+            for (; index < pathTaken.size() - 1; ++index) {
+                pos = pathTaken.get(index);
+                if (pos.getValue() >= 0 && pos.getValue() < map.size()) {
+                    row = map.get(pos.getValue());
+                    if (pos.getKey() >= 0 && pos.getKey() < row.length) {
+                        current = row[pos.getKey()];
+                        current.taken = true;
+                        if (last != null) {
+                            connectedEdge = last.getEdgeConnectedTo(current);
+                            if (connectedEdge != null)
+                                connectedEdge.markAsTaken();
+                        }
+                        last = current;
+                    }
+                    else {
+                        logger.error("Invalid path index: " + pos.getValue());
+                    }
+                }
+                else {
+                    logger.error("Invalid path row: " + pos.getKey());
+                }
+            }
+
+            pos = pathTaken.get(index); //Where you actually are
+            if (pos.getValue() >= 0 && pos.getValue() < map.size()) {
+                row = map.get(pos.getValue());
+                if (pos.getKey() >= 0 && pos.getKey() < row.length) {
+                    current = row[pos.getKey()];
+                    current.taken = true;
+                    if (last != null) {
+                        connectedEdge = last.getEdgeConnectedTo(current);
+                        if (connectedEdge != null)
+                            connectedEdge.markAsTaken();
+                    }
+                    nextNode = null;
+
+                    for (MinimapEdge edge : current.edges) {
+                        available.add(edge.dst);
+                    }
+
+                    CardCrawlGame.music.fadeOutTempBGM();
+                    isDone = true;
+                }
+                else {
+                    logger.error("Invalid path index: " + pos.getValue());
+                }
+            }
+            else {
+                logger.error("Invalid path row: " + pos.getKey());
+            }
+        }
     }
 
     public void update() {
@@ -101,6 +191,7 @@ public class Minimap {
                     }
                 }
                 current = nextNode;
+
                 nextNode = null;
                 transitionWaitTimer = 0;
 
@@ -382,6 +473,9 @@ public class Minimap {
         BattleTower.TowerContents contents = tower.getContents();
         available.clear();
         map.clear();
+
+        current = null;
+
         BattleTower.Node[] rowStructure;
         MinimapNode[] row;
         float[] x;
@@ -389,13 +483,14 @@ public class Minimap {
         float y = bossY - (Settings.MAP_DST_Y * (1 + layout.getRows().size()));
         offsetY = targetOffsetY = Math.max(0, Math.min(maxScroll, -y + 150.0f));
 
+        int rowIndex = 0;
         for (List<BattleTower.Node[]> layoutRow : layout.getRows()) {
             rowStructure = layoutRow.get(0);
             row = new MinimapNode[rowStructure.length];
             x = generatePositions(rowStructure.length);
 
             for (int i = 0; i < row.length; ++i) {
-                row[i] = new MinimapNode(rowStructure[i].type, x[i], y + MathUtils.random(-JITTER_Y, JITTER_Y));
+                row[i] = new MinimapNode(rowStructure[i].type, x[i], y + MathUtils.random(-JITTER_Y, JITTER_Y), i, rowIndex);
                 switch (row[i].getType()) {
                     case EVENT:
                         row[i].setKey(contents.getEvent(towerRng));
@@ -411,6 +506,7 @@ public class Minimap {
 
             map.add(row);
 
+            ++rowIndex;
             y += Settings.MAP_DST_Y;
         }
 
@@ -430,7 +526,7 @@ public class Minimap {
         //Boss
         BattleTower.BossInfo boss = contents.getBoss(towerRng);
         row = new MinimapNode[1];
-        MinimapNode bossNode = new BossNode(Settings.WIDTH / 2.0f, bossY);
+        MinimapNode bossNode = new BossNode(Settings.WIDTH / 2.0f, bossY, 0, rowIndex);
         row[0] = bossNode;
         row[0].setKey(boss.id);
         loadBossImg(boss);
@@ -477,13 +573,15 @@ public class Minimap {
         private float oscillateTimer;
         protected Color color;
 
+        public final int mapX, mapY;
+
         protected boolean highlighted = false;
         public boolean taken = false;
 
         public Hitbox hb;
         private String key;
 
-        public MinimapNode(BattleTower.NodeType type, float x, float y) {
+        public MinimapNode(BattleTower.NodeType type, float x, float y, int mapX, int mapY) {
             this.type = type;
             getImg();
 
@@ -493,6 +591,9 @@ public class Minimap {
             this.cy = y;
             this.scale = 0.5f;
             this.oscillateTimer = MathUtils.random(0.0F, 6.28F);
+
+            this.mapX = mapX;
+            this.mapY = mapY;
 
             this.visible = false;
             this.color = NOT_TAKEN_COLOR.cpy();
@@ -505,6 +606,7 @@ public class Minimap {
         }
 
         public boolean update() {
+            showPreviewIfHovered();
             highlighted = false;
             this.scale = MathHelper.scaleLerpSnap(this.scale, 0.5F);
 
@@ -628,6 +730,20 @@ public class Minimap {
             }
         }
 
+        protected void showPreviewIfHovered() {
+            List<BattleTower.NodeType> previewTypes = Arrays.asList(BattleTower.NodeType.MONSTER, BattleTower.NodeType.ELITE, BattleTower.NodeType.BOSS);
+            if (this.hb.hovered && previewTypes.contains(this.type)) {
+                String fightPreviewText = uiStrings.TEXT_DICT.containsKey(removeModId(this.getKey()))
+                        ? uiStrings.TEXT_DICT.get(removeModId(this.getKey()))
+                        : CardCrawlGame.languagePack.getMonsterStrings(this.getKey()).NAME;
+                TipHelper.renderGenericTip(this.cx + this.getPreviewTooltipXOffset(), this.cy + offsetY, uiStrings.TEXT[0], fightPreviewText);
+            }
+        }
+
+        protected float getPreviewTooltipXOffset() {
+            return this.img.getWidth() / 4.0f;
+        }
+
         private float getRenderX() {
             return hb.cX - 64.0f;
         }
@@ -657,8 +773,8 @@ public class Minimap {
                     outline = ImageMaster.MAP_NODE_ELITE_OUTLINE;
                     break;
                 case REST:
-                    img = TextureLoader.getTexture(makeUIPath("smallfire.png"));
-                    outline = TextureLoader.getTexture(makeUIPath("smallfireoutline.png"));
+                    img = smallFire;
+                    outline = smallFireOutline;
                     break;
                 case SHOP:
                     img = ImageMaster.MAP_NODE_MERCHANT;
@@ -710,13 +826,14 @@ public class Minimap {
         bossImgOutline = boss.loadBossIconOutline();
     }
     private class BossNode extends MinimapNode {
-        public BossNode(float x, float y) {
-            super(BattleTower.NodeType.BOSS, x, y);
+        public BossNode(float x, float y, int mapX, int mapY) {
+            super(BattleTower.NodeType.BOSS, x, y, mapX, mapY);
 
             hb = new Hitbox(400.0F * Settings.scale, 360.0F * Settings.scale);
         }
 
         public boolean update() {
+            showPreviewIfHovered();
             this.scale = Settings.scale;
 
             this.hb.move(this.cx, cy + offsetY);
@@ -766,6 +883,11 @@ public class Minimap {
                     this.hb.render(sb);// 255
                 }
             }
+        }
+
+        @Override
+        protected float getPreviewTooltipXOffset() {
+            return bossImg.getWidth() / 4.0f;
         }
     }
 
