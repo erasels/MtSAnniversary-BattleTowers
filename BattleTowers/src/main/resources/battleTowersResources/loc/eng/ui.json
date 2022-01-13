@@ -3,5 +3,14 @@
     "TEXT_DICT": {
       "Test": "This does nothing."
     }
+  },
+  "${ModID}:FightPreview": {
+    "TEXT": ["Fight preview"],
+    "TEXT_DICT": {
+      "MINOTAUR_GLADIATOR_AND_FRIEND": "Burning Shambler and Minotaur Gladiator",
+      "SlimeOfIceAndFire": "Ice Slime and Fire Slime",
+      "Metal_Louses": "Silver Louse, Golden Louse, and Silver Louse",
+      "Elemental_Sentries": "Red Sentry, Green Sentry, Purple Sentry, and Huge Sentry"
+    }
   }
 }
