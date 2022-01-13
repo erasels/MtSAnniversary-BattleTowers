@@ -4,15 +4,19 @@ import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.util.TextureLoader;
 import BattleTowers.util.UC;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardSave;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.powers.DexterityPower;
@@ -22,7 +26,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
 
-public class Torch extends CustomRelic {
+public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     public static final String ID = makeID(Torch.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
@@ -45,9 +49,9 @@ public class Torch extends CustomRelic {
             return DESCRIPTIONS[4];
         }
         if(AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
-            return DESCRIPTIONS[0] + card.name + DESCRIPTIONS[1];
+            return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
         } else {
-            return DESCRIPTIONS[2] + card.name + DESCRIPTIONS[3];
+            return DESCRIPTIONS[2] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[3];
         }
     }
 
@@ -72,6 +76,23 @@ public class Torch extends CustomRelic {
             UC.atb(new MakeTempCardInDrawPileAction(card.makeCopy(), 2, true, true));
         } else {
             UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
+        }
+    }
+
+    @Override
+    public CardSave onSave() {
+        return new CardSave(card.cardID, card.timesUpgraded, card.misc);
+    }
+
+    @Override
+    public void onLoad(CardSave cardSave) {
+        if(cardSave != null) {
+            AbstractCard savedCard = CardLibrary.getCard(cardSave.id);
+            savedCard.timesUpgraded = cardSave.upgrades;
+            savedCard.misc = cardSave.misc;
+
+            this.card = savedCard;
+            getUpdatedDescription();
         }
     }
 }
