@@ -4,6 +4,7 @@ import BattleTowers.events.phases.*;
 import BattleTowers.minimap.Minimap;
 import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.towers.BattleTower;
+import basemod.Pair;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
@@ -14,6 +15,12 @@ import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.*;
+import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
+import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
+import com.megacrit.cardcrawl.vfx.GameSavedEffect;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static BattleTowers.BattleTowers.*;
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.*;
@@ -25,28 +32,51 @@ public class TowerEvent extends PhasedEvent {
     private static final String title = eventStrings.NAME;
     private static final String imgUrl = "images/events/theNest.jpg";
 
+    private static final String TOWER_CHOICE_PHASE = "TOWER_CHOICE";
+    private static final String MAP_PHASE = "MAP";
+
     private static final int NUM_OPTIONS = 3; //it seems like it'll probably just be 1.
-    public int chosenIndex = -1; //For saving?
+    public int chosenTower = -1; //For saving?
+    public List<Pair<Integer, Integer>> pathTaken = new ArrayList<>();
+    private boolean finishedRoom = false; //For loading
 
     private MapHandler mapHandler;
 
     public TowerEvent(BattleTowerRoom room) {
         super(title, imgUrl);
 
-        TextPhase initial = new TextPhase(DESCRIPTIONS[0]);
+        mapHandler = new MapHandler(this);
+
+        TextPhase choice = new TextPhase(DESCRIPTIONS[0]);
 
         for (int i = 0; i < NUM_OPTIONS; ++i) {
             BattleTower t = new BattleTower(room.towerRng);
-            initial.addOption(OPTIONS[0] + " " + t.getTitle(), (index)->{
-                chosenIndex = index;
+            choice.addOption(OPTIONS[0] + " " + t.getTitle(), (index)->{
                 this.mapHandler.setTower(t, room.towerRng);
-                this.transitionKey("map");
+                this.transitionKey(MAP_PHASE);
+                if (chosenTower == -1) {
+                    chosenTower = index;
+                    save();
+                }
             });
         }
-        registerPhase("enter", initial);
-        registerPhase("map", new InteractionPhase(mapHandler = new MapHandler(this)));
+        registerPhase(TOWER_CHOICE_PHASE, choice);
+        registerPhase(MAP_PHASE, new InteractionPhase(mapHandler));
 
-        transitionKey("enter");
+        transitionKey(TOWER_CHOICE_PHASE);
+    }
+
+    public void loadSave(Integer towerIndex, List<Pair<Integer, Integer>> pathTaken, boolean finishedRoom) {
+        if (towerIndex != null && chosenTower == -1) {
+            this.chosenTower = towerIndex;
+            this.pathTaken.clear();
+            this.pathTaken.addAll(pathTaken);
+            this.finishedRoom = finishedRoom;
+            logger.info("Loaded Battle Tower save:");
+            logger.info(" - Tower Chosen: " + chosenTower);
+            logger.info(" - Path Taken: " + pathTakenString());
+            logger.info(" - Current room complete: " + finishedRoom);
+        }
     }
 
     @Override
@@ -54,6 +84,36 @@ public class TowerEvent extends PhasedEvent {
         super.onEnterRoom();
         //This event isn't newly created upon entering the room, so this has to be done
         this.imageEventText.loadImage(imgUrl);
+
+        if (chosenTower != -1) {
+            EventPhase choice = getPhase(TOWER_CHOICE_PHASE);
+            if (choice instanceof ImageEventPhase) {
+                ((ImageEventPhase) choice).optionChosen(chosenTower);
+                waitTimer = 0;
+                started = true;
+
+                mapHandler.map.loadPathTaken(pathTaken);
+
+                if (mapHandler.map.isDone) {
+                    if (mapHandler.map.current != null) {
+                        mapHandler.map.current.taken = true;
+                        //If post-combat, load at combat reward screen
+                        mapHandler.transitionLoad(mapHandler.map.current, finishedRoom);
+                    }
+                }
+            }
+        }
+    }
+
+    public String pathTakenString() {
+        if (pathTaken.isEmpty())
+            return "";
+        StringBuilder sb = new StringBuilder();
+        for (Pair<Integer, Integer> pos : pathTaken) {
+            sb.append("(").append(pos.getKey()).append(", ").append(pos.getValue()).append(")->");
+        }
+        sb.delete(sb.length() - 2, sb.length());
+        return sb.toString();
     }
 
     private static class MapHandler implements InteractionPhase.InteractionHandler {
@@ -102,7 +162,7 @@ public class TowerEvent extends PhasedEvent {
             }
         }
 
-        private void transition(Minimap.MinimapNode target) {
+        protected void transition(Minimap.MinimapNode target) {
             map.hideInstantly();
             AbstractDungeon.fadeIn();
             topPanel.unhoverHitboxes();
@@ -116,16 +176,18 @@ public class TowerEvent extends PhasedEvent {
             if (player.stance != null) {
                 player.stance.stopIdleSfx();
             }
-            gridSelectScreen.upgradePreviewCard = null;
             dynamicBanner.hide();
             player.resetControllerValues();
             resetPlayer();
 
+            event.pathTaken.add(new Pair<>(target.mapX, target.mapY));
 
-            //SaveHelper.saveIfAppropriate(SaveFile.SaveType.ENTER_ROOM);
+            event.save();
 
             //multiply by value between -1 and 1 based on tower position
-            long seed = Math.round((Settings.seed + (long)floorNum) * (0.5));
+            float mod = (((((target.mapX + 3) * 467) + ((target.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            logger.info("SeedMod: " + mod);
+            long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
             monsterHpRng = new Random(seed);
             aiRng = new Random(seed);
             shuffleRng = new Random(seed);
@@ -152,6 +214,55 @@ public class TowerEvent extends PhasedEvent {
             //Can do rich presence or something here if you want
             event.transitionPhase(getPhase(target));
         }
+        protected void transitionLoad(Minimap.MinimapNode current, boolean isComplete) {
+            map.hideInstantly();
+            topPanel.unhoverHitboxes();
+            //combatRewardScreen.clear();
+            gridSelectScreen.upgradePreviewCard = null;
+            previousScreen = null;
+
+            if (RestRoom.lastFireSoundId != 0L) {
+                CardCrawlGame.sound.fadeOut("REST_FIRE_WET", RestRoom.lastFireSoundId);
+            }
+            if (player.stance != null) {
+                player.stance.stopIdleSfx();
+            }
+            dynamicBanner.hide();
+            player.resetControllerValues();
+            resetPlayer();
+
+            //multiply by value between -1 and 1 based on tower position
+            float mod = (((((current.mapX + 3) * 467) + ((current.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            logger.info("SeedMod: " + mod);
+            long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
+            monsterHpRng = new Random(seed);
+            aiRng = new Random(seed);
+            shuffleRng = new Random(seed);
+            cardRandomRng = new Random(seed);
+            miscRng = new Random(seed);
+
+            if (!actionManager.actions.isEmpty()) {
+                logger.info("[WARNING] Action Manager was NOT clear! Clearing");
+                actionManager.clear();
+            }
+
+            AbstractRoom dummy = getDummyRoom(current);
+            if (dummy != null) {
+                if (!isComplete) {
+                    for (AbstractRelic r : player.relics) {
+                        r.onEnterRoom(dummy);
+                    }
+                    for (AbstractRelic r : player.relics) {
+                        r.justEnteredRoom(dummy);
+                    }
+                }
+
+                AbstractDungeon.scene.nextRoom(dummy); //NOTE: Maybe not necessary if we do some custom stuff for the combat scene
+            }
+
+            //Can do rich presence or something here if you want
+            event.transitionPhase(getPhase(current));
+        }
 
         private EventPhase getPhase(Minimap.MinimapNode target) {
             Object followup = getFollowup(target);
@@ -171,7 +282,7 @@ public class TowerEvent extends PhasedEvent {
         }
         private Object getFollowup(Minimap.MinimapNode from) {
             if (from.hasEdges()) {
-                return "map";
+                return MAP_PHASE;
             }
             return null;
         }
@@ -201,6 +312,29 @@ public class TowerEvent extends PhasedEvent {
         public void setTower(BattleTower t, Random towerRng) {
             this.tower = t;
             map.generate(tower, towerRng);
+        }
+    }
+
+    /*
+        Save process: Create save info that holds current data, then saves save info.
+            - 5 save types. 2 are neow (one endless), 1 is post-boss, 1 is post-battle
+            - The one that will be used is the "entering room" state. Post-battle (room complete) will be saved upon finishing the boss.
+            - Saving will save nextRoom if it's not null, and the current room otherwise. Works fine.
+            - Patch in before line 345 of SaveFile to save current room information if it implements an interface.
+
+        Load process:
+            - Creates an empty room as the current room and performs a transition into the "next room" which is the saved room.
+            - Transition process is different depending on if room is complete or not.
+            - Treating room as incomplete, have to adjust process to give this event the necessary information to load in the correct position.
+     */
+
+    public void save() {
+        if (!Settings.isDemo) {
+            SaveFile saveFile = new SaveFile(SaveFile.SaveType.ENTER_ROOM);
+            //for now, no end-of-tower save.
+            //If the boss has a reward, end-of-tower save can probably be handled by the normal post-combat reward save process.
+            SaveAndContinue.save(saveFile);
+            AbstractDungeon.effectList.add(new GameSavedEffect());
         }
     }
 }

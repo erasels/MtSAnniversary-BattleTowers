@@ -58,7 +58,7 @@ public class TextPhase extends ImageEventPhase {
     }
     @Override
     public void optionChosen(int index) {
-        if (index <= optionResults.size()) {
+        if (index < optionResults.size()) {
             optionResults.get(index).accept(index);
         }
     }
