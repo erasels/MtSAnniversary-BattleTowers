@@ -95,7 +95,7 @@
   "${ModID}:PlayerEnragePower": {
     "NAME": "Enrage",
     "DESCRIPTIONS": [
-      "Enemy actions that are not attacks grant you 1 Strength, up to ",
+      "Enemy actions that are not attacks grant you #b1 #yStrength, up to #b",
       " more this combat."
     ]
   }
