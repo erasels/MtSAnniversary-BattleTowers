@@ -22,7 +22,7 @@
     "NAME": "Cultist War Banner",
     "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain 1 Ritual and lose 2 Strength.",
+      "At the start of combat, gain #b1 #yRitual and lose #b2 #yStrength.",
       "#gGain #gCultist #gWar #gBanner."
     ]
   },
@@ -30,7 +30,7 @@
     "NAME": "Louse War Banner",
     "FLAVOR": "Be one with the snail.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain 10 Curl Up. When Curl Up is triggered, Block is not lost this turn.",
+      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, Block is not lost this turn.",
       "#gGain #gLouse #gWar #gBanner."
     ]
   },
@@ -38,7 +38,7 @@
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first 3 enemy actions each combat that are not attacks grant you 1 Strength. Start each combat with 2 Vulnerable.",
+      "The first 3 enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b2 #yVulnerable.",
       "#gGain #gNob #gWar #gBanner."
     ]
   },
@@ -46,7 +46,7 @@
     "NAME": "Snecko War Banner",
     "FLAVOR": "This pattern. It's... mesmerizing.",
     "DESCRIPTIONS": [
-      "At the start of combat, become Confused.",
+      "Start each combat #yConfused.",
       "#gGain #gSnecko #gWar #gBanner."
     ]
   }

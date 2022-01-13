@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import static BattleTowers.BattleTowers.makeID;
 
 public abstract class AbstractElementalSentry extends AbstractBTMonster {
-    public static final String ENCOUNTER = makeID("Elemental_Sentries");
     public final String NAME;
     public final String[] MOVES;
     public final String[] DIALOG;
