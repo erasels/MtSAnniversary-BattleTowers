@@ -2,7 +2,7 @@ package BattleTowers.events;
 
 import BattleTowers.events.phases.*;
 import BattleTowers.minimap.Minimap;
-import BattleTowers.patches.node.TowerGeneration;
+import BattleTowers.patches.map.TowerGeneration;
 import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.towers.BattleTower;
 import basemod.Pair;
@@ -325,7 +325,7 @@ public class TowerEvent extends PhasedEvent {
     }
 
     private static class ChestHandler implements InteractionPhase.InteractionHandler {
-        private final float fadeTime = Settings.FAST_MODE ? 0.25f : 0.7f;
+        private final float fadeTime = Settings.FAST_MODE ? 0.2f : 0.6f;
         private float fadeTimer = fadeTime;
 
         @Override

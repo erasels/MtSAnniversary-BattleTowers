@@ -637,12 +637,15 @@ public class Minimap {
                             clicked = false;
                             clickTimer = 0;
 
-                            AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
-                            if (!Settings.FAST_MODE) {
+                            if (Settings.FAST_MODE) {
+                                transitionWaitTimer = 0.1F;
+                            }
+                            else {
+                                transitionWaitTimer = 0.5F;
+                                AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
-                            transitionWaitTimer = 0.3F;
                             nextNode = this;
                             interactable = false;
                         }

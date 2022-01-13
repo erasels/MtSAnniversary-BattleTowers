@@ -4,6 +4,7 @@ import BattleTowers.events.TowerEvent;
 import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
@@ -37,8 +38,15 @@ public class BattleTowerRoom extends AbstractRoom {
     @Override
     public void onPlayerEntry() {
         AbstractDungeon.overlayMenu.proceedButton.hide();
-        this.event.onEnterRoom();
         intendedRs = AbstractDungeon.rs;
+        AbstractEvent.type = AbstractEvent.EventType.IMAGE;
+        this.event.onEnterRoom();
+        if (AbstractDungeon.rs != intendedRs) {
+            intendedRs = AbstractDungeon.rs;
+        }
+        else {
+            intendedRs = null;
+        }
     }
 
     public void update() {
