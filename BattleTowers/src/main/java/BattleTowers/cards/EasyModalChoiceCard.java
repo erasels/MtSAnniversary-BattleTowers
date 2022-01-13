@@ -16,6 +16,11 @@ public class EasyModalChoiceCard extends CustomCard {
     private String passedDesc;
     private String passedImg;
 
+    public EasyModalChoiceCard(int magicnum, String name, String description, String img, Runnable onUseOrChosen) {
+        this(name,description,img,onUseOrChosen);
+        baseMagicNumber = magicNumber = magicnum;
+    }
+
     public EasyModalChoiceCard(String name, String description, String img, Runnable onUseOrChosen) {
         super(makeID(name), "", img,
                 -2, "", CardType.POWER, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
