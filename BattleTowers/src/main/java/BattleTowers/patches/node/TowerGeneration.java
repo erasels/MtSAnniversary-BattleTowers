@@ -21,6 +21,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
         method = "generateMap"
 )
 public class TowerGeneration {
+    private static int TOWER_ACT_NUMBER = 2;
     public static boolean DEBUG = true;
     public static float appearRate = 1.0f; //config option?
     public static boolean fullRowMode = true; //config option, or just make this always the behavior
@@ -34,8 +35,7 @@ public class TowerGeneration {
             locator = Locator.class
     )
     public static void GenerateTower() {
-        //Should it be any act 2 or just the city?
-        if ((DEBUG || TheCity.ID.equals(AbstractDungeon.id)) && mapRng.randomBoolean(appearRate)) {
+        if ((DEBUG || AbstractDungeon.actNum == TOWER_ACT_NUMBER) && mapRng.randomBoolean(appearRate)) {
             if (fullRowMode) {
                 replaceFullRow();
             }
