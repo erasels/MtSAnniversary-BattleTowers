@@ -1,0 +1,111 @@
+
+TheDragonkin.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Neck
+  rotate: false
+  xy: 948, 57
+  size: 54, 38
+  orig: 54, 38
+  offset: 0, 0
+  index: -1
+BackArm
+  rotate: false
+  xy: 446, 464
+  size: 108, 80
+  orig: 108, 80
+  offset: 0, 0
+  index: -1
+Tail
+  rotate: false
+  xy: 641, 1
+  size: 305, 143
+  orig: 305, 143
+  offset: 0, 0
+  index: -1
+WingsOpen
+  rotate: false
+  xy: 1, 1
+  size: 405, 333
+  orig: 405, 333
+  offset: 0, 0
+  index: -1
+TorsoU
+  rotate: false
+  xy: 641, 146
+  size: 147, 207
+  orig: 147, 207
+  offset: 0, 0
+  index: -1
+Legr
+  rotate: false
+  xy: 600, 355
+  size: 137, 128
+  orig: 137, 128
+  offset: 0, 0
+  index: -1
+LegL
+  rotate: false
+  xy: 333, 345
+  size: 111, 197
+  orig: 111, 197
+  offset: 0, 0
+  index: -1
+TorsoL
+  rotate: false
+  xy: 1, 336
+  size: 330, 228
+  orig: 330, 228
+  offset: 0, 0
+  index: -1
+BackHand
+  rotate: false
+  xy: 948, 1
+  size: 69, 54
+  orig: 69, 54
+  offset: 0, 0
+  index: -1
+ShoulderR
+  rotate: false
+  xy: 932, 146
+  size: 77, 77
+  orig: 77, 77
+  offset: 0, 0
+  index: -1
+FrontArm
+  rotate: false
+  xy: 790, 327
+  size: 150, 165
+  orig: 150, 165
+  offset: 0, 0
+  index: -1
+ShoulderL
+  rotate: false
+  xy: 446, 345
+  size: 152, 117
+  orig: 152, 117
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 790, 146
+  size: 140, 179
+  orig: 140, 179
+  offset: 0, 0
+  index: -1
+Mace
+  rotate: false
+  xy: 408, 1
+  size: 231, 342
+  orig: 231, 342
+  offset: 0, 0
+  index: -1
+FrontHand
+  rotate: false
+  xy: 932, 225
+  size: 71, 83
+  orig: 71, 83
+  offset: 0, 0
+  index: -1

@@ -98,5 +98,12 @@
       "Enemy actions that are not attacks grant you #b1 #yStrength, up to #b",
       " more this combat."
     ]
+  },
+  "${ModID}:TemporaryDeEnergizePower": {
+    "NAME": "De-Energized",
+    "DESCRIPTIONS": [
+      "Lose [E] at the start of your next #b",
+      " turns."
+    ]
   }
 }
