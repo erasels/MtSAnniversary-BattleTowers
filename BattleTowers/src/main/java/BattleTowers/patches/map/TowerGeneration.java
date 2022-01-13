@@ -1,9 +1,8 @@
-package BattleTowers.patches.node;
+package BattleTowers.patches.map;
 
 import BattleTowers.room.BattleTowerRoom;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.TheCity;
 import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.rooms.TreasureRoom;
