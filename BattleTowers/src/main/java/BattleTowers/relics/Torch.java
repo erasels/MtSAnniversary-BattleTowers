@@ -15,7 +15,7 @@ public class Torch extends CustomRelic {
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
     public Torch() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("torch.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("torch.png")), TextureLoader.getTexture(makeRelicPath("torch_outline.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         getUpdatedDescription();
     }
 
@@ -27,7 +27,7 @@ public class Torch extends CustomRelic {
     @Override
     public void onEnterRoom(AbstractRoom room) {
         if(!(room instanceof BattleTowerRoom)) {
-            setTexture(TextureLoader.getTexture(makeRelicPath("unlitTorch.png")));
+            setTextureOutline(TextureLoader.getTexture(makeRelicPath("unlitTorch.png")), TextureLoader.getTexture(makeRelicPath("unlitTorch_outline.png")));
         }
     }
 }
