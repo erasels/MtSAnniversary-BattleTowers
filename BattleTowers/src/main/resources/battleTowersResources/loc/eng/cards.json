@@ -27,12 +27,12 @@
   },
   "${ModID}:Chilled": {
     "NAME": "Chilled",
-    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose 1 Energy, then draw a card."
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E], then draw !M! card."
   },
   "${ModID}:QueensGrace": {
     "NAME": "Queen's Grace",
-    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E]. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E] [E]. NL Exhaust."
+    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw !M! cards. NL Gain [E]. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw !M! cards. NL Gain [E] [E]. NL Exhaust."
   },
   "${ModID}:RooksCharge": {
     "NAME": "Rook's Charge",
@@ -40,7 +40,7 @@
   },
   "${ModID}:BishopsPrayer": {
     "NAME": "Bishop's Prayer",
-    "DESCRIPTION": "Gain !B! Block. NL Draw 1 card. NL Shuffle this card back into your draw pile."
+    "DESCRIPTION": "Gain !B! Block. NL Draw !M! card. NL Shuffle this card back into your draw pile."
   },
   "${ModID}:PawnsAdvance": {
     "NAME": "Pawn's Advance",
@@ -53,17 +53,25 @@
   },
   "${ModID}:KnightsManeuver": {
     "NAME": "Knight's Maneuver",
-    "DESCRIPTION": "Choose: Gain 3 Dexterity and lose 1 Strength, or gain 3 Strength and lose 1 Dexterity.",
+    "DESCRIPTION": "Choose: Gain !M! Dexterity and lose 1 Strength, or gain !M! Strength and lose 1 Dexterity.",
     "EXTENDED_DESCRIPTION": [
       "Defensive",
-      "Gain 3 Dexterity and lose 1 Strength.",
+      "Gain !M! Dexterity and lose 1 Strength.",
       "Offensive",
-      "Gain 3 Strength and lose 1 Dexterity.",
+      "Gain !M! Strength and lose 1 Dexterity.",
       "Choose an option."
     ]
   },
   "${ModID}:CursedTapestry": {
     "NAME": "Cursed Tapestry",
     "DESCRIPTION": "Fleeting. NL Lose !M! HP. NL Deal !D! Damage. NL Gain a random Common Relic."
+  },
+  "${ModID}:Greedy": {
+    "NAME": "Greedy",
+    "DESCRIPTION": "Unplayable. Ethereal. NL When drawn, lose !M! Gold."
+  },
+  "${ModID}:DarkEnchantment": {
+    "NAME": "Dark Enchantment",
+    "DESCRIPTION": "Draw !M! cards. NL Gain [E] [E]. NL Increase all numbers that can be increased on cards in hand by 1 this combat. NL Exhaust."
   }
 }

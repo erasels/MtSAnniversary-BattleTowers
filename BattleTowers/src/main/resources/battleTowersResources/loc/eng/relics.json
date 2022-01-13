@@ -49,6 +49,20 @@
       "Start each combat #yConfused.",
       "#gGain #gSnecko #gWar #gBanner."
     ]
+  },
+  "${ModID}:Lucky": {
+    "NAME": "Lucky",
+    "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
+    "DESCRIPTIONS": [
+      "At the start of the Boss combat of this Battle Tower, gain 2 #yStrength and 2 #yDexterity."
+    ]
+  },
+  "${ModID}:IronPotHelmet": {
+    "NAME": "Iron Pot Helmet",
+    "FLAVOR": "It once was special and enchanted. Now it's just a big hunk of metal.",
+    "DESCRIPTIONS": [
+      "When you play a #yDefend, gain 3 Block."
+    ]
   }
 }
 
