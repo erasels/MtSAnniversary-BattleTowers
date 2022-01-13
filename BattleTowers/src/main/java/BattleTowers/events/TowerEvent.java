@@ -345,7 +345,10 @@ public class TowerEvent extends PhasedEvent {
             logger.info("Going to treasure room");
             GenericEventDialog.hide();
             AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+            AbstractRoom currentRoom = AbstractDungeon.getCurrRoom();
             AbstractRoom newRoom = new TreasureRoom();
+            newRoom.setMapSymbol(currentRoom.getMapSymbol());
+            newRoom.setMapImg(currentRoom.getMapImg(), currentRoom.getMapImgOutline());
             AbstractDungeon.getCurrMapNode().room = newRoom;
             newRoom.onPlayerEntry();
             AbstractDungeon.fadeIn();
