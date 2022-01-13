@@ -329,10 +329,6 @@ public class TowerEvent extends PhasedEvent {
         private float fadeTimer = fadeTime;
 
         @Override
-        public void begin(PhasedEvent event) {
-        }
-
-        @Override
         public void update() {
             if (fadeTimer > 0) {
                 fadeTimer -= Gdx.graphics.getDeltaTime();
@@ -354,12 +350,6 @@ public class TowerEvent extends PhasedEvent {
             newRoom.onPlayerEntry();
             AbstractDungeon.fadeIn();
         }
-
-        @Override
-        public void render(SpriteBatch sb) {}
-
-        @Override
-        public void renderAboveTopPanel(SpriteBatch sb) {}
     }
 
     /*
