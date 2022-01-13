@@ -34,13 +34,12 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
 
     public Torch() {
         super(ID, UC.getTexture("relics", "torch"), UC.getTexture("relics", "torch_outline"), RelicTier.SPECIAL, LandingSound.FLAT);
-        description = getUpdatedDescription();
     }
 
     public Torch(AbstractCard card) {
         this();
         this.card = card;
-        description = getUpdatedDescription();
+        resetDescriptionAndTooltip();
     }
 
     @Override
@@ -62,10 +61,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
         } else {
             setTextureOutline(UC.getTexture("relics", "unlitTorch"), UC.getTexture("relics", "unlitTorch_outline"));
         }
-        description = getUpdatedDescription();
-        tips.clear();
-        tips.add(new PowerTip(name, description));
-        initializeTips();
+        resetDescriptionAndTooltip();
     }
 
     @Override
@@ -77,6 +73,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
         } else {
             UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
         }
+        resetDescriptionAndTooltip();
     }
 
     @Override
@@ -92,7 +89,13 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
             savedCard.misc = cardSave.misc;
 
             this.card = savedCard;
-            getUpdatedDescription();
         }
+    }
+
+    private void resetDescriptionAndTooltip() {
+        description = getUpdatedDescription();
+        tips.clear();
+        tips.add(new PowerTip(name, description));
+        initializeTips();
     }
 }
