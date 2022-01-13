@@ -54,12 +54,11 @@
     "NAME": "Torch",
     "FLAVOR": "A simple torch that glows with green fire. It seems to weaken the further it travels.",
     "DESCRIPTIONS": [
-      "While in the #yBattle #yTower, start each combat with #b ",
-      " random buffs.",
-      "While in the #yBattle #yTower, start each combat with #b1 random debuff.",
-      "Start each combat with #b1 #yDexterity or #yStrength.",
-      "It's just a stick",
-      "While in the #yBattle #yTower, start each combat with some number of buffs."
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
+      " into your draw pile.",
+      "At the start each combat, shuffle #b2 copies of ",
+      " into your discard pile.",
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile."
       ]
   },
   "${ModID}:Lucky": {

@@ -64,31 +64,25 @@ public class NewBonfireEvent extends PhasedEvent {
             public void update() {
                 if (!AbstractDungeon.isScreenUp && !AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
                     AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.remove(0);
-
+                    AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(c));
                     switch(c.rarity) {
                         case CURSE:
                             transitionKey("Curse");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(-1));
                             break;
                         case BASIC:
                             transitionKey("Basic");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(-1));
                             break;
                         case SPECIAL:
                             transitionKey("Special");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(3));
                             break;
                         case UNCOMMON:
                             transitionKey("Uncommon");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(2));
                             break;
                         case RARE:
                             transitionKey("Rare");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(3));
                             break;
                         default:
                             transitionKey("Common");
-                            AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(1));
                             break;
                     }
                     AbstractDungeon.gridSelectScreen.selectedCards.clear();
