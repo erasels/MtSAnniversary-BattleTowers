@@ -66,11 +66,9 @@ public class NewBonfireEvent extends PhasedEvent {
 
                     switch(c.rarity) {
                         case CURSE:
-                            AbstractDungeon.player.damage(new DamageInfo(null, 10));
                             transitionKey("Curse");
                             break;
                         case BASIC:
-                            AbstractDungeon.player.damage(new DamageInfo(null, 10));
                             transitionKey("Basic");
                             break;
                         case SPECIAL:

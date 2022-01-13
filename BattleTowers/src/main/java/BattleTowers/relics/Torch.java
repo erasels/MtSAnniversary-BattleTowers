@@ -1,9 +1,11 @@
 package BattleTowers.relics;
 
+import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.RelicStrings;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
@@ -20,5 +22,12 @@ public class Torch extends CustomRelic {
     @Override
     public String getUpdatedDescription() {
         return DESCRIPTIONS[0];
+    }
+
+    @Override
+    public void onEnterRoom(AbstractRoom room) {
+        if(!(room instanceof BattleTowerRoom)) {
+            setTexture(TextureLoader.getTexture(makeRelicPath("unlitTorch.png")));
+        }
     }
 }

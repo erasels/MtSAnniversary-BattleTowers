@@ -53,7 +53,13 @@
   "${ModID}:Torch": {
     "NAME": "Torch",
     "FLAVOR": "A simple torch that glows with green fire. It seems to weaken the further it travels.",
-    "DESCRIPTIONS": [ "" ]
+    "DESCRIPTIONS": [
+      "While in the #yBattle #yTower, start each combat with #b ",
+      " random buffs.",
+      " random debuffs.",
+      "Otherwise, gain #b1 #yDexterity or #yStrength.",
+      "It's just a stick"
+    ]
   }
 }
 
