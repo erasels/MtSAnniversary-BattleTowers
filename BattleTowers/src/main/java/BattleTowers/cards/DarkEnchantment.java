@@ -3,27 +3,31 @@ package BattleTowers.cards;
 
 import BattleTowers.BattleTowers;
 import basemod.abstracts.CustomCard;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import static BattleTowers.BattleTowers.makeID;
 
 
-public class BishopsPrayer extends CustomCard {
-    public static final String ID = makeID(BishopsPrayer.class.getSimpleName());
+public class DarkEnchantment extends CustomCard {
+    public static final String ID = makeID(DarkEnchantment.class.getSimpleName());
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = BattleTowers.makeCardPath("BishopsPrayer.png");
+    public static final String IMG_PATH = BattleTowers.makeCardPath("DarkEnchantment.png");
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
-    private static final int COST = 1;
+    private static final int COST = 0;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -33,26 +37,45 @@ public class BishopsPrayer extends CustomCard {
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
     }
 
-    public BishopsPrayer() {
+    public DarkEnchantment() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         shuffleBackIntoDrawPile = true;
-        baseBlock = 7;
-        baseMagicNumber = magicNumber = 1;
+        baseMagicNumber = magicNumber = 2;
+        exhaust = true;
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new GainBlockAction(p, block));
-        addToBot(new DrawCardAction(p, magicNumber));
+        addToBot(new DrawCardAction(magicNumber));
+        addToBot(new GainEnergyAction(2));
+        addToBot(new WaitAction(0.1F));
+        addToBot(new WaitAction(0.1F));
+        addToBot(new WaitAction(0.1F));
+        addToBot(new AbstractGameAction() {
+            @Override
+            public void update() {
+                isDone = true;
+                for (AbstractCard q : AbstractDungeon.player.hand.group) {
+                    q.baseDamage += 1;
+                    q.damage += 1;
+                    q.baseBlock += 1;
+                    q.block += 1;
+                    q.baseMagicNumber += 1;
+                    q.magicNumber += 1;
+                    q.modifyCostForCombat(1);
+                    q.superFlash();
+                }
+            }
+        });
     }
 
     public AbstractCard makeCopy() {
-        return new BishopsPrayer();
+        return new DarkEnchantment();
     }
 
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeBlock(3);
+            upgradeMagicNumber(1);
         }
     }
 }

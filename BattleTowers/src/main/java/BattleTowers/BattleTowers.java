@@ -4,6 +4,7 @@ import BattleTowers.cards.*;
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
 import BattleTowers.events.OttoEvent;
+import BattleTowers.events.PotOfGoldEvent;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.FireSlimeL;
 import BattleTowers.monsters.Gorgon;
@@ -154,7 +155,7 @@ public class BattleTowers implements
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
-
+        BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
     }
 
     @Override
@@ -280,6 +281,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
+        BaseMod.addRelic(new Lucky(), RelicType.SHARED);
+        BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         }
         
     public static String removeModId(String id) {
@@ -300,6 +303,8 @@ public class BattleTowers implements
         BaseMod.addCard(new QueensGrace());
         BaseMod.addCard(new RooksCharge());
         BaseMod.addCard(new CursedTapestry());
+        BaseMod.addCard(new Greedy());
+        BaseMod.addCard(new DarkEnchantment());
     }
 
     public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {

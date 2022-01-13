@@ -72,9 +72,6 @@
       "This turn, #yPawn's Advances deal #b",
       " additional damage and grant #b",
       " additional #yBlock."
-    ],
-    "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn."
     ]
   },
   "${ModID}:GreedWrathEnvyPower": {
