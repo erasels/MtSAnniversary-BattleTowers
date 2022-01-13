@@ -2,6 +2,7 @@ package BattleTowers.events;
 
 import BattleTowers.events.phases.*;
 import BattleTowers.minimap.Minimap;
+import BattleTowers.patches.node.TowerGeneration;
 import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.towers.BattleTower;
 import basemod.Pair;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
@@ -34,6 +36,7 @@ public class TowerEvent extends PhasedEvent {
 
     private static final String TOWER_CHOICE_PHASE = "TOWER_CHOICE";
     private static final String MAP_PHASE = "MAP";
+    private static final String CHEST_PHASE = "CHEST";
 
     private static final int NUM_OPTIONS = 3; //it seems like it'll probably just be 1.
     public int chosenTower = -1; //For saving?
@@ -60,8 +63,14 @@ public class TowerEvent extends PhasedEvent {
                 }
             });
         }
+        if (TowerGeneration.fullRowMode) {
+            choice.addOption(OPTIONS[1], (index) -> {
+                this.transitionKey(CHEST_PHASE);
+            });
+        }
         registerPhase(TOWER_CHOICE_PHASE, choice);
         registerPhase(MAP_PHASE, new InteractionPhase(mapHandler));
+        registerPhase(CHEST_PHASE, new InteractionPhase(new ChestHandler()));
 
         transitionKey(TOWER_CHOICE_PHASE);
     }
@@ -312,6 +321,37 @@ public class TowerEvent extends PhasedEvent {
         public void setTower(BattleTower t, Random towerRng) {
             this.tower = t;
             map.generate(tower, towerRng);
+        }
+    }
+
+    private static class ChestHandler implements InteractionPhase.InteractionHandler {
+        private final float fadeTime = Settings.FAST_MODE ? 0.25f : 0.7f;
+        private float fadeTimer = fadeTime;
+
+        @Override
+        public void update() {
+            if (fadeTimer > 0) {
+                fadeTimer -= Gdx.graphics.getDeltaTime();
+                AbstractDungeon.fadeColor.a = Interpolation.fade.apply(1.0F, 0.0F, fadeTimer / fadeTime);
+                if (fadeTimer <= 0.0F) {
+                    fadeTimer = 0.0F;
+                    AbstractDungeon.fadeColor.a = 1.0F;
+                    this.goToTreasureRoom();
+                }
+            }
+        }
+
+        private void goToTreasureRoom() {
+            logger.info("Going to treasure room");
+            GenericEventDialog.hide();
+            AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+            AbstractRoom currentRoom = AbstractDungeon.getCurrRoom();
+            AbstractRoom newRoom = new TreasureRoom();
+            newRoom.setMapSymbol(currentRoom.getMapSymbol());
+            newRoom.setMapImg(currentRoom.getMapImg(), currentRoom.getMapImgOutline());
+            AbstractDungeon.getCurrMapNode().room = newRoom;
+            newRoom.onPlayerEntry();
+            AbstractDungeon.fadeIn();
         }
     }
 
