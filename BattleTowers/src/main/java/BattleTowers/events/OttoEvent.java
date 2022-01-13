@@ -57,7 +57,7 @@ public class OttoEvent extends AbstractImageEvent {
         if (AbstractDungeon.player.gold >= 75) {
             this.imageEventText.setDialogOption(OPTIONS[2]);
         } else {
-            this.imageEventText.setDialogOption(OPTIONS[3]);
+            this.imageEventText.setDialogOption(OPTIONS[3], true);
         }
 
         this.imageEventText.setDialogOption(OPTIONS[4]);
