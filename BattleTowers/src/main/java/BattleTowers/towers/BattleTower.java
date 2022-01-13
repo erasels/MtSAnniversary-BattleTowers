@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.BannerSageEvent;
+import BattleTowers.events.NewBonfireEvent;
 import BattleTowers.events.OttoEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
@@ -143,6 +144,7 @@ public class BattleTower {
                 .addEliteEncounter(GigaSlime.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
+                .addEvent(NewBonfireEvent.ID)
                 .addBoss(CardboardGolem.ID)
         );
     }
