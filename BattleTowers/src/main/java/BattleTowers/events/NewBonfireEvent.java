@@ -96,4 +96,9 @@ public class NewBonfireEvent extends PhasedEvent {
 
         transitionKey(0);
     }
+
+    public void onEnterRoom() {
+        if (Settings.AMBIANCE_ON)
+            CardCrawlGame.sound.play("EVENT_GOOP");
+    }
 }
