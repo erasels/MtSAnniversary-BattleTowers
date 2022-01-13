@@ -113,50 +113,47 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
-
-        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
-        BaseMod.addMonster(SilverLouse.METAL_LOUSES,  () -> new MonsterGroup(
+        //Normal Enemies
+        BaseMod.addMonster(Encounters.METAL_LOUSES,  () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new SilverLouse(-400.0F, 0.0F),
                         new GoldenLouse(-150.0F, 0.0F),
                         new SilverLouse(100.0F, 0.0F),
                 }));
-        BaseMod.addMonster(AbstractElementalSentry.ENCOUNTER, () -> new MonsterGroup(
+        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new SentryRed(-500.0F, 25.0F),
                         new SentryGreen(-320.0F, 10.0F),
                         new SentryPurple(-140.0F, 30.0F),
                         new SentryHuge(140.0F, 0.0F)
                 }));
-        BaseMod.addMonster(makeID("SlimeOfIceAndFire"), () -> new MonsterGroup(
+        BaseMod.addMonster(Encounters.ICE_AND_FIRE_SLIME, () -> new MonsterGroup(
                 new AbstractMonster[]{
                         new FireSlimeL(-385.0F, 20.0F),
                         new IceSlimeL(120.0F, -8.0F)
                 }));
-
         BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
-        BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
-        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
-        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
-        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
-        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
-            @Override
-            public AbstractMonster get() {
-                return new CardboardGolem();
-            }
-        });
+
+        //Elites
+        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
+
+        //Bosses
+        BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
+        BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
     }
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
 
     }
 

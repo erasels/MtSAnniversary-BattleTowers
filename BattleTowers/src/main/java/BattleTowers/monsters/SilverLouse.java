@@ -23,7 +23,6 @@ import static BattleTowers.BattleTowers.makeID;
 
 public class SilverLouse extends AbstractBTMonster {
     public static final String ID = makeID(SilverLouse.class.getSimpleName());
-    public static final String METAL_LOUSES = makeID("Metal_Louses");
     private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID);
     public static final String NAME = monsterStrings.NAME;
     public static final String[] MOVES = monsterStrings.MOVES;
