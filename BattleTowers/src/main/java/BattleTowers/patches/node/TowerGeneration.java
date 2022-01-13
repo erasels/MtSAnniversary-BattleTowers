@@ -21,7 +21,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
         method = "generateMap"
 )
 public class TowerGeneration {
-    private static int TOWER_ACT_NUMBER = 2;
+    private static final int TOWER_ACT_NUMBER = 2;
     public static boolean DEBUG = true;
     public static float appearRate = 1.0f; //config option?
     public static boolean fullRowMode = true; //config option, or just make this always the behavior
