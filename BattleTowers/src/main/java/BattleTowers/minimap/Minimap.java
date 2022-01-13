@@ -730,14 +730,18 @@ public class Minimap {
             }
         }
 
-        private void showPreviewIfHovered() {
-            List<BattleTower.NodeType> previewTypes = Arrays.asList(BattleTower.NodeType.MONSTER, BattleTower.NodeType.ELITE);
+        protected void showPreviewIfHovered() {
+            List<BattleTower.NodeType> previewTypes = Arrays.asList(BattleTower.NodeType.MONSTER, BattleTower.NodeType.ELITE, BattleTower.NodeType.BOSS);
             if (this.hb.hovered && previewTypes.contains(this.type)) {
                 String fightPreviewText = uiStrings.TEXT_DICT.containsKey(removeModId(this.getKey()))
                         ? uiStrings.TEXT_DICT.get(removeModId(this.getKey()))
                         : CardCrawlGame.languagePack.getMonsterStrings(this.getKey()).NAME;
-                TipHelper.renderGenericTip(this.cx + this.img.getWidth() / 4.0f, this.cy + offsetY, uiStrings.TEXT[0], fightPreviewText);
+                TipHelper.renderGenericTip(this.cx + this.getPreviewTooltipXOffset(), this.cy + offsetY, uiStrings.TEXT[0], fightPreviewText);
             }
+        }
+
+        protected float getPreviewTooltipXOffset() {
+            return this.img.getWidth() / 4.0f;
         }
 
         private float getRenderX() {
@@ -829,6 +833,7 @@ public class Minimap {
         }
 
         public boolean update() {
+            showPreviewIfHovered();
             this.scale = Settings.scale;
 
             this.hb.move(this.cx, cy + offsetY);
@@ -878,6 +883,11 @@ public class Minimap {
                     this.hb.render(sb);// 255
                 }
             }
+        }
+
+        @Override
+        protected float getPreviewTooltipXOffset() {
+            return bossImg.getWidth() / 4.0f;
         }
     }
 
