@@ -271,6 +271,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
         }
         
     public static String removeModId(String id) {

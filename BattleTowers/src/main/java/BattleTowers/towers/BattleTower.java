@@ -144,6 +144,7 @@ public class BattleTower {
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addBoss(CardboardGolem.ID)
+                .addBoss(Dijinn.ID)
         );
     }
 
