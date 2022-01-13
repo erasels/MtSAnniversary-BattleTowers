@@ -63,6 +63,13 @@
     "DESCRIPTIONS": [
       "When you play a #yDefend, gain 3 Block."
     ]
+  },
+  "${ModID}:CursedDoll": {
+    "NAME": "Cursed Doll",
+    "FLAVOR": "It's filled with pins and needles . . . and it looks surprisingly like you.",
+    "DESCRIPTIONS": [
+      "Whenever you lose HP, ALL enemies also lose twice that much HP."
+    ]
   }
 }
 
