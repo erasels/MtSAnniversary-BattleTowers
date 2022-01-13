@@ -602,6 +602,10 @@ public class Minimap {
             return type;
         }
 
+        public boolean canVisit() {
+            return available.contains(this) || Settings.isDebug;
+        }
+
         public boolean update() {
             showPreviewIfHovered();
             highlighted = false;
@@ -626,7 +630,7 @@ public class Minimap {
                     }
                 }
 
-                if (available.contains(this)) {
+                if (canVisit()) {
                     if (this.hb.hovered) {
                         if (this.hb.justHovered) {
                             playNodeHoveredSound();
@@ -848,7 +852,7 @@ public class Minimap {
                     this.color.lerp(NOT_TAKEN_COLOR, Gdx.graphics.getDeltaTime() * 8.0F);
                 }
 
-                if (available.contains(this) && this.hb.hovered && clicked) {
+                if (canVisit() && this.hb.hovered && clicked) {
                     clicked = false;
                     clickTimer = 0;
 
