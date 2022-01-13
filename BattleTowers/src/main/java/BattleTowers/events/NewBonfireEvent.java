@@ -3,6 +3,7 @@ package BattleTowers.events;
 import BattleTowers.BattleTowers;
 import BattleTowers.events.phases.TextPhase;
 import BattleTowers.relics.Torch;
+import BattleTowers.util.UC;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -35,19 +36,14 @@ public class NewBonfireEvent extends PhasedEvent {
         super(title, BattleTowers.makeImagePath("events/bonfire.png"));
 
         ArrayList<AbstractRelic> relics = new ArrayList<>();
-        relics.addAll(AbstractDungeon.player.relics);
+        relics.addAll(UC.p().relics);
         Collections.shuffle(relics, new Random(AbstractDungeon.miscRng.randomLong()));
         this.relicChoice = relics.get(0);
 
         //set up event
         registerPhase(0, new TextPhase(DESCRIPTIONS[0] + DESCRIPTIONS[1] + DESCRIPTIONS[2]).addOption(OPTIONS[0] + FontHelper.colorString(relicChoice.name, "y") + OPTIONS[1], (i)->transitionKey("Relic")).addOption(OPTIONS[2], (i)->transitionKey("Card")));
-        registerPhase("Curse", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("Basic", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("Common", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("Special", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("Uncommon", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("Rare", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
         registerPhase("AfterRelic", new TextPhase(DESCRIPTIONS[4] + FontHelper.colorString(relicChoice.name, "y") + DESCRIPTIONS[5]).addOption(OPTIONS[4], (t)->this.openMap()));
+        registerPhase("AfterCard", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
 
         registerPhase("Relic", new TextPhase(DESCRIPTIONS[7]).addOption(OPTIONS[5] + FontHelper.colorString(relicChoice.name, "y"), (i)->{
             AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
@@ -64,29 +60,10 @@ public class NewBonfireEvent extends PhasedEvent {
                 if (!AbstractDungeon.isScreenUp && !AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
                     AbstractCard c = AbstractDungeon.gridSelectScreen.selectedCards.remove(0);
                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(c));
-                    switch(c.rarity) {
-                        case CURSE:
-                            transitionKey("Curse");
-                            break;
-                        case BASIC:
-                            transitionKey("Basic");
-                            break;
-                        case SPECIAL:
-                            transitionKey("Special");
-                            break;
-                        case UNCOMMON:
-                            transitionKey("Uncommon");
-                            break;
-                        case RARE:
-                            transitionKey("Rare");
-                            break;
-                        default:
-                            transitionKey("Common");
-                            break;
-                    }
                     AbstractDungeon.gridSelectScreen.selectedCards.clear();
                     AbstractDungeon.topLevelEffects.add(new PurgeCardEffect(c, (Settings.WIDTH / 2), (Settings.HEIGHT / 2)));
                     AbstractDungeon.player.masterDeck.removeCard(c);
+                    transitionKey("AfterCard");
                 }
             }
         }.addOption(OPTIONS[3], (i)->{

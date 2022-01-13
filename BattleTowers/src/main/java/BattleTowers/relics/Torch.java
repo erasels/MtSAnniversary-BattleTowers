@@ -43,18 +43,6 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     }
 
     @Override
-    public String getUpdatedDescription() {
-        if(!CardCrawlGame.isInARun() || card == null)  {
-            return DESCRIPTIONS[4];
-        }
-        if(AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
-            return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
-        } else {
-            return DESCRIPTIONS[2] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[3];
-        }
-    }
-
-    @Override
     public void onEnterRoom(AbstractRoom room) {
         if(AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
             setTextureOutline(UC.getTexture("relics", "torch"), UC.getTexture("relics", "torch_outline"));
@@ -77,6 +65,25 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     }
 
     @Override
+    public String getUpdatedDescription() {
+        if(!CardCrawlGame.isInARun() || card == null)  {
+            return DESCRIPTIONS[4];
+        }
+        if(AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+            return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
+        } else {
+            return DESCRIPTIONS[2] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[3];
+        }
+    }
+
+    private void resetDescriptionAndTooltip() {
+        description = getUpdatedDescription();
+        tips.clear();
+        tips.add(new PowerTip(name, description));
+        initializeTips();
+    }
+
+    @Override
     public CardSave onSave() {
         return new CardSave(card.cardID, card.timesUpgraded, card.misc);
     }
@@ -90,12 +97,5 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
 
             this.card = savedCard;
         }
-    }
-
-    private void resetDescriptionAndTooltip() {
-        description = getUpdatedDescription();
-        tips.clear();
-        tips.add(new PowerTip(name, description));
-        initializeTips();
     }
 }
