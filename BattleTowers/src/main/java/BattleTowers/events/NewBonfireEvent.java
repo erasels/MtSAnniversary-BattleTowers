@@ -1,5 +1,6 @@
 package BattleTowers.events;
 
+import BattleTowers.BattleTowers;
 import BattleTowers.events.phases.TextPhase;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -29,7 +30,7 @@ public class NewBonfireEvent extends PhasedEvent {
     private AbstractRelic relicChoice;
 
     public NewBonfireEvent() {
-        super(title, "images/events/bonfire.jpg");
+        super(title, BattleTowers.makeImagePath("events/bonfire.png"));
 
         ArrayList<AbstractRelic> relics = new ArrayList<>();
         relics.addAll(AbstractDungeon.player.relics);

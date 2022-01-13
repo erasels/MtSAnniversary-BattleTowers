@@ -49,6 +49,11 @@
       "At the start of combat, become Confused.",
       "#gGain #gSnecko #gWar #gBanner."
     ]
+  },
+  "${ModID}:Torch": {
+    "NAME": "Torch",
+    "FLAVOR": "A simple torch that glows with green fire. It seems to weaken the further it travels.",
+    "DESCRIPTIONS": [ "" ]
   }
 }
 
