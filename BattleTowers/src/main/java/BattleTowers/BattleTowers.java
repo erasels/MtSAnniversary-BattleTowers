@@ -147,6 +147,7 @@ public class BattleTowers implements
 
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
+        BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
     }
 
     private static void addEvents() {
