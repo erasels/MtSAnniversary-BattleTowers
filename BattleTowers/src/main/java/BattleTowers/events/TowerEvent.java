@@ -325,19 +325,39 @@ public class TowerEvent extends PhasedEvent {
     }
 
     private static class ChestHandler implements InteractionPhase.InteractionHandler {
+        private final float fadeTime = Settings.FAST_MODE ? 0.25f : 0.7f;
+        private float fadeTimer = fadeTime;
+
         @Override
         public void begin(PhasedEvent event) {
+        }
+
+        @Override
+        public void update() {
+            if (fadeTimer > 0) {
+                fadeTimer -= Gdx.graphics.getDeltaTime();
+                AbstractDungeon.fadeColor.a = Interpolation.fade.apply(1.0F, 0.0F, fadeTimer / fadeTime);
+                if (fadeTimer <= 0.0F) {
+                    fadeTimer = 0.0F;
+                    AbstractDungeon.fadeColor.a = 1.0F;
+                    this.goToTreasureRoom();
+                }
+            }
+        }
+
+        private void goToTreasureRoom() {
+            logger.info("Going to treasure room");
             GenericEventDialog.hide();
             AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
             AbstractRoom newRoom = new TreasureRoom();
             AbstractDungeon.getCurrMapNode().room = newRoom;
             newRoom.onPlayerEntry();
+            AbstractDungeon.fadeIn();
         }
 
         @Override
-        public void update() {}
-        @Override
         public void render(SpriteBatch sb) {}
+
         @Override
         public void renderAboveTopPanel(SpriteBatch sb) {}
     }
