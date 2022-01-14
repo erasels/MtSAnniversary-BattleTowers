@@ -54,6 +54,14 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "tneisnarT",
+    "DIALOG": [
+    ]
+  },
   "${ModID}:Dijinn": {
     "MOVES": [
       "Empower",

@@ -123,6 +123,7 @@ public class BattleTowers implements
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
+        BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(

@@ -11,6 +11,12 @@
       "At the end of your turn, put your hand onto the top of your draw pile."
     ]
   },
+  "${ModID}:rewoPgnitfihS": {
+    "NAME": "gnitfihS",
+    "DESCRIPTIONS": [
+      "Upon losing HP, gains that much #yStrength."
+    ]
+  },
   "${ModID}:ExpendablePower": {
     "NAME": "Expendable",
     "DESCRIPTIONS": [
