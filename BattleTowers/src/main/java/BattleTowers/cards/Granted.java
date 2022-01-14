@@ -30,12 +30,12 @@ public class Granted extends CustomCard {
     }
 
     @Override
-    public boolean canUpgrade() {
-        return false;
-    }
-
-    @Override
     public void upgrade() {
-
+        if (!upgraded) {
+            upgradeName();
+            selfRetain = true;
+            this.rawDescription = cardStrings.UPGRADE_DESCRIPTION;;
+            initializeDescription();
+        }
     }
 }

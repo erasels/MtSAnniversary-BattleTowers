@@ -6,6 +6,12 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.blue.AllForOne;
+import com.megacrit.cardcrawl.cards.blue.Amplify;
+import com.megacrit.cardcrawl.cards.blue.BiasedCognition;
+import com.megacrit.cardcrawl.cards.blue.Buffer;
+import com.megacrit.cardcrawl.cards.blue.Fission;
+import com.megacrit.cardcrawl.cards.blue.MultiCast;
+import com.megacrit.cardcrawl.cards.blue.Rainbow;
 import com.megacrit.cardcrawl.cards.blue.ThunderStrike;
 import com.megacrit.cardcrawl.cards.green.BulletTime;
 import com.megacrit.cardcrawl.cards.green.Burst;
@@ -15,14 +21,17 @@ import com.megacrit.cardcrawl.cards.green.Doppelganger;
 import com.megacrit.cardcrawl.cards.green.GrandFinale;
 import com.megacrit.cardcrawl.cards.green.PhantasmalKiller;
 import com.megacrit.cardcrawl.cards.green.StormOfSteel;
+import com.megacrit.cardcrawl.cards.green.WraithForm;
 import com.megacrit.cardcrawl.cards.purple.LessonLearned;
 import com.megacrit.cardcrawl.cards.red.Barricade;
+import com.megacrit.cardcrawl.cards.red.Corruption;
 import com.megacrit.cardcrawl.cards.red.DemonForm;
 import com.megacrit.cardcrawl.cards.red.DoubleTap;
 import com.megacrit.cardcrawl.cards.red.Exhume;
 import com.megacrit.cardcrawl.cards.red.Feed;
 import com.megacrit.cardcrawl.cards.red.FiendFire;
 import com.megacrit.cardcrawl.cards.red.Immolate;
+import com.megacrit.cardcrawl.cards.red.Impervious;
 import com.megacrit.cardcrawl.cards.red.LimitBreak;
 import com.megacrit.cardcrawl.cards.red.Reaper;
 import com.megacrit.cardcrawl.core.Settings;
@@ -30,18 +39,17 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
+import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Lightning;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.ChemicalX;
+import com.megacrit.cardcrawl.relics.DeadBranch;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 public class GrantedAction extends AbstractGameAction {
 
-    private HashMap<String, Integer> cardPointsMap = new HashMap<String, Integer>();
     private int totalDamage;
     private int numHits;
 
@@ -60,9 +68,9 @@ public class GrantedAction extends AbstractGameAction {
         ArrayList<AbstractCard> rareCardsAttack = new ArrayList<>();
         ArrayList<AbstractCard> rareCardsSkill = new ArrayList<>();
         ArrayList<AbstractCard> rareCardsPower = new ArrayList<>();
-        for (AbstractCard card : allCards) {
-            AbstractCard cardCopy = card.makeCopy();
-            cardCopy.upgrade();
+        for (AbstractCard cardCopy : allCards) {
+            AbstractCard card = cardCopy.makeCopy();
+            card.upgrade();
             boolean addToList = false;
             boolean addMultiple = false; //add multiple copies of a card so it has a greater chance to be selected
             boolean addSuperMultiple = false; //for when just multiple isn't enough
@@ -109,6 +117,8 @@ public class GrantedAction extends AbstractGameAction {
                     } else {
                         addToList = false;
                     }
+                } else {
+                    addToList = false;
                 }
             }
             if (card.cardID.equals(DoubleTap.ID)) {
@@ -146,11 +156,25 @@ public class GrantedAction extends AbstractGameAction {
                     addToList = false;
                 }
             }
-            if (card.cardID.equals(Barricade.ID)) {
-                if (AbstractDungeon.player.currentBlock - totalDamage >= 20) {
+            if (card.cardID.equals(Impervious.ID) || card.cardID.equals(WraithForm.ID) || card.cardID.equals(Buffer.ID)) {
+                if (totalDamage - AbstractDungeon.player.currentBlock >= 30) {
+                    addSuperMultiple = true;
+                } else if (totalDamage - AbstractDungeon.player.currentBlock >= 20) {
                     addMultiple = true;
                 } else {
                     addToList = false;
+                }
+            }
+            if (card.cardID.equals(Barricade.ID)) {
+                if (AbstractDungeon.player.currentBlock - totalDamage >= 30) {
+                    addSuperMultiple = true;
+                } else if (AbstractDungeon.player.currentBlock - totalDamage >= 20) {
+                    addMultiple = true;
+                }
+            }
+            if (card.cardID.equals(Corruption.ID)) {
+                if (AbstractDungeon.player.hasRelic(DeadBranch.ID)) {
+                    addSuperMultiple = true;
                 }
             }
             if (card.cardID.equals(DemonForm.ID) || card.cardID.equals(PhantasmalKiller.ID)) {
@@ -207,9 +231,107 @@ public class GrantedAction extends AbstractGameAction {
                     addToList = false;
                 }
             }
-
+            if (card.cardID.equals(Amplify.ID)) {
+                int numPowers = 0;
+                for (AbstractCard handCard : AbstractDungeon.player.hand.group) {
+                    if (handCard.type == AbstractCard.CardType.POWER) {
+                        numPowers++;
+                    }
+                }
+                if (numPowers >= 2 && EnergyPanel.getCurrentEnergy() >= 2) {
+                    addMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(Fission.ID) || card.cardID.equals(BiasedCognition.ID)) {
+                int orbCount = 0;
+                for (AbstractOrb orb : AbstractDungeon.player.orbs) {
+                    if (!(orb instanceof EmptyOrbSlot)) {
+                        orbCount++;
+                    }
+                }
+                if (orbCount >= 4) {
+                    addSuperMultiple = true;
+                } else if (orbCount >= 2) {
+                    addMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(MultiCast.ID)) {
+                int orbCount = 0;
+                for (AbstractOrb orb : AbstractDungeon.player.orbs) {
+                    if (!(orb instanceof EmptyOrbSlot)) {
+                        orbCount++;
+                    }
+                }
+                if (orbCount >= 1 && AbstractDungeon.player.hasRelic(ChemicalX.ID)) {
+                    addSuperMultiple = true;
+                } else if (orbCount < 1) {
+                   addToList = false;
+                }
+            }
+            if (card.cardID.equals(Rainbow.ID)) {
+                if (AbstractDungeon.player.maxOrbs < 3) {
+                    addToList = false;
+                }
+            }
+            if (addToList) {
+                ArrayList<AbstractCard> finalList;
+                if (card.type == AbstractCard.CardType.ATTACK) {
+                    finalList = rareCardsAttack;
+                } else if (card.type == AbstractCard.CardType.SKILL) {
+                    finalList = rareCardsSkill;
+                } else {
+                    finalList = rareCardsPower;
+                }
+                if (addSuperMultiple) {
+                    for (int i = 0; i < 5; i++) {
+                        finalList.add(card);
+                        System.out.println(card.name);
+                    }
+                } else if (addMultiple) {
+                    for (int i = 0; i < 3; i++) {
+                        finalList.add(card);
+                        System.out.println(card.name);
+                    }
+                } else {
+                    finalList.add(card);
+                    System.out.println(card.name);
+                }
+            }
         }
-        this.tickDuration();
+        AbstractCard attackResult = null;
+        AbstractCard skillResult = null;
+        AbstractCard powerResult = null;
+        if (!rareCardsAttack.isEmpty()) {
+            attackResult = rareCardsAttack.get(AbstractDungeon.cardRandomRng.random(rareCardsAttack.size() - 1));
+        }
+        if (!rareCardsSkill.isEmpty()) {
+            skillResult = rareCardsSkill.get(AbstractDungeon.cardRandomRng.random(rareCardsSkill.size() - 1));
+        }
+        if (!rareCardsPower.isEmpty()) {
+            powerResult = rareCardsPower.get(AbstractDungeon.cardRandomRng.random(rareCardsPower.size() - 1));
+        }
+        if (attackResult == null) {
+            attackResult = rareCardsSkill.get(AbstractDungeon.cardRandomRng.random(rareCardsSkill.size() - 1));
+            while (attackResult.cardID.equals(skillResult.cardID)) {
+                attackResult = rareCardsSkill.get(AbstractDungeon.cardRandomRng.random(rareCardsSkill.size() - 1));
+            }
+        }
+        if (powerResult == null) {
+            powerResult = rareCardsSkill.get(AbstractDungeon.cardRandomRng.random(rareCardsSkill.size() - 1));
+            while (powerResult.cardID.equals(skillResult.cardID) || powerResult.cardID.equals(attackResult.cardID)) {
+                powerResult = rareCardsSkill.get(AbstractDungeon.cardRandomRng.random(rareCardsSkill.size() - 1));
+            }
+        }
+        ArrayList<AbstractCard> chosenCards = new ArrayList<>();
+        chosenCards.add(attackResult);
+        chosenCards.add(skillResult);
+        chosenCards.add(powerResult);
+        AbstractDungeon.actionManager.addToTop(new FlexibleDiscoveryAction(chosenCards));
+        this.isDone = true;
     }
 
     private float checkAttackDamageRatio() {

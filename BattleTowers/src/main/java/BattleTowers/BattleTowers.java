@@ -294,5 +294,6 @@ public class BattleTowers implements
         BaseMod.addCard(new CursedTapestry());
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
+        BaseMod.addCard(new Granted());
     }
 }

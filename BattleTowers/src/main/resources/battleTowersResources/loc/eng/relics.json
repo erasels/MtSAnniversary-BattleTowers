@@ -70,6 +70,13 @@
     "DESCRIPTIONS": [
       "Whenever you lose HP, ALL enemies also lose twice that much HP."
     ]
+  },
+  "${ModID}:DijinnLamp": {
+    "NAME": "Dijinn Lamp",
+    "FLAVOR": "As you rub it, you can feel the faintest echoes of infinite power.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yWish #yGranted into your draw pile."
+    ]
   }
 }
 
