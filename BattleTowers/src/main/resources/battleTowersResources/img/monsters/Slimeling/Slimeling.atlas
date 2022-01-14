@@ -1,0 +1,41 @@
+
+Slimeling.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shadow
+  rotate: false
+  xy: 1, 92
+  size: 101, 30
+  orig: 102, 30
+  offset: 0, 0
+  index: -1
+body
+  rotate: false
+  xy: 1, 1
+  size: 74, 47
+  orig: 74, 47
+  offset: 0, 0
+  index: -1
+eyeShadow
+  rotate: false
+  xy: 77, 1
+  size: 28, 17
+  orig: 28, 17
+  offset: 0, 0
+  index: -1
+eyes
+  rotate: false
+  xy: 77, 20
+  size: 11, 11
+  orig: 11, 11
+  offset: 0, 0
+  index: -1
+hat
+  rotate: false
+  xy: 1, 50
+  size: 84, 40
+  orig: 90, 42
+  offset: 3, 1
+  index: -1

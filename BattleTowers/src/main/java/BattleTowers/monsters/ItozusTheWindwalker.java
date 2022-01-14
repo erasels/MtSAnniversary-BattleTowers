@@ -1,6 +1,8 @@
 package BattleTowers.monsters;
 
 import BattleTowers.cards.Chilled;
+import BattleTowers.powers.GatheringStormPower;
+import BattleTowers.powers.ProtectedPower;
 import BattleTowers.powers.TemporaryDeEnergizePower;
 import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +18,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.EnemyData;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.powers.watcher.EnergyDownPower;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
@@ -63,10 +66,10 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
 
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
-        addMove(AIRCUTTER,Intent.ATTACK,16);
+        addMove(AIRCUTTER,Intent.ATTACK,calcAscensionDamage(12));
         addMove(BREWINGSTORM,Intent.DEFEND_BUFF);
-        addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,4,2);
-        addMove(FLURRYOFBLOWS,Intent.ATTACK,5,4);
+        addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2);
+        addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4);
         addMove(DEATHTOUCH,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -78,12 +81,14 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
         // we set the enemy type here so the calcAscensionMethods are called after the enemy type is set
         this.type = EnemyType.ELITE;
     }
-
+    public void usePreBattleAction() {
+       addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
+    }
     @Override
     public void takeTurn() {
         //Automatically grabs the damage values and number of hits value from the moves hashmap based on the currently set move
         DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
-
+        GatheringStormPower Flurry = (GatheringStormPower) this.getPower(GatheringStormPower.POWER_ID);
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
@@ -94,18 +99,46 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
             case AIRCUTTER: {
                 addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
+                if (Flurry != null){
+                    Flurry.GatherPower();
+                    Flurry.flash();
+                    addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2+Flurry.amount2);
+                    addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4+Flurry.amount2);
+                } else addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
                 break;
             }
             case BREWINGSTORM:{
-                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 2)));
-                addToBot(new GainBlockAction(this,8));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, calcAscensionSpecial(2))));
+                addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
+                if (Flurry != null){
+                    Flurry.amount += 1;
+                    Flurry.GatherPower();
+                    Flurry.flash();
+                    addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2+Flurry.amount2);
+                    addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4+Flurry.amount2);
+                    Flurry.updateDescription();
+                } else addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
                 break;
             }
             case STORMSTRIKE:{
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
+                if (Flurry.amount2 >0){
+                    for (int i = 0; i < Flurry.amount2; i++){
+                        if (i%2 != 0) {
+                            addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                        } else {
+                            addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
+                            addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
+                        }
+                    }
+                    Flurry.Storm();
+                    Flurry.flash();
+                    addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2);
+                    addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4);
+                }
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, calcAscensionSpecial(2), true)));
                 break;
             }
             case FLURRYOFBLOWS: {
@@ -115,14 +148,32 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
+                if (Flurry.amount2 >0){
+                    for (int i = 0; i < Flurry.amount2; i++){
+                        addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                    }
+                    Flurry.Storm();
+                    Flurry.flash();
+                    addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2);
+                    addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4);
+                }
                 break;
             }
             case DEATHTOUCH:{
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, 3, true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 3, true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DrawReductionPower(AbstractDungeon.player,3)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new TemporaryDeEnergizePower(AbstractDungeon.player,3)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DrawReductionPower(AbstractDungeon.player,calcAscensionSpecial(3))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new TemporaryDeEnergizePower(AbstractDungeon.player,calcAscensionSpecial(3))));
+                if (Flurry != null){
+                    Flurry.GatherPower();
+                    Flurry.flash();
+                    addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2+Flurry.amount2);
+                    addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4+Flurry.amount2);
+                } else addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
             }
+        }
+        if (Flurry != null) {
+            Flurry.updateDescription();
         }
         addToBot(new RollMoveAction(this));
     }
@@ -139,18 +190,18 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
             possibilities.add(BREWINGSTORM);
         }
 
-        if (!this.lastMove(FLURRYOFBLOWS) && !lastMoveBefore(FLURRYOFBLOWS) && !this.lastMove(STORMSTRIKE)) {
+        if (!this.lastMove(FLURRYOFBLOWS) && (lastMove(DEATHTOUCH) || lastMove(AIRCUTTER))) {
             possibilities.add(FLURRYOFBLOWS);
         }
         //lastMove returns True if the move being passed was the most recently used move.
-        if (!lastMoveBefore(AIRCUTTER) && (lastMove(STORMSTRIKE)||lastMove(BREWINGSTORM))){
+        if (!lastMove(AIRCUTTER)){
             possibilities.add(AIRCUTTER);
         }
 
-        if (!this.lastMove(STORMSTRIKE)) {
+        if (!this.lastMove(STORMSTRIKE) && (lastMove(DEATHTOUCH) || lastMove(AIRCUTTER))) {
             possibilities.add(STORMSTRIKE);
         }
-        if (this.lastMove(STORMSTRIKE) || this.lastMove(FLURRYOFBLOWS) || lastMove(AIRCUTTER)) {
+        if (this.lastMove(BREWINGSTORM) || this.lastMove(FLURRYOFBLOWS) || lastMove(AIRCUTTER)) {
             possibilities.add(DEATHTOUCH);
         }
         //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
@@ -179,5 +230,11 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
 
     }
 
-
+    public AbstractGameAction.AttackEffect getAttackEffectForMultiHit(){
+        ArrayList<AbstractGameAction.AttackEffect> Effects = new ArrayList<>();
+        Effects.add(AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+        Effects.add(AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+        Effects.add(AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
+        return Effects.get(AbstractDungeon.miscRng.random(Effects.size()-1));
+    }
 }

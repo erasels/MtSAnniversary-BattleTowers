@@ -27,6 +27,27 @@
       "[Fight your way to Japan]"
     ]
   },
+  "${ModID}:EmeraldFlame": {
+    "NAME": "Emerald Flame",
+    "DESCRIPTIONS": [
+      "You happen upon a group of what looks like #bblue #bfire #bspirits ~dancing~ around a large bonfire. NL ",
+      "The spirits toss small bones and fragments into the #gfire, which ~brilliantly~ ~erupts~ each time. NL As you approach, the spirits all turn to you, expectantly... NL ",
+      "They also are eyeing one of your #yrelics...",
+      "You toss your card into the bonfire and grab a piece of #gkindling. The card @bursts,@ and its ashes ~swirl~ around the torch you grabbed! NL NL ",
+      "It burns a #gbright #gemerald and is embedded with the power of your offering. NL NL You notice that it starts to fade very slowly as you walk away...",
+      "Choose a Card",
+      "The #bspirits immediately toss your ",
+      " into the #gbonfire. NL NL @They@ @revel@ @as@ @it@ @bursts@ @into@ @flames!@ NL NL ...You decide it's best to take your leave."
+    ],
+    "OPTIONS": [
+      "[Offer: ",
+      "] #rLose #rthis #rrelic. #gChoose #ga #grare #gCard #gto #gobtain.",
+      "[Offer a Card] #rLose #r",
+      " #rHP. Receive a reward based on the offer.",
+      "Select a Card to Offer.",
+      "[Leave]"
+    ]
+  },
   "${ModID}:OttoEvent": {
     "NAME": "A Game for a Golem",
     "DESCRIPTIONS": [
@@ -51,7 +72,7 @@
   "${ModID}:BannerSageEvent": {
     "NAME": "The Banner Sage",
     "DESCRIPTIONS": [
-      "Oddly enough, this Battle Tower houses a small shopping distrct. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
+      "Oddly enough, this Battle Tower houses a small shopping district. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
       "Never before have you seen such delicate craftsmanship! You simply must have this gorgeous war banner on offer, and happily pay the price. River thanks you for your patronage as you and your new incredible banner continue up the tower.",
       "River seems like a tough opponent, but with the other customers here, you realize he couldn't risk leaving his wares in the open. There's nothing stopping you from grabbing one and running, and that thought is just too tempting. NL NL As you make haste with your new banner in hand, the fabric becomes excruciating to touch! Suddenly, the cloth changes from a vibrant warm color to a harsh deep purple, and where once was an embroidered image now lies a horribly inked skull. It appears the Giant had some protection on his wares after all.",
       "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse for awhile, but then continue up the Battle Tower."
@@ -80,6 +101,21 @@
       "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
       "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
       "[Leave]"
+    ]
+  },
+  "${ModID}:GenieLamp": {
+    "NAME": "A Wish",
+    "DESCRIPTIONS": [
+      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" ~Make~ ~your~ ~wish.~ \", the #pephemeral #pvisage stares at you.",
+      "\" ~Knowledge~ ~in~ ~abundance~ .\" With those words, the #pspirit disappears.",
+      "\" ~Wealth~ ~attracts~ ~greed~ .\" With those words, the #pspirit disappears.",
+      "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \"Exchanging one prison for another.\""
+    ],
+    "OPTIONS": [
+      "[Knowledge] #yRecieve #ya #yspecial #ycard #ythat #yduplicates #ycards #yin #yyour #ydeck.",
+      "[Wealth] #gReceive #g%d #gGold. #rThe #rnext #ritem #ris #rmore #rexpensive.",
+      "[Freedom] #rLeave #rthe #rtower.",
+      "Continue."
     ]
   }
 }
