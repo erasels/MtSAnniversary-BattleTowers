@@ -130,6 +130,12 @@ public class BattleTowers implements
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
+        BaseMod.addMonster(Encounters.KiteLouses,  () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new KiteLouse(-450.0F, 200.0F, false),
+                        new KiteLouse(-100.0F, 150.0F, true),
+                        new KiteLouse(150.0F, 175.0F, true),
+                }));
 
         //Elites
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);

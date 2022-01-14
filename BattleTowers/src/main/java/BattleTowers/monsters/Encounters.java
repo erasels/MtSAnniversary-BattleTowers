@@ -7,4 +7,5 @@ public class Encounters {
     public static final String ICE_AND_FIRE_SLIME = makeID("SlimeOfIceAndFire");
     public static final String METAL_LOUSES = makeID("Metal_Louses");
     public static final String ELEMENTAL_SENTRIES = makeID("Elemental_Sentries");
+    public static final String KiteLouses = makeID("3_Kite_Louse");
 }
