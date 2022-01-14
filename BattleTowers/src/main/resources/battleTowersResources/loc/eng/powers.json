@@ -5,6 +5,19 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:OnusPower": {
+    "NAME": "Onus",
+    "DESCRIPTIONS": [
+      "At the end of your turn, put your hand onto the top of your draw pile."
+    ]
+  },
+  "${ModID}:ExpendablePower": {
+    "NAME": "Expendable",
+    "DESCRIPTIONS": [
+      "At the end of its turn, loses #b",
+      " HP."
+    ]
+  },
   "${ModID}:CardEaterPower": {
     "NAME": "Card Eater",
     "DESCRIPTIONS": [

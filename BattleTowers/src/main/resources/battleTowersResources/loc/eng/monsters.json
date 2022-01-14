@@ -29,6 +29,31 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:ExecutiveSlime": {
+    "MOVES": [
+      "Onus",
+      "Outrage",
+      "Onus",
+      "Rough Swipe",
+      "Slime Splash",
+      "Swarm",
+      "Preparing",
+      "Punishment"
+    ],
+    "NAME": "Executive Slime",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Slimeling": {
+    "MOVES": [
+      "Tackle",
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Slimeling",
+    "DIALOG": [
+    ]
+  },
   "${ModID}:Dijinn": {
     "MOVES": [
       "Empower",
