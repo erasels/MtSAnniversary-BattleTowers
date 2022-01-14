@@ -1,8 +1,11 @@
 package BattleTowers.events;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.blights.GreedBlight;
 import BattleTowers.cards.Knowledge;
 import BattleTowers.events.phases.TextPhase;
+import BattleTowers.events.phases.WrappedEventPhase;
+import BattleTowers.patches.EventWrapping;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -20,7 +23,7 @@ public class GenieLampEvent extends PhasedEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String title = eventStrings.NAME;
 
-    private static final int GOLD_GAIN = 250;
+    private static final int GOLD_GAIN = 200;
 
     public GenieLampEvent() {
         super(title, BattleTowers.makeImagePath("events/GenieLamp.png"));
@@ -32,13 +35,20 @@ public class GenieLampEvent extends PhasedEvent {
                 .addOption(String.format(OPTIONS[1], getGoldGain()), (i)->{transitionKey("Wealth");
                     AbstractDungeon.effectList.add(new RainingGoldEffect(getGoldGain()));
                     AbstractDungeon.player.gainGold(getGoldGain());
-                    //TODO: Add blight that makes next shop item bought 5x mroe expensive
+                    AbstractDungeon.getCurrRoom().spawnBlightAndObtain((Settings.WIDTH / 2f), (Settings.HEIGHT / 2f), new GreedBlight());
                 })
-                .addOption(OPTIONS[2], (i)->transitionKey("Freedom")));
+                .addOption(OPTIONS[2], (i)-> {transitionKey("Freedom");
+                    CardCrawlGame.sound.play("POWER_ENTANGLED", 0.05F);
+                }));
         registerPhase("Knowledge", new TextPhase(DESCRIPTIONS[1]).addOption(OPTIONS[3], (t)->this.openMap()));
         registerPhase("Wealth", new TextPhase(DESCRIPTIONS[2]).addOption(OPTIONS[3], (t)->this.openMap()));
-        //TODO, exit tower and maybe whoosh sound effect
-        registerPhase("Freedom", new TextPhase(DESCRIPTIONS[3]).addOption(OPTIONS[3], (t)->this.openMap()));
+        registerPhase("Freedom", new TextPhase(DESCRIPTIONS[3]).addOption(OPTIONS[3], (t)-> {
+            WrappedEventPhase wrapper = EventWrapping.Field.wrapper.get(this);
+            if (wrapper != null) {
+                wrapper.followupKey = null;
+            }
+            this.openMap();
+        }));
 
         transitionKey(0);
     }
