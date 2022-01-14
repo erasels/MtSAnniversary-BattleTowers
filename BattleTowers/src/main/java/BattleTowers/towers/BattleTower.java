@@ -134,11 +134,11 @@ public class BattleTower {
 
         contents.add(new TowerContents("Default")
                 .addNormalEncounter(Encounters.METAL_LOUSES)
-                .addNormalEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addNormalEncounter(Encounters.ICE_AND_FIRE_SLIME)
                 .addNormalEncounter(DoomedSoul.ID)
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
+                .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addEliteEncounter(VoodooDoll.ID)
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
