@@ -4,6 +4,7 @@ import BattleTowers.BattleTowers;
 import BattleTowers.events.phases.TextPhase;
 import BattleTowers.relics.Torch;
 import BattleTowers.util.UC;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -16,44 +17,31 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class NewBonfireEvent extends PhasedEvent {
-    public static final String ID = makeID("NewBonfireEvent");
+public class EmeraldFlame extends PhasedEvent {
+    public static final String ID = makeID("EmeraldFlame");
     private static final EventStrings eventStrings = CardCrawlGame.languagePack.getEventString(ID);
     private static final String[] DESCRIPTIONS = eventStrings.DESCRIPTIONS;
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String title = eventStrings.NAME;
 
     private AbstractRelic relicChoice;
+    private int hpLoss;
 
-    public NewBonfireEvent() {
+    public EmeraldFlame() {
         super(title, BattleTowers.makeImagePath("events/bonfire.png"));
 
         ArrayList<AbstractRelic> relics = new ArrayList<>();
         relics.addAll(UC.p().relics);
         Collections.shuffle(relics, new Random(AbstractDungeon.miscRng.randomLong()));
         this.relicChoice = relics.get(0);
+        this.hpLoss = MathUtils.round(UC.p().maxHealth * 0.05F);
 
-        //set up event
-        registerPhase(0, new TextPhase(DESCRIPTIONS[0] + DESCRIPTIONS[1] + DESCRIPTIONS[2]).addOption(OPTIONS[0] + FontHelper.colorString(relicChoice.name, "y") + OPTIONS[1], (i)->transitionKey("Relic")).addOption(OPTIONS[2], (i)->transitionKey("Card")));
-        registerPhase("AfterRelic", new TextPhase(DESCRIPTIONS[4] + FontHelper.colorString(relicChoice.name, "y") + DESCRIPTIONS[5]).addOption(OPTIONS[4], (t)->this.openMap()));
-        registerPhase("AfterCard", new TextPhase(DESCRIPTIONS[6]).addOption(OPTIONS[4], (t)->this.openMap()));
-
-        registerPhase("Relic", new TextPhase(DESCRIPTIONS[7]).addOption(OPTIONS[5] + FontHelper.colorString(relicChoice.name, "y"), (i)->{
-            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
-            AbstractDungeon.player.loseRelic(relicChoice.relicId);
-            AbstractDungeon.getCurrRoom().baseRareCardChance = 1000; //Always give rares
-            AbstractDungeon.combatRewardScreen.open(DESCRIPTIONS[8]);
-            transitionKey("AfterRelic");
-        }));
-
-        registerPhase("Card", new TextPhase(DESCRIPTIONS[3])
+        registerPhase(0, new TextPhase(DESCRIPTIONS[0] + DESCRIPTIONS[1] + DESCRIPTIONS[2])
         {
             @Override
             public void update() {
@@ -62,14 +50,25 @@ public class NewBonfireEvent extends PhasedEvent {
                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2), (Settings.HEIGHT / 2), new Torch(c));
                     AbstractDungeon.gridSelectScreen.selectedCards.clear();
                     AbstractDungeon.topLevelEffects.add(new PurgeCardEffect(c, (Settings.WIDTH / 2), (Settings.HEIGHT / 2)));
-                    AbstractDungeon.player.masterDeck.removeCard(c);
+                    UC.p().masterDeck.removeCard(c);
+                    UC.p().damage(new DamageInfo(null, hpLoss));
                     transitionKey("AfterCard");
                 }
             }
-        }.addOption(OPTIONS[3], (i)->{
-            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
-            AbstractDungeon.gridSelectScreen.open(AbstractDungeon.player.masterDeck.getPurgeableCards(), 1, OPTIONS[2], false, false, false, true);
-        }));
+        }
+            .addOption(OPTIONS[0] + relicChoice.name + OPTIONS[1], (i)->{
+                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
+                UC.p().loseRelic(relicChoice.relicId);
+                AbstractDungeon.getCurrRoom().baseRareCardChance = 1000; //Always give rares
+                AbstractDungeon.combatRewardScreen.open(DESCRIPTIONS[5]);
+                transitionKey("AfterRelic");
+            })
+            .addOption(OPTIONS[2] + hpLoss + OPTIONS[3], (i)->{
+                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
+                AbstractDungeon.gridSelectScreen.open(UC.p().masterDeck.getPurgeableCards(), 1, OPTIONS[4], false, false, false, true);
+            }));
+        registerPhase("AfterRelic", new TextPhase(DESCRIPTIONS[6] + FontHelper.colorString(relicChoice.name, "y") + DESCRIPTIONS[7]).addOption(OPTIONS[5], (t)->this.openMap()));
+        registerPhase("AfterCard", new TextPhase(DESCRIPTIONS[3] + DESCRIPTIONS[4]).addOption(OPTIONS[5], (t)->this.openMap()));
 
         transitionKey(0);
     }

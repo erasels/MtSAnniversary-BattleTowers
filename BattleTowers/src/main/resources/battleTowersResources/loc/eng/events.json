@@ -27,24 +27,24 @@
       "[Fight your way to Japan]"
     ]
   },
-  "${ModID}:NewBonfireEvent": {
-    "NAME": "An Event",
+  "${ModID}:EmeraldFlame": {
+    "NAME": "Emerald Flame",
     "DESCRIPTIONS": [
       "You happen upon a group of what looks like #bblue #bfire #bspirits ~dancing~ around a large bonfire. NL ",
-      "The spirits toss small bones and fragments into the fire, which ~brilliantly~ ~erupts~ each time. NL As you approach, the spirits all turn to you, expectantly... NL ",
+      "The spirits toss small bones and fragments into the #gfire, which ~brilliantly~ ~erupts~ each time. NL As you approach, the spirits all turn to you, expectantly... NL ",
       "They also are eyeing one of your #yrelics...",
-      "You decide to hold on to your relic and offer up a card instead.",
-      "You toss your ",
-      " into the bonfire, and carefully grab a torch.",
-      "The torch burns a #gbright #ggreen and is embedded with the power of your offering. NL NL ...But was it worth it?",
-      "You offer up your #yrelic...",
-      "Choose a Card"
+      "You toss your card into the bonfire and grab a piece of #gkindling. The card @bursts,@ and its ashes ~swirl~ around the torch you grabbed! NL NL ",
+      "It burns a #gbright #gemerald and is embedded with the power of your offering. NL NL You notice that it starts to fade very slowly as you walk away...",
+      "Choose a Card",
+      "The #bspirits immediately toss your ",
+      " into the #gbonfire. NL NL @They@ @revel@ @as@ @it@ @bursts@ @into@ @flames!@ NL NL ...You decide it's best to take your leave."
     ],
     "OPTIONS": [
       "[Offer: ",
       "] #rLose #rthis #rrelic. #gChoose #ga #grare #gCard #gto #gobtain.",
-      "Keep your relic.",
-      "[Offer] Receive a reward based on the offer.",
+      "[Offer a Card] #rLose #r",
+      " #rHP. Receive a reward based on the offer.",
+      "Select a Card to Offer.",
       "[Leave]",
       "Give "
     ]

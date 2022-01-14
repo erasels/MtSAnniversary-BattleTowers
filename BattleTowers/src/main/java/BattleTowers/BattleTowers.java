@@ -3,9 +3,8 @@ package BattleTowers;
 import BattleTowers.cards.*;
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.events.NewBonfireEvent;
+import BattleTowers.events.EmeraldFlame;
 import BattleTowers.events.OttoEvent;
-import BattleTowers.events.PotOfGoldEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.relics.*;
@@ -142,7 +141,7 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(NewBonfireEvent.ID, NewBonfireEvent.class, "");
+        BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
     }
