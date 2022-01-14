@@ -3,6 +3,7 @@ package BattleTowers.powers;
 import BattleTowers.powers.abstracts.AbstractBTPower;
 import BattleTowers.powers.abstracts.PowerRemovalNotifier;
 import BattleTowers.util.UC;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -32,7 +33,7 @@ public class KiteFlightPower extends AbstractBTPower {
     }
 
     public void updateDescription() {
-        this.description = String.format(DESCRIPTIONS[0],damageReduction*100);
+        this.description = String.format(DESCRIPTIONS[0], MathUtils.round(damageReduction*100));
     }
 
     public float atDamageFinalReceive(float damage, DamageInfo.DamageType type) {
