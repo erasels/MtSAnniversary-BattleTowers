@@ -121,7 +121,33 @@ public class InvisibleIntentDisplayer extends AbstractBTMonster {
         refreshIntentHbLocation();
         createIntent();
     }
+    public void setIntent(Intent type, int number, int multiplier) {
+        shouldRenderIntent = true;
+        if (number > -1) {
+            if (multiplier > 0){
+                this.setMove((byte) 0, type, number,multiplier,true);
+            } else this.setMove((byte) 0, type, number);
+        } else {
+            this.setMove((byte) 0, type);
+        }
+        lastKnownType = type;
+        refreshIntentHbLocation();
+        createIntent();
+    }
 
+    public void updateIntent(int number, int multiplier){
+
+        shouldRenderIntent = true;
+        if (number > -1) {
+            if (multiplier > 0){
+                this.setMove((byte) 0,  lastKnownType, number,multiplier,true);
+            } else this.setMove((byte) 0,  lastKnownType, number);
+        } else {
+            this.setMove((byte) 0, lastKnownType);
+        }
+        refreshIntentHbLocation();
+        createIntent();
+    }
     public void hideIntent() {
         flashIntent();
 

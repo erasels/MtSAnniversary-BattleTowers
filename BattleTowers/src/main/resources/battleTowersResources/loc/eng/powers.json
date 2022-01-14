@@ -105,5 +105,26 @@
       "Lose [E] at the start of your next #b",
       " turns."
     ]
+  },
+  "${ModID}:GatheringStormPower": {
+    "NAME": "Gathering Storm",
+    "DESCRIPTIONS": [
+      "When this enemy doesn't attack or attacks once, its next multihit will hit #b",
+      " Extra time.", " Extra times"
+    ]
+  },
+  "${ModID}:BurnPower": {
+    "NAME": "Burned",
+    "DESCRIPTIONS": [
+      "At the end of your turn take #b",
+      " damage and reduce this by #b1."
+    ]
+  },
+  "${ModID}:JudgementPower": {
+    "NAME": "Judgement",
+    "DESCRIPTIONS": [
+      "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
+      " NL Judgement is increased by half of unblocked damage taken."
+    ]
   }
 }
