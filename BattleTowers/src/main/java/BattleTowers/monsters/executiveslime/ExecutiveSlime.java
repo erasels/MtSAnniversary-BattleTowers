@@ -236,6 +236,16 @@ public class ExecutiveSlime extends AbstractBTMonster
         }
     }
 
+    public void die() {
+        super.die();
+
+        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+            if (!m.isDeadOrEscaped() && m instanceof ExecutiveMinion) {
+                AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
+            }
+        }
+    }
+
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
