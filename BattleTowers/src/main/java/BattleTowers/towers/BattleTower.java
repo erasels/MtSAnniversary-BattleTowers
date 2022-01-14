@@ -138,6 +138,7 @@ public class BattleTower {
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
                 .addEliteEncounter(ItozusTheWindwalker.ID)
+                .addEliteEncounter(ZastraszTheJusticar.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)

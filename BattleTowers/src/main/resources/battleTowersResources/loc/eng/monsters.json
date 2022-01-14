@@ -74,6 +74,16 @@
     ],
     "NAME": "Itozus the Windwalker"
   },
+  "${ModID}:ZastraszTheJusticar": {
+    "MOVES": [
+      "Divine Smite",
+      "Solemn Vigil",
+      "Judgement of Justice",
+      "Divine Storm",
+      "Trial by Fire"
+    ],
+    "NAME": "Zastrasz the Justicar"
+  },
   "${ModID}:GoldenLouse": {
     "MOVES": [
       "Bite",
