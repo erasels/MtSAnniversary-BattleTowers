@@ -45,8 +45,7 @@
       "[Offer a Card] #rLose #r",
       " #rHP. Receive a reward based on the offer.",
       "Select a Card to Offer.",
-      "[Leave]",
-      "Give "
+      "[Leave]"
     ]
   },
   "${ModID}:OttoEvent": {

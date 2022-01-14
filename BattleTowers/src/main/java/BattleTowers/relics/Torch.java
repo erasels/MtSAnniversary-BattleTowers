@@ -47,14 +47,18 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
 
     @Override
     public void atBattleStart() {
-        flash();
-        UC.atb(new RelicAboveCreatureAction(UC.p(), this));
-        if(AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
-            UC.atb(new MakeTempCardInDrawPileAction(card.makeCopy(), 2, true, true));
+        if(card != null) {
+            flash();
+            UC.atb(new RelicAboveCreatureAction(UC.p(), this));
+            if (AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+                UC.atb(new MakeTempCardInDrawPileAction(card.makeCopy(), 2, true, true));
+            } else {
+                UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
+            }
+            resetDescriptionAndTooltip();
         } else {
-            UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
+            System.err.print("Err: Torch card is null\n");
         }
-        resetDescriptionAndTooltip();
     }
 
     @Override
@@ -78,7 +82,10 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
 
     @Override
     public CardSave onSave() {
-        return new CardSave(card.cardID, card.timesUpgraded, card.misc);
+        if(card != null) {
+            return new CardSave(card.cardID, card.timesUpgraded, card.misc);
+        }
+        return null;
     }
 
     @Override
