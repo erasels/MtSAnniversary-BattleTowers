@@ -1,5 +1,6 @@
 package BattleTowers.monsters;
 
+import BattleTowers.BattleTowers;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -33,10 +34,6 @@ public class InvisibleIntentDisplayer extends AbstractBTMonster {
     public static final String ID = makeID(ExampleMonster.class.getSimpleName());
 
     //name of the monster's moves
-    private static final byte STASIS = 0;
-    private static final byte DAMAGE = 1;
-    private static final byte BLOCK = 2;
-    private static final byte STRENGTH = 3;
 
     Intent lastKnownType;
 
@@ -54,10 +51,7 @@ public class InvisibleIntentDisplayer extends AbstractBTMonster {
         setHp(calcAscensionTankiness(36), calcAscensionTankiness(42));
 
 
-        addMove(STASIS, Intent.STRONG_DEBUFF);
-        addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
-        addMove(STRENGTH, Intent.BUFF);
+
     }
 
     @Override
@@ -106,6 +100,7 @@ public class InvisibleIntentDisplayer extends AbstractBTMonster {
             this.setMove((byte) 0, type);
         }
         lastKnownType = type;
+        BattleTowers.logger.info(lastKnownType);
         refreshIntentHbLocation();
         createIntent();
     }
@@ -114,9 +109,9 @@ public class InvisibleIntentDisplayer extends AbstractBTMonster {
 
         shouldRenderIntent = true;
         if (number > -1) {
-            this.setMove((byte) 0, lastKnownType, number);
+            this.setMove(nextMove, lastKnownType, number);
         } else {
-            this.setMove((byte) 0, lastKnownType);
+            this.setMove(nextMove, lastKnownType);
         }
         refreshIntentHbLocation();
         createIntent();
