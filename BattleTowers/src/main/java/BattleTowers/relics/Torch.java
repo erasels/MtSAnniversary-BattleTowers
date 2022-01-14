@@ -55,7 +55,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
             } else {
                 UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
             }
-            resetDescriptionAndTooltip();
+            resetDescriptionAndTooltip(); //Do this again here in case of save and reload in combat
         } else {
             System.err.print("Err: Torch card is null\n");
         }
