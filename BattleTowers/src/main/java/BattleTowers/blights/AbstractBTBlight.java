@@ -17,7 +17,7 @@ public class AbstractBTBlight extends AbstractBlight {
         super(id, "", "", "", true);
 
         STRINGS = CardCrawlGame.languagePack.getRelicStrings(id);
-        description = getDescription();
+        updateDescription();
         name = STRINGS.NAME;
 
         imgUrl = textureString + ".png";
@@ -37,9 +37,6 @@ public class AbstractBTBlight extends AbstractBlight {
         img = TextureLoader.getTexture(BattleTowers.makeRelicPath("used/" + imgUrl));
     }
 
-    private static String getDescription() {
-        return STRINGS.DESCRIPTIONS[0];
-    }
     private static String getUsedUpMsg() {
         return STRINGS.DESCRIPTIONS[1];
     }
