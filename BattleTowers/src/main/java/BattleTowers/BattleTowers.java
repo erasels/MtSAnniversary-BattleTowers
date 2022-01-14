@@ -1,10 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.cards.*;
-import BattleTowers.events.BannerSageEvent;
-import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.events.EmeraldFlame;
-import BattleTowers.events.OttoEvent;
+import BattleTowers.events.*;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
@@ -148,6 +145,7 @@ public class BattleTowers implements
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
     }
 
     @Override
@@ -300,5 +298,6 @@ public class BattleTowers implements
         BaseMod.addCard(new CursedTapestry());
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
+        BaseMod.addCard(new Knowledge());
     }
 }

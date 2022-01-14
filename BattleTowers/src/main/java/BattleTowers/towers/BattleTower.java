@@ -2,6 +2,7 @@ package BattleTowers.towers;
 
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.EmeraldFlame;
+import BattleTowers.events.GenieLampEvent;
 import BattleTowers.events.OttoEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
@@ -143,6 +144,7 @@ public class BattleTower {
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
+                .addEvent(GenieLampEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
