@@ -261,7 +261,7 @@
       "Break",
       "Gore"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Minotaur Gladiator"
   },
   "${ModID}:BurningShambler": {
     "MOVES": [
@@ -269,6 +269,6 @@
       "Bonfire",
       "Rush"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Burning Shambler"
   }
 }
