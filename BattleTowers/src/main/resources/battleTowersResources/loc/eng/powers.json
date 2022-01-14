@@ -5,6 +5,13 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:SuperRitualPower": {
+    "NAME": "Super Ritual",
+    "DESCRIPTIONS": [
+      "At the end of its turn, gains #b",
+      " #yStrength and #yDexterity."
+    ]
+  },
   "${ModID}:CardEaterPower": {
     "NAME": "Card Eater",
     "DESCRIPTIONS": [
