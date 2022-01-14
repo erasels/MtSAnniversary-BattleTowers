@@ -9,7 +9,9 @@ import com.megacrit.cardcrawl.cards.blue.AllForOne;
 import com.megacrit.cardcrawl.cards.blue.Amplify;
 import com.megacrit.cardcrawl.cards.blue.BiasedCognition;
 import com.megacrit.cardcrawl.cards.blue.Buffer;
+import com.megacrit.cardcrawl.cards.blue.Electrodynamics;
 import com.megacrit.cardcrawl.cards.blue.Fission;
+import com.megacrit.cardcrawl.cards.blue.Hyperbeam;
 import com.megacrit.cardcrawl.cards.blue.MultiCast;
 import com.megacrit.cardcrawl.cards.blue.Rainbow;
 import com.megacrit.cardcrawl.cards.blue.ThunderStrike;
@@ -94,7 +96,7 @@ public class GrantedAction extends AbstractGameAction {
                     addToList = false;
                 }
             }
-            if (card.cardID.equals(Immolate.ID) || card.cardID.equals(DieDieDie.ID) || card.cardID.equals(CorpseExplosion.ID)) {
+            if (card.cardID.equals(Immolate.ID) || card.cardID.equals(DieDieDie.ID) || card.cardID.equals(CorpseExplosion.ID) || card.cardID.equals(Hyperbeam.ID) || card.cardID.equals(Electrodynamics.ID)) {
                 int numAlive = 0;
                 for (AbstractMonster mo :AbstractDungeon.getCurrRoom().monsters.monsters) {
                     if (!mo.isDeadOrEscaped()) {
@@ -138,7 +140,7 @@ public class GrantedAction extends AbstractGameAction {
                         numAttacks++;
                     }
                 }
-                if (numAttacks >= 2 && EnergyPanel.getCurrentEnergy() >= 2) {
+                if (numAttacks >= 2 && EnergyPanel.getCurrentEnergy() >= 3) {
                     addMultiple = true;
                 } else {
                     addToList = false;
@@ -206,7 +208,7 @@ public class GrantedAction extends AbstractGameAction {
                         numSkills++;
                     }
                 }
-                if (numSkills >= 2 && EnergyPanel.getCurrentEnergy() >= 2) {
+                if (numSkills >= 2 && EnergyPanel.getCurrentEnergy() >= 3) {
                     addMultiple = true;
                 } else {
                     addToList = false;
