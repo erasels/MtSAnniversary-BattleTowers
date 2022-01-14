@@ -7,6 +7,10 @@
     "NAME": "Blank Card",
     "DESCRIPTION": ""
   },
+  "${ModID}:Granted": {
+    "NAME": "Wish Granted",
+    "DESCRIPTION": "*Wish for the PERFECT Rare card to add to your hand. NL Exhaust."
+  },
   "${ModID}:DijinnWrath": {
     "NAME": "Dijinn's Wrath",
     "DESCRIPTION": "The enemy ",
