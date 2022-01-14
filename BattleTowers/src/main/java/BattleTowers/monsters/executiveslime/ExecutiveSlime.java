@@ -26,7 +26,6 @@ import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static BattleTowers.BattleTowers.makeID;
