@@ -110,13 +110,6 @@ public class BattleTowers implements
                         new GoldenLouse(-150.0F, 0.0F),
                         new SilverLouse(100.0F, 0.0F),
                 }));
-        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
-                new AbstractMonster[] {
-                        new SentryRed(-500.0F, 25.0F),
-                        new SentryGreen(-320.0F, 10.0F),
-                        new SentryPurple(-140.0F, 30.0F),
-                        new SentryHuge(140.0F, 0.0F)
-                }));
         BaseMod.addMonster(Encounters.ICE_AND_FIRE_SLIME, () -> new MonsterGroup(
                 new AbstractMonster[]{
                         new FireSlimeL(-385.0F, 20.0F),
@@ -131,6 +124,13 @@ public class BattleTowers implements
                 }));
 
         //Elites
+        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SentryRed(-500.0F, 25.0F),
+                        new SentryGreen(-320.0F, 10.0F),
+                        new SentryPurple(-140.0F, 30.0F),
+                        new SentryHuge(140.0F, 0.0F)
+                }));
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
