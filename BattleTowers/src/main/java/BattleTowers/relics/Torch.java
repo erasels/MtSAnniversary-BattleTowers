@@ -64,11 +64,14 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     @Override
     public String getUpdatedDescription() {
         if(!CardCrawlGame.isInARun() || card == null)  {
+            this.flavorText = relicStrings.FLAVOR;
             return DESCRIPTIONS[4];
         }
         if(AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+            this.flavorText = relicStrings.FLAVOR;
             return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
         } else {
+            this.flavorText = DESCRIPTIONS[5];
             return DESCRIPTIONS[2] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[3];
         }
     }

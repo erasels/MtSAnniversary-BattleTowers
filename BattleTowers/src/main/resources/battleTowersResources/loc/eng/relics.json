@@ -52,13 +52,14 @@
   },
   "${ModID}:Torch": {
     "NAME": "Torch",
-    "FLAVOR": "A simple torch that glows with green fire. It seems to weaken the further it travels.",
+    "FLAVOR": "A simple torch that glows with an emerald fire. It seems to weaken the further it travels.",
     "DESCRIPTIONS": [
       "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
       " into your draw pile.",
       "At the start each combat, shuffle #b2 copies of ",
       " into your discard pile.",
-      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile."
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
+      "It's just a stick."
       ]
   },
   "${ModID}:Lucky": {
