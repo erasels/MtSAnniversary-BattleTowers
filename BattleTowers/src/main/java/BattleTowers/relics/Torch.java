@@ -26,7 +26,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     public AbstractCard card = null;
 
     public Torch() {
-        super(ID, UC.getTexture("relics", "torch"), UC.getTexture("relics", "torch_outline"), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, UC.getTexture("relics", "Torch"), UC.getTexture("relics", "Torch_Outline"), RelicTier.SPECIAL, LandingSound.FLAT);
     }
 
     public Torch(AbstractCard card) {
@@ -38,9 +38,9 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     @Override
     public void onEnterRoom(AbstractRoom room) {
         if(AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
-            setTextureOutline(UC.getTexture("relics", "torch"), UC.getTexture("relics", "torch_outline"));
+            setTextureOutline(UC.getTexture("relics", "Torch"), UC.getTexture("relics", "Torch_Outline"));
         } else {
-            setTextureOutline(UC.getTexture("relics", "unlitTorch"), UC.getTexture("relics", "unlitTorch_outline"));
+            setTextureOutline(UC.getTexture("relics", "UnlitTorch"), UC.getTexture("relics", "UnlitTorch_Outline"));
         }
         resetDescriptionAndTooltip();
     }
