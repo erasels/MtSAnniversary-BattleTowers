@@ -135,6 +135,7 @@ public class BattleTower {
                 .addNormalEncounter(DoomedSoul.ID)
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
+                .addNormalEncounter(tneisnarT.ID)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addEliteEncounter(VoodooDoll.ID)
                 .addEliteEncounter(Gorgon.ID)

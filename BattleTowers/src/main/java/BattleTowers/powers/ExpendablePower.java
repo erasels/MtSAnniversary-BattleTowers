@@ -30,6 +30,7 @@ public class ExpendablePower extends AbstractPower implements HealthBarRenderPow
         this.owner = owner;
         this.source = source;
         this.type = PowerType.DEBUFF;
+        this.isTurnBased = false;
         BattleTowers.LoadPowerImage(this);
         this.amount = amount;
         this.skip = skip;
