@@ -22,7 +22,16 @@ import com.megacrit.cardcrawl.cards.green.GrandFinale;
 import com.megacrit.cardcrawl.cards.green.PhantasmalKiller;
 import com.megacrit.cardcrawl.cards.green.StormOfSteel;
 import com.megacrit.cardcrawl.cards.green.WraithForm;
+import com.megacrit.cardcrawl.cards.purple.Brilliance;
+import com.megacrit.cardcrawl.cards.purple.ConjureBlade;
+import com.megacrit.cardcrawl.cards.purple.DeusExMachina;
+import com.megacrit.cardcrawl.cards.purple.Establishment;
+import com.megacrit.cardcrawl.cards.purple.Judgement;
 import com.megacrit.cardcrawl.cards.purple.LessonLearned;
+import com.megacrit.cardcrawl.cards.purple.MasterReality;
+import com.megacrit.cardcrawl.cards.purple.Ragnarok;
+import com.megacrit.cardcrawl.cards.purple.Scrawl;
+import com.megacrit.cardcrawl.cards.purple.SpiritShield;
 import com.megacrit.cardcrawl.cards.red.Barricade;
 import com.megacrit.cardcrawl.cards.red.Corruption;
 import com.megacrit.cardcrawl.cards.red.DemonForm;
@@ -41,6 +50,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.orbs.Lightning;
+import com.megacrit.cardcrawl.powers.MinionPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.relics.ChemicalX;
 import com.megacrit.cardcrawl.relics.DeadBranch;
@@ -78,7 +88,7 @@ public class GrantedAction extends AbstractGameAction {
                 addToList = true;
             }
             if (card.cardID.equals(Feed.ID) || card.cardID.equals(LessonLearned.ID)) {
-                if (isLethal(cardCopy)) {
+                if (isLethal(card)) {
                     addSuperMultiple = true;
                 } else {
                     addToList = false;
@@ -149,7 +159,7 @@ public class GrantedAction extends AbstractGameAction {
                     addToList = false;
                 }
             }
-            if (card.cardID.equals(LimitBreak.ID)) {
+            if (card.cardID.equals(LimitBreak.ID) || card.cardID.equals(Ragnarok.ID)) {
                 if ((AbstractDungeon.player.hasPower(StrengthPower.POWER_ID) && AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount >= 4)) {
                     addMultiple = true;
                 } else {
@@ -277,6 +287,64 @@ public class GrantedAction extends AbstractGameAction {
                     addToList = false;
                 }
             }
+            if (card.cardID.equals(Brilliance.ID)) {
+                if (AbstractDungeon.actionManager.mantraGained >= 10) {
+                    addMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(ConjureBlade.ID)) {
+                if (EnergyPanel.getCurrentEnergy() >= 3 && AbstractDungeon.player.hasRelic(ChemicalX.ID)) {
+                    addSuperMultiple = true;
+                } else if (EnergyPanel.getCurrentEnergy() >= 3) {
+                    addMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(DeusExMachina.ID) || card.cardID.equals(MasterReality.ID)) {
+                addToList = false;
+            }
+            if (card.cardID.equals(Judgement.ID)) {
+                boolean foundLethal = false;
+                for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                    if (!mo.isDeadOrEscaped()) {
+                        if (mo.currentHealth <= card.magicNumber) {
+                            foundLethal = true;
+                        }
+                    }
+                }
+                if (foundLethal) {
+                    addSuperMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(Scrawl.ID)) {
+                if (!(AbstractDungeon.player.hand.size() <= 3 && EnergyPanel.getCurrentEnergy() >= 2)) {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(SpiritShield.ID)) {
+                if (AbstractDungeon.player.hand.size() >= 5 && totalDamage - AbstractDungeon.player.currentBlock >= 20) {
+                    addMultiple = true;
+                } else if (AbstractDungeon.player.hand.size() >= 7 && totalDamage - AbstractDungeon.player.currentBlock >= 30) {
+                    addSuperMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(Establishment.ID)) {
+                if (checkRetainRatio() >= 0.5f) {
+                    addSuperMultiple = true;
+                } else if (checkRetainRatio() >= 0.3f) {
+                    addMultiple = true;
+                } else {
+                    addToList = false;
+                }
+            }
+
             if (addToList) {
                 ArrayList<AbstractCard> finalList;
                 if (card.type == AbstractCard.CardType.ATTACK) {
@@ -287,12 +355,12 @@ public class GrantedAction extends AbstractGameAction {
                     finalList = rareCardsPower;
                 }
                 if (addSuperMultiple) {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 10; i++) {
                         finalList.add(card);
                         System.out.println(card.name);
                     }
                 } else if (addMultiple) {
-                    for (int i = 0; i < 3; i++) {
+                    for (int i = 0; i < 5; i++) {
                         finalList.add(card);
                         System.out.println(card.name);
                     }
@@ -354,6 +422,16 @@ public class GrantedAction extends AbstractGameAction {
         return (float)num0CostCards / AbstractDungeon.player.masterDeck.size();
     }
 
+    private float checkRetainRatio() {
+        int numRetainCards = 0;
+        for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
+            if (card.selfRetain) {
+                numRetainCards++;
+            }
+        }
+        return (float)numRetainCards / AbstractDungeon.player.masterDeck.size();
+    }
+
     private void getInfo() {
         totalDamage = 0;
         numHits = 0;
@@ -381,7 +459,7 @@ public class GrantedAction extends AbstractGameAction {
         int baseDamage = card.baseDamage;
         DamageInfo info = new DamageInfo(AbstractDungeon.player, baseDamage);
         for (AbstractMonster mo : AbstractDungeon.getCurrRoom().monsters.monsters) {
-            if (!mo.isDeadOrEscaped()) {
+            if (!mo.isDeadOrEscaped() && !mo.hasPower(MinionPower.POWER_ID)) {
                 info.applyPowers(AbstractDungeon.player, mo);
                 if (info.output >= mo.currentHealth + mo.currentBlock) {
                     return true;
