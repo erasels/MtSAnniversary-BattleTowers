@@ -50,6 +50,18 @@
       "#gGain #gSnecko #gWar #gBanner."
     ]
   },
+  "${ModID}:Torch": {
+    "NAME": "Torch",
+    "FLAVOR": "A simple torch that glows with an emerald fire. It seems to weaken the further it travels.",
+    "DESCRIPTIONS": [
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
+      " into your draw pile.",
+      "At the start each combat, shuffle #b2 copies of ",
+      " into your discard pile.",
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
+      "It's just a stick."
+      ]
+  },
   "${ModID}:Lucky": {
     "NAME": "Lucky",
     "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
@@ -71,11 +83,11 @@
       "Whenever you lose HP, ALL enemies also lose twice that much HP."
     ]
   },
-  "${ModID}:DijinnLamp": {
-    "NAME": "Dijinn Lamp",
-    "FLAVOR": "As you rub it, you can feel the faintest echoes of infinite power.",
+  "${ModID}:GreedBlight": {
+    "NAME": "Curse of Greed",
+    "FLAVOR": "Wealth attracts greed.",
     "DESCRIPTIONS": [
-      "At the start of combat, shuffle a #yWish #yGranted into your draw pile."
+      "Relics at shops cost #b%dx more #ygold."
     ]
   }
 }

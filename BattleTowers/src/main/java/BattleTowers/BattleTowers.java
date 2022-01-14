@@ -1,12 +1,10 @@
 package BattleTowers;
 
 import BattleTowers.cards.*;
-import BattleTowers.events.BannerSageEvent;
-import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.events.OttoEvent;
-import BattleTowers.events.PotOfGoldEvent;
+import BattleTowers.events.*;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -32,6 +30,7 @@ import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -109,13 +108,6 @@ public class BattleTowers implements
                         new GoldenLouse(-150.0F, 0.0F),
                         new SilverLouse(100.0F, 0.0F),
                 }));
-        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
-                new AbstractMonster[] {
-                        new SentryRed(-500.0F, 25.0F),
-                        new SentryGreen(-320.0F, 10.0F),
-                        new SentryPurple(-140.0F, 30.0F),
-                        new SentryHuge(140.0F, 0.0F)
-                }));
         BaseMod.addMonster(Encounters.ICE_AND_FIRE_SLIME, () -> new MonsterGroup(
                 new AbstractMonster[]{
                         new FireSlimeL(-385.0F, 20.0F),
@@ -128,22 +120,33 @@ public class BattleTowers implements
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
+        BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
 
         //Elites
+        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SentryRed(-500.0F, 25.0F),
+                        new SentryGreen(-320.0F, 10.0F),
+                        new SentryPurple(-140.0F, 30.0F),
+                        new SentryHuge(140.0F, 0.0F)
+                }));
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
+        BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
+        BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
     }
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
-        BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
+        BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
     }
 
     @Override
@@ -269,10 +272,12 @@ public class BattleTowers implements
         BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
+        BaseMod.addRelic(new Torch(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(Torch.ID);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
-        }
+    }
         
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
@@ -295,5 +300,6 @@ public class BattleTowers implements
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
         BaseMod.addCard(new Granted());
+        BaseMod.addCard(new Knowledge());
     }
 }

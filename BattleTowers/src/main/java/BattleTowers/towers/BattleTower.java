@@ -1,22 +1,20 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.BannerSageEvent;
+import BattleTowers.events.EmeraldFlame;
+import BattleTowers.events.GenieLampEvent;
 import BattleTowers.events.OttoEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.events.shrines.PurificationShrine;
-import com.megacrit.cardcrawl.events.shrines.Transmogrifier;
-import com.megacrit.cardcrawl.events.shrines.UpgradeShrine;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeUIPath;
 
 public class BattleTower {
@@ -133,18 +131,23 @@ public class BattleTower {
 
         contents.add(new TowerContents("Default")
                 .addNormalEncounter(Encounters.METAL_LOUSES)
-                .addNormalEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addNormalEncounter(Encounters.ICE_AND_FIRE_SLIME)
                 .addNormalEncounter(DoomedSoul.ID)
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
+                .addNormalEncounter(tneisnarT.ID)
+                .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addEliteEncounter(VoodooDoll.ID)
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
                 .addEliteEncounter(ItozusTheWindwalker.ID)
+                .addEliteEncounter(ZastraszTheJusticar.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
+                .addEvent(EmeraldFlame.ID)
+                .addEvent(GenieLampEvent.ID)
                 .addBoss(CardboardGolem.ID)
+                .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
         );
     }

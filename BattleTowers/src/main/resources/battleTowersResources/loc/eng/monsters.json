@@ -29,6 +29,39 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:ExecutiveSlime": {
+    "MOVES": [
+      "Onus",
+      "Outrage",
+      "Onus",
+      "Rough Swipe",
+      "Slime Splash",
+      "Swarm",
+      "Preparing",
+      "Punishment"
+    ],
+    "NAME": "Executive Slime",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Slimeling": {
+    "MOVES": [
+      "Tackle",
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Slimeling",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "tneisnarT",
+    "DIALOG": [
+    ]
+  },
   "${ModID}:Dijinn": {
     "MOVES": [
       "Empower",
@@ -73,6 +106,16 @@
       "Deathtouch"
     ],
     "NAME": "Itozus the Windwalker"
+  },
+  "${ModID}:ZastraszTheJusticar": {
+    "MOVES": [
+      "Divine Smite",
+      "Solemn Vigil",
+      "Judgement of Justice",
+      "Divine Storm",
+      "Trial by Fire"
+    ],
+    "NAME": "Zastrasz the Justicar"
   },
   "${ModID}:GoldenLouse": {
     "MOVES": [
@@ -218,7 +261,7 @@
       "Break",
       "Gore"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Minotaur Gladiator"
   },
   "${ModID}:BurningShambler": {
     "MOVES": [
@@ -226,6 +269,6 @@
       "Bonfire",
       "Rush"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Burning Shambler"
   }
 }
