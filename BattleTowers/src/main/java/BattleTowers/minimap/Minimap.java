@@ -12,10 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MathHelper;
-import com.megacrit.cardcrawl.helpers.TipHelper;
+import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -605,6 +602,10 @@ public class Minimap {
             return type;
         }
 
+        public boolean canVisit() {
+            return available.contains(this) || Settings.isDebug;
+        }
+
         public boolean update() {
             showPreviewIfHovered();
             highlighted = false;
@@ -629,7 +630,7 @@ public class Minimap {
                     }
                 }
 
-                if (available.contains(this)) {
+                if (canVisit()) {
                     if (this.hb.hovered) {
                         if (this.hb.justHovered) {
                             playNodeHoveredSound();
@@ -640,12 +641,15 @@ public class Minimap {
                             clicked = false;
                             clickTimer = 0;
 
-                            AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
-                            if (!Settings.FAST_MODE) {
+                            if (Settings.FAST_MODE) {
+                                transitionWaitTimer = 0.1F;
+                            }
+                            else {
+                                transitionWaitTimer = 0.5F;
+                                AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
-                            transitionWaitTimer = 0.3F;
                             nextNode = this;
                             interactable = false;
                         }
@@ -733,9 +737,7 @@ public class Minimap {
         protected void showPreviewIfHovered() {
             List<BattleTower.NodeType> previewTypes = Arrays.asList(BattleTower.NodeType.MONSTER, BattleTower.NodeType.ELITE, BattleTower.NodeType.BOSS);
             if (this.hb.hovered && previewTypes.contains(this.type)) {
-                String fightPreviewText = uiStrings.TEXT_DICT.containsKey(removeModId(this.getKey()))
-                        ? uiStrings.TEXT_DICT.get(removeModId(this.getKey()))
-                        : CardCrawlGame.languagePack.getMonsterStrings(this.getKey()).NAME;
+                String fightPreviewText = MonsterHelper.getEncounterName(this.getKey());
                 TipHelper.renderGenericTip(this.cx + this.getPreviewTooltipXOffset(), this.cy + offsetY, uiStrings.TEXT[0], fightPreviewText);
             }
         }
@@ -850,7 +852,7 @@ public class Minimap {
                     this.color.lerp(NOT_TAKEN_COLOR, Gdx.graphics.getDeltaTime() * 8.0F);
                 }
 
-                if (available.contains(this) && this.hb.hovered && clicked) {
+                if (canVisit() && this.hb.hovered && clicked) {
                     clicked = false;
                     clickTimer = 0;
 
