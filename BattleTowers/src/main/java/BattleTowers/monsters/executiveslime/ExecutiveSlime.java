@@ -26,6 +26,7 @@ import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -233,6 +234,16 @@ public class ExecutiveSlime extends AbstractBTMonster
                     break;
             }
             ++numTurns;
+        }
+    }
+
+    public void die() {
+        super.die();
+
+        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+            if (!m.isDeadOrEscaped() && m instanceof ExecutiveMinion) {
+                AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
+            }
         }
     }
 
