@@ -134,7 +134,7 @@ public class BattleTowers implements
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
-
+        BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
@@ -273,6 +273,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
         }
         
     public static String removeModId(String id) {

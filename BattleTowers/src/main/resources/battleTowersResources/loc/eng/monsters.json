@@ -89,6 +89,16 @@
     ],
     "NAME": "Gorgon"
   },
+  "${ModID}:ItozusTheWindwalker": {
+    "MOVES": [
+      "Aircuter",
+      "Brewing Storm",
+      "Stormstrike",
+      "Flurry of Blows",
+      "Deathtouch"
+    ],
+    "NAME": "Itozus the Windwalker"
+  },
   "${ModID}:GoldenLouse": {
     "MOVES": [
       "Bite",
