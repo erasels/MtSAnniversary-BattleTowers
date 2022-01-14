@@ -17,12 +17,12 @@ import static BattleTowers.BattleTowers.logger;
 
 public class WrappedEventPhase extends ImageEventPhase {
     private PhasedEvent event;
-    private Object followupKey = null;
     private final String eventKey;
     private boolean imageEvent = true;
 
     private AbstractEvent baseEvent = null;
 
+    public Object followupKey = null;
     public WrappedEventPhase(String eventKey) {
         this.eventKey = eventKey;
     }

@@ -82,6 +82,13 @@
     "DESCRIPTIONS": [
       "Whenever you lose HP, ALL enemies also lose twice that much HP."
     ]
+  },
+  "${ModID}:GreedBlight": {
+    "NAME": "Curse of Greed",
+    "FLAVOR": "Wealth attracts greed.",
+    "DESCRIPTIONS": [
+      "Relics at shops cost #b%dx more #ygold."
+    ]
   }
 }
 

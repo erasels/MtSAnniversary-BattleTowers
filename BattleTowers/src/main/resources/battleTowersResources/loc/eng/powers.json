@@ -146,5 +146,11 @@
       "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
       " NL Judgement is increased by half of unblocked damage taken."
     ]
+  },
+  "${ModID}:KiteFlightPower": {
+    "NAME": "Glide",
+    "DESCRIPTIONS": [
+      "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
+    ]
   }
 }
