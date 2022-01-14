@@ -87,7 +87,7 @@ public class TrenchcoatOrb extends AbstractBTMonster {
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(STASIS, Intent.STRONG_DEBUFF);
         addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8), 1, false);
         addMove(STRENGTH, Intent.BUFF);
     }
 

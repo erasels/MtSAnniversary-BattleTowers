@@ -92,13 +92,28 @@ public class Trenchcoat extends AbstractBTMonster {
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(STASIS, Intent.STRONG_DEBUFF);
         addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8), 1, false);
         addMove(STRENGTH, Intent.BUFF);
         addMove(SPLIT, Intent.UNKNOWN);
 
+        firstOne.addMove(STASIS, Intent.STRONG_DEBUFF);
+        firstOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
+        firstOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        firstOne.addMove(STRENGTH, Intent.BUFF);
+
+        secondOne.addMove(STASIS, Intent.STRONG_DEBUFF);
+        secondOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
+        secondOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        secondOne.addMove(STRENGTH, Intent.BUFF);
+
         this.splitTriggered = false;
 
-        this.powers.add(new TrenchcoatPower(this));
+    }
+
+    @Override
+    public void usePreBattleAction() {
+        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,20), 20));
+
     }
 
     @Override
@@ -270,7 +285,7 @@ public class Trenchcoat extends AbstractBTMonster {
 
         boolean forceRightToChange = false;
 
-        if (splitTriggered == false) {
+        if (!splitTriggered) {
             for (int i = 0; i < 2; i++) {
                 InvisibleIntentDisplayer inviso;
                 if (i == 0) {
@@ -328,8 +343,8 @@ public class Trenchcoat extends AbstractBTMonster {
     @Override
     public void applyPowers() {
         super.applyPowers();
-        if (splitTriggered == false) {
-            int damage;
+        if (!splitTriggered) {
+            int damagemodified;
 
             for (int i = 0; i < 2; i++) {
                 InvisibleIntentDisplayer inviso;
@@ -344,23 +359,23 @@ public class Trenchcoat extends AbstractBTMonster {
                     info.applyPowers(this, AbstractDungeon.player);
                 }
 
-                damage = info.output;
-                if (this.nextMove == STRENGTH) damage++;
-                if (i == 1 && firstOne.nextMove == STRENGTH) damage++;
+                damagemodified = info.output;
+                if (this.nextMove == STRENGTH) damagemodified++;
+                if (i == 1 && firstOne.nextMove == STRENGTH) damagemodified++;
 
-                inviso.updateIntent(info.output);
+                inviso.updateIntent(damagemodified);
 
             }
         }
     }
 
-    public void damage(DamageInfo info) {
-        super.damage(info);
+    public void topple() {
 
-        if ((!this.isDying) && (info.output >= 20) && (this.nextMove != SPLIT) && (!this.splitTriggered)) {
+        if ((!this.isDying) && (this.nextMove != SPLIT) && (!this.splitTriggered)) {
 
             setMove(MOVES[SPLIT], SPLIT, Intent.UNKNOWN);
             createIntent();
+            addToBot(new RemoveSpecificPowerAction(this, this, TrenchcoatPower.POWER_ID));
             addToBot(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.INTERRUPTED));
             addToBot(new SetMoveAction(this, MOVES[SPLIT], SPLIT, Intent.UNKNOWN));
             firstOne.setIntent(Intent.UNKNOWN, 0);
