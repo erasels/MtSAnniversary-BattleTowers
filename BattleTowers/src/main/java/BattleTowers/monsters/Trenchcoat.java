@@ -251,7 +251,14 @@ public class Trenchcoat extends AbstractBTMonster {
                 possibilities.add(STRENGTH);
             }
         } else {
-            possibilities.add(STASIS);
+
+            setMoveShortcut(STASIS, MOVES[STASIS]);
+            firstOne.setIntent(Intent.STRONG_DEBUFF,0);
+            firstOne.recordMove(STASIS);
+            secondOne.setIntent(Intent.STRONG_DEBUFF,0);
+            secondOne.recordMove(STASIS);
+            this.firstMove = false;
+            return;
         }
 
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
@@ -271,7 +278,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 } else {
                     inviso = secondOne;
                 }
-                if (!firstMove) {
+
                     if (i == 1 && forceRightToChange) {
                         if (leftmove == BLOCK) {
                             possibilities.add(STRENGTH);
@@ -296,9 +303,7 @@ public class Trenchcoat extends AbstractBTMonster {
                             possibilities.add(STRENGTH);
                         }
                     }
-                } else {
-                    possibilities.add(STASIS);
-                }
+
 
                 move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
                 if (i == 0 && move == leftmove) forceRightToChange = true;
@@ -318,7 +323,6 @@ public class Trenchcoat extends AbstractBTMonster {
             }
         }
 
-        firstMove = false;
     }
 
     @Override
