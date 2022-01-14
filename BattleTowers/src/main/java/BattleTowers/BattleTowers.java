@@ -3,8 +3,8 @@ package BattleTowers;
 import BattleTowers.cards.*;
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
+import BattleTowers.events.EmeraldFlame;
 import BattleTowers.events.OttoEvent;
-import BattleTowers.events.PotOfGoldEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.relics.*;
@@ -32,6 +32,7 @@ import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -141,9 +142,9 @@ public class BattleTowers implements
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
-        BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
+        BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
     }
 
     @Override
@@ -269,10 +270,12 @@ public class BattleTowers implements
         BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
+        BaseMod.addRelic(new Torch(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(Torch.ID);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
-        }
+    }
         
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
