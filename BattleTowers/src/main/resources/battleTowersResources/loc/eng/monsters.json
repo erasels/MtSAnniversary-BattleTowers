@@ -262,5 +262,14 @@
       "Rush"
     ],
     "NAME": "Giga Slime"
+  },
+  "${ModID}:KiteLouse": {
+    "MOVES": [
+      "Fly-by",
+      "Draw Back!",
+      "Dive Tackle",
+      "Cannonball Drop"
+    ],
+    "NAME": "Terror of the Skies"
   }
 }
