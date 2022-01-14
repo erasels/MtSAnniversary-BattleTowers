@@ -6,6 +6,7 @@ import BattleTowers.events.OttoEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.random.Random;
@@ -143,6 +144,7 @@ public class BattleTower {
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
                 .addBoss(CardboardGolem.ID)
+                .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
         );
     }
