@@ -85,6 +85,6 @@
   },
   "${ModID}:SlimeElixir": {
     "NAME": "Slime Elixir",
-    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a Slimed into your draw pile. NL Exhaust."
+    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a *Slimed into your draw pile. NL Exhaust."
   }
 }
