@@ -27,6 +27,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.purple.Alpha;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -323,6 +324,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
+        BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
