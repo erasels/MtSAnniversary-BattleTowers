@@ -4,6 +4,7 @@ import BattleTowers.BattleTowers;
 import BattleTowers.cards.DijinnCards.DijinnWrath;
 import BattleTowers.cards.DijinnCards.MakeAWish;
 import BattleTowers.powers.MakeAWishPower;
+import BattleTowers.relics.DijinnLamp;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.TalkAction;
@@ -25,7 +26,6 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
 
 import java.util.ArrayList;
@@ -72,13 +72,7 @@ public class Dijinn extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new MakeAWishPower(this, wishCount)));
-        ArrayList<AbstractCard> rewardCard = new ArrayList<>();
-        RewardItem reward = new RewardItem();
-        reward.cards = rewardCard;
-        for (AbstractCard c : reward.cards) {
-            UnlockTracker.markCardAsSeen(c.cardID);
-        }
-        AbstractDungeon.getCurrRoom().addCardReward(reward);
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new DijinnLamp()));
     }
 
     @Override

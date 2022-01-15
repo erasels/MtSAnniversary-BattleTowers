@@ -14,6 +14,8 @@ import com.megacrit.cardcrawl.cards.blue.Fission;
 import com.megacrit.cardcrawl.cards.blue.Hyperbeam;
 import com.megacrit.cardcrawl.cards.blue.MultiCast;
 import com.megacrit.cardcrawl.cards.blue.Rainbow;
+import com.megacrit.cardcrawl.cards.blue.Reboot;
+import com.megacrit.cardcrawl.cards.blue.Seek;
 import com.megacrit.cardcrawl.cards.blue.ThunderStrike;
 import com.megacrit.cardcrawl.cards.green.BulletTime;
 import com.megacrit.cardcrawl.cards.green.Burst;
@@ -220,9 +222,9 @@ public class GrantedAction extends AbstractGameAction {
                 }
             }
             if (card.cardID.equals(AllForOne.ID)) {
-                if ((check0CostCardRatio() >= 0.5f)) {
+                if ((check0CostCardsInDiscard() >= 4)) {
                     addSuperMultiple = true;
-                } else if ((check0CostCardRatio() >= 0.25f)) {
+                } else if ((check0CostCardsInDiscard() >= 2)) {
                     addMultiple = true;
                 } else {
                     addToList = false;
@@ -279,13 +281,18 @@ public class GrantedAction extends AbstractGameAction {
                     }
                 }
                 if (orbCount >= 1 && AbstractDungeon.player.hasRelic(ChemicalX.ID)) {
-                    addSuperMultiple = true;
+                    addMultiple = true;
                 } else if (orbCount < 1) {
                    addToList = false;
                 }
             }
             if (card.cardID.equals(Rainbow.ID)) {
                 if (AbstractDungeon.player.maxOrbs < 3) {
+                    addToList = false;
+                }
+            }
+            if (card.cardID.equals(Seek.ID) || card.cardID.equals(Reboot.ID)) {
+                if (EnergyPanel.getCurrentEnergy() < 2) {
                     addToList = false;
                 }
             }
@@ -414,14 +421,14 @@ public class GrantedAction extends AbstractGameAction {
         return (float)numAttackCards / AbstractDungeon.player.masterDeck.size();
     }
 
-    private float check0CostCardRatio() {
+    private int check0CostCardsInDiscard() {
         int num0CostCards = 0;
-        for (AbstractCard card : AbstractDungeon.player.masterDeck.group) {
+        for (AbstractCard card : AbstractDungeon.player.discardPile.group) {
             if (card.costForTurn == 0) {
                 num0CostCards++;
             }
         }
-        return (float)num0CostCards / AbstractDungeon.player.masterDeck.size();
+        return num0CostCards;
     }
 
     private float checkRetainRatio() {

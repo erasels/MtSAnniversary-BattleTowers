@@ -3,7 +3,6 @@ package BattleTowers.monsters;
 import BattleTowers.BattleTowers;
 import BattleTowers.cards.Prick;
 import BattleTowers.powers.FeelMyPainPower;
-import BattleTowers.relics.CardboardHeart;
 import BattleTowers.relics.CursedDoll;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;

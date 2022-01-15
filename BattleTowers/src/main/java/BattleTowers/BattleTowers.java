@@ -276,6 +276,7 @@ public class BattleTowers implements
         UnlockTracker.markRelicAsSeen(Torch.ID);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
     }
         
