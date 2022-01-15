@@ -3,6 +3,7 @@ package BattleTowers.relics;
 import BattleTowers.util.TextureLoader;
 import BattleTowers.util.UC;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.graphics.Color;
@@ -26,7 +27,7 @@ import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
 import static BattleTowers.util.UC.*;
 
-public class AlphabetSoup extends CustomRelic {
+public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
     public static final String ID = makeID(AlphabetSoup.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
@@ -79,5 +80,15 @@ public class AlphabetSoup extends CustomRelic {
         else {
             return DESCRIPTIONS[1] + letter + DESCRIPTIONS[2] + letter + DESCRIPTIONS[3];
         }
+    }
+
+    @Override
+    public String onSave() {
+        return letter;
+    }
+
+    @Override
+    public void onLoad(String s) {
+        setLetter(s);
     }
 }
