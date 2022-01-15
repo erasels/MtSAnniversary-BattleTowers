@@ -1,10 +1,13 @@
 package BattleTowers;
 
+import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.chess.queen.Queen;
+import BattleTowers.monsters.chess.queen.customintents.QueenDrainIntent;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
@@ -124,6 +127,8 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
+        CustomIntent.add(new QueenDrainIntent());
+
         //Normal Enemies
         BaseMod.addMonster(Encounters.METAL_LOUSES,  () -> new MonsterGroup(
                 new AbstractMonster[] {
@@ -179,6 +184,8 @@ public class BattleTowers implements
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
+        BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
+
     }
 
     private static void addEvents() {
@@ -325,6 +332,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
         BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
+        BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
+        BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
@@ -349,5 +358,7 @@ public class BattleTowers implements
         BaseMod.addCard(new DarkEnchantment());
         BaseMod.addCard(new Granted());
         BaseMod.addCard(new Knowledge());
+        BaseMod.addCard(new AvertYourGaze());
+        BaseMod.addCard(new SlimeElixir());
     }
 }
