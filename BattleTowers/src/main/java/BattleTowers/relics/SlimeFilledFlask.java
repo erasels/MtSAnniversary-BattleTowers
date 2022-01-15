@@ -4,6 +4,7 @@ import BattleTowers.cards.SlimeElixir;
 import BattleTowers.util.TextureLoader;
 import basemod.ReflectionHacks;
 import basemod.abstracts.CustomRelic;
+import basemod.helpers.CardPowerTip;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
@@ -27,6 +28,7 @@ public class SlimeFilledFlask extends CustomRelic {
 
     public SlimeFilledFlask() {
         super(ID, TextureLoader.getTexture(makeRelicPath(SlimeFilledFlask.class.getSimpleName() + ".png")), TextureLoader.getTexture(makeRelicPath("outline/" + SlimeFilledFlask.class.getSimpleName() + ".png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        this.tips.add(new CardPowerTip(new SlimeElixir()));
     }
 
     @Override
