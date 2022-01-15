@@ -353,7 +353,11 @@ public class ArmorerEvent extends PhasedEvent {
                     this.screenNum = 4;
                 } else {
                     this.imageEventText.setDialogOption(OPTIONS[1] + OPTIONS[3]);
-                    this.imageEventText.setDialogOption(OPTIONS[2] + OPTIONS[3]);
+                    if (AbstractDungeon.player.gold >= 40) {
+                        this.imageEventText.setDialogOption(OPTIONS[2] + OPTIONS[3]);
+                    } else {
+                        this.imageEventText.setDialogOption(OPTIONS[8], true);
+                    }
                     this.imageEventText.setDialogOption(OPTIONS[6]);
                     if (numberOfTimesUsed == 1) {
                         this.imageEventText.updateBodyText(DESCRIPTIONS[17]);

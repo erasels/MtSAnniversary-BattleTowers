@@ -32,7 +32,7 @@
   },
   "${ModID}:Chilled": {
     "NAME": "Chilled",
-    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E], then draw !M! card."
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E] , then draw !M! card."
   },
   "${ModID}:QueensGrace": {
     "NAME": "Queen's Grace",

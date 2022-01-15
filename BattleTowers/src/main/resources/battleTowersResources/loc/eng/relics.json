@@ -73,7 +73,7 @@
     "NAME": "Lucky",
     "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
     "DESCRIPTIONS": [
-      "At the start of the Boss combat of this Battle Tower, gain 2 #yStrength and 2 #yDexterity."
+      "At the start of the Boss combat of this Battle Tower, gain 1 #yStrength and 1 #yDexterity."
     ]
   },
   "${ModID}:IronPotHelmet": {

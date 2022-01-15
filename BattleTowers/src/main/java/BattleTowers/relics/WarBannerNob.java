@@ -18,7 +18,7 @@ import static BattleTowers.BattleTowers.makeRelicPath;
 public class WarBannerNob extends CustomRelic {
     public static final String ID = makeID(WarBannerNob.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
-    private static final int ENRG_AMT = 3, VULN_AMT = 2;
+    private static final int ENRG_AMT = 3, VULN_AMT = 1;
 
     public WarBannerNob() {
         super(ID, TextureLoader.getTexture(makeRelicPath("WarBannerNob.png")), RelicTier.SPECIAL, LandingSound.FLAT);
