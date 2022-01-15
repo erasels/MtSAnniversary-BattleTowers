@@ -1,0 +1,18 @@
+{
+  "${ModID}:MonsterLightning": {
+    "NAME": "Lightning",
+    "DESCRIPTION": [
+      "#yPassive: At the end of turn, Book of Spelling deals #b",
+      " damage to you. NL #yEvoke: Book of Spelling deals #b",
+      " damage to you."
+    ]
+  },
+  "${ModID}:MonsterFrost": {
+    "NAME": "Frost",
+    "DESCRIPTION": [
+      "#yPassive: At the end of turn, Book of Spelling gains #b",
+      " #yBlock. NL #yEvoke: Book of Spelling gains #b",
+      " #yBlock."
+    ]
+  }
+}

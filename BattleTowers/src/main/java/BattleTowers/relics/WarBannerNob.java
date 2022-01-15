@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
@@ -42,7 +43,7 @@ public class WarBannerNob extends CustomRelic {
     public void atBattleStart() {
         flash();
         UC.doPow(new PlayerEnragePower(UC.p(), ENRG_AMT));
-        UC.doPow(new VulnerablePower(UC.p(), VULN_AMT, false));
+        UC.doPow(new WeakPower(UC.p(), VULN_AMT, false));
 
         addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
     }

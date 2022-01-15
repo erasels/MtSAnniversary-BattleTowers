@@ -41,7 +41,8 @@
   "${ModID}:MakeAWishPower": {
     "NAME": "Make a Wish",
     "DESCRIPTIONS": [
-      "You have #b", " #yWishes available. NL Whenever this creature takes a turn, you may use a #yWish to cause this creature to perform a corresponding beneficial effect for you instead."
+      "You have #b",
+      " #yWishes available. NL Whenever this creature takes a turn, you may use a #yWish to cause this creature to perform a corresponding beneficial effect for you instead."
     ]
   },
   "${ModID}:FeelMyPainPower": {
@@ -76,15 +77,23 @@
   },
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
-    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn"]
+    "DESCRIPTIONS": [
+      "You do not gain #yPetrification from dealing damage or applying debuffs this turn"
+    ]
   },
   "${ModID}:ProtectedPower": {
     "NAME": "Protected",
-    "DESCRIPTIONS": ["This creature receives #b50% less damage from attacks as it is protected by the monsters surrounding it."]
+    "DESCRIPTIONS": [
+      "This creature receives #b50% less damage from attacks as it is protected by the monsters surrounding it."
+    ]
   },
   "${ModID}:VengeancePower": {
     "NAME": "Vengeance",
-    "DESCRIPTIONS": [""," gains #b"," Strength when this creature dies."]
+    "DESCRIPTIONS": [
+      "",
+      " gains #b",
+      " Strength when this creature dies."
+    ]
   },
   "${ModID}:TrenchcoatPower": {
     "NAME": "Unsturdy Construct",
@@ -111,7 +120,7 @@
   "${ModID}:SlimeFilledRoomPower": {
     "NAME": "Slime Filled Room",
     "DESCRIPTIONS": [
-      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1#yStrength."
+      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1 #yStrength."
     ]
   },
   "${ModID}:PlayerCurlUpPower": {
@@ -137,7 +146,8 @@
     "NAME": "Gathering Storm",
     "DESCRIPTIONS": [
       "When this enemy doesn't attack or attacks once, its next multihit will hit #b",
-      " Extra time.", " Extra times"
+      " Extra time.",
+      " Extra times"
     ]
   },
   "${ModID}:BurnPower": {
@@ -150,7 +160,9 @@
   "${ModID}:JudgementPower": {
     "NAME": "Judgement",
     "DESCRIPTIONS": [
-      "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
+      "At the start of your turn, if you have #b",
+      " or more #yJudgement, lose #b",
+      " #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
       " NL Judgement is increased by half of unblocked damage taken."
     ]
   },
@@ -184,6 +196,31 @@
     "NAME": "Glide",
     "DESCRIPTIONS": [
       "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
+    ]
+  },
+  "${ModID}:AlphabetAmplifyPower": {
+    "NAME": "Amplify",
+    "DESCRIPTIONS": [
+      "The next non-attacking move this enemy uses will be used twice."
+    ]
+  },
+  "${ModID}:TimeWarpStopPower": {
+    "NAME": "Limited Time",
+    "DESCRIPTIONS": [
+      "Time Warp will only trigger once."
+    ]
+  },
+  "${ModID}:EnrageStopPower": {
+    "NAME": "Limited Rage",
+    "DESCRIPTIONS": [
+      "Enrage can only trigger ",
+      " more times."
+    ]
+  },
+  "${ModID}:NotificationPower": {
+    "NAME": "Lettered Loot",
+    "DESCRIPTIONS": [
+      "Upon killing this, gain a #yRelic that heavily boosts cards and generates random cards that start with the letter it was about to use."
     ]
   }
 }

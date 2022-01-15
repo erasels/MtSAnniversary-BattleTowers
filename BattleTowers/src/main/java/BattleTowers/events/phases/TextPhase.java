@@ -37,6 +37,12 @@ public class TextPhase extends ImageEventPhase {
         setOptions(event);
     }
 
+    public TextPhase addOption(String optionText, Consumer<Integer> onClick, AbstractRelic relicReward) {
+        options.add(new OptionInfo(optionText, relicReward));
+        optionResults.add(onClick);
+        return this;
+    }
+
     public TextPhase addOption(String optionText, Consumer<Integer> onClick) {
         options.add(new OptionInfo(optionText));
         optionResults.add(onClick);
