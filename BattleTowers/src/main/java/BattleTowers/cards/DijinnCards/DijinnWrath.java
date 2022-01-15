@@ -23,6 +23,7 @@ public class DijinnWrath extends CustomCard {
         super(ID, NAME, IMG, COST, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
         this.dijinn = dijinn;
         this.magicNumber = baseMagicNumber = magicNumber;
+        this.block = dijinn.BLOCK;
         this.rawDescription = this.rawDescription + cardStrings.EXTENDED_DESCRIPTION[dijinn.nextMove];
         this.initializeDescription();
     }

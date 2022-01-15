@@ -11,7 +11,9 @@ import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
@@ -50,6 +52,7 @@ public class Dijinn extends AbstractBTMonster
     private final int ENEMY_STR = calcAscensionSpecial(4);
     private final int PLAYER_STR = 3;
     private int wishCount = 3;
+    public int BLOCK = calcAscensionTankiness(12);
 
     public Dijinn() {
         this(0.0f, 0.0f);
@@ -58,9 +61,9 @@ public class Dijinn extends AbstractBTMonster
     public Dijinn(final float x, final float y) {
         super(NAME, ID, 140, 0.0F, 0.0f, 220.0f, 380.0f, IMG, x, y);
         setHp(calcAscensionTankiness(300));
-        addMove(EMPOWER, Intent.BUFF);
+        addMove(EMPOWER, Intent.DEFEND_BUFF);
         addMove(CORRUPTION, Intent.STRONG_DEBUFF);
-        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(13), 2);
+        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(14), 2);
     }
 
     @Override
@@ -134,11 +137,12 @@ public class Dijinn extends AbstractBTMonster
     }
 
     public void EmpowerAction() {
+        addToBot(new GainBlockAction(this, this, BLOCK));
         addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, ENEMY_STR), ENEMY_STR));
     }
 
     public void CorruptionAction() {
-        addToBot(new MakeTempCardInDiscardAction(new VoidCard(), VOIDS));
+        addToBot(new MakeTempCardInDrawPileAction(new VoidCard(), VOIDS, true, true));
     }
 
     public void AttackAction(DamageInfo info, int multiplier) {
