@@ -141,6 +141,17 @@ public class BattleTowers implements
                         new BurningShambler(-350.0F, 0.0F),
                         new MinotaurGladiator(100.0F, 0.0F)
                 }));
+        BaseMod.addMonster(Encounters.DBZ_PUNS, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new Cawcawrot(-250.0F, 0.0F),
+                        new Veggieta(100.0F, 0.0F)
+                }));
+        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
+            @Override
+            public AbstractMonster get() {
+                return new CardboardGolem();
+            }
+        });
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
 
         //Elites

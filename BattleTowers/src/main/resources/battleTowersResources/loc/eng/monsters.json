@@ -18,6 +18,24 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:Cawcawrot": {
+    "MOVES": [
+      "Super Ritual",
+      ""
+    ],
+    "NAME": "Cawcawrot",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Veggieta": {
+    "MOVES": [
+      "Pewcumber",
+      "Pepper Spray"
+    ],
+    "NAME": "Veggieta",
+    "DIALOG": [
+    ]
+  },
   "${ModID}:CardboardGolem": {
     "MOVES": [
       "Head Bash",
