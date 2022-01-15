@@ -4,6 +4,7 @@ import BattleTowers.BattleTowers;
 import BattleTowers.cards.AvertYourGaze;
 import BattleTowers.powers.PetrifyingGazePower;
 import BattleTowers.powers.PetrifyingTouchPower;
+import BattleTowers.relics.GorgonHead;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateFastAttackAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateShakeAction;
@@ -14,6 +15,7 @@ import com.megacrit.cardcrawl.cards.status.Wound;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import static BattleTowers.BattleTowers.makeID;
 
@@ -79,6 +81,7 @@ public class Gorgon extends AbstractBTMonster
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingGazePower(this)));
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingTouchPower(this)));
         }
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new GorgonHead()));
     }
 
     @Override

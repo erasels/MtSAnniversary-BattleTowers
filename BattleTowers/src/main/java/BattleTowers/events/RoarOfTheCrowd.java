@@ -26,7 +26,7 @@ public class RoarOfTheCrowd extends AbstractImageEvent {
     private static final int GOLD_LOSS = 50;
     private static final int A15_GOLD_LOSS = 60;
     public static final int GOLD_AT_END = 100;
-    public static final int DEXTERITY_FOR_TOWER = 1;
+    public static final int DEXTERITY_FOR_TOWER = 2;
 
     private final int hpLoss;
     private final int goldLoss;
