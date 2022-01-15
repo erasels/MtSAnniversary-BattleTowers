@@ -37,13 +37,13 @@
       "It burns a #gbright #gemerald and is embedded with the power of your offering. NL NL You notice that it starts to fade very slowly as you walk away...",
       "Choose a Card",
       "The #bspirits immediately toss your ",
-      " into the #gbonfire. NL NL @They@ @revel@ @as@ @it@ @bursts@ @into@ @flames!@ NL NL ...You decide it's best to take your leave."
+      " into the #gbonfire. NL NL #g@They@ #g@revel@ #g@as@ #g@it@ #g@bursts@ #g@into@ #g@flames!@ NL NL ...You decide it's best to take your leave."
     ],
     "OPTIONS": [
       "[Offer: ",
       "] #rLose #rthis #rrelic. #gChoose #ga #grare #gCard #gto #gobtain.",
       "[Offer a Card] #rLose #r",
-      " #rHP. Receive a reward based on the offer.",
+      " #rHP. Pick up a #yTorch.",
       "Select a Card to Offer.",
       "[Leave]"
     ]
@@ -72,7 +72,7 @@
   "${ModID}:BannerSageEvent": {
     "NAME": "The Banner Sage",
     "DESCRIPTIONS": [
-      "Oddly enough, this Battle Tower houses a small shopping distrct. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
+      "Oddly enough, this Battle Tower houses a small shopping district. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
       "Never before have you seen such delicate craftsmanship! You simply must have this gorgeous war banner on offer, and happily pay the price. River thanks you for your patronage as you and your new incredible banner continue up the tower.",
       "River seems like a tough opponent, but with the other customers here, you realize he couldn't risk leaving his wares in the open. There's nothing stopping you from grabbing one and running, and that thought is just too tempting. NL NL As you make haste with your new banner in hand, the fabric becomes excruciating to touch! Suddenly, the cloth changes from a vibrant warm color to a harsh deep purple, and where once was an embroidered image now lies a horribly inked skull. It appears the Giant had some protection on his wares after all.",
       "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse for awhile, but then continue up the Battle Tower."
@@ -100,6 +100,36 @@
       "[Take Gold] #gGain #g75 Gold. #rCursed #r- #rGreedy.",
       "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
       "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
+      "[Leave]"
+    ]
+  },
+  "${ModID}:GenieLamp": {
+    "NAME": "A Wish",
+    "DESCRIPTIONS": [
+      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" ~Make~ ~your~ ~wish.~ \", the #pephemeral #pvisage stares at you.",
+      "\" ~Knowledge~ ~in~ ~abundance~ .\" With those words, the #pspirit disappears.",
+      "\" ~Wealth~ ~attracts~ ~greed~ .\" With those words, the #pspirit disappears.",
+      "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \"Exchanging one prison for another.\""
+    ],
+    "OPTIONS": [
+      "[Knowledge] #yRecieve #ya #yspecial #ycard #ythat #yduplicates #ycards #yin #yyour #ydeck.",
+      "[Wealth] #gReceive #g%d #gGold. #rThe #rnext #ritem #ris #rmore #rexpensive.",
+      "[Freedom] #rLeave #rthe #rtower.",
+      "Continue."
+    ]
+  },
+  "${ModID}:RoarOfTheCrowd": {
+    "NAME": "Road of the Crowd",
+    "DESCRIPTIONS": [
+      "You pause briefly on your climb up the tower to appreciate the crowd cheering you on. This place might not be as popular as the #bColosseum yet, but it's getting there. NL NL In fact, the crowd is so excited that they've swarmed into the tower and are blocking your way forward! You'll have to bargain to make your way through. NL NL You spot two good prospects: a #pbird-masked #pfigure that wants your #rblood but will reward you with #ygold, and a #bblue #bhumanoid that will #gbless you in return for a small #ydonation.",
+      "The loss of blood #r~hurts,~ but you think of the #yriches that await you.",
+      "Seeing that are already on the threshold of #rdeath, the cultist lets you pass unharmed. If you can achieve victory from here, you deserve the reward.",
+      "A soft green glow envelops your body and dissipates. NL The creature grins. \"Cleric finest protector. @Have@ @a@ @good@ @day!\"@"
+    ],
+    "OPTIONS": [
+      "[Cultist] #rLose #r{0} #rHP. #gGain #g{1} #ggold #gwhen #gyou #gdefeat #gthe #gtower #gboss.",
+      "[Cleric] #rLose #r{0} #rGold. #gGain #g{1} #gDexterity #gfor #gthe #grest #gof #gthe #gtower.",
+      "[Locked] Requires {0} Gold.",
       "[Leave]"
     ]
   }

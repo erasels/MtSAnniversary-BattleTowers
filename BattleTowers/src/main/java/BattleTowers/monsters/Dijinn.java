@@ -4,6 +4,7 @@ import BattleTowers.BattleTowers;
 import BattleTowers.cards.DijinnCards.DijinnWrath;
 import BattleTowers.cards.DijinnCards.MakeAWish;
 import BattleTowers.powers.MakeAWishPower;
+import BattleTowers.relics.DijinnLamp;
 import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.TalkAction;
@@ -24,6 +25,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
 
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public class Dijinn extends AbstractBTMonster
     private final int VOIDS = calcAscensionSpecial(2);
     private final int MIRACLES = 2;
     private final int ENEMY_STR = calcAscensionSpecial(4);
-    private final int PLAYER_STR = 4;
+    private final int PLAYER_STR = 3;
     private int wishCount = 3;
 
     public Dijinn() {
@@ -55,10 +57,10 @@ public class Dijinn extends AbstractBTMonster
 
     public Dijinn(final float x, final float y) {
         super(NAME, ID, 140, 0.0F, 0.0f, 220.0f, 380.0f, IMG, x, y);
-        setHp(calcAscensionTankiness(250));
+        setHp(calcAscensionTankiness(300));
         addMove(EMPOWER, Intent.BUFF);
         addMove(CORRUPTION, Intent.STRONG_DEBUFF);
-        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(14), 2);
+        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(13), 2);
     }
 
     @Override
@@ -70,6 +72,7 @@ public class Dijinn extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new MakeAWishPower(this, wishCount)));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new DijinnLamp()));
     }
 
     @Override
@@ -117,7 +120,7 @@ public class Dijinn extends AbstractBTMonster
                     AttackAction(info, multiplier);
                 } else {
                     card1 = new DijinnWrath(this, info.output);
-                    card2 = new MakeAWish(this, info.output);
+                    card2 = new MakeAWish(this, info.output / 2);
                 }
                 break;
             }

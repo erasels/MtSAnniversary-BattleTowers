@@ -79,7 +79,7 @@ public class MiniRestPhase extends EventPhase {
 
     @Override
     public void hide(PhasedEvent event) {
-
+        event.allowRarityAltering = true;
     }
 
     public EventPhase setNextKey(Object key) {

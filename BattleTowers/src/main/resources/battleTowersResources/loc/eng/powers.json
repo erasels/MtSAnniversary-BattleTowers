@@ -5,6 +5,13 @@
       "You are Very Cool and Strong."
     ]
   },
+  "${ModID}:SuperRitualPower": {
+    "NAME": "Super Ritual",
+    "DESCRIPTIONS": [
+      "At the end of its turn, gains #b",
+      " #yStrength and #yDexterity."
+    ]
+  },
   "${ModID}:OnusPower": {
     "NAME": "Onus",
     "DESCRIPTIONS": [
@@ -147,6 +154,7 @@
       " NL Judgement is increased by half of unblocked damage taken."
     ]
   },
+
   "${ModID}:FactionChange": {
     "NAME": "Faction Change",
     "DESCRIPTIONS": [
@@ -170,6 +178,12 @@
     "NAME": "Inverse Order",
     "DESCRIPTIONS": [
       "Mimicking an inverted Chess Piece..."
+    ]
+  },
+  "${ModID}:KiteFlightPower": {
+    "NAME": "Glide",
+    "DESCRIPTIONS": [
+      "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
     ]
   }
 }
