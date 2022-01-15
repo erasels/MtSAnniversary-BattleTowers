@@ -177,7 +177,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     }
 
     public void resetCardRarity() {
-        setCardRarity(3, 37);
+        setCardRarity(37, 3);
     }
     public void setCardRarity(int baseUncommonChance, int baseRareChance) {
         AbstractDungeon.getCurrRoom().baseUncommonCardChance = baseUncommonChance;
