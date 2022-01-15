@@ -34,10 +34,10 @@ public class MinotaurGladiator extends AbstractBTMonster
     private static final int GORE_DAMAGE = 5;
     private static final int A2_GORE_DAMAGE = 6;
     private static final int GORE_HITS = 2;
-    private static final int HP_MIN = 47;
-    private static final int HP_MAX = 50;
-    private static final int A8_HP_MIN = 51;
-    private static final int A8_HP_MAX = 54;
+    private static final int HP_MIN = 57;
+    private static final int HP_MAX = 60;
+    private static final int A8_HP_MIN = 61;
+    private static final int A8_HP_MAX = 64;
     private final int chopDamage;
     private final int breakDamage;
     private final int breakVulnerable;
