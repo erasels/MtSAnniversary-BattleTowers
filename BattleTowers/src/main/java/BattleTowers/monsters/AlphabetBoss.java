@@ -10,7 +10,9 @@ import BattleTowers.orbs.monster.MonsterLightning;
 import BattleTowers.powers.*;
 import BattleTowers.relics.AlphabetSoup;
 import BattleTowers.relics.CardboardHeart;
+import BattleTowers.util.TextureLoader;
 import BattleTowers.util.UC;
+import basemod.helpers.VfxBuilder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -56,6 +58,8 @@ public class AlphabetBoss extends OrbUsingMonster {
     public static final String NAME = monsterStrings.NAME;
     public static final String[] MOVES = monsterStrings.MOVES;
     public static final String[] DIALOG = monsterStrings.DIALOG;
+
+    private InvisibleLetterShower letterShower = new InvisibleLetterShower(-300F, 180F);
 
     //name of the monster's moves
     private static final byte AMPLIFY = 0;
@@ -217,6 +221,11 @@ public class AlphabetBoss extends OrbUsingMonster {
 
         lastMoveWasAttack = AbstractDungeon.monsterRng.randomBoolean();
 
+    }
+
+    @Override
+    public void usePreBattleAction() {
+        addToBot(new ApplyPowerAction(this, this, new NotificationPower(this), 1));
     }
 
     @Override
@@ -431,6 +440,7 @@ public class AlphabetBoss extends OrbUsingMonster {
     public void takeTurn() {
         //Automatically grabs the damage values and number of hits value from the moves hashmap based on the currently set move
 
+        letterShower.shouldRenderIntent = false;
         DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
@@ -469,21 +479,23 @@ public class AlphabetBoss extends OrbUsingMonster {
                 lastMoveWasAttack = true;
             }
         }
+
+        String letter = this.moveName.toString().substring(0, 1);
+        letterShower.lastKnownLetter = letter.toLowerCase();
+        letterShower.shouldRenderIntent = true;
     }
 
     @Override
     public void render(SpriteBatch sb) {
         super.render(sb);
-        // if (firstOne.shouldRenderIntent) firstOne.render(sb);
-        // if (secondOne.shouldRenderIntent) secondOne.render(sb);
+        letterShower.render(sb);
     }
 
 
     @Override
     public void update() {
         super.update();
-        //  if (firstOne.shouldRenderIntent) firstOne.update();
-        //   if (secondOne.shouldRenderIntent) secondOne.update();
+        letterShower.update();
     }
 
     @Override

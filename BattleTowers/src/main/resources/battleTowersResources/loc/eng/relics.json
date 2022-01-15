@@ -126,10 +126,10 @@
     "NAME": "Alphabet Soup",
     "FLAVOR": "Letterlicious.",
     "DESCRIPTIONS": [
-      "At the start of each combat, choose #b1 of #b3 cards that start with a certain letter to add into your hand. Whenever you play a card that starts with that letter, gain #b4 #yBlock.",
+      "At the start of each combat, choose #b1 of #b3 cards that start with a certain letter to add into your hand. Whenever you play a card that starts with that letter, gain #b4 #yBlock and [E] .",
       "At the start of each combat, choose #b1 of #b3 cards that start with #p",
       " to add into your hand. Whenever you play a card that starts with #p",
-      ", gain #b4 #yBlock.",
+      ", gain #b4 #yBlock and [E] .",
       "Choose a card to add into your hand."
     ]
   }

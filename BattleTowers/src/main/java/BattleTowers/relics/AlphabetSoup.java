@@ -9,6 +9,7 @@ import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.graphics.Color;
 import com.evacipated.cardcrawl.mod.stslib.actions.common.SelectCardsCenteredAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -68,6 +69,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
             if (c.name.toLowerCase().startsWith(letter.toLowerCase())) {
                 flash();
                 atb(new GainBlockAction(UC.p(), 4));
+                atb(new GainEnergyAction(1));
             }
         }
     }
