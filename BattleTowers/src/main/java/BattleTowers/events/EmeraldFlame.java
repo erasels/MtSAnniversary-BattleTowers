@@ -63,7 +63,7 @@ public class EmeraldFlame extends PhasedEvent {
                 AbstractDungeon.combatRewardScreen.open(DESCRIPTIONS[5]);
                 transitionKey("AfterRelic");
             })
-            .addOption(OPTIONS[2] + hpLoss + OPTIONS[3], (i)->{
+            .addOption(OPTIONS[2] + hpLoss + OPTIONS[3], new Torch(), (i)->{
                 AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
                 AbstractDungeon.gridSelectScreen.open(UC.p().masterDeck.getPurgeableCards(), 1, OPTIONS[4], false, false, false, true);
             }));
