@@ -48,6 +48,12 @@ public class TextPhase extends ImageEventPhase {
         return this;
     }
 
+    public TextPhase addOption(String optionText, AbstractRelic previewRelic, Consumer<Integer> onClick) {
+        options.add(new OptionInfo(optionText, previewRelic));
+        optionResults.add(onClick);
+        return this;
+    }
+
 
     public String getBody() {
         return body;
