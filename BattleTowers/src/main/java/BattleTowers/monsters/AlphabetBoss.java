@@ -8,6 +8,7 @@ import BattleTowers.cards.Chilled;
 import BattleTowers.orbs.monster.MonsterFrost;
 import BattleTowers.orbs.monster.MonsterLightning;
 import BattleTowers.powers.*;
+import BattleTowers.relics.AlphabetSoup;
 import BattleTowers.relics.CardboardHeart;
 import BattleTowers.util.UC;
 import com.badlogic.gdx.graphics.Color;
@@ -35,6 +36,8 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.monsters.beyond.TimeEater;
 import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.CollectorCurseEffect;
@@ -481,5 +484,14 @@ public class AlphabetBoss extends OrbUsingMonster {
         super.update();
         //  if (firstOne.shouldRenderIntent) firstOne.update();
         //   if (secondOne.shouldRenderIntent) secondOne.update();
+    }
+
+    @Override
+    public void die() {
+        String letter = this.moveName.toString().substring(0, 1);
+        AbstractRelic r = new AlphabetSoup();
+        ((AlphabetSoup)r).setLetter(letter);
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(r));
+        super.die();
     }
 }
