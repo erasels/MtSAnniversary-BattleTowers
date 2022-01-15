@@ -48,6 +48,31 @@
       "[Leave]"
     ]
   },
+  "${ModID}:VoidShrine": {
+    "NAME": "Void Shrine",
+    "DESCRIPTIONS": [
+      "You come across a #pdesolate shrine pulsing with faint, #potherworldly energy. NL NL As you find yourself pulled towards it, you sense that it desired your #rblood, your #ywealth, or your very #psoul.",
+      "You offer the shrine a few drops of #rblood, and you feel a heavy wave of #pexhaustion come over you. NL NL When you wake up, the shrine is nowhere to be found.",
+      "You offer the shrine a paltry sum of #ygold, and you feel a wave of dizziness and light-headedness wash over you. NL NL When you come to your senses, the shrine is gone.",
+      "You strive forward and offer yourself up to the shrine. A wave of #pagony ~rips~ through you, #bice-cold pain coursing through your veins, tearing a part of yourself away. NL NL Finally, it ends, and you feel a deep, yawning #pvoid within yourself."
+    ],
+    "OPTIONS": [
+      "[Offer your blood] ",
+      "Lose ",
+      " HP.",
+      "Give a card in your deck Exhaust.",
+      "[Offer your Wealth] ",
+      " Gold.",
+      "Give a card in your deck Ethereal.",
+      "[Offer your soul] ",
+      "Remove ",
+      " cards.",
+      "Obtain a special blight.",
+      "Choose a card",
+      "[Leave]",
+      "Locked: Requires Gold"
+    ]
+  },
   "${ModID}:OttoEvent": {
     "NAME": "A Game for a Golem",
     "DESCRIPTIONS": [
