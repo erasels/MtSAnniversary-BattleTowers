@@ -209,6 +209,7 @@ public class BattleTowers implements
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
         BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
+        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocalizationPath(lang + "/orbs.json"));
 
         lang = getLangString();
         if (lang.equals(defaultLoc())) return;
@@ -222,6 +223,7 @@ public class BattleTowers implements
             BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
             BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
             BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
+            BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocalizationPath(lang + "/orbs.json"));
         }
         catch (Exception e)
         {

@@ -45,7 +45,7 @@
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yVulnerable.",
+      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yWeak.",
       "#gGain #gNob #gWar #gBanner."
     ]
   },

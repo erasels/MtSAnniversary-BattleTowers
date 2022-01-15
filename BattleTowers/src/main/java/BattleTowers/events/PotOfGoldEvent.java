@@ -42,8 +42,6 @@ public class PotOfGoldEvent extends AbstractImageEvent {
     }
 
     private int screenNum = 0;
-    private boolean pickCard = false;
-    private boolean pickCard2 = false;
 
     public PotOfGoldEvent() {
         super(NAME, DESCRIPTIONS[0], BattleTowers.makeImagePath("events/potofgold.png"));
@@ -121,31 +119,4 @@ public class PotOfGoldEvent extends AbstractImageEvent {
 
     }
 
-    public static CardGroup getUncommonCards() {
-        CardGroup retVal = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        Iterator var2 = AbstractDungeon.player.masterDeck.group.iterator();
-
-        while (var2.hasNext()) {
-            AbstractCard c = (AbstractCard) var2.next();
-            if (c.rarity == AbstractCard.CardRarity.UNCOMMON) {
-                retVal.group.add(c);
-            }
-        }
-
-        return retVal;
-    }
-
-    public static CardGroup getRareCards() {
-        CardGroup retVal = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-        Iterator var2 = AbstractDungeon.player.masterDeck.group.iterator();
-
-        while (var2.hasNext()) {
-            AbstractCard c = (AbstractCard) var2.next();
-            if (c.rarity == AbstractCard.CardRarity.RARE) {
-                retVal.group.add(c);
-            }
-        }
-
-        return retVal;
-    }
 }

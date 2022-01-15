@@ -27,7 +27,6 @@ public class MonsterLightning extends Lightning
         super();
         ID = ORB_ID;
         this.owner = owner;
-        showEvokeValue();
         updateDescription();
     }
 
@@ -35,7 +34,7 @@ public class MonsterLightning extends Lightning
     public void updateDescription()
     {
         applyFocus();
-        description = DESC[0] + evokeAmount + DESC[1];
+        description = DESC[0] + passiveAmount + DESC[1] + evokeAmount + DESC[2];
     }
 
     @Override
@@ -60,7 +59,7 @@ public class MonsterLightning extends Lightning
     @Override
     public void onEndOfTurn()
     {
-        // NOP
+        AbstractDungeon.actionManager.addToBottom(new MonsterLightningOrbEvokeAction(owner, new DamageInfo(owner, this.passiveAmount, DamageInfo.DamageType.THORNS)));
     }
 
     @Override

@@ -110,6 +110,14 @@ public abstract class OrbUsingMonster extends AbstractBTMonster
         }
     }
 
+    @Override
+    public void applyEndOfTurnTriggers() {
+        super.applyEndOfTurnTriggers();
+        for (AbstractOrb o:orbs
+             ) {o.onEndOfTurn();
+        }
+    }
+
     public void evokeOrb()
     {
         if (!orbs.isEmpty() && !(orbs.get(0) instanceof EmptyOrbSlot)) {

@@ -29,8 +29,6 @@ public class MonsterFrost extends Frost
         super();
         ID = ORB_ID;
         this.owner = owner;
-        baseEvokeAmount = 10;
-        showEvokeValue();
         updateDescription();
     }
 
@@ -38,7 +36,7 @@ public class MonsterFrost extends Frost
     public void updateDescription()
     {
         applyFocus();
-        description = DESC[0] + evokeAmount + DESC[1];
+        description = DESC[0] + passiveAmount + DESC[1] + evokeAmount + DESC[2];
     }
 
     @Override
@@ -57,17 +55,18 @@ public class MonsterFrost extends Frost
     @Override
     public void onEvoke()
     {
-        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-            if (!m.isDeadOrEscaped()) {
-                AbstractDungeon.actionManager.addToTop(new GainBlockAction(m, owner, evokeAmount));
+            if (!owner.isDeadOrEscaped()) {
+                AbstractDungeon.actionManager.addToTop(new GainBlockAction(owner, owner, evokeAmount));
             }
-        }
     }
 
     @Override
     public void onEndOfTurn()
     {
-        // NOP
+
+        if (!owner.isDeadOrEscaped()) {
+            AbstractDungeon.actionManager.addToBottom(new GainBlockAction(owner, owner, passiveAmount));
+        }
     }
 
     @Override
