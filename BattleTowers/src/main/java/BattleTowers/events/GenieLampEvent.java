@@ -29,7 +29,7 @@ public class GenieLampEvent extends PhasedEvent {
         super(title, BattleTowers.makeImagePath("events/GenieLamp.png"));
 
         registerPhase(0, new TextPhase(DESCRIPTIONS[0])
-                .addOption(OPTIONS[0], (i)->{transitionKey("Knowledge");
+                .addOption(new TextPhase.OptionInfo(OPTIONS[0], new Knowledge()), (i)->{transitionKey("Knowledge");
                     AbstractDungeon.topLevelEffects.add(new ShowCardAndObtainEffect(new Knowledge(), Settings.WIDTH/2f, Settings.HEIGHT/2f));
                 })
                 .addOption(String.format(OPTIONS[1], getGoldGain()), (i)->{transitionKey("Wealth");
