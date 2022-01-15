@@ -25,7 +25,7 @@ public class KnightsManeuver extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("KnightsManeuver.png");
     private static final CardType TYPE = CardType.POWER;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
     private static final int COST = 2;
@@ -44,6 +44,7 @@ public class KnightsManeuver extends CustomCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         shuffleBackIntoDrawPile = true;
         magicNumber = baseMagicNumber = 3;
+        this.setDisplayRarity(CardRarity.UNCOMMON);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
