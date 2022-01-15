@@ -35,7 +35,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
     private String letter = "";
 
     public AlphabetSoup() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("cardboard_heart.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("AlphabetSoup.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
     }
 
