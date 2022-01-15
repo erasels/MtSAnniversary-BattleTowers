@@ -49,7 +49,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
     @Override
     public void atBattleStart() {
         if (letter != "") {
-            ArrayList<AbstractCard> valid = CardboardHeart.getCardsMatchingPredicate(c -> c.name.toLowerCase().startsWith(letter.toLowerCase()), true);
+            ArrayList<AbstractCard> valid = CardboardHeart.getCardsMatchingPredicate(c -> c.name.toLowerCase().startsWith(letter.toLowerCase()) && c.rarity != AbstractCard.CardRarity.SPECIAL && c.type != AbstractCard.CardType.STATUS && c.rarity != AbstractCard.CardRarity.CURSE && c.type != AbstractCard.CardType.CURSE, true);
             Collections.shuffle(valid);
             ArrayList<AbstractCard> set = new ArrayList<>();
             for (int i = 0; i < 3; i++) {
