@@ -2,6 +2,7 @@ package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.powers.SlimeFilledRoomPower;
+import BattleTowers.relics.SlimeFilledFlask;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
@@ -23,6 +24,7 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.WeightyImpactEffect;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -106,6 +108,7 @@ public class GigaSlime extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         this.addToBot(new ApplyPowerAction(this, this, new SlimeFilledRoomPower(this)));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SlimeFilledFlask()));
     }
 
     @Override

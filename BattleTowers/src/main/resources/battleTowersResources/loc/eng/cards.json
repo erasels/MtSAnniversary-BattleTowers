@@ -82,5 +82,9 @@
   "${ModID}:Knowledge": {
     "NAME": "Wish for Knowledge",
     "DESCRIPTION": "Soulbound. NL Autoplay. NL Add a copy of a random card that you only have 1 copy of in your deck to it. "
+  },
+  "${ModID}:SlimeElixir": {
+    "NAME": "Slime Elixir",
+    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a Slimed into your draw pile. NL Exhaust."
   }
 }

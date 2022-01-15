@@ -116,8 +116,13 @@
   },
   "${ModID}:GorgonHead": {
     "NAME": "Gorgon Head",
-    "FLAVOR": "Still dangerous to look at",
+    "FLAVOR": "Still dangerous to look at.",
     "DESCRIPTIONS": ["The first time each combat that each enemy intends to attack you multiple times in a turn, it loses 1 temporary #yStrength."]
+  },
+  "${ModID}:SlimeFilledFlask": {
+    "NAME": "Slime-Filled Flask",
+    "FLAVOR": "Is this even safe to drink?",
+    "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand. #ySlime #yElixir is a #ySkill that costs #b0 and has the following text: NL #yRetain. Draw #b2 cards. Shuffle a #ySlimed into your draw pile. #yExhaust."]
   }
 }
 
