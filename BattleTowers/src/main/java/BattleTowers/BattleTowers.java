@@ -340,5 +340,7 @@ public class BattleTowers implements
         BaseMod.addCard(new DarkEnchantment());
         BaseMod.addCard(new Granted());
         BaseMod.addCard(new Knowledge());
+        BaseMod.addCard(new AvertYourGaze());
+        BaseMod.addCard(new SlimeElixir());
     }
 }
