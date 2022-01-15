@@ -131,6 +131,8 @@
       "[Cleric] #rLose #r{0} #rGold. #gGain #g{1} #gDexterity #gfor #gthe #grest #gof #gthe #gtower.",
       "[Locked] Requires {0} Gold.",
       "[Leave]"
+    ]
+  },
   "${ModID}:ArmorerEvent": {
     "NAME": "The Armorer",
     "DESCRIPTIONS": [
