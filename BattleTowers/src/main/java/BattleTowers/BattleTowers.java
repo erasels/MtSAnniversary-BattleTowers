@@ -147,6 +147,7 @@ public class BattleTowers implements
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
+        BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
     }
 
     @Override
@@ -277,6 +278,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
+        BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {

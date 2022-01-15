@@ -117,5 +117,20 @@
       "[Freedom] #rLeave #rthe #rtower.",
       "Continue."
     ]
+  },
+  "${ModID}:RoarOfTheCrowd": {
+    "NAME": "Road of the Crowd",
+    "DESCRIPTIONS": [
+      "You pause briefly on your climb up the tower to appreciate the crowd cheering you on. This place might not be as popular as the #bColosseum yet, but it's getting there. NL NL In fact, the crowd is so excited that they've swarmed into the tower and are blocking your way forward! You'll have to bargain to make your way through. NL NL You spot two good prospects: a #pbird-masked #pfigure that wants your #rblood but will reward you with #ygold, and a #bblue #bhumanoid that will #gbless you in return for a small #ydonation.",
+      "The loss of blood #r~hurts,~ but you think of the #yriches that await you.",
+      "Seeing that are already on the threshold of #rdeath, the cultist lets you pass unharmed. If you can achieve victory from here, you deserve the reward.",
+      "A soft green glow envelops your body and dissipates. NL The creature grins. \"Cleric finest protector. @Have@ @a@ @good@ @day!\"@"
+    ],
+    "OPTIONS": [
+      "[Cultist] #rLose #r{0} #rHP. #gGain #g{1} #ggold #gwhen #gyou #gdefeat #gthe #gtower #gboss.",
+      "[Cleric] #rLose #r{0} #rGold. #gGain #g{1} #gDexterity #gfor #gthe #grest #gof #gthe #gtower.",
+      "[Locked] Requires {0} Gold.",
+      "[Leave]"
+    ]
   }
 }

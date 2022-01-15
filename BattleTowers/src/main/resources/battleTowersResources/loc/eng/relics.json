@@ -89,6 +89,16 @@
     "DESCRIPTIONS": [
       "Relics at shops cost #b%dx more #ygold."
     ]
+  },
+  "${ModID}:PromiseOfGold": {
+    "NAME": "Promise of Gold",
+    "FLAVOR": "It will all be worth it.",
+    "DESCRIPTIONS": ["Gain #b{0} gold when you defeat the #yBattle #yTower boss."]
+  },
+  "${ModID}:ClericsBlessing": {
+    "NAME": "Cleric's Blessing",
+    "FLAVOR": "That guy sure is friendly.",
+    "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
   }
 }
 
