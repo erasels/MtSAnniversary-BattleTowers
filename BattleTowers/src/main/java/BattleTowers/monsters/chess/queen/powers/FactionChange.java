@@ -26,41 +26,49 @@ public class FactionChange extends AbstractPower {
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public int currentStance = 0;
+    public enum STANCE {
+        WHITE,
+        BLACK
+    }
+    public STANCE currentStance = STANCE.BLACK;
     private float particleTimer = 0f;
 
     public FactionChange(AbstractCreature owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
+        currentStance = STANCE.BLACK;
+        Texture tex84 = TextureLoader.getTexture(makePowerPath("Black" + "84.png"));
+        Texture tex32 = TextureLoader.getTexture(makePowerPath("Black" + "32.png"));
+        this.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
+        this.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
         this.updateDescription();
         this.type = PowerType.BUFF;
-        BattleTowers.LoadPowerImage(this);
     }
 
     public void onUseCard(AbstractCard c, UseCardAction action) {
         if (c.type == AbstractCard.CardType.ATTACK) {
-            if(currentStance != 0){
+            if(currentStance != STANCE.BLACK){
                 flash();
                 Texture tex84 = TextureLoader.getTexture(makePowerPath("Black" + "84.png"));
                 Texture tex32 = TextureLoader.getTexture(makePowerPath("Black" + "32.png"));
                 this.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
                 this.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
+                currentStance = STANCE.BLACK;
                 updateDescription();
-                currentStance = 0;
                 AbstractDungeon.effectsQueue.add(new BorderFlashEffect(Color.BLACK, true));
             }
         }
         else {
             if (c.type == AbstractCard.CardType.SKILL || c.type == AbstractCard.CardType.POWER) {
-                if(currentStance != 1){
+                if(currentStance != STANCE.WHITE){
                     flash();
                     Texture tex84 = TextureLoader.getTexture(makePowerPath("White" + "84.png"));
                     Texture tex32 = TextureLoader.getTexture(makePowerPath("White" + "32.png"));
                     this.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
                     this.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
+                    currentStance = STANCE.WHITE;
                     updateDescription();
-                    currentStance = 1;
                     AbstractDungeon.effectsQueue.add(new BorderFlashEffect(Color.WHITE, true));
                 }
             }
@@ -69,7 +77,8 @@ public class FactionChange extends AbstractPower {
 
     @Override
     public void updateDescription() {
-        this.description = DESCRIPTIONS[currentStance];
+        if(currentStance == STANCE.BLACK){this.description = DESCRIPTIONS[0];}
+        else {this.description = DESCRIPTIONS[1];}
     }
 
     @Override
@@ -78,7 +87,7 @@ public class FactionChange extends AbstractPower {
         this.particleTimer -= Gdx.graphics.getDeltaTime();
         if (this.particleTimer < 0.0F) {
             this.particleTimer = 0.04F;
-            if(currentStance == 0){AbstractDungeon.effectsQueue.add(new FlexibleWrathParticleEffect(owner, Color.BLACK.cpy()));}
+            if(currentStance == STANCE.BLACK){AbstractDungeon.effectsQueue.add(new FlexibleWrathParticleEffect(owner, Color.BLACK.cpy()));}
             else {AbstractDungeon.effectsQueue.add(new FlexibleWrathParticleEffect(owner, Color.WHITE.cpy()));}
         }
     }

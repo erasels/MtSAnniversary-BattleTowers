@@ -1,12 +1,16 @@
 package BattleTowers.monsters.chess.queen;
 
-import BattleTowers.monsters.chess.AbstractCardChessMonster;
-import BattleTowers.monsters.chess.BetterSpriterAnimation;
+import BattleTowers.monsters.chess.*;
+import BattleTowers.monsters.chess.queen.customintents.IntentEnums;
+import BattleTowers.monsters.chess.queen.powers.BlackWave;
+import BattleTowers.monsters.chess.queen.powers.FactionChange;
+import BattleTowers.monsters.chess.queen.powers.Inverse;
+import BattleTowers.monsters.chess.queen.powers.WhiteWave;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.FastShakeAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.RollMoveAction;
+import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -19,6 +23,7 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
+import com.megacrit.cardcrawl.vfx.combat.MoveNameEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
 
@@ -99,10 +104,10 @@ public class Queen extends AbstractCardChessMonster {
         }
 
         addMove(QUEENS_WILL, Intent.ATTACK_BUFF, willDamage);
-        addMove(MIMIC_BLACK, Intent.BUFF);
-        addMove(MIMIC_WHITE, Intent.BUFF);
-        addMove(DRAIN_OF_COLOUR, Intent.ATTACK, waveDamage);
-        addMove(INVERSE_STORE, Intent.BUFF);
+        addMove(MIMIC_BLACK, Intent.UNKNOWN);
+        addMove(MIMIC_WHITE, Intent.UNKNOWN);
+        addMove(DRAIN_OF_COLOUR, IntentEnums.QUEEN_DRAIN, waveDamage);
+        addMove(INVERSE_STORE, Intent.UNKNOWN);
         addMove(QUEENS_PROTECTION, Intent.DEFEND, protectionBlock);
         addMove(QUEENS_MARCH, Intent.ATTACK, marchDamage);
         addMove(QUEENS_DECREE, Intent.BUFF);
@@ -116,74 +121,37 @@ public class Queen extends AbstractCardChessMonster {
 
     @Override
     public void usePreBattleAction() {
-
+        atb(new AbstractGameAction() {
+            @Override
+            public void update() {
+                runAnim("Idle");
+                isDone = true;
+            }
+        });
+        doPow(p(), new FactionChange(p()), true);
     }
 
     @Override
     public void takeTurn() {
-        DamageInfo info;
-        int multiplier = 0;
-        if (moves.containsKey(this.nextMove)) {
-            EnemyMoveInfo emi = moves.get(this.nextMove);
-            info = new DamageInfo(this, emi.baseDamage, DamageInfo.DamageType.NORMAL);
-            multiplier = emi.multiplier;
-        } else {
-            info = new DamageInfo(this, 0, DamageInfo.DamageType.NORMAL);
+        super.takeTurn();
+        if (this.firstMove) {
+            firstMove = false;
         }
-        AbstractCreature target = p();
-        if (info.base > -1) {
-            info.applyPowers(this, target);
-        }
-        switch (this.nextMove) {
-            case QUEENS_WILL: {
-                dmg(target, info);
-                atb(new AbstractGameAction() {
-                    @Override
-                    public void update() {
-                        if (target.lastDamageTaken > 0) {
-                            doPow(Queen.this, new StrengthPower(Queen.this, willStrength), true);
-                        }
-                        isDone = true;
-                    }
-                });
-                break;
-            }
-            case QUEENS_DECREE: {
-                break;
-            }
-            case QUEENS_MARCH: {
-                // make animation later
-                dmg(target, info);
-                break;
-            }
-            case INVERSE_STORE: {
-                break;
-            }
-            case MIMIC_WHITE: {
-                atb(new AbstractGameAction() {
-                    @Override
-                    public void update() {
-                        runAnim("IdleW");
-                        isDone = true;
-                    }
-                });
-                AbstractDungeon.actionManager.addToBottom(new SFXAction("THUNDERCLAP"));
-                if (!Settings.FAST_MODE) {
-                    AbstractDungeon.actionManager.addToBottom(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.5F));
-                    AbstractDungeon.actionManager.addToBottom(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.2F));
-                } else {
-                    AbstractDungeon.actionManager.addToBottom(new VFXAction(this, new ShockWaveEffect(this.hb.cX, this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.1F));
-                    AbstractDungeon.actionManager.addToBottom(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.15F));
+        atb(new RemoveAllBlockAction(this, this));
+        takeCustomTurn(this.moves.get(nextMove), p());
+        for (int i = 0; i < additionalMoves.size(); i++) {
+            EnemyMoveInfo additionalMove = additionalMoves.get(i);
+            AdditionalIntent additionalIntent = additionalIntents.get(i);
+            atb(new VFXActionButItCanFizzle(this, new MoveNameEffect(hb.cX - animX, hb.cY + hb.height / 2.0F, MOVES[additionalMove.nextMove])));
+            atb(new BetterIntentFlashAction(this, additionalIntent.intentImg));
+            takeCustomTurn(additionalMove, p());
+            atb(new AbstractGameAction() {
+                @Override
+                public void update() {
+                    additionalIntent.usePrimaryIntentsColor = true;
+                    this.isDone = true;
                 }
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
-                break;
-            }
-            case MIMIC_BLACK: {
-                break;
-            }
-            case DRAIN_OF_COLOUR: {
-                break;
-            }
+            });
         }
         atb(new AbstractGameAction() {
             @Override
@@ -193,15 +161,221 @@ public class Queen extends AbstractCardChessMonster {
             }
         });
         atb(new RollMoveAction(this));
-        atb(new AbstractGameAction() {
-            @Override
-            public void update() {
-                createIntent();
-                this.isDone = true;
-            }
-        });
     }
 
+    @Override
+    public void takeCustomTurn(EnemyMoveInfo move, AbstractCreature target) {
+        DamageInfo info = new DamageInfo(this, move.baseDamage, DamageInfo.DamageType.NORMAL);
+        int multiplier = move.multiplier;
+
+        if(info.base > -1) {
+            info.applyPowers(this, target);
+        }
+        switch (move.nextMove) {
+            case QUEENS_WILL: {
+                dmg(target, info);
+                atb(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        if (p().lastDamageTaken > 0) {
+                            doPow(Queen.this, new StrengthPower(Queen.this, willStrength), true);
+                        }
+                        isDone = true;
+                    }
+                });
+                break;
+            }
+            case QUEENS_DECREE: {
+                atb(new GainBlockAction(this, protectionBlock));
+                break;
+            }
+            case QUEENS_MARCH: {
+                // make animation later
+                dmg(target, info);
+                break;
+            }
+            case INVERSE_STORE: {
+                if(AbstractDungeon.monsterRng.random(0, 99) <= 45){
+                    atb(new SFXAction("THUNDERCLAP"));
+                    atb(new VFXAction(new BorderFlashEffect(Color.BLACK.cpy(), true)));
+                    if (!Settings.FAST_MODE) {
+                        atb(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.2F));
+                    } else {
+                        atb(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.15F));
+                    }
+                    atb(new AbstractGameAction() {
+                        @Override
+                        public void update() {
+                            runAnim("IdleB");
+                            isDone = true;
+                        }
+                    });
+                    doPow(this, new BlackWave(this));
+                }
+                else {
+                    atb(new SFXAction("THUNDERCLAP"));
+                    atb(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
+                    if (!Settings.FAST_MODE) {
+                        atb(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.2F));
+                    } else {
+                        atb(new FastShakeAction(AbstractDungeon.player, 0.6F, 0.15F));
+                    }
+                    atb(new AbstractGameAction() {
+                        @Override
+                        public void update() {
+                            runAnim("IdleW");
+                            isDone = true;
+                        }
+                    });
+                    doPow(this, new WhiteWave(this));
+                }
+                doPow(this, new Inverse(this));
+
+                break;
+            }
+            case MIMIC_WHITE: {
+
+                atb(new SFXAction("THUNDERCLAP"));
+                atb(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
+                if (!Settings.FAST_MODE) {
+                    atb(new FastShakeAction(Queen.this, 0.6F, 0.2F));
+                } else {
+                    atb(new FastShakeAction(Queen.this, 0.6F, 0.15F));
+                }
+                atb(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        runAnim("IdleW");
+                        isDone = true;
+                    }
+                });
+                doPow(this, new WhiteWave(this));
+                break;
+            }
+            case MIMIC_BLACK: {
+                atb(new SFXAction("THUNDERCLAP"));
+                atb(new VFXAction(new BorderFlashEffect(Color.BLACK.cpy(), true)));
+                if (!Settings.FAST_MODE) {
+                    atb(new FastShakeAction(Queen.this, 0.6F, 0.2F));
+                } else {
+                    atb(new FastShakeAction(Queen.this, 0.6F, 0.15F));
+                }
+                atb(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        runAnim("IdleB");
+                        isDone = true;
+                    }
+                });
+                doPow(this, new BlackWave(this));
+                break;
+            }
+            case DRAIN_OF_COLOUR: {
+                atb(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        // TODO: Find a better way to do this.
+                        AbstractPower amIInverted = Queen.this.getPower(Inverse.POWER_ID);
+                        AbstractPower amIMimickingWhite = Queen.this.getPower(WhiteWave.POWER_ID);
+                        AbstractPower amIMimickingBlack = Queen.this.getPower(BlackWave.POWER_ID);
+                        AbstractPower playerFactionPower = p().getPower(FactionChange.POWER_ID);
+
+                        System.out.println(((FactionChange)playerFactionPower).currentStance);
+                        // factionStance 0 = BLACK
+                        // factionstance 1 = WHITE.
+                        if(playerFactionPower != null){
+
+                            if(amIMimickingWhite != null){
+                                System.out.println("mimicking white");
+                                if(amIInverted != null){
+                                    System.out.println("inverted");
+
+                                    // Mimicking black, AKA if player is mimicking WHITE, deal damage.
+                                    if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.WHITE){
+                                        System.out.println("player mimicking white");
+                                        dmg(p(), info, AttackEffect.NONE, true);
+                                    }
+                                    if (!Settings.FAST_MODE) {
+                                        att(new FastShakeAction(p(), 0.6F, 0.2F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.BLACK.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.5F));
+                                    } else {
+                                        att(new FastShakeAction(p(), 0.6F, 0.15F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.BLACK.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.1F));
+                                    }
+                                    att(new VFXAction(new BorderFlashEffect(Color.BLACK.cpy(), true)));
+                                    att(new SFXAction("THUNDERCLAP"));
+                                }
+                                else {
+                                    System.out.println("mimicking WHITE still");
+                                    if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.BLACK){
+                                        System.out.println("player mimicking black");
+                                        dmg(p(), info, AttackEffect.NONE, true);
+                                    }
+                                    if (!Settings.FAST_MODE) {
+                                        att(new FastShakeAction(p(), 0.6F, 0.2F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.5F));
+                                    } else {
+                                        att(new FastShakeAction(p(), 0.6F, 0.15F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.1F));
+                                    }
+                                    att(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
+                                    att(new SFXAction("THUNDERCLAP"));
+                                }
+                            }
+                            else if(amIMimickingBlack != null){
+                                System.out.println("mimicking black");
+                                if(amIInverted != null){
+                                    System.out.println("mimicking white");
+                                    // Mimicking White, AKA if player is mimicking black, deal damage.
+                                    if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.BLACK){
+                                        System.out.println("player mimicking black");
+                                        dmg(p(), info, AttackEffect.NONE, true);
+                                    }
+                                    if (!Settings.FAST_MODE) {
+                                        att(new FastShakeAction(p(), 0.6F, 0.2F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.5F));
+                                    } else {
+                                        att(new FastShakeAction(p(), 0.6F, 0.15F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.WHITE.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.1F));
+                                    }
+                                    att(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
+                                    att(new SFXAction("THUNDERCLAP"));
+                                }
+                                else {
+                                    System.out.println("mimicking white");
+                                    if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.WHITE){
+                                        System.out.println("player mimicking white");
+                                        dmg(p(), info, AttackEffect.NONE, true);
+                                    }
+                                    if (!Settings.FAST_MODE) {
+                                        att(new FastShakeAction(p(), 0.6F, 0.2F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.BLACK.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.5F));
+                                    } else {
+                                        att(new FastShakeAction(p(), 0.6F, 0.15F));
+                                        att(new VFXAction(Queen.this, new ShockWaveEffect(Queen.this.hb.cX, Queen.this.hb.cY, Color.BLACK.cpy(), ShockWaveEffect.ShockWaveType.ADDITIVE), 0.1F));
+                                    }
+                                    att(new VFXAction(new BorderFlashEffect(Color.BLACK.cpy(), true)));
+                                    att(new SFXAction("THUNDERCLAP"));
+                                }
+                            }
+                        }
+                        isDone = true;
+                    }
+                });
+                atb(new AbstractGameAction() {
+                    @Override
+                    public void update() {
+                        runAnim("Idle");
+                        isDone = true;
+                    }
+                });
+                atb(new RemoveSpecificPowerAction(this, this, BlackWave.POWER_ID));
+                atb(new RemoveSpecificPowerAction(this, this, WhiteWave.POWER_ID));
+                atb(new RemoveSpecificPowerAction(this, this, Inverse.POWER_ID));
+                break;
+            }
+        }
+    }
 
     @Override
     protected void waitAnimation(AbstractCreature enemy) {
@@ -233,8 +407,23 @@ public class Queen extends AbstractCardChessMonster {
     }
 
     @Override
+    public void applyPowers() {
+        super.applyPowers();
+        for (int i = 0; i < additionalIntents.size(); i++) {
+            AdditionalIntent additionalIntent = additionalIntents.get(i);
+            EnemyMoveInfo additionalMove = null;
+            if (i < additionalMoves.size()) {
+                additionalMove = additionalMoves.get(i);
+            }
+            if (additionalMove != null) {
+                applyPowersToAdditionalIntent(additionalMove, additionalIntent, p(), null);
+            }
+        }
+    }
+
+    @Override
     protected void getMove(final int num) {
-        if(lastMove(MIMIC_BLACK) || lastMove(MIMIC_WHITE) || lastMove(INVERSE_STORE)){setMoveShortcut(INVERSE_STORE, MOVES[INVERSE_STORE], getMoveCardFromByte(INVERSE_STORE));}
+        if(lastMove(MIMIC_BLACK) || lastMove(MIMIC_WHITE) || lastMove(INVERSE_STORE)){setMoveShortcut(DRAIN_OF_COLOUR, MOVES[DRAIN_OF_COLOUR], getMoveCardFromByte(DRAIN_OF_COLOUR));}
         else if(lastMove(QUEENS_DECREE)){setMoveShortcut(QUEENS_MARCH, MOVES[QUEENS_MARCH], getMoveCardFromByte(QUEENS_MARCH));}
         else {
             switch (turn){
@@ -264,7 +453,9 @@ public class Queen extends AbstractCardChessMonster {
                         if(AbstractDungeon.monsterRng.random(0, 99) <= 45){
                             setMoveShortcut(MIMIC_BLACK, MOVES[MIMIC_BLACK], getMoveCardFromByte(MIMIC_BLACK));
                         }
-                        setMoveShortcut(MIMIC_WHITE, MOVES[MIMIC_WHITE], getMoveCardFromByte(MIMIC_WHITE));
+                        else {
+                            setMoveShortcut(MIMIC_WHITE, MOVES[MIMIC_WHITE], getMoveCardFromByte(MIMIC_WHITE));
+                        }
                     }
             }
         }
@@ -300,7 +491,10 @@ public class Queen extends AbstractCardChessMonster {
         list.add(new Madness());
         list.add(new Madness());
         list.add(new Madness());
-
+        list.add(new Madness());
+        list.add(new Madness());
+        list.add(new Madness());
+        list.add(new Madness());
         return list.get(move);
     }
 

@@ -1,5 +1,6 @@
 package BattleTowers;
 
+import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cards.*;
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
@@ -7,6 +8,8 @@ import BattleTowers.events.EmeraldFlame;
 import BattleTowers.events.OttoEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.chess.queen.Queen;
+import BattleTowers.monsters.chess.queen.customintents.QueenDrainIntent;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
@@ -104,6 +107,8 @@ public class BattleTowers implements
     }
 
     private static void addMonsters() {
+        CustomIntent.add(new QueenDrainIntent());
+
         //Normal Enemies
         BaseMod.addMonster(Encounters.METAL_LOUSES,  () -> new MonsterGroup(
                 new AbstractMonster[] {
@@ -142,6 +147,8 @@ public class BattleTowers implements
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
+        BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
+
     }
 
     private static void addEvents() {

@@ -11,7 +11,7 @@ import static BattleTowers.BattleTowers.makeUIPath;
 
 public class QueenDrainIntent extends CustomIntent {
 
-    public static final String ID = makeID("MassAttackIntent");
+    public static final String ID = makeID("QueenDrainIntent");
 
     private static final UIStrings uiStrings;
     private static final String[] TEXT;
@@ -19,13 +19,21 @@ public class QueenDrainIntent extends CustomIntent {
 
     public QueenDrainIntent() {
         super(IntentEnums.QUEEN_DRAIN, TEXT[0],
-                makeUIPath("areaIntent_L.png"),
-                makeUIPath("areaIntent.png"));
+                makeUIPath("queenDrain_L.png"),
+                makeUIPath("queenDrain.png"));
     }
 
     @Override
     public String description(AbstractMonster mo) {
         String result = TEXT[1];
+        result += mo.getIntentDmg();
+        result += TEXT[2];
+        int hitCount;
+        if ((Boolean) ReflectionHacks.getPrivate(mo, AbstractMonster.class, "isMultiDmg")) {
+            hitCount = (Integer) ReflectionHacks.getPrivate(mo, AbstractMonster.class, "intentMultiAmt");
+        } else {
+        }
+
         return result;
     }
 
