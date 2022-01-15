@@ -163,5 +163,21 @@
     ]
     "${ModID}:AlphabetAmplifyPower": {
       "NAME": "Amplify",
+      "DESCRIPTIONS": [
+        "The next non-attacking move this enemy uses will be used twice."
+      ]
+    },
+    "${ModID}:TimeWarpStopPower": {
+      "NAME": "Limited Time",
+      "DESCRIPTIONS": [
+        "Time Warp will only trigger once."
+      ]
+    },
+    "${ModID}:EnrageStopPower": {
+      "NAME": "Limited Rage",
+      "DESCRIPTIONS": [
+        "Enrage can only trigger ",
+        " more times."
+      ]
   }
 }
