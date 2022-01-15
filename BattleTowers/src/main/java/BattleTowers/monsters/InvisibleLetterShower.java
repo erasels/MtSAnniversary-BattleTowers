@@ -96,14 +96,17 @@ public class InvisibleLetterShower extends AbstractBTMonster {
 
     @Override
     protected void renderIntentVfxBehind(SpriteBatch sb) {
-        sb.setColor(Color.WHITE.cpy());
         float width_halved = background.getWidth() / 2F;
         float width = background.getWidth();
         float height_halved = background.getHeight() / 2F;
         float height = background.getHeight();
-        sb.draw(background, this.intentHb.cX - width_halved, this.intentHb.cY - height_halved, width_halved, height_halved, width, height, Settings.scale * 0.6F, Settings.scale * 0.6F, rotation0, 0, 0, (int)width, (int)height, false, false);
-        sb.draw(background, this.intentHb.cX - width_halved, this.intentHb.cY - height_halved, width_halved, height_halved, width, height, Settings.scale * 0.6F, Settings.scale * 0.6F, rotation1, 0, 0, (int)width, (int)height, false, false);
+        sb.setColor(Color.WHITE.cpy());
+        sb.draw(background, this.intentHb.cX - width_halved, this.intentHb.cY - height_halved, width_halved, height_halved, width, height, Settings.scale * 0.5F, Settings.scale * 0.5F, rotation0, 0, 0, (int)width, (int)height, false, false);
+        sb.setColor(new Color(220F,220F,220F,1F));
+        sb.draw(background, this.intentHb.cX - width_halved, this.intentHb.cY - height_halved, width_halved, height_halved, width, height, Settings.scale * 0.55F, Settings.scale * 0.55F, rotation1, 0, 0, (int)width, (int)height, false, false);
+        sb.setColor(new Color(190F,190F,190F,1F));
         sb.draw(background, this.intentHb.cX - width_halved, this.intentHb.cY - height_halved, width_halved, height_halved, width, height, Settings.scale * 0.6F, Settings.scale * 0.6F, rotation2, 0, 0, (int)width, (int)height, false, false);
+        sb.setColor(Color.WHITE.cpy());
     }
 
     @Override

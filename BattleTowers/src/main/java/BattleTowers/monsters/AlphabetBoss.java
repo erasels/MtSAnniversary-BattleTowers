@@ -247,6 +247,7 @@ public class AlphabetBoss extends OrbUsingMonster {
 
         switch (move) {
             case AMPLIFY: {
+                UC.atb(new ChangeStateAction(this, "ATTACK_2"));
                 UC.doDmg(AbstractDungeon.player, calcAscensionDamage(AMPLIFYDMG), AbstractGameAction.AttackEffect.FIRE);
                 UC.doPow(new AlphabetAmplifyPower(this));
                 break;
@@ -275,12 +276,13 @@ public class AlphabetBoss extends OrbUsingMonster {
                 break;
             }
             case DEEPFREEZE: {
-                UC.atb(new ChangeStateAction(this, "ATTACK"));
+                UC.atb(new ChangeStateAction(this, "ATTACK_2"));
                 UC.doDmg(AbstractDungeon.player, DEEPFREEZEDMG, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
                 UC.atb(new MakeTempCardInDiscardAction(new Chilled(), DEEPFREEZECARDS));
                 break;
             }
             case ENRAGE: {
+                UC.atb(new ChangeStateAction(this, "ATTACK_2"));
                 UC.doDmg(AbstractDungeon.player, calcAscensionDamage(ENRAGEDMG), AbstractGameAction.AttackEffect.SMASH);
                 UC.doPow(new AngerPower(this, 1));
                 UC.doPow(new EnrageStopPower(this, ENRAGESTACKS));
@@ -341,7 +343,7 @@ public class AlphabetBoss extends OrbUsingMonster {
                 break;
             }
             case ORBPOWER: {
-                UC.atb(new ChangeStateAction(this, "ATTACK"));
+                UC.atb(new ChangeStateAction(this, "ATTACK_2"));
                 UC.doDmg(AbstractDungeon.player, calcAscensionDamage(ORBPOWERDMG), AbstractGameAction.AttackEffect.LIGHTNING);
                 UC.doPow(new FocusPower(this, ORBPOWERFOCUS));
                 break;
@@ -378,6 +380,7 @@ public class AlphabetBoss extends OrbUsingMonster {
                 break;
             }
             case UNSTABLE: {
+                UC.atb(new ChangeStateAction(this, "ATTACK"));
                 UC.doDmg(AbstractDungeon.player, calcAscensionDamage(UNSTABLEDMG), AbstractGameAction.AttackEffect.NONE);
                 UC.doPow(new StrengthPower(this, UNSTABLESTR));
                 UC.doPow(new WeakPower(this, UNSTABLEWEAK, true));
@@ -415,7 +418,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case ZAP: {
                 initializeOrbs();
-                UC.atb(new ChangeStateAction(this, "ATTACK"));
+                UC.atb(new ChangeStateAction(this, "ATTACK_2"));
                 UC.doDmg(AbstractDungeon.player, calcAscensionDamage(ZAPDMG), AbstractGameAction.AttackEffect.BLUNT_HEAVY);
                 UC.atb(new MonsterChannelAction(this, new MonsterLightning(this)));
                 break;
@@ -430,7 +433,7 @@ public class AlphabetBoss extends OrbUsingMonster {
                 this.state.addAnimation(0, "Idle", true, 0.0F);
                 break;
             case "ATTACK_2":
-                this.state.setAnimation(0, "ATTACK", false);
+                this.state.setAnimation(0, "Attack_2", false);
                 this.state.addAnimation(0, "Idle", true, 0.0F);
         }
 

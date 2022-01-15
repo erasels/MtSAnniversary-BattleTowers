@@ -220,7 +220,7 @@
   "${ModID}:NotificationPower": {
     "NAME": "Lettered Loot",
     "DESCRIPTIONS": [
-      "Upon killing this, gain a #yRelic that heavily boosts cards that start with the letter it was about to use."
+      "Upon killing this, gain a #yRelic that heavily boosts cards and generates random cards that start with the letter it was about to use."
     ]
   }
 }
