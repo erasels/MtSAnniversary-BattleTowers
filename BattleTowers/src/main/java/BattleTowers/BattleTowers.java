@@ -30,6 +30,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.purple.Alpha;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -37,6 +38,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
@@ -157,6 +159,11 @@ public class BattleTowers implements
                 return new CardboardGolem();
             }
         });
+        BaseMod.addMonster(Encounters.CULTIST_ARMORER, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new CultistArmorer(-250.0F, 0.0F),
+                        new Cultist(100.0F, 0.0F)
+                }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
 
         //Elites
@@ -175,6 +182,7 @@ public class BattleTowers implements
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
+        BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
 
@@ -184,6 +192,7 @@ public class BattleTowers implements
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
@@ -200,6 +209,7 @@ public class BattleTowers implements
         BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
         BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
         BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
+        BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocalizationPath(lang + "/orbs.json"));
 
         lang = getLangString();
         if (lang.equals(defaultLoc())) return;
@@ -213,6 +223,7 @@ public class BattleTowers implements
             BaseMod.loadCustomStringsFile(PowerStrings.class, makeLocalizationPath(lang + "/powers.json"));
             BaseMod.loadCustomStringsFile(UIStrings.class, makeLocalizationPath(lang + "/ui.json"));
             BaseMod.loadCustomStringsFile(RelicStrings.class, makeLocalizationPath(lang + "/relics.json"));
+            BaseMod.loadCustomStringsFile(OrbStrings.class, makeLocalizationPath(lang + "/orbs.json"));
         }
         catch (Exception e)
         {
@@ -321,6 +332,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
+        BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
+        BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
         BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
     }

@@ -112,7 +112,7 @@ public class Trenchcoat extends AbstractBTMonster {
 
     @Override
     public void usePreBattleAction() {
-        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,20), 20));
+        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,30), 20));
 
     }
 

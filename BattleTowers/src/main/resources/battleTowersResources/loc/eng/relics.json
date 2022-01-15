@@ -45,7 +45,7 @@
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yVulnerable.",
+      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yWeak.",
       "#gGain #gNob #gWar #gBanner."
     ]
   },
@@ -67,13 +67,13 @@
       " into your discard pile.",
       "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
       "It's just a stick."
-      ]
+    ]
   },
   "${ModID}:Lucky": {
     "NAME": "Lucky",
     "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
     "DESCRIPTIONS": [
-      "At the start of the Boss combat of this Battle Tower, gain 2 #yStrength and 2 #yDexterity."
+      "At the start of the Boss combat of this Battle Tower, gain 1 #yStrength and 1 #yDexterity."
     ]
   },
   "${ModID}:IronPotHelmet": {
@@ -114,6 +114,25 @@
     "FLAVOR": "That guy sure is friendly.",
     "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
   },
+  "${ModID}:ArmorersMask": {
+    "NAME": "Armorer's Headpiece",
+    "FLAVOR": "Part of the Flock!",
+    "DESCRIPTIONS": [
+      "You feel more talkative and start combat with 1 #yDexterity.",
+      "@CAW!@ NL @CAAAW@"
+    ]
+  },
+  "${ModID}:AlphabetSoup": {
+    "NAME": "Alphabet Soup",
+    "FLAVOR": "Letterlicious.",
+    "DESCRIPTIONS": [
+      "At the start of each combat, choose #b1 of #b3 cards that start with a certain letter to add into your hand. Whenever you play a card that starts with that letter, gain #b4 #yBlock and [E] .",
+      "At the start of each combat, choose #b1 of #b3 cards that start with #p",
+      " to add into your hand. Whenever you play a card that starts with #p",
+      ", gain #b4 #yBlock and [E] .",
+      "Choose a card to add into your hand."
+    ]
+  },
   "${ModID}:GorgonHead": {
     "NAME": "Gorgon Head",
     "FLAVOR": "Still dangerous to look at.",
@@ -125,4 +144,5 @@
     "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand. #ySlime #yElixir is a #ySkill that costs #b0 and has the following text: NL #yRetain. Draw #b2 cards. Shuffle a #ySlimed into your draw pile. #yExhaust."]
   }
 }
+
 
