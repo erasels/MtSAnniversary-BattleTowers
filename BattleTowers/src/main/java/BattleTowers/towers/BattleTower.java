@@ -1,12 +1,12 @@
 package BattleTowers.towers;
 
+import BattleTowers.events.*;
 import BattleTowers.interfaces.Weighted;
+import BattleTowers.monsters.*;
+import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.events.shrines.PurificationShrine;
-import com.megacrit.cardcrawl.events.shrines.Transmogrifier;
-import com.megacrit.cardcrawl.events.shrines.UpgradeShrine;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class BattleTower {
     static {
         layouts = new ArrayList<>();
 
-        layouts.add(new TowerLayout("Basic")
+        layouts.add(new TowerLayout("Basic", 1)
                 .addRow(NodeType.MONSTER)
                 .addRow(NodeType.EVENT)
                 .addRow(NodeType.ELITE)
@@ -53,7 +53,7 @@ public class BattleTower {
                 .addRow(NodeType.REST, NodeType.SHOP).addAlternate(NodeType.SHOP, NodeType.REST)
                 .connect(0).connect(1).connect(2).connect(3)
         );
-        layouts.add(new TowerLayout("DoubleSplit")
+        layouts.add(new TowerLayout("DoubleSplit", 1)
                 .addRow(NodeType.MONSTER)
                 .addRow(NodeType.EVENT, NodeType.MONSTER).addAlternate(NodeType.MONSTER, NodeType.EVENT).addAlternate(NodeType.MONSTER, NodeType.MONSTER)
                 .addRow(NodeType.ELITE)
@@ -61,7 +61,7 @@ public class BattleTower {
                 .addRow(NodeType.REST, NodeType.SHOP).addAlternate(NodeType.SHOP, NodeType.REST)
                 .connect(0).connect(1).connect(2).connect(3)
         );
-        layouts.add(new TowerLayout("FatefulChoice")
+        layouts.add(new TowerLayout("FatefulChoice", 0.6f)
                 .addRow(NodeType.MONSTER, NodeType.MONSTER)
                 .addRow(NodeType.EVENT, NodeType.EVENT).addAlternate(NodeType.MONSTER, NodeType.EVENT).addAlternate(NodeType.EVENT, NodeType.MONSTER) //event biased
                 .addRow(NodeType.ELITE, NodeType.ELITE)
@@ -72,7 +72,7 @@ public class BattleTower {
                 .connect(2, 0, 0).connect(2, 1, 1)
                 .connect(3, 0, 0).connect(3, 1, 1)
         );
-        layouts.add(new TowerLayout("TripleDouble")
+        layouts.add(new TowerLayout("TripleDouble", 1)
                 .addRow(NodeType.MONSTER, NodeType.MONSTER, NodeType.MONSTER)
                 .addRow(NodeType.EVENT).addAlternate(NodeType.EVENT).addAlternate(NodeType.REST)
                 .addRow(NodeType.ELITE)
@@ -83,7 +83,7 @@ public class BattleTower {
                 .connect(0).connect(1).connect(2)
                 .connect(3, 0, 0, 1).connect(3, 1, 1, 2)
         );
-        layouts.add(new TowerLayout("DoubleTriple")
+        layouts.add(new TowerLayout("DoubleTriple", 1)
                 .addRow(NodeType.MONSTER)
                 .addRow(NodeType.EVENT).addAlternate(NodeType.EVENT).addAlternate(NodeType.MONSTER)
                 .addRow(NodeType.ELITE, NodeType.ELITE)
@@ -93,7 +93,7 @@ public class BattleTower {
                 .addAlternate(NodeType.EVENT, NodeType.SHOP, NodeType.REST).addAlternate(NodeType.EVENT, NodeType.REST, NodeType.SHOP)
                 .connect(0).connect(1).connect(2).connect(3)
         );
-        layouts.add(new TowerLayout("Hex")
+        layouts.add(new TowerLayout("Hex", 1)
                 .addRow(NodeType.MONSTER, NodeType.MONSTER)
                 .addRow(NodeType.EVENT, NodeType.SHOP).addAlternate(NodeType.SHOP, NodeType.EVENT).addAlternate(NodeType.EVENT, NodeType.EVENT)
                 .addRow(NodeType.ELITE)
@@ -127,16 +127,26 @@ public class BattleTower {
         contents = new ArrayList<>();
 
         contents.add(new TowerContents("Default")
-                .addNormalEncounter(MonsterHelper.CULTIST_ENC)
-                .addNormalEncounter(MonsterHelper.JAW_WORM_ENC)
-                .addNormalEncounter(MonsterHelper.THREE_DARKLINGS_ENC)
-                .addEliteEncounter(MonsterHelper.GREMLIN_NOB_ENC)
-                .addEliteEncounter(MonsterHelper.LAGAVULIN_ENC)
-                .addEvent(UpgradeShrine.ID)
-                .addEvent(Transmogrifier.ID)
-                .addEvent(PurificationShrine.ID)
-                .addBoss(MonsterHelper.GUARDIAN_ENC)
-                .addBoss(MonsterHelper.HEXAGHOST_ENC)
+                .addNormalEncounter(Encounters.METAL_LOUSES)
+                .addNormalEncounter(Encounters.ICE_AND_FIRE_SLIME)
+                .addNormalEncounter(DoomedSoul.ID)
+                .addNormalEncounter(Trenchcoat.ID)
+                .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
+                .addNormalEncounter(tneisnarT.ID)
+                .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
+                .addEliteEncounter(VoodooDoll.ID)
+                .addEliteEncounter(Gorgon.ID)
+                .addEliteEncounter(GigaSlime.ID)
+                .addEliteEncounter(ItozusTheWindwalker.ID)
+                .addEliteEncounter(ZastraszTheJusticar.ID)
+                .addEvent(OttoEvent.ID)
+                .addEvent(BannerSageEvent.ID)
+                .addEvent(EmeraldFlame.ID)
+                .addEvent(GenieLampEvent.ID)
+                .addEvent(RoarOfTheCrowd.ID)
+                .addBoss(CardboardGolem.ID)
+                .addBoss(ExecutiveSlime.ID)
+                .addBoss(Dijinn.ID)
         );
     }
 

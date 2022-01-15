@@ -18,11 +18,18 @@
       "When obtained, picks #b3 random cards. Choose #b1 of #b3 of the set to add into your hand with #yRetain each combat."
     ]
   },
+  "${ModID}:BucketOfSlime": {
+    "NAME": "Bucket Of Slime",
+    "FLAVOR": "A bucket of slime! Useful and multipurpose! Huh? What purpose? I'm just a salesman, figure that out yourself.",
+    "DESCRIPTIONS": [
+      "The first time you play each card in your deck each combat, gain #b1 #yBlock."
+    ]
+  },
   "${ModID}:WarBannerCultist": {
     "NAME": "Cultist War Banner",
     "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain 1 Ritual and lose 2 Strength.",
+      "At the start of combat, gain #b1 #yRitual and lose #b2 #yStrength.",
       "#gGain #gCultist #gWar #gBanner."
     ]
   },
@@ -30,7 +37,7 @@
     "NAME": "Louse War Banner",
     "FLAVOR": "Be one with the snail.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain 10 Curl Up. When Curl Up is triggered, Block is not lost this turn.",
+      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, #yBlock is not lost this turn.",
       "#gGain #gLouse #gWar #gBanner."
     ]
   },
@@ -38,7 +45,7 @@
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first 3 enemy actions each combat that are not attacks grant you 1 Strength. Start each combat with 2 Vulnerable.",
+      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yVulnerable.",
       "#gGain #gNob #gWar #gBanner."
     ]
   },
@@ -46,9 +53,66 @@
     "NAME": "Snecko War Banner",
     "FLAVOR": "This pattern. It's... mesmerizing.",
     "DESCRIPTIONS": [
-      "At the start of combat, become Confused.",
+      "Start each combat #yConfused.",
       "#gGain #gSnecko #gWar #gBanner."
     ]
+  },
+  "${ModID}:Torch": {
+    "NAME": "Torch",
+    "FLAVOR": "A simple torch that glows with an emerald fire. It seems to weaken the further it travels.",
+    "DESCRIPTIONS": [
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
+      " into your draw pile.",
+      "At the start each combat, shuffle #b2 copies of ",
+      " into your discard pile.",
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
+      "It's just a stick."
+      ]
+  },
+  "${ModID}:Lucky": {
+    "NAME": "Lucky",
+    "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
+    "DESCRIPTIONS": [
+      "At the start of the Boss combat of this Battle Tower, gain 2 #yStrength and 2 #yDexterity."
+    ]
+  },
+  "${ModID}:IronPotHelmet": {
+    "NAME": "Iron Pot Helmet",
+    "FLAVOR": "It once was special and enchanted. Now it's just a big hunk of metal.",
+    "DESCRIPTIONS": [
+      "When you play a #yDefend, gain #b3 #yBlock."
+    ]
+  },
+  "${ModID}:DijinnLamp": {
+    "NAME": "Dijinn Lamp",
+    "FLAVOR": "As you rub it, you can feel the faintest echoes of infinite power.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yWish #yGranted into your draw pile."
+    ]
+  },
+  "${ModID}:CursedDoll": {
+    "NAME": "Cursed Doll",
+    "FLAVOR": "It's filled with pins and needles . . . and it looks surprisingly like you.",
+    "DESCRIPTIONS": [
+      "Whenever you lose HP, ALL enemies also lose twice that much HP."
+    ]
+  },
+  "${ModID}:GreedBlight": {
+    "NAME": "Curse of Greed",
+    "FLAVOR": "Wealth attracts greed.",
+    "DESCRIPTIONS": [
+      "Relics at shops cost #b%dx more #ygold."
+    ]
+  },
+  "${ModID}:PromiseOfGold": {
+    "NAME": "Promise of Gold",
+    "FLAVOR": "It will all be worth it.",
+    "DESCRIPTIONS": ["Gain #b{0} gold when you defeat the #yBattle #yTower boss."]
+  },
+  "${ModID}:ClericsBlessing": {
+    "NAME": "Cleric's Blessing",
+    "FLAVOR": "That guy sure is friendly.",
+    "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
   }
 }
 

@@ -47,6 +47,54 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:ExecutiveSlime": {
+    "MOVES": [
+      "Onus",
+      "Outrage",
+      "Onus",
+      "Rough Swipe",
+      "Slime Splash",
+      "Swarm",
+      "Preparing",
+      "Punishment"
+    ],
+    "NAME": "Executive Slime",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Slimeling": {
+    "MOVES": [
+      "Tackle",
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Slimeling",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "tneisnarT",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Dijinn": {
+    "MOVES": [
+      "Empower",
+      "Corruption",
+      "Golden Crucible"
+    ],
+    "NAME": "Dijinn",
+    "DIALOG": [
+      "Who dares to challenge me?",
+      "This wish is but a temporary reprieve . . .",
+      "Your wish is my will . . . for now.",
+      "Be careful what you wish for.",
+      "Now, I am free!"
+    ]
+  },
   "${ModID}:VoodooDoll": {
     "MOVES": [
       "Curse",
@@ -66,7 +114,84 @@
       "Petrify Limb"
     ],
     "NAME": "Gorgon"
-  }, "${ModID}:FireSlimeL": {
+  },
+  "${ModID}:ItozusTheWindwalker": {
+    "MOVES": [
+      "Aircuter",
+      "Brewing Storm",
+      "Stormstrike",
+      "Flurry of Blows",
+      "Deathtouch"
+    ],
+    "NAME": "Itozus the Windwalker"
+  },
+  "${ModID}:ZastraszTheJusticar": {
+    "MOVES": [
+      "Divine Smite",
+      "Solemn Vigil",
+      "Judgement of Justice",
+      "Divine Storm",
+      "Trial by Fire"
+    ],
+    "NAME": "Zastrasz the Justicar"
+  },
+  "${ModID}:GoldenLouse": {
+    "MOVES": [
+      "Bite",
+      "Protect",
+      "Heal"
+    ],
+    "NAME": "Golden Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SilverLouse": {
+    "MOVES": [
+      "Bite",
+      "Buff",
+      "Scratch"
+    ],
+    "NAME": "Silver Louse",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryRed": {
+    "MOVES": [
+      "Beam",
+      "Burn"
+    ],
+    "NAME": "Red Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryGreen": {
+    "MOVES": [
+      "Beam",
+      "Splatter"
+    ],
+    "NAME": "Green Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryPurple": {
+    "MOVES": [
+      "Beam",
+      "Drain"
+    ],
+    "NAME": "Purple Sentry",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:SentryHuge": {
+    "MOVES": [
+      "Double Beam",
+      "Annoy"
+    ],
+    "NAME": "Huge Sentry",
+    "DIALOG": [
+    ]
+  }, 
+  "${ModID}:FireSlimeL": {
   "MOVES": [
     "Incendiary Spit",
     "Tackle",
@@ -154,7 +279,7 @@
       "Break",
       "Gore"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Minotaur Gladiator"
   },
   "${ModID}:BurningShambler": {
     "MOVES": [
@@ -162,6 +287,6 @@
       "Bonfire",
       "Rush"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Burning Shambler"
   }
 }

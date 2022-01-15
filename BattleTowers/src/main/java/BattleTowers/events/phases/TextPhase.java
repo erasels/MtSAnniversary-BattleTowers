@@ -3,6 +3,7 @@ package BattleTowers.events.phases;
 import BattleTowers.events.PhasedEvent;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -26,6 +27,7 @@ public class TextPhase extends ImageEventPhase {
     public void transition(PhasedEvent event) {
         AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+        AbstractEvent.type = AbstractEvent.EventType.IMAGE;
 
         event.resetCardRarity();
         event.allowRarityAltering = true;
@@ -46,6 +48,12 @@ public class TextPhase extends ImageEventPhase {
         return this;
     }
 
+    public TextPhase addOption(String optionText, AbstractRelic previewRelic, Consumer<Integer> onClick) {
+        options.add(new OptionInfo(optionText, previewRelic));
+        optionResults.add(onClick);
+        return this;
+    }
+
 
     public String getBody() {
         return body;
@@ -58,7 +66,7 @@ public class TextPhase extends ImageEventPhase {
     }
     @Override
     public void optionChosen(int index) {
-        if (index <= optionResults.size()) {
+        if (index < optionResults.size()) {
             optionResults.get(index).accept(index);
         }
     }

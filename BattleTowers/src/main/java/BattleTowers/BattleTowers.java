@@ -1,16 +1,12 @@
 package BattleTowers;
 
+import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
-import BattleTowers.events.BannerSageEvent;
-import BattleTowers.events.CoolExampleEvent;
-import BattleTowers.events.OttoEvent;
-import BattleTowers.monsters.CardboardGolem.CardboardGolem;
-import BattleTowers.monsters.FireSlimeL;
-import BattleTowers.monsters.Gorgon;
-import BattleTowers.monsters.IceSlimeL;
-import BattleTowers.monsters.Trenchcoat;
-import BattleTowers.relics.*;
+import BattleTowers.events.*;
 import BattleTowers.monsters.*;
+import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.executiveslime.ExecutiveSlime;
+import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
 import BattleTowers.util.KeywordWithProper;
@@ -18,33 +14,31 @@ import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.CardBorderGlowManager;
+import basemod.helpers.CardModifierManager;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
-import basemod.interfaces.EditKeywordsSubscriber;
-import basemod.interfaces.EditRelicsSubscriber;
-import basemod.interfaces.EditStringsSubscriber;
-import basemod.interfaces.PostInitializeSubscriber;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sun.security.provider.SHA;
 
-import javax.smartcardio.Card;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -55,8 +49,7 @@ public class BattleTowers implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
-        EditCardsSubscriber,
-        PreMonsterTurnSubscriber
+        EditCardsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -110,23 +103,39 @@ public class BattleTowers implements
 
         addMonsters();
         addEvents();
+
+        CardBorderGlowManager.addGlowInfo(new CardBorderGlowManager.GlowInfo() {
+            private final String ID = makeID("SlimyGlow");
+            @Override
+            public boolean test(AbstractCard card) {
+                return CardModifierManager.hasModifier(card, SlimyCardmod.ID);
+            }
+            @Override
+            public Color getColor(AbstractCard abstractCard) {
+                return new Color(0.7F, 0.55F, 0.8F, 1.0F);
+            }
+            @Override
+            public String glowID() {
+                return ID;
+            }
+        });
     }
 
     private static void addMonsters() {
-
-        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
-        BaseMod.addMonster(makeID("SlimeOfIceAndFire"), () -> new MonsterGroup(
+        //Normal Enemies
+        BaseMod.addMonster(Encounters.METAL_LOUSES,  () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SilverLouse(-400.0F, 0.0F),
+                        new GoldenLouse(-150.0F, 0.0F),
+                        new SilverLouse(100.0F, 0.0F),
+                }));
+        BaseMod.addMonster(Encounters.ICE_AND_FIRE_SLIME, () -> new MonsterGroup(
                 new AbstractMonster[]{
                         new FireSlimeL(-385.0F, 20.0F),
                         new IceSlimeL(120.0F, -8.0F)
                 }));
-
         BaseMod.addMonster(Trenchcoat.ID, (BaseMod.GetMonster) Trenchcoat::new);
-
-        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
-        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(DoomedSoul.ID, (BaseMod.GetMonster) DoomedSoul::new);
-        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new BurningShambler(-350.0F, 0.0F),
@@ -143,13 +152,34 @@ public class BattleTowers implements
                 return new CardboardGolem();
             }
         });
+        BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
+
+        //Elites
+        BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new SentryRed(-500.0F, 25.0F),
+                        new SentryGreen(-320.0F, 10.0F),
+                        new SentryPurple(-140.0F, 30.0F),
+                        new SentryHuge(140.0F, 0.0F)
+                }));
+        BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
+        BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
+        BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
+        BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
+        BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
+        //Bosses
+        BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
+        BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
+        BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
     }
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-
+        BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
+        BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
     }
 
     @Override
@@ -270,12 +300,21 @@ public class BattleTowers implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        BaseMod.addRelic(new BucketOfSlime(), RelicType.SHARED);
         BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
-        }
+        BaseMod.addRelic(new Torch(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(Torch.ID);
+        BaseMod.addRelic(new Lucky(), RelicType.SHARED);
+        BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
+        BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
+        BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
+    }
         
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
@@ -295,17 +334,9 @@ public class BattleTowers implements
         BaseMod.addCard(new QueensGrace());
         BaseMod.addCard(new RooksCharge());
         BaseMod.addCard(new CursedTapestry());
-    }
-
-    public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
-
-        if (AbstractDungeon.player.hasRelic(WarBannerNob.ID)) {
-
-            if (abstractMonster.getIntentBaseDmg() <= 0) {
-                AbstractDungeon.player.getRelic(WarBannerNob.ID).onTrigger();
-            }
-        }
-
-        return true;
+        BaseMod.addCard(new Greedy());
+        BaseMod.addCard(new DarkEnchantment());
+        BaseMod.addCard(new Granted());
+        BaseMod.addCard(new Knowledge());
     }
 }

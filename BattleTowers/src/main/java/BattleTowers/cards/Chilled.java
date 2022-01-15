@@ -43,6 +43,7 @@ public class Chilled extends CustomCard {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
 
         this.isEthereal = true;
+        baseMagicNumber = magicNumber = 1;
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
@@ -51,7 +52,7 @@ public class Chilled extends CustomCard {
     public void triggerWhenDrawn()
           {
             addToBot(new LoseEnergyAction(1));
-            addToBot(new DrawCardAction(1));
+            addToBot(new DrawCardAction(magicNumber));
         }
 
     public AbstractCard makeCopy() {

@@ -1,10 +1,7 @@
 package BattleTowers.events;
 
 import BattleTowers.BattleTowers;
-import BattleTowers.events.phases.CombatPhase;
-import BattleTowers.events.phases.EventPhase;
-import BattleTowers.events.phases.ImageEventPhase;
-import BattleTowers.events.phases.TextPhase;
+import BattleTowers.events.phases.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -34,6 +31,9 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     }
     public void transitionKey(Object key) {
         transitionPhase(phases.get(key));
+    }
+    public EventPhase getPhase(Object key) {
+        return phases.get(key);
     }
     public void transitionPhase(EventPhase next) {
         if (currentPhase == null) {
@@ -88,7 +88,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         }
     }
 
-    private boolean started = false;
+    public boolean started = false;
     @Override
     public void update() {
         if (!this.combatTime) {
@@ -149,6 +149,21 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         this.combatTime = true;
     }
 
+    @Override
+    public void postCombatLoad() {
+        if (currentPhase instanceof CombatPhase) {
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
+            AbstractDungeon.getCurrRoom().isBattleOver = true;
+            AbstractRoom.waitTimer = 0;
+            this.hasFocus = false;
+            GenericEventDialog.hide();
+            AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+        }
+        else {
+            super.postCombatLoad();
+        }
+    }
+
     public void finishCombat() {
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
         this.hasFocus = true;
@@ -162,7 +177,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     }
 
     public void resetCardRarity() {
-        setCardRarity(3, 37);
+        setCardRarity(37, 3);
     }
     public void setCardRarity(int baseUncommonChance, int baseRareChance) {
         AbstractDungeon.getCurrRoom().baseUncommonCardChance = baseUncommonChance;

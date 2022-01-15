@@ -7,6 +7,21 @@
     "NAME": "Blank Card",
     "DESCRIPTION": ""
   },
+  "${ModID}:Granted": {
+    "NAME": "Wish Granted",
+    "DESCRIPTION": "*Wish for the PERFECT Upgraded Rare card to add to your hand. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Retain. NL *Wish for the PERFECT Upgraded Rare card to add to your hand. NL Exhaust."
+  },
+  "${ModID}:DijinnWrath": {
+    "NAME": "Dijinn's Wrath",
+    "DESCRIPTION": "The enemy ",
+    "EXTENDED_DESCRIPTION": ["gains !M! Strength.", "shuffles !M! *Voids into your discard pile.", "deals its intended damage to you."]
+  },
+  "${ModID}:MakeAWish": {
+    "NAME": "Make a Wish",
+    "DESCRIPTION": "Use a *Wish to ",
+    "EXTENDED_DESCRIPTION": ["gain !M! Strength.", "put !M! *Miracles into your hand.", "gain !M! Temporary_HP."]
+  },
   "${ModID}:Prick": {
     "NAME": "Prick",
     "DESCRIPTION": "If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
@@ -17,12 +32,12 @@
   },
   "${ModID}:Chilled": {
     "NAME": "Chilled",
-    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose 1 Energy, then draw a card."
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E], then draw !M! card."
   },
   "${ModID}:QueensGrace": {
     "NAME": "Queen's Grace",
-    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E]. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw 3 cards. NL Gain [E] [E]. NL Exhaust."
+    "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw !M! cards. NL Gain [E]. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL Draw !M! cards. NL Gain [E] [E]. NL Exhaust."
   },
   "${ModID}:RooksCharge": {
     "NAME": "Rook's Charge",
@@ -30,7 +45,7 @@
   },
   "${ModID}:BishopsPrayer": {
     "NAME": "Bishop's Prayer",
-    "DESCRIPTION": "Gain !B! Block. NL Draw 1 card. NL Shuffle this card back into your draw pile."
+    "DESCRIPTION": "Gain !B! Block. NL Draw !M! card. NL Shuffle this card back into your draw pile."
   },
   "${ModID}:PawnsAdvance": {
     "NAME": "Pawn's Advance",
@@ -43,17 +58,29 @@
   },
   "${ModID}:KnightsManeuver": {
     "NAME": "Knight's Maneuver",
-    "DESCRIPTION": "Choose: Gain 3 Dexterity and lose 1 Strength, or gain 3 Strength and lose 1 Dexterity.",
+    "DESCRIPTION": "Choose: Gain !M! Dexterity and lose 1 Strength, or gain !M! Strength and lose 1 Dexterity.",
     "EXTENDED_DESCRIPTION": [
       "Defensive",
-      "Gain 3 Dexterity and lose 1 Strength.",
+      "Gain !M! Dexterity and lose 1 Strength.",
       "Offensive",
-      "Gain 3 Strength and lose 1 Dexterity.",
+      "Gain !M! Strength and lose 1 Dexterity.",
       "Choose an option."
     ]
   },
   "${ModID}:CursedTapestry": {
     "NAME": "Cursed Tapestry",
     "DESCRIPTION": "Fleeting. NL Lose !M! HP. NL Deal !D! Damage. NL Gain a random Common Relic."
+  },
+  "${ModID}:Greedy": {
+    "NAME": "Greedy",
+    "DESCRIPTION": "Unplayable. Ethereal. NL When drawn, lose !M! Gold."
+  },
+  "${ModID}:DarkEnchantment": {
+    "NAME": "Dark Enchantment",
+    "DESCRIPTION": "Draw !M! cards. NL Gain [E] [E]. NL Increase all numbers that can be increased on cards in hand by 1 this combat. NL Exhaust."
+  },
+  "${ModID}:Knowledge": {
+    "NAME": "Wish for Knowledge",
+    "DESCRIPTION": "Soulbound. NL Autoplay. NL Add a copy of a random card that you only have 1 copy of in your deck to it. "
   }
 }

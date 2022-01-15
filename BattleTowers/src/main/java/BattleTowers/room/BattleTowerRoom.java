@@ -1,10 +1,10 @@
 package BattleTowers.room;
 
 import BattleTowers.events.TowerEvent;
-import BattleTowers.towers.BattleTower;
 import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
@@ -14,6 +14,8 @@ public class BattleTowerRoom extends AbstractRoom {
     //Todo- handle save and quit mid-tower
     //see - nextRoomTransition of AbstractDungeon used when loading a save
     public Random towerRng;
+
+    private AbstractDungeon.RenderScene intendedRs = null;
 
     //When created, determine tower properties using map rng
     public BattleTowerRoom() {
@@ -33,18 +35,26 @@ public class BattleTowerRoom extends AbstractRoom {
         logger.info("Battle Tower generated with seed " + seed);
     }
 
-    protected void startTower(BattleTower tower)
-    {
-
-    }
-
     @Override
     public void onPlayerEntry() {
         AbstractDungeon.overlayMenu.proceedButton.hide();
+        intendedRs = AbstractDungeon.rs;
+        AbstractEvent.type = AbstractEvent.EventType.IMAGE;
         this.event.onEnterRoom();
+        if (AbstractDungeon.rs != intendedRs) {
+            intendedRs = AbstractDungeon.rs;
+        }
+        else {
+            intendedRs = null;
+        }
     }
 
     public void update() {
+        if (intendedRs != null) {
+            AbstractDungeon.rs = intendedRs;
+            intendedRs = null;
+        }
+
         super.update();
         if (!AbstractDungeon.isScreenUp) {
             this.event.update();

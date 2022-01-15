@@ -1,11 +1,11 @@
-package BattleTowers.patches.node;
+package BattleTowers.patches.map;
 
 import BattleTowers.room.BattleTowerRoom;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.dungeons.TheCity;
 import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
+import com.megacrit.cardcrawl.rooms.TreasureRoom;
 import javassist.CtBehavior;
 import org.apache.logging.log4j.Logger;
 
@@ -20,8 +20,10 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
         method = "generateMap"
 )
 public class TowerGeneration {
+    private static final int TOWER_ACT_NUMBER = 2;
     public static boolean DEBUG = true;
     public static float appearRate = 1.0f; //config option?
+    public static boolean fullRowMode = true; //config option, or just make this always the behavior
 
     /*
         Purpose:
@@ -32,74 +34,93 @@ public class TowerGeneration {
             locator = Locator.class
     )
     public static void GenerateTower() {
-        //Should it be any act 2 or just the city?
-        if ((DEBUG || TheCity.ID.equals(AbstractDungeon.id)) && mapRng.randomBoolean(appearRate)) {
-            //Time to catalogue some paths
-            Map<MapRoomNode, Set<MapRoomNode>> prior = scorePrior(8);
-            Map<MapRoomNode, Set<MapRoomNode>> following = scoreFollowing(8);
-
-            List<MapRoomNode> possible = new ArrayList<>();
-            int highScore = 0, score;
-            logger.info("Scoring:");
-            for (MapRoomNode n : AbstractDungeon.map.get(8)) {
-                score = prior.getOrDefault(n, Collections.emptySet()).size();
-                score += following.getOrDefault(n, Collections.emptySet()).size();
-                logger.info("("+n.x+","+n.y+") - " + score);
-                if (score > highScore) {
-                    possible.clear();
-                    highScore = score;
-                }
-                if (score == highScore) {
-                    possible.add(n);
-                }
-            }
-
-            if (possible.isEmpty()) {
-                logger.error("Somehow found no possible nodes?");
+        if ((DEBUG || AbstractDungeon.actNum == TOWER_ACT_NUMBER) && mapRng.randomBoolean(appearRate)) {
+            if (fullRowMode) {
+                replaceFullRow();
             }
             else {
-                MapRoomNode chosen = possible.get(mapRng.random(possible.size() - 1));
-                chosen.setRoom(new BattleTowerRoom());
+                replaceOneNode();
+            }
+        }
+    }
 
-                //add following edges
-                Set<MapRoomNode> connected = following.get(chosen);
+    private static void replaceFullRow() {
+        for (MapRoomNode n : AbstractDungeon.map.get(8)) {
+            // In case some other mod does something to these rooms, only replace treasure rooms
+            if (n.room instanceof TreasureRoom) {
+                n.setRoom(new BattleTowerRoom());
+            } else {
+                logger.info("Found a non-treasure node in the middle of the map. Skipping it for battle tower replacement.");
+            }
+        }
+    }
+
+    private static void replaceOneNode() {
+        //Time to catalogue some paths
+        Map<MapRoomNode, Set<MapRoomNode>> prior = scorePrior(8);
+        Map<MapRoomNode, Set<MapRoomNode>> following = scoreFollowing(8);
+
+        List<MapRoomNode> possible = new ArrayList<>();
+        int highScore = 0, score;
+        logger.info("Scoring:");
+        for (MapRoomNode n : AbstractDungeon.map.get(8)) {
+            score = prior.getOrDefault(n, Collections.emptySet()).size();
+            score += following.getOrDefault(n, Collections.emptySet()).size();
+            logger.info("("+n.x+","+n.y+") - " + score);
+            if (score > highScore) {
                 possible.clear();
-                for (MapRoomNode n : connected) {
-                    if (n.y == chosen.y + 1)
-                        possible.add(n);
-                }
+                highScore = score;
+            }
+            if (score == highScore) {
+                possible.add(n);
+            }
+        }
 
-                if (!possible.isEmpty()) {
-                    for (MapRoomNode n : possible) {
-                        if (!chosen.isConnectedTo(n)) {
-                            chosen.addEdge(new MapEdge(chosen.x, chosen.y, chosen.offsetX, chosen.offsetY, n.x, n.y, n.offsetX, n.offsetY, false));
-                        }
-                    }
-                    chosen.getEdges().sort(MapEdge::compareTo);
-                }
-                else {
-                    logger.error("Somehow found no possible following nodes?");
-                }
+        if (possible.isEmpty()) {
+            logger.error("Somehow found no possible nodes?");
+        }
+        else {
+            MapRoomNode chosen = possible.get(mapRng.random(possible.size() - 1));
+            chosen.setRoom(new BattleTowerRoom());
 
-                //add preceding edges
-                connected = prior.get(chosen);
-                possible.clear();
-                for (MapRoomNode n : connected) {
-                    if (n.y == chosen.y - 1)
-                        possible.add(n);
-                }
+            //add following edges
+            Set<MapRoomNode> connected = following.get(chosen);
+            possible.clear();
+            for (MapRoomNode n : connected) {
+                if (n.y == chosen.y + 1)
+                    possible.add(n);
+            }
 
-                if (!possible.isEmpty()) {
-                    for (MapRoomNode n : possible) {
-                        if (!n.isConnectedTo(chosen)) {
-                            n.addEdge(new MapEdge(n.x, n.y, n.offsetX, n.offsetY, chosen.x, chosen.y, chosen.offsetX, chosen.offsetY, false));
-                            n.getEdges().sort(MapEdge::compareTo);
-                        }
+            if (!possible.isEmpty()) {
+                for (MapRoomNode n : possible) {
+                    if (!chosen.isConnectedTo(n)) {
+                        chosen.addEdge(new MapEdge(chosen.x, chosen.y, chosen.offsetX, chosen.offsetY, n.x, n.y, n.offsetX, n.offsetY, false));
                     }
                 }
-                else {
-                    logger.error("Somehow found no possible preceding nodes?");
+                chosen.getEdges().sort(MapEdge::compareTo);
+            }
+            else {
+                logger.error("Somehow found no possible following nodes?");
+            }
+
+            //add preceding edges
+            connected = prior.get(chosen);
+            possible.clear();
+            for (MapRoomNode n : connected) {
+                if (n.y == chosen.y - 1)
+                    possible.add(n);
+            }
+
+            if (!possible.isEmpty()) {
+                for (MapRoomNode n : possible) {
+                    if (!n.isConnectedTo(chosen)) {
+                        n.addEdge(new MapEdge(n.x, n.y, n.offsetX, n.offsetY, chosen.x, chosen.y, chosen.offsetX, chosen.offsetY, false));
+                        n.getEdges().sort(MapEdge::compareTo);
+                    }
                 }
+            }
+            else {
+                logger.error("Somehow found no possible preceding nodes?");
             }
         }
     }

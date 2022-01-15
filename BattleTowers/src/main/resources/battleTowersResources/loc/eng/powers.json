@@ -12,11 +12,36 @@
       " #yStrength and #yDexterity."
     ]
   },
+  "${ModID}:OnusPower": {
+    "NAME": "Onus",
+    "DESCRIPTIONS": [
+      "At the end of your turn, put your hand onto the top of your draw pile."
+    ]
+  },
+  "${ModID}:rewoPgnitfihS": {
+    "NAME": "gnitfihS",
+    "DESCRIPTIONS": [
+      "Upon losing HP, gains that much #yStrength."
+    ]
+  },
+  "${ModID}:ExpendablePower": {
+    "NAME": "Expendable",
+    "DESCRIPTIONS": [
+      "At the end of its turn, loses #b",
+      " HP."
+    ]
+  },
   "${ModID}:CardEaterPower": {
     "NAME": "Card Eater",
     "DESCRIPTIONS": [
       "At the start of your turn, Cardboard Golem picks a card in your hand. If you play it, it is #yExhausted afterwards and Cardboard Golem heals for #b",
       " HP."
+    ]
+  },
+  "${ModID}:MakeAWishPower": {
+    "NAME": "Make a Wish",
+    "DESCRIPTIONS": [
+      "You have #b", " #yWishes available. NL Whenever this creature takes a turn, you may use a #yWish to cause this creature to perform a corresponding beneficial effect for you instead."
     ]
   },
   "${ModID}:FeelMyPainPower": {
@@ -51,14 +76,21 @@
   },
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
-    "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn"
-    ]
+    "DESCRIPTIONS": ["You do not gain #yPetrification from dealing damage or applying debuffs this turn"]
+  },
+  "${ModID}:ProtectedPower": {
+    "NAME": "Protected",
+    "DESCRIPTIONS": ["This creature receives #b50% less damage from attacks as it is protected by the monsters surrounding it."]
+  },
+  "${ModID}:VengeancePower": {
+    "NAME": "Vengeance",
+    "DESCRIPTIONS": [""," gains #b"," Strength when this creature dies."]
   },
   "${ModID}:TrenchcoatPower": {
     "NAME": "Unsturdy Construct",
     "DESCRIPTIONS": [
-      "This Automaton looks highly unstable. A good hit should topple it right over... 20 unblocked damage or more will do the trick."
+      "This Automaton looks highly unstable. A good hit should topple it right over... ",
+      " more unblocked damage in a single turn will do the trick."
     ]
   },
   "${ModID}:PawnBuffPower": {
@@ -67,9 +99,6 @@
       "This turn, #yPawn's Advances deal #b",
       " additional damage and grant #b",
       " additional #yBlock."
-    ],
-    "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn."
     ]
   },
   "${ModID}:GreedWrathEnvyPower": {
@@ -93,8 +122,42 @@
   "${ModID}:PlayerEnragePower": {
     "NAME": "Enrage",
     "DESCRIPTIONS": [
-      "Enemy actions that are not attacks grant you 1 Strength, up to ",
+      "Enemy actions that are not attacks grant you #b1 #yStrength, up to #b",
       " more this combat."
+    ]
+  },
+  "${ModID}:TemporaryDeEnergizePower": {
+    "NAME": "De-Energized",
+    "DESCRIPTIONS": [
+      "Lose [E] at the start of your next #b",
+      " turns."
+    ]
+  },
+  "${ModID}:GatheringStormPower": {
+    "NAME": "Gathering Storm",
+    "DESCRIPTIONS": [
+      "When this enemy doesn't attack or attacks once, its next multihit will hit #b",
+      " Extra time.", " Extra times"
+    ]
+  },
+  "${ModID}:BurnPower": {
+    "NAME": "Burned",
+    "DESCRIPTIONS": [
+      "At the end of your turn take #b",
+      " damage and reduce this by #b1."
+    ]
+  },
+  "${ModID}:JudgementPower": {
+    "NAME": "Judgement",
+    "DESCRIPTIONS": [
+      "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
+      " NL Judgement is increased by half of unblocked damage taken."
+    ]
+  },
+  "${ModID}:KiteFlightPower": {
+    "NAME": "Glide",
+    "DESCRIPTIONS": [
+      "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
     ]
   }
 }

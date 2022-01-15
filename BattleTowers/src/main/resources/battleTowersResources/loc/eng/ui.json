@@ -3,5 +3,8 @@
     "TEXT_DICT": {
       "Test": "This does nothing."
     }
+  },
+  "${ModID}:FightPreview": {
+    "TEXT": ["Fight preview"]
   }
 }

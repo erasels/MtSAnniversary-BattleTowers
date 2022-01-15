@@ -25,7 +25,7 @@ public class KnightsManeuver extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("KnightsManeuver.png");
     private static final CardType TYPE = CardType.POWER;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
     private static final int COST = 2;
@@ -43,17 +43,18 @@ public class KnightsManeuver extends CustomCard {
     public KnightsManeuver() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         shuffleBackIntoDrawPile = true;
-        baseBlock = 7;
+        magicNumber = baseMagicNumber = 3;
+        this.setDisplayRarity(CardRarity.UNCOMMON);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         ArrayList<AbstractCard> choices = new ArrayList<>();
-        choices.add(new EasyModalChoiceCard(EXTENDED_DESCRIPTION[0], EXTENDED_DESCRIPTION[1], makeCardPath("KnightsManeuver.png"), () -> {
-            addToTop(new ApplyPowerAction(p, p, new DexterityPower(p, 3), 3));
+        choices.add(new EasyModalChoiceCard(magicNumber, EXTENDED_DESCRIPTION[0], EXTENDED_DESCRIPTION[1], makeCardPath("KnightsManeuver.png"), () -> {
+            addToTop(new ApplyPowerAction(p, p, new DexterityPower(p, magicNumber), magicNumber));
             addToTop(new ApplyPowerAction(p, p, new StrengthPower(p, -1), -1));
         }));
-        choices.add(new EasyModalChoiceCard(EXTENDED_DESCRIPTION[2], EXTENDED_DESCRIPTION[3], makeCardPath("KnightsManeuver.png"), () -> {
-            addToTop(new ApplyPowerAction(p, p, new StrengthPower(p, 3), 3));
+        choices.add(new EasyModalChoiceCard(magicNumber, EXTENDED_DESCRIPTION[2], EXTENDED_DESCRIPTION[3], makeCardPath("KnightsManeuver.png"), () -> {
+            addToTop(new ApplyPowerAction(p, p, new StrengthPower(p, magicNumber), magicNumber));
             addToTop(new ApplyPowerAction(p, p, new DexterityPower(p, -1), -1));
         }));
         addToBot(new SelectCardsCenteredAction(choices, 1, EXTENDED_DESCRIPTION[4], (cards) -> {

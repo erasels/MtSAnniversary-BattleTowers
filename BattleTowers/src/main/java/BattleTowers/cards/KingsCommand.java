@@ -22,7 +22,7 @@ public class KingsCommand extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("KingsCommand.png");
     private static final CardType TYPE = CardType.SKILL;
-    private static final CardRarity RARITY = CardRarity.RARE;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.NONE;
     private static final CardStrings cardStrings;
     private static final int COST = -2;
@@ -38,6 +38,7 @@ public class KingsCommand extends CustomCard {
     public KingsCommand() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         baseMagicNumber = magicNumber = 4;
+        this.setDisplayRarity(CardRarity.RARE);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
