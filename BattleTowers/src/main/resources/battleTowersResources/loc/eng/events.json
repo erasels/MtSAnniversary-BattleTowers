@@ -131,6 +131,42 @@
       "[Cleric] #rLose #r{0} #rGold. #gGain #g{1} #gDexterity #gfor #gthe #grest #gof #gthe #gtower.",
       "[Locked] Requires {0} Gold.",
       "[Leave]"
+  "${ModID}:ArmorerEvent": {
+    "NAME": "The Armorer",
+    "DESCRIPTIONS": [
+      "Apply 1 Vulnerable.",
+      "Apply 1 Weak.",
+      "Draw 1 card.",
+      "Gain 2 Frail.",
+      "Gain 1 Vulnerable.",
+      "Gain 2 Weak.",
+      "Exhaust.",
+      "Ethereal.",
+      "-2 Damage & Block.",
+      "Innate.",
+      "Retain.",
+      "+2 Damage & Block.",
+      "Choose an #yAttack or #ySkill Card to #gBoon: '",
+      "'.",
+      "The faint sound of metal clanging on metal pulls you toward a hidden pathway to an alcove in the Tower. Inside, you find a #rred-cloaked #rAwakened #rCultist hammering away, forging a curved metal stick. NL NL \"You weren't supposed to see this. Our #bcult demands the outsiders think of us as dim-witted, so they may remain ignorant of our true potential. NL NL Our #bsecrecy is our #ysurvival. Our #ysurvival is our #rstrength. NL NL If you swear yourself to secrecy and forget you ever saw this place, I will use the #yforge as best I can in exchange.\"",
+      "\"The forge demands #bbalance in all things. For one to be #ystrengthened, another must #rfalter.\"",
+      "\"This one's #rsacrifice will not be in vain. Choose wisely.\"",
+      "The Armorer is clearly a #ymaster of her craft, and it does not take long before the forging is complete. NL NL \"May this blessing be a #bgift for your journey. The forge remains lit for awhile longer... with payment of #rblood or #ygold, the metal can be shaped many ways.\"",
+      "With a final sizzle, the Forge's glow goes dark, #yilluminated only by the remaining #yheat in the Armorer's tools. She looks exhausted, and #rcollapses onto a bench after returning your gear to you. NL NL \"Go now - and #bremember of your oath. You shall tell #rno #rone of what you have learned here today.\"",
+      "You decline to have the Armorer further alter your equipment. NL NL \"Go now - and remember of your #boath. You shall tell #rno #rone of what you have learned here today.\"",
+      "Again, the Armorer forges your equipment with #bmasterful #bskill. \"The forge has just enough #rfuel for one last forging. If... you still wish to #rpay the toll.\"",
+      "Choose an #yAttack or #ySkill Card to #rBane: '",
+      "After the battle, you pluck the iron mask from the #rArmorer's #rhead and don it on your own. Whatever #pdeceptions these #bCultists were pulling doesn't matter - these cultists have attacked you and many others. #rThey #rdeserved #rto #rdie."
+    ],
+    "OPTIONS": [
+      "[Keep Secret] Add 1 #gBoon and 1 #rBane modifier to 2 #yAttack or #ySkill cards.",
+      "[Pay in Blood] #rLose #r10 #rHP.",
+      "[Pay in Gold] #rLose #r40 Gold.",
+      " Modify more cards.",
+      "[Locked] No viable cards to gain: '",
+      "[Locked] Already used.",
+      "[Leave]",
+      "[Slay] #rFight! #gGain #gArmorer's #gHeadpiece."
     ]
   }
 }

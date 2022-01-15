@@ -1,0 +1,16 @@
+{
+  "${ModID}:MonsterLightning": {
+    "NAME": "Lightning",
+    "DESCRIPTION": [
+      "#yEvoke: Deal #b",
+      " damage."
+    ]
+  },
+  "${ModID}:MonsterFrost": {
+    "NAME": "Frost",
+    "DESCRIPTION": [
+      "#yEvoke: ALL enemies gain #b",
+      " #yBlock."
+    ]
+  }
+}

@@ -34,6 +34,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.monsters.exordium.Cultist;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import org.apache.logging.log4j.LogManager;
@@ -152,6 +153,11 @@ public class BattleTowers implements
                 return new CardboardGolem();
             }
         });
+        BaseMod.addMonster(Encounters.CULTIST_ARMORER, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new CultistArmorer(-250.0F, 0.0F),
+                        new Cultist(100.0F, 0.0F)
+                }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
 
         //Elites
@@ -170,6 +176,7 @@ public class BattleTowers implements
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
+        BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
     }
 
@@ -177,6 +184,7 @@ public class BattleTowers implements
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
         BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");

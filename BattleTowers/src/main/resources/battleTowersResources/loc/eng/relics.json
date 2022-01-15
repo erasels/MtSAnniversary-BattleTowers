@@ -67,7 +67,7 @@
       " into your discard pile.",
       "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
       "It's just a stick."
-      ]
+    ]
   },
   "${ModID}:Lucky": {
     "NAME": "Lucky",
@@ -113,6 +113,14 @@
     "NAME": "Cleric's Blessing",
     "FLAVOR": "That guy sure is friendly.",
     "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
+  "${ModID}:ArmorersMask": {
+    "NAME": "Armorer's Headpiece",
+    "FLAVOR": "Part of the Flock!",
+    "DESCRIPTIONS": [
+      "You feel more talkative and start combat with 1 #yDexterity.",
+      "@CAW!@ NL @CAAAW@"
+    ]
   }
 }
+
 

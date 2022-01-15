@@ -122,6 +122,10 @@ public class UC {
         doDef(amount, false);
     }
 
+    public static void doDefTarget(AbstractCreature source, int amount) {
+        atb(new GainBlockAction(source, source, amount));
+    }
+
     public static void doDef(int amount, boolean top) {
         if (top) {
             att(new GainBlockAction(p(), p(), amount));
