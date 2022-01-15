@@ -76,6 +76,13 @@
       "When you play a #yDefend, gain 3 Block."
     ]
   },
+  "${ModID}:DijinnLamp": {
+    "NAME": "Dijinn Lamp",
+    "FLAVOR": "As you rub it, you can feel the faintest echoes of infinite power.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yWish #yGranted into your draw pile."
+    ]
+  },
   "${ModID}:CursedDoll": {
     "NAME": "Cursed Doll",
     "FLAVOR": "It's filled with pins and needles . . . and it looks surprisingly like you.",

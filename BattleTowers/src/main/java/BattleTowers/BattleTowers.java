@@ -276,6 +276,7 @@ public class BattleTowers implements
         UnlockTracker.markRelicAsSeen(Torch.ID);
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
     }
         
@@ -299,6 +300,7 @@ public class BattleTowers implements
         BaseMod.addCard(new CursedTapestry());
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
+        BaseMod.addCard(new Granted());
         BaseMod.addCard(new Knowledge());
     }
 }
