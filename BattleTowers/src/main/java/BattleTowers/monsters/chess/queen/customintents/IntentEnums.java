@@ -7,7 +7,7 @@ public class IntentEnums {
     @SpireEnum
     public static AbstractMonster.Intent QUEEN_MIMIC;
     @SpireEnum
-    public static AbstractMonster.Intent QUEEN_DRAIN;
+    public static AbstractMonster.Intent QUEEN_DRAIN_ATTACK;
     @SpireEnum
     public static AbstractMonster.Intent QUEEN_MARCH;
 }

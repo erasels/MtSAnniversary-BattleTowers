@@ -18,7 +18,7 @@ public class QueenDrainIntent extends CustomIntent {
 
 
     public QueenDrainIntent() {
-        super(IntentEnums.QUEEN_DRAIN, TEXT[0],
+        super(IntentEnums.QUEEN_DRAIN_ATTACK, TEXT[0],
                 makeUIPath("queenDrain_L.png"),
                 makeUIPath("queenDrain.png"));
     }
