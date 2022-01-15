@@ -4,6 +4,8 @@ import BattleTowers.BattleTowers;
 import BattleTowers.monsters.AbstractBTMonster;
 import BattleTowers.powers.ExpendablePower;
 import BattleTowers.powers.OnusPower;
+import BattleTowers.relics.BucketOfSlime;
+import BattleTowers.relics.CardboardHeart;
 import BattleTowers.vfx.CustomWeightyImpactEffect;
 import basemod.animations.SpriterAnimation;
 import com.badlogic.gdx.graphics.Color;
@@ -23,6 +25,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
 import java.util.ArrayList;
@@ -75,7 +78,7 @@ public class ExecutiveSlime extends AbstractBTMonster
 
         this.animation = new SpriterAnimation(BattleTowers.makeMonsterPath("ExecutiveSlime/ExecutiveSlime.scml"));
 
-        setHp(calcAscensionTankiness(180));
+        setHp(AbstractDungeon.ascensionLevel >= 9 ? 200 : 180);
 
         addMove(ONUS, Intent.STRONG_DEBUFF);
         addMove(OUTRAGE, Intent.ATTACK_BUFF, AbstractDungeon.ascensionLevel >= 4 ? 16 : 13);
@@ -92,6 +95,11 @@ public class ExecutiveSlime extends AbstractBTMonster
         super.setUpMisc();
         // we set the enemy type here so the calcAscensionMethods are called after the enemy type is set
         this.type = EnemyType.BOSS;
+    }
+
+    @Override
+    public void usePreBattleAction() {
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new BucketOfSlime()));
     }
 
     @Override

@@ -18,6 +18,13 @@
       "When obtained, picks #b3 random cards. Choose #b1 of #b3 of the set to add into your hand with #yRetain each combat."
     ]
   },
+  "${ModID}:BucketOfSlime": {
+    "NAME": "Bucket Of Slime",
+    "FLAVOR": "A bucket of slime! Useful and multipurpose! Huh? What purpose? I'm just a salesman, figure that out yourself.",
+    "DESCRIPTIONS": [
+      "The first time you play each card in your deck each combat, gain #b1 #yBlock."
+    ]
+  },
   "${ModID}:WarBannerCultist": {
     "NAME": "Cultist War Banner",
     "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
@@ -30,7 +37,7 @@
     "NAME": "Louse War Banner",
     "FLAVOR": "Be one with the snail.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, Block is not lost this turn.",
+      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, #yBlock is not lost this turn.",
       "#gGain #gLouse #gWar #gBanner."
     ]
   },
@@ -61,7 +68,7 @@
     "NAME": "Iron Pot Helmet",
     "FLAVOR": "It once was special and enchanted. Now it's just a big hunk of metal.",
     "DESCRIPTIONS": [
-      "When you play a #yDefend, gain 3 Block."
+      "When you play a #yDefend, gain #b3 #yBlock."
     ]
   },
   "${ModID}:CursedDoll": {

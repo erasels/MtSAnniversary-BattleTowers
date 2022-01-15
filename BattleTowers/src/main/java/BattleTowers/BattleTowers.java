@@ -1,5 +1,6 @@
 package BattleTowers;
 
+import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.BannerSageEvent;
 import BattleTowers.events.CoolExampleEvent;
@@ -16,15 +17,19 @@ import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.CardBorderGlowManager;
+import basemod.helpers.CardModifierManager;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -100,6 +105,22 @@ public class BattleTowers implements
 
         addMonsters();
         addEvents();
+
+        CardBorderGlowManager.addGlowInfo(new CardBorderGlowManager.GlowInfo() {
+            private final String ID = makeID("SlimyGlow");
+            @Override
+            public boolean test(AbstractCard card) {
+                return CardModifierManager.hasModifier(card, SlimyCardmod.ID);
+            }
+            @Override
+            public Color getColor(AbstractCard abstractCard) {
+                return new Color(0.7F, 0.55F, 0.8F, 1.0F);
+            }
+            @Override
+            public String glowID() {
+                return ID;
+            }
+        });
     }
 
     private static void addMonsters() {
@@ -267,6 +288,7 @@ public class BattleTowers implements
     @Override
     public void receiveEditRelics() {
         BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        BaseMod.addRelic(new BucketOfSlime(), RelicType.SHARED);
         BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
         BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
@@ -275,7 +297,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
-        }
+    }
         
     public static String removeModId(String id) {
         if (id.startsWith(getModID() + ":")) {
