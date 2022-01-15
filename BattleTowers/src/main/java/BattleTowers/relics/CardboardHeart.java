@@ -3,6 +3,7 @@ package BattleTowers.relics;
 import BattleTowers.util.TextureLoader;
 import basemod.BaseMod;
 import basemod.abstracts.CustomRelic;
+import basemod.abstracts.CustomSavable;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
 import com.badlogic.gdx.graphics.Color;
@@ -24,7 +25,7 @@ import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
 import static BattleTowers.util.UC.getRandomItem;
 
-public class CardboardHeart extends CustomRelic {
+public class CardboardHeart extends CustomRelic implements CustomSavable<ArrayList<String>> {
     public static final String ID = makeID(CardboardHeart.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
@@ -127,4 +128,20 @@ public class CardboardHeart extends CustomRelic {
          sb.append("[#").append(color.toString()).append("]");
          return sb.toString().trim();
      }
+
+    @Override
+    public ArrayList<String> onSave() {
+        ArrayList<String> myList = new ArrayList<>();
+        myList.add(card1.cardID);
+        myList.add(card2.cardID);
+        myList.add(card3.cardID);
+        return myList;
+    }
+
+    @Override
+    public void onLoad(ArrayList<String> strings) {
+        card1 = CardLibrary.getCard(strings.get(0));
+        card2 = CardLibrary.getCard(strings.get(1));
+        card3 = CardLibrary.getCard(strings.get(2));
+    }
 }
