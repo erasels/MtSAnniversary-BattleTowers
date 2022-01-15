@@ -144,9 +144,11 @@ public class BattleTower {
                 .addEvent(EmeraldFlame.ID)
                 .addEvent(GenieLampEvent.ID)
                 .addEvent(RoarOfTheCrowd.ID)
+                .addEvent(ArmorerEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
+                .addBoss(AlphabetBoss.ID)
         );
     }
 

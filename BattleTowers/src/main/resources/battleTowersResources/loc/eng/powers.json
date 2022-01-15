@@ -161,6 +161,7 @@
     "DESCRIPTIONS": [
       "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
     ]
+  },
     "${ModID}:AlphabetAmplifyPower": {
       "NAME": "Amplify",
       "DESCRIPTIONS": [
