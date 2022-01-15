@@ -106,15 +106,15 @@
   "${ModID}:GenieLamp": {
     "NAME": "A Wish",
     "DESCRIPTIONS": [
-      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" ~Make~ ~your~ ~wish.~ \", the #pephemeral #pvisage stares at you.",
-      "\" ~Knowledge~ ~in~ ~abundance~ .\" With those words, the #pspirit disappears.",
-      "\" ~Wealth~ ~attracts~ ~greed~ .\" With those words, the #pspirit disappears.",
-      "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \"Exchanging one prison for another.\""
+      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" #p~Ki~ #p~O'Dini~ #p~will~ #p~make~ #p~your~ #p~wish~ #p~come~ #p~true.~ \",",
+      "\" #p~Knowledge~ #p~in~ #p~abundance~ .\" With those words, the #pspirit disappears.",
+      "\" #p~Wealth~ #p~attracts~ #p~greed~ .\" With those words, the #pspirit disappears.",
+      "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \" #pExchanging #pone #pprison #pfor #panother.\""
     ],
     "OPTIONS": [
-      "[Knowledge] #yRecieve #ya #yspecial #ycard #ythat #yduplicates #ycards #yin #yyour #ydeck.",
-      "[Wealth] #gReceive #g%d #gGold. #rThe #rnext #ritem #ris #rmore #rexpensive.",
-      "[Freedom] #rLeave #rthe #rtower.",
+      "[Knowledge] #yRecieve #ya #yspecial #ycard.",
+      "[Wealth] #gReceive #g%d #gGold. #rRelics #rat #rthe #rshops #rare #rmore #rexpensive.",
+      "[Freedom] #rLeave the #yBattle #yTower",
       "Continue."
     ]
   },
