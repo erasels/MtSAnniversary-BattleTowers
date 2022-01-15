@@ -4,6 +4,7 @@ import BattleTowers.events.*;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
@@ -147,6 +148,7 @@ public class BattleTower {
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
+                .addBoss(Queen.ID)
         );
     }
 

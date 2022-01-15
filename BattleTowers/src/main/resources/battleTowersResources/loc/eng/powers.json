@@ -154,6 +154,32 @@
       " NL Judgement is increased by half of unblocked damage taken."
     ]
   },
+
+  "${ModID}:FactionChange": {
+    "NAME": "Faction Change",
+    "DESCRIPTIONS": [
+      "Mimicking a Black Chess Piece. NL Playing an Attack mimics a black chess piece, and playing a #ySkill or #yPower mimics a white chess piece.",
+      "Mimicking a White Chess Piece. NL Playing an Attack mimics a black chess piece, and playing a #ySkill or #yPower mimics a white chess piece."
+    ]
+  },
+  "${ModID}:WhiteWave": {
+    "NAME": "White Wave",
+    "DESCRIPTIONS": [
+      "Mimicking a White Chess Piece."
+    ]
+  },
+  "${ModID}:BlackWave": {
+    "NAME": "Black Wave",
+    "DESCRIPTIONS": [
+      "Mimicking a Black Chess Piece."
+    ]
+  },
+  "${ModID}:Inverse": {
+    "NAME": "Inverse Order",
+    "DESCRIPTIONS": [
+      "Mimicking an inverted Chess Piece..."
+    ]
+  },
   "${ModID}:KiteFlightPower": {
     "NAME": "Glide",
     "DESCRIPTIONS": [
