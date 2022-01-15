@@ -6,5 +6,17 @@
   },
   "${ModID}:FightPreview": {
     "TEXT": ["Fight preview"]
+  },
+  "${ModID}:QueenMarchIntent": {
+    "TEXT": [
+      "Queen's March",
+      "This enemy intends to deal #b", " damage", ".", " times."
+    ]
+  },
+  "${ModID}:QueenReleaseIntent": {
+    "TEXT": [
+      "Drain Of Colour",
+      "This enemy intends to drain their colour, causing severe damage to those who aren't mimicking the same faction."
+    ]
   }
 }

@@ -3,14 +3,11 @@ package BattleTowers.monsters.chess.queen;
 import BattleTowers.monsters.chess.AbstractCardChessMonster;
 import BattleTowers.monsters.chess.BetterSpriterAnimation;
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.stslib.powers.StunMonsterPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.FastShakeAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.RemoveAllBlockAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.colorless.Madness;
@@ -19,18 +16,13 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
-import com.megacrit.cardcrawl.monsters.exordium.Sentry;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeMonsterPath;
@@ -45,9 +37,9 @@ public class Queen extends AbstractCardChessMonster {
 
     // Deal 7 Damage. If this was unblocked, Gain 3 Strength Next turn.
     private static final byte QUEENS_WILL = 0;
-    private static final byte STORE_BLACK = 1;
-    private static final byte STORE_WHITE = 2;
-    private static final byte STORED_WAVE = 3;
+    private static final byte MIMIC_BLACK = 1;
+    private static final byte MIMIC_WHITE = 2;
+    private static final byte DRAIN_OF_COLOUR = 3;
     private static final byte INVERSE_STORE = 4;
     private static final byte QUEENS_PROTECTION = 5;
     private static final byte QUEENS_MARCH = 6;
@@ -107,9 +99,9 @@ public class Queen extends AbstractCardChessMonster {
         }
 
         addMove(QUEENS_WILL, Intent.ATTACK_BUFF, willDamage);
-        addMove(STORE_BLACK, Intent.BUFF);
-        addMove(STORE_WHITE, Intent.BUFF);
-        addMove(STORED_WAVE, Intent.ATTACK, waveDamage);
+        addMove(MIMIC_BLACK, Intent.BUFF);
+        addMove(MIMIC_WHITE, Intent.BUFF);
+        addMove(DRAIN_OF_COLOUR, Intent.ATTACK, waveDamage);
         addMove(INVERSE_STORE, Intent.BUFF);
         addMove(QUEENS_PROTECTION, Intent.DEFEND, protectionBlock);
         addMove(QUEENS_MARCH, Intent.ATTACK, marchDamage);
@@ -126,7 +118,6 @@ public class Queen extends AbstractCardChessMonster {
     public void usePreBattleAction() {
 
     }
-
 
     @Override
     public void takeTurn() {
@@ -168,7 +159,7 @@ public class Queen extends AbstractCardChessMonster {
             case INVERSE_STORE: {
                 break;
             }
-            case STORE_WHITE: {
+            case MIMIC_WHITE: {
                 atb(new AbstractGameAction() {
                     @Override
                     public void update() {
@@ -187,13 +178,20 @@ public class Queen extends AbstractCardChessMonster {
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new BorderFlashEffect(Color.WHITE.cpy(), true)));
                 break;
             }
-            case STORE_BLACK: {
+            case MIMIC_BLACK: {
                 break;
             }
-            case STORED_WAVE: {
+            case DRAIN_OF_COLOUR: {
                 break;
             }
         }
+        atb(new AbstractGameAction() {
+            @Override
+            public void update() {
+                turn += 1;
+                isDone = true;
+            }
+        });
         atb(new RollMoveAction(this));
         atb(new AbstractGameAction() {
             @Override
@@ -236,7 +234,7 @@ public class Queen extends AbstractCardChessMonster {
 
     @Override
     protected void getMove(final int num) {
-        if(lastMove(STORE_BLACK) || lastMove(STORE_WHITE) || lastMove(INVERSE_STORE)){setMoveShortcut(INVERSE_STORE, MOVES[INVERSE_STORE], getMoveCardFromByte(INVERSE_STORE));}
+        if(lastMove(MIMIC_BLACK) || lastMove(MIMIC_WHITE) || lastMove(INVERSE_STORE)){setMoveShortcut(INVERSE_STORE, MOVES[INVERSE_STORE], getMoveCardFromByte(INVERSE_STORE));}
         else if(lastMove(QUEENS_DECREE)){setMoveShortcut(QUEENS_MARCH, MOVES[QUEENS_MARCH], getMoveCardFromByte(QUEENS_MARCH));}
         else {
             switch (turn){
@@ -258,15 +256,15 @@ public class Queen extends AbstractCardChessMonster {
                     if(this.hasPower(StrengthPower.POWER_ID)){
                         if(AbstractDungeon.monsterRng.random(0, 99) <= 45){setMoveShortcut(INVERSE_STORE, MOVES[INVERSE_STORE], getMoveCardFromByte(INVERSE_STORE));}
                         else {
-                            if(AbstractDungeon.monsterRng.random(0, 99) <= 45){setMoveShortcut(STORE_WHITE, MOVES[STORE_WHITE], getMoveCardFromByte(STORE_WHITE));}
-                            else {setMoveShortcut(STORE_BLACK, MOVES[STORE_BLACK], getMoveCardFromByte(STORE_BLACK)); }
+                            if(AbstractDungeon.monsterRng.random(0, 99) <= 45){setMoveShortcut(MIMIC_WHITE, MOVES[MIMIC_WHITE], getMoveCardFromByte(MIMIC_WHITE));}
+                            else {setMoveShortcut(MIMIC_BLACK, MOVES[MIMIC_BLACK], getMoveCardFromByte(MIMIC_BLACK)); }
                         }
                     }
                     else {
                         if(AbstractDungeon.monsterRng.random(0, 99) <= 45){
-                            setMoveShortcut(STORE_BLACK, MOVES[STORE_BLACK], getMoveCardFromByte(STORE_BLACK));
+                            setMoveShortcut(MIMIC_BLACK, MOVES[MIMIC_BLACK], getMoveCardFromByte(MIMIC_BLACK));
                         }
-                        setMoveShortcut(STORE_WHITE, MOVES[STORE_WHITE], getMoveCardFromByte(STORE_WHITE));
+                        setMoveShortcut(MIMIC_WHITE, MOVES[MIMIC_WHITE], getMoveCardFromByte(MIMIC_WHITE));
                     }
             }
         }

@@ -270,5 +270,18 @@
       "Rush"
     ],
     "NAME": "Burning Shambler"
+  },
+  "${ModID}:Queen": {
+    "MOVES": [
+      "Queen's Will",
+      "Painted Mimicry",
+      "Painted Mimicry",
+      "Drain Of Colour",
+      "Distorted Mimicry",
+      "Queen's Protection",
+      "Queen's March",
+      "Queen's Decree"
+    ],
+    "NAME": "Painted Queen"
   }
 }
