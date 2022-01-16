@@ -223,10 +223,28 @@
       "Upon killing this, gain a #yRelic that heavily boosts cards and generates random cards that start with the letter it was about to use."
     ]
   },
+  "${ModID}:WrathPower": {
+    "NAME": "Wrath",
+    "DESCRIPTIONS": [
+      "Doubles damage dealt and received."
+    ]
+  },
+  "${ModID}:PrismShield": {
+    "NAME": "Prism Shield Power",
+    "DESCRIPTIONS": [
+      "Any attack damage dealt to this is stored and dealt at the end of the round. All damage above 20 stored will increase the damage of this monster's attacks."
+    ]
+  },
   "${ModID}:BookGrowthPower": {
     "NAME": "Next Chapter",
     "DESCRIPTIONS": [
       "At the end of every 3rd combat round, this enemy gains 1 Strength."
+    ]
+  },
+  "${ModID}:HidePower": {
+    "NAME": "Hide Power",
+    "DESCRIPTIONS": [
+      "When this creature's block is broken, it is stunned and loses all Strength and Barricade."
     ]
   }
 }

@@ -337,5 +337,37 @@
       "Queen's Decree"
     ],
     "NAME": "Painted Queen"
+  },
+  "${ModID}:GiantArm": {
+    "NAME": "Giant Arm",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:PrismGuardian": {
+    "NAME": "Prism Guardian",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
+  },
+  "${ModID}:Magus": {
+    "NAME": "Magus",
+    "DIALOG": [
+      "Get ready!"
+    ]
+  },
+  "${ModID}:Assassin": {
+    "NAME": "Assassin",
+    "DIALOG": [
+      ""
+    ]
   }
 }
