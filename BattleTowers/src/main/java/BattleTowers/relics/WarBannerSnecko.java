@@ -1,6 +1,7 @@
 package BattleTowers.relics;
 
 import BattleTowers.util.TextureLoader;
+import BattleTowers.util.UC;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
@@ -29,6 +30,7 @@ public class WarBannerSnecko extends CustomRelic {
         addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new ConfusionPower(AbstractDungeon.player)));
 
         addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
+        UC.doDraw(3);
     }
 
     @Override
