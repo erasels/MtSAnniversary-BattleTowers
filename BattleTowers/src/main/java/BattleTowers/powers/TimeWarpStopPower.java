@@ -1,5 +1,6 @@
 package BattleTowers.powers;
 
+import BattleTowers.BattleTowers;
 import BattleTowers.util.UC;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -32,7 +33,7 @@ public class TimeWarpStopPower extends AbstractPower {
         this.owner = owner;
         this.amount = 0;
         this.updateDescription();
-        this.loadRegion("time");
+        BattleTowers.LoadPowerImage(this);
         this.type = PowerType.BUFF;
     }
 
