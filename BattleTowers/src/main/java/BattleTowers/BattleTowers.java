@@ -168,6 +168,11 @@ public class BattleTowers implements
                         new Cultist(100.0F, 0.0F)
                 }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
+        BaseMod.addMonster(Encounters.NINJA_LOUSES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new NinjaLouse(-150.0F, 0.0F, false),
+                        new NinjaLouse(100.0F, 0.0F, true),
+                }));
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -182,6 +187,7 @@ public class BattleTowers implements
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
         BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
+
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);

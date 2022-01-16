@@ -350,6 +350,14 @@
       ""
     ]
   },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
+  },
   "${ModID}:Magus": {
     "NAME": "Magus",
     "DIALOG": [
