@@ -46,6 +46,7 @@ import com.megacrit.cardcrawl.vfx.CollectorCurseEffect;
 import com.megacrit.cardcrawl.vfx.combat.RipAndTearEffect;
 import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
 
+import java.awt.print.Book;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -183,7 +184,7 @@ public class AlphabetBoss extends OrbUsingMonster {
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
         // if you pass only 1 value to set HP it will use that as the HP value
-        setHp(calcAscensionTankiness(226));
+        setHp(calcAscensionTankiness(260));
 
         maxOrbsCap = 3;
 
@@ -224,6 +225,8 @@ public class AlphabetBoss extends OrbUsingMonster {
     @Override
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new NotificationPower(this), 1));
+
+        addToBot(new ApplyPowerAction(this, this, new BookGrowthPower(this), 1));
     }
 
     @Override
