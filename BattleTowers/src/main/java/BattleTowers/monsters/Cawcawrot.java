@@ -1,6 +1,7 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.actions.WharghAction;
 import BattleTowers.powers.SuperRitualPower;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -10,7 +11,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.RitualPower;
 
 import java.util.ArrayList;
 
@@ -90,6 +90,7 @@ public class Cawcawrot extends AbstractBTMonster
         //useFastAttackAnimation causes the monster to jump forward when it attacks
         switch (nextMove) {
             case RITUAL: {
+                addToBot(new WharghAction(this));
                 addToBot(new ApplyPowerAction(this, this, new SuperRitualPower(this, ritualAmount, false)));
                 break;
             }
