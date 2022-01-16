@@ -3,7 +3,7 @@
 // (powered by FernFlower decompiler)
 //
 
-package MonsterTowerModDayvig.particles;
+package BattleTowers.vfx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;

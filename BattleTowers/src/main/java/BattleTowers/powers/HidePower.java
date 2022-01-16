@@ -2,8 +2,6 @@ package BattleTowers.powers;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.monsters.Assassin;
-import MonsterTowerModDayvig.particles.WrathParticleEffect2;
-import MonsterTowerModDayvig.particles.WrathStanceEffectMonster;
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
