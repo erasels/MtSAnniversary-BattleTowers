@@ -187,9 +187,9 @@ public class BattleTowers implements
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
-        BaseMod.addMonster("GiantArm", () -> new GiantArm(0.0F, 0.0F));
-        BaseMod.addMonster("PrismGuardian", () -> new PrismGuardian(0.0F, 0.0F));
-        BaseMod.addMonster("Magus_and_Assassin", () -> new MonsterGroup(
+        BaseMod.addMonster(GiantArm.ID, () -> new GiantArm(0.0F, 0.0F));
+        BaseMod.addMonster(PrismGuardian.ID, () -> new PrismGuardian(0.0F, 0.0F));
+        BaseMod.addMonster(Encounters.MAGUS_AND_ASSASSIN, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new Assassin(-120.0F, 0.0F),
                         new Magus(120.0F, 0.0F),
