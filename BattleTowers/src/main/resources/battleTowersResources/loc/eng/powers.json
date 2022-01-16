@@ -222,5 +222,11 @@
     "DESCRIPTIONS": [
       "Upon killing this, gain a #yRelic that heavily boosts cards and generates random cards that start with the letter it was about to use."
     ]
+  },
+  "${ModID}:BookGrowthPower": {
+    "NAME": "Next Chapter",
+    "DESCRIPTIONS": [
+      "At the end of every 3rd combat round, this enemy gains 1 Strength."
+    ]
   }
 }

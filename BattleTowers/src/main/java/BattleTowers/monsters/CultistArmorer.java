@@ -49,7 +49,7 @@ public class CultistArmorer extends AbstractBTMonster {
         e.setTimeScale(0.7F);
 
 
-        setHp(calcAscensionTankiness(63), calcAscensionTankiness(69));
+        setHp(calcAscensionTankiness(73), calcAscensionTankiness(79));
 
         this.damage.add(new DamageInfo(this, 6));
     }
@@ -67,12 +67,16 @@ public class CultistArmorer extends AbstractBTMonster {
             case 3:
                 if (AbstractDungeon.ascensionLevel >= 2) {
                     UC.doPow(new RitualPower(this, 4, false));
-                    UC.doPow(new PlatedArmorPower(this, 4));
-                    UC.doPow(new MetallicizePower(this, 4));
+                    for (AbstractMonster m:AbstractDungeon.getCurrRoom().monsters.monsters) {
+                        UC.doPow(new PlatedArmorPower(this, 4));
+                        UC.doPow(new MetallicizePower(this, 4));
+                    }
                 } else {
                     UC.doPow(new RitualPower(this, 3, false));
+                    for (AbstractMonster m:AbstractDungeon.getCurrRoom().monsters.monsters) {
                     UC.doPow(new PlatedArmorPower(this, 3));
                     UC.doPow(new MetallicizePower(this, 3));
+                    }
                 }
                 break;
             case 1:

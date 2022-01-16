@@ -65,13 +65,13 @@ public class IceSlimeL extends AbstractBTMonster {
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
         // if you pass only 1 value to set HP it will use that as the HP value
-        setHp(calcAscensionTankiness(87), calcAscensionTankiness(90));
+        setHp(calcAscensionTankiness(67), calcAscensionTankiness(70));
 
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(DEBUFF, Intent.DEBUFF);
-        addMove(STATUSHIT, Intent.ATTACK_DEBUFF, calcAscensionDamage(11));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(16));
+        addMove(STATUSHIT, Intent.ATTACK_DEBUFF, calcAscensionDamage(7));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(12));
         addMove(SPLIT, Intent.UNKNOWN);
 
         this.splitTriggered = false;
