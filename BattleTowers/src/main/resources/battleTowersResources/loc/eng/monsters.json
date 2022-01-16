@@ -337,5 +337,17 @@
       "Queen's Decree"
     ],
     "NAME": "Painted Queen"
+  },
+  "${ModID}:GiantArm": {
+    "NAME": "Giant Arm",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:PrismGuardian": {
+    "NAME": "Prism Guardian",
+    "DIALOG": [
+      ""
+    ]
   }
 }
