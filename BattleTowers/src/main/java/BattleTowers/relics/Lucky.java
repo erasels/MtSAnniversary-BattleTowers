@@ -28,8 +28,8 @@ public class Lucky extends CustomRelic {
 
         if (!this.usedUp && AbstractDungeon.currMapNode.room instanceof MonsterRoomBoss){
             flash();
-            addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 2), 2));
-            addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DexterityPower(AbstractDungeon.player, 2), 2));
+            addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
+            addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DexterityPower(AbstractDungeon.player, 1), 1));
             addToTop(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             this.usedUp();
         }

@@ -3,6 +3,7 @@ package BattleTowers.monsters;
 import BattleTowers.BattleTowers;
 import BattleTowers.cards.Prick;
 import BattleTowers.powers.FeelMyPainPower;
+import BattleTowers.relics.CursedDoll;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -23,6 +24,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.CollectorCurseEffect;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -70,6 +72,7 @@ public class VoodooDoll extends AbstractBTMonster
         if (AbstractDungeon.ascensionLevel >= 18) {
             curse.upgrade();
         }
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new CursedDoll()));
     }
 
     @Override

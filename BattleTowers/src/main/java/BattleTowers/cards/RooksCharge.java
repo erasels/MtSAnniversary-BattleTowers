@@ -21,7 +21,7 @@ public class RooksCharge extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("RooksCharge.png");
     private static final CardType TYPE = CardType.ATTACK;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
     private static final int COST = 2;
@@ -37,6 +37,7 @@ public class RooksCharge extends CustomCard {
     public RooksCharge() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         baseDamage = 8;
+        this.setDisplayRarity(CardRarity.UNCOMMON);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {

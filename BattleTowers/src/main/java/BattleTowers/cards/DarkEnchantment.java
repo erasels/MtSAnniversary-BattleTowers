@@ -24,7 +24,7 @@ public class DarkEnchantment extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("DarkEnchantment.png");
     private static final CardType TYPE = CardType.SKILL;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
     private static final int COST = 0;

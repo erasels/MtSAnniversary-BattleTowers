@@ -1,23 +1,18 @@
 package BattleTowers.towers;
 
-import BattleTowers.events.BannerSageEvent;
-import BattleTowers.events.OttoEvent;
+import BattleTowers.events.*;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
+import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.events.shrines.PurificationShrine;
-import com.megacrit.cardcrawl.events.shrines.Transmogrifier;
-import com.megacrit.cardcrawl.events.shrines.UpgradeShrine;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.random.Random;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeUIPath;
 
 public class BattleTower {
@@ -144,11 +139,19 @@ public class BattleTower {
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
                 .addEliteEncounter(ItozusTheWindwalker.ID)
+                .addEliteEncounter(ZastraszTheJusticar.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
+                .addEvent(EmeraldFlame.ID)
+                .addEvent(GenieLampEvent.ID)
+                .addEvent(VoidShrine.ID)
+                .addEvent(RoarOfTheCrowd.ID)
+                .addEvent(ArmorerEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
+                .addBoss(AlphabetBoss.ID)
+                .addBoss(Queen.ID)
         );
     }
 

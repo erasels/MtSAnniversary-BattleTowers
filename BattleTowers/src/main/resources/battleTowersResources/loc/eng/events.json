@@ -27,6 +27,52 @@
       "[Fight your way to Japan]"
     ]
   },
+  "${ModID}:EmeraldFlame": {
+    "NAME": "Emerald Flame",
+    "DESCRIPTIONS": [
+      "You happen upon a group of what looks like #bblue #bfire #bspirits ~dancing~ around a large bonfire. NL ",
+      "The spirits toss small bones and fragments into the #gfire, which ~brilliantly~ ~erupts~ each time. NL As you approach, the spirits all turn to you, expectantly... NL ",
+      "They also are eyeing one of your #yrelics...",
+      "You toss your card into the bonfire and grab a piece of #gkindling. The card @bursts,@ and its ashes ~swirl~ around the torch you grabbed! NL NL ",
+      "It burns a #gbright #gemerald and is embedded with the power of your offering. NL NL You notice that it starts to fade very slowly as you walk away...",
+      "Choose a Card",
+      "The #bspirits immediately toss your ",
+      " into the #gbonfire. NL NL #g@They@ #g@revel@ #g@as@ #g@it@ #g@bursts@ #g@into@ #g@flames!@ NL NL ...You decide it's best to take your leave."
+    ],
+    "OPTIONS": [
+      "[Offer: ",
+      "] #rLose #rthis #rrelic. #gChoose #ga #grare #gCard #gto #gobtain.",
+      "[Offer a Card] #rLose #r",
+      " #rHP. Pick up a #yTorch.",
+      "Select a Card to Offer.",
+      "[Leave]"
+    ]
+  },
+  "${ModID}:VoidShrine": {
+    "NAME": "Void Shrine",
+    "DESCRIPTIONS": [
+      "You come across a #pdesolate shrine pulsing with faint, #potherworldly energy. NL NL As you find yourself pulled towards it, you sense that it desired your #rblood, your #ywealth, or your very #psoul.",
+      "You offer the shrine a few drops of #rblood, and you feel a heavy wave of #pexhaustion come over you. NL NL When you wake up, the shrine is nowhere to be found.",
+      "You offer the shrine a paltry sum of #ygold, and you feel a wave of dizziness and light-headedness wash over you. NL NL When you come to your senses, the shrine is gone.",
+      "You strive forward and offer yourself up to the shrine. A wave of #pagony ~rips~ through you, #bice-cold pain coursing through your veins, tearing a part of yourself away. NL NL Finally, it ends, and you feel a deep, yawning #pvoid within yourself."
+    ],
+    "OPTIONS": [
+      "[Offer your blood] ",
+      "Lose ",
+      " HP.",
+      "Give a card in your deck Exhaust.",
+      "[Offer your wealth] ",
+      " gold.",
+      "Give a card in your deck Ethereal.",
+      "[Offer your soul] ",
+      "Remove ",
+      " cards.",
+      "Obtain a special blight.",
+      "Choose a card",
+      "[Leave]",
+      "Locked: Requires Gold"
+    ]
+  },
   "${ModID}:OttoEvent": {
     "NAME": "A Game for a Golem",
     "DESCRIPTIONS": [
@@ -51,14 +97,14 @@
   "${ModID}:BannerSageEvent": {
     "NAME": "The Banner Sage",
     "DESCRIPTIONS": [
-      "Oddly enough, this Battle Tower houses a small shopping distrct. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
+      "Oddly enough, this Battle Tower houses a small shopping district. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
       "Never before have you seen such delicate craftsmanship! You simply must have this gorgeous war banner on offer, and happily pay the price. River thanks you for your patronage as you and your new incredible banner continue up the tower.",
       "River seems like a tough opponent, but with the other customers here, you realize he couldn't risk leaving his wares in the open. There's nothing stopping you from grabbing one and running, and that thought is just too tempting. NL NL As you make haste with your new banner in hand, the fabric becomes excruciating to touch! Suddenly, the cloth changes from a vibrant warm color to a harsh deep purple, and where once was an embroidered image now lies a horribly inked skull. It appears the Giant had some protection on his wares after all.",
       "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse for awhile, but then continue up the Battle Tower."
  ],
     "OPTIONS": [
-      "[Locked] Requires 100 Gold.",
-      "[Buy] #rSpend #r100 Gold. ",
+      "[Locked] Requires 90 Gold.",
+      "[Buy] #rSpend #r90 Gold. ",
       "[Steal] #gGain #gCursed #gTapestry. #rBecome #rCursed #r- #rPain.",
       "[Leave]"
     ]
@@ -80,6 +126,75 @@
       "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
       "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
       "[Leave]"
+    ]
+  },
+  "${ModID}:GenieLamp": {
+    "NAME": "A Wish",
+    "DESCRIPTIONS": [
+      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" #p~Ki~ #p~O'Dini~ #p~will~ #p~make~ #p~your~ #p~wish~ #p~come~ #p~true.~ \",",
+      "\" #p~Knowledge~ #p~in~ #p~abundance~ .\" With those words, the #pspirit disappears.",
+      "\" #p~Wealth~ #p~attracts~ #p~greed~ .\" With those words, the #pspirit disappears.",
+      "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \" #pExchanging #pone #pprison #pfor #panother.\""
+    ],
+    "OPTIONS": [
+      "[Knowledge] #yRecieve #ya #yspecial #ycard.",
+      "[Wealth] #gReceive #g%d #gGold. #rRelics #rat #rthe #rshops #rare #rmore #rexpensive.",
+      "[Freedom] #rLeave the #yBattle #yTower",
+      "Continue."
+    ]
+  },
+  "${ModID}:RoarOfTheCrowd": {
+    "NAME": "Roar of the Crowd",
+    "DESCRIPTIONS": [
+      "You pause briefly on your climb up the tower to appreciate the crowd cheering you on. This place might not be as popular as the #bColosseum yet, but it's getting there. NL NL In fact, the crowd is so excited that they've swarmed into the tower and are blocking your way forward! You'll have to bargain to make your way through. NL NL You spot two good prospects: a #pbird-masked #pfigure that wants your #rblood but will reward you with #ygold, and a #bblue #bhumanoid that will #gbless you in return for a small #ydonation.",
+      "The loss of blood #r~hurts,~ but you think of the #yriches that await you.",
+      "Seeing that are already on the threshold of #rdeath, the cultist lets you pass unharmed. If you can achieve victory from here, you deserve the reward.",
+      "A soft green glow envelops your body and dissipates. NL The creature grins. \"Cleric finest protector. @Have@ @a@ @good@ @day!\"@"
+    ],
+    "OPTIONS": [
+      "[Cultist] #rLose #r{0} #rHP. #gGain #g{1} #ggold #gwhen #gyou #gdefeat #gthe #gtower #gboss.",
+      "[Cleric] #rLose #r{0} #rGold. #gGain #g{1} #gDexterity #gfor #gthe #grest #gof #gthe #gtower.",
+      "[Locked] Requires {0} Gold.",
+      "[Leave]"
+    ]
+  },
+  "${ModID}:ArmorerEvent": {
+    "NAME": "The Armorer",
+    "DESCRIPTIONS": [
+      "Apply 1 Vulnerable.",
+      "Apply 1 Weak.",
+      "Draw 1 card.",
+      "Gain 2 Frail.",
+      "Gain 1 Vulnerable.",
+      "Gain 2 Weak.",
+      "Exhaust.",
+      "Ethereal.",
+      "-2 Damage & Block.",
+      "Innate.",
+      "Retain.",
+      "+2 Damage & Block.",
+      "Choose an #yAttack or #ySkill Card to #gBoon: '",
+      "'.",
+      "The faint sound of metal clanging on metal pulls you toward a hidden pathway to an alcove in the Tower. Inside, you find a #rred-cloaked #rAwakened #rCultist hammering away, forging a curved metal stick. NL NL \"You weren't supposed to see this. Our #bcult demands the outsiders think of us as dim-witted, so they may remain ignorant of our true potential. NL NL Our #bsecrecy is our #ysurvival. Our #ysurvival is our #rstrength. NL NL If you swear yourself to secrecy and forget you ever saw this place, I will use the #yforge as best I can in exchange.\"",
+      "\"The forge demands #bbalance in all things. For one to be #ystrengthened, another must #rfalter.\"",
+      "\"This one's #rsacrifice will not be in vain. Choose wisely.\"",
+      "The Armorer is clearly a #ymaster of her craft, and it does not take long before the forging is complete. NL NL \"May this blessing be a #bgift for your journey. The forge remains lit for awhile longer... with payment of #rblood or #ygold, the metal can be shaped many ways.\"",
+      "With a final sizzle, the Forge's glow goes dark, #yilluminated only by the remaining #yheat in the Armorer's tools. She looks exhausted, and #rcollapses onto a bench after returning your gear to you. NL NL \"Go now - and #bremember of your oath. You shall tell #rno #rone of what you have learned here today.\"",
+      "You decline to have the Armorer further alter your equipment. NL NL \"Go now - and remember of your #boath. You shall tell #rno #rone of what you have learned here today.\"",
+      "Again, the Armorer forges your equipment with #bmasterful #bskill. \"The forge has just enough #rfuel for one last forging. If... you still wish to #rpay the toll.\"",
+      "Choose an #yAttack or #ySkill Card to #rBane: '",
+      "After the battle, you pluck the iron mask from the #rArmorer's #rhead and don it on your own. Whatever #pdeceptions these #bCultists were pulling doesn't matter - these cultists have attacked you and many others. #rThey #rdeserved #rto #rdie."
+    ],
+    "OPTIONS": [
+      "[Keep Secret] Add 1 #gBoon and 1 #rBane modifier to 2 #yAttack or #ySkill cards.",
+      "[Pay in Blood] #rLose #r10 #rHP.",
+      "[Pay in Gold] #rLose #r40 Gold.",
+      " Modify more cards.",
+      "[Locked] No viable cards to gain: '",
+      "[Locked] Already used.",
+      "[Leave]",
+      "[Slay] #rFight! #gGain #gArmorer's #gHeadpiece.",
+      "[Locked] Can't afford."
     ]
   }
 }

@@ -34,10 +34,10 @@ public class BurningShambler extends AbstractBTMonster
     private static final int A17_BONFIRE_BURNS = 3;
     private static final int RUSH_DAMAGE = 8;
     private static final int A2_RUSH_DAMAGE = 9;
-    private static final int HP_MIN = 37;
-    private static final int HP_MAX = 40;
-    private static final int A8_HP_MIN = 40;
-    private static final int A8_HP_MAX = 43;
+    private static final int HP_MIN = 47;
+    private static final int HP_MAX = 50;
+    private static final int A8_HP_MIN = 50;
+    private static final int A8_HP_MAX = 53;
     private final int flickerOfFlameDamage;
     private final int bonfireBurns;
     private final int rushDamage;

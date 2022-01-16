@@ -7,10 +7,15 @@
     "NAME": "Blank Card",
     "DESCRIPTION": ""
   },
+  "${ModID}:Granted": {
+    "NAME": "Wish Granted",
+    "DESCRIPTION": "*Wish for the PERFECT Upgraded Rare card to add to your hand. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "Retain. NL *Wish for the PERFECT Upgraded Rare card to add to your hand. NL Exhaust."
+  },
   "${ModID}:DijinnWrath": {
     "NAME": "Dijinn's Wrath",
     "DESCRIPTION": "The enemy ",
-    "EXTENDED_DESCRIPTION": ["gains !M! Strength.", "shuffles !M! *Voids into your discard pile.", "deals its intended damage to you."]
+    "EXTENDED_DESCRIPTION": ["gains !B! Block and !M! Strength.", "shuffles !M! *Voids into your draw pile.", "deals its intended damage to you."]
   },
   "${ModID}:MakeAWish": {
     "NAME": "Make a Wish",
@@ -27,7 +32,7 @@
   },
   "${ModID}:Chilled": {
     "NAME": "Chilled",
-    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E], then draw !M! card."
+    "DESCRIPTION": "Unplayable. NL Ethereal. NL Whenever this card is drawn, lose [E] , then draw !M! card."
   },
   "${ModID}:QueensGrace": {
     "NAME": "Queen's Grace",
@@ -73,5 +78,13 @@
   "${ModID}:DarkEnchantment": {
     "NAME": "Dark Enchantment",
     "DESCRIPTION": "Draw !M! cards. NL Gain [E] [E]. NL Increase all numbers that can be increased on cards in hand by 1 this combat. NL Exhaust."
+  },
+  "${ModID}:Knowledge": {
+    "NAME": "Wish for Knowledge",
+    "DESCRIPTION": "Soulbound. NL Autoplay. NL Add a copy of a random card that you only have 1 copy of in your deck to it. "
+  },
+  "${ModID}:SlimeElixir": {
+    "NAME": "Slime Elixir",
+    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a *Slimed into your draw pile. NL Exhaust."
   }
 }
