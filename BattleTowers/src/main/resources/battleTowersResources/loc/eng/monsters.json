@@ -341,7 +341,9 @@
   "${ModID}:GiantArm": {
     "NAME": "Giant Arm",
     "DIALOG": [
-      ""
+      "Let's fight!",
+      "Is that all you got?",
+      "I'm getting fired up!"
     ]
   },
   "${ModID}:PrismGuardian": {

@@ -3,6 +3,7 @@ package BattleTowers.monsters;
 import BattleTowers.BattleTowers;
 import BattleTowers.actions.PrismStasisAction;
 import BattleTowers.powers.PrismShield;
+import BattleTowers.vfx.ColoredLargeLaserEffect;
 import basemod.abstracts.CustomMonster;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
@@ -20,10 +21,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.ArtifactPower;
-import com.megacrit.cardcrawl.powers.BarricadePower;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
 import com.megacrit.cardcrawl.vfx.combat.LaserBeamEffect;
@@ -37,19 +35,33 @@ public class PrismGuardian extends CustomMonster {
     public static final String[] MOVES;
     public static final String[] DIALOG;
     private static final int HP = 160;
+    private static final int HP_ASC7 = 180;
     private static final int LASER_DMG = 12;
     private int laserDmg = LASER_DMG;
     private static final byte STASIS = 1;
     private static final byte LASER = 2;
     private static final byte NULLBEAM = 3;
-    private static final int NULLBEAMTURN = 6;
+    private static final int NULLBEAMTURN = 5;
     private int count = 0;
     private boolean firstMove;
 
     public PrismGuardian(float x, float y) {
         super(NAME, ID, 60, 0.0F, 0.0F, 280.0F, 280.0F, IMG, x, y);
 
-        this.setHp(HP);
+        if (AbstractDungeon.ascensionLevel >= 7) {
+            this.setHp(HP_ASC7);
+        }
+        else {
+            this.setHp(HP);
+        }
+        if (AbstractDungeon.ascensionLevel >= 2) {
+            laserDmg = 12;
+        }
+        else {
+            laserDmg = 10;
+        }
+
+
         this.firstMove = true;
 
         this.damage.add(new DamageInfo(this, this.laserDmg));
@@ -74,15 +86,17 @@ public class PrismGuardian extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new PrismStasisAction(this));
                 break;
             case LASER:
-                AbstractDungeon.actionManager.addToBottom(new SFXAction("ATTACK_MAGIC_BEAM_SHORT", 0.5F));
+                AbstractDungeon.actionManager.addToBottom(new SFXAction("ATTACK_MAGIC_BEAM_SHORT", 0.5F, true));
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new BorderFlashEffect(Color.SKY)));
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new SmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY), 0.3F));
                 AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo)this.damage.get(0), AttackEffect.NONE));
                 break;
             case NULLBEAM:
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new BorderFlashEffect(Color.LIME)));
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new LaserBeamEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale), 1.5F));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -3),-3));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredLargeLaserEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale, Color.LIME.cpy()), 1.5F));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -2),-2));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new FocusPower(AbstractDungeon.player, -2),-2));
+
                 break;
         }
 
@@ -101,8 +115,14 @@ public class PrismGuardian extends CustomMonster {
 
     protected void getMove(int num) {
         if (this.firstMove){
-            this.setMove(STASIS, Intent.STRONG_DEBUFF);
-            this.firstMove = false;
+            if (AbstractDungeon.ascensionLevel >= 17){
+                this.setMove(NULLBEAM, Intent.STRONG_DEBUFF);
+                this.firstMove = false;
+            }
+            else {
+                this.setMove(STASIS, Intent.STRONG_DEBUFF);
+                this.firstMove = false;
+            }
         }
         else if (this.count == NULLBEAMTURN){
             this.setMove(NULLBEAM, Intent.STRONG_DEBUFF);

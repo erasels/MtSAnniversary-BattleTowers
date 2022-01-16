@@ -44,7 +44,31 @@ public class Magus extends CustomMonster {
     public Magus(float x, float y) {
         super(NAME, ID, 60, 0.0F, 0.0F, 230.0F, 200.0F, IMG, x, y);
 
-        this.setHp(58, 64);
+        if (AbstractDungeon.ascensionLevel >= 7) {
+            this.setHp(60, 68);
+        }
+        else {
+            this.setHp(58, 62);
+        }
+        if (AbstractDungeon.ascensionLevel >= 2) {
+            this.blastDmg = 30;
+            this.heatMetalDamage = 10;
+        }
+        else {
+            this.blastDmg = 28;
+            this.heatMetalDamage = 9;
+        }
+        if (AbstractDungeon.ascensionLevel >= 17) {
+            this.heatMetalAmount = 4;
+            this.confuseAmount = 4;
+            this.colorSprayAmount = 4;
+        }
+        else {
+            this.heatMetalAmount = 3;
+            this.confuseAmount = 3;
+            this.colorSprayAmount = 3;
+        }
+
         firstTurn = true;
         this.damage.add(new DamageInfo(this, this.heatMetalDamage));
         this.damage.add(new DamageInfo(this, this.blastDmg));
@@ -54,7 +78,7 @@ public class Magus extends CustomMonster {
     public void takeTurn() {
         switch (this.nextMove) {
             case CONFUSE:
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, confuseAmount, false), confuseAmount));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, confuseAmount + 1, false), confuseAmount + 1));
                 appliedConfuse = true;
                 break;
             case COLORSPRAY:
@@ -69,7 +93,7 @@ public class Magus extends CustomMonster {
                 break;
             case HEATMETAL:
                 AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.FIRE));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, heatMetalAmount, false), heatMetalAmount));
+                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, heatMetalAmount + 1, false), heatMetalAmount + 1));
                 appliedHeatMetal = true;
                 break;
             case PREPARE:
