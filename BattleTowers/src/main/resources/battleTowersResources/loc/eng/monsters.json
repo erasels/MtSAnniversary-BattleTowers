@@ -217,5 +217,23 @@
       "Rush"
     ],
     "NAME": "Giga Slime"
+  },
+  "${ModID}:AspiringChampion": {
+    "MOVES": [
+      "Copy Cat",
+      "Copy Cat",
+      "Heavy Blows",
+      "Recover",
+      "Heavy Blows",
+      "Copy Cat",
+      "Copy Cat"
+    ],
+    "NAME": "Aspiring Champion",
+    "DIALOG": [
+      "Oooh... I like this one!",
+      "Watch this!",
+      "DIE FUTILE WEAK... oops!",
+      ""
+    ]
   }
 }

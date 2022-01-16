@@ -98,5 +98,12 @@
       "Enemy actions that are not attacks grant you #b1 #yStrength, up to #b",
       " more this combat."
     ]
+  },
+  "${ModID}:ClunkyPower": {
+    "NAME": "Clunky",
+    "DESCRIPTIONS": [
+      "After you play #b",
+      " more attacks this turn, this enemy will only attack once."
+    ]
   }
 }
