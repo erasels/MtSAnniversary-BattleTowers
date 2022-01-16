@@ -38,15 +38,15 @@ public class BattleTowerRoom extends AbstractRoom {
     @Override
     public void onPlayerEntry() {
         AbstractDungeon.overlayMenu.proceedButton.hide();
-        intendedRs = AbstractDungeon.rs;
+        AbstractDungeon.RenderScene originalRs = AbstractDungeon.rs;
+        AbstractDungeon.rs = null;
+
         AbstractEvent.type = AbstractEvent.EventType.IMAGE;
         this.event.onEnterRoom();
-        if (AbstractDungeon.rs != intendedRs) {
+        if (AbstractDungeon.rs != null) {
             intendedRs = AbstractDungeon.rs;
         }
-        else {
-            intendedRs = null;
-        }
+        AbstractDungeon.rs = originalRs;
     }
 
     public void update() {
