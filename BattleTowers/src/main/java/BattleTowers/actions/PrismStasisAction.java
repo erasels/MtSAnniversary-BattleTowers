@@ -133,9 +133,8 @@ public class PrismStasisAction extends AbstractGameAction {
                                 }
                             }
                         }
-
-                        AbstractDungeon.player.drawPile.removeCard(this.card);
                     }
+                    AbstractDungeon.player.drawPile.removeCard(this.card);
                 }
 
                 AbstractDungeon.player.limbo.addToBottom(this.card);
