@@ -240,5 +240,11 @@
     "DESCRIPTIONS": [
       "At the end of every 3rd combat round, this enemy gains 1 Strength."
     ]
+  },
+  "${ModID}:HidePower": {
+    "NAME": "Hide Power",
+    "DESCRIPTIONS": [
+      "When this creature's block is broken, it is stunned and loses all Strength and Barricade."
+    ]
   }
 }

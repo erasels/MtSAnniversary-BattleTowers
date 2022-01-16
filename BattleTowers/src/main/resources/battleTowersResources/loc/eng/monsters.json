@@ -349,5 +349,17 @@
     "DIALOG": [
       ""
     ]
+  },
+  "${ModID}:Magus": {
+    "NAME": "Magus",
+    "DIALOG": [
+      "Get ready!"
+    ]
+  },
+  "${ModID}:Assassin": {
+    "NAME": "Assassin",
+    "DIALOG": [
+      ""
+    ]
   }
 }
