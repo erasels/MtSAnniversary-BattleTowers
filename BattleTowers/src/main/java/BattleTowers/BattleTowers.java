@@ -9,6 +9,7 @@ import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.chess.queen.customintents.QueenDrainIntent;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
+import BattleTowers.monsters.executiveslime.Slimeling;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -185,7 +186,12 @@ public class BattleTowers implements
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
-        BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
+        BaseMod.addMonster(ExecutiveSlime.ID, () -> new MonsterGroup(
+                    new AbstractMonster[] {
+                            new Slimeling(ExecutiveSlime.POS_X[0], ExecutiveSlime.POS_Y[0]).setMinionIndex(0),
+                            new Slimeling(ExecutiveSlime.POS_X[1], ExecutiveSlime.POS_Y[1]).setMinionIndex(1),
+                            new ExecutiveSlime()
+                    }));
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
         BaseMod.addMonster("GiantArm", () -> new GiantArm(0.0F, 0.0F));
         BaseMod.addMonster("PrismGuardian", () -> new PrismGuardian(0.0F, 0.0F));
