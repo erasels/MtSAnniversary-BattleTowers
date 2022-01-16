@@ -349,5 +349,13 @@
     "DIALOG": [
       ""
     ]
+  },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
   }
 }
