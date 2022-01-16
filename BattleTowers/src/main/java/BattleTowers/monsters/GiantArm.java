@@ -19,6 +19,7 @@ import com.megacrit.cardcrawl.powers.StrengthPower;
 
 public class GiantArm extends CustomMonster {
     public static final String ID = BattleTowers.makeID(GiantArm.class.getSimpleName());
+    private static final String IMG = BattleTowers.makeImagePath("monsters/GiantArm/GiantArm.png");
     private static final MonsterStrings monsterStrings;
     public static final String NAME;
     public static final String[] MOVES;
@@ -43,7 +44,7 @@ public class GiantArm extends CustomMonster {
     private int count = wrathTurn;
 
     public GiantArm(float x, float y) {
-        super(NAME, ID, 60, 0.0F, 0.0F, 240.0F, 325.0F, "MonsterTowerModDayvigResources/images/enemies/GiantArm.png", x, y);
+        super(NAME, ID, 60, 0.0F, 0.0F, 240.0F, 325.0F, IMG, x, y);
 
         this.setHp(300);
 

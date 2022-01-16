@@ -25,6 +25,7 @@ import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
 
 public class PrismGuardian extends CustomMonster {
     public static final String ID = BattleTowers.makeID(PrismGuardian.class.getSimpleName());
+    private static final String IMG = BattleTowers.makeImagePath("monsters/PrismGuardian/prismguardian.png");
     private static final MonsterStrings monsterStrings;
     public static final String NAME;
     public static final String[] MOVES;
@@ -40,7 +41,7 @@ public class PrismGuardian extends CustomMonster {
     private boolean firstMove;
 
     public PrismGuardian(float x, float y) {
-        super(NAME, ID, 60, 0.0F, 0.0F, 280.0F, 280.0F, "MonsterTowerModDayvigResources/images/enemies/prismguardian.png", x, y);
+        super(NAME, ID, 60, 0.0F, 0.0F, 280.0F, 280.0F, IMG, x, y);
 
         this.setHp(HP);
         this.firstMove = true;
