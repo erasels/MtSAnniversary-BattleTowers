@@ -48,6 +48,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import static basemod.BaseMod.addMonster;
+
 @SpireInitializer
 public class BattleTowers implements
         PostInitializeSubscriber,
@@ -185,6 +187,8 @@ public class BattleTowers implements
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
         BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
+        BaseMod.addMonster("GiantArm", () -> new GiantArm(0.0F, 0.0F));
+        BaseMod.addMonster("PrismGuardian", () -> new PrismGuardian(0.0F, 0.0F));
 
     }
 
