@@ -104,6 +104,13 @@
       "Relics at shops cost #b%dx more #ygold."
     ]
   },
+  "${ModID}:VoidBlight": {
+    "NAME": "Hollow Soul",
+    "FLAVOR": "You never knew how important it was to you until it was gone.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yVoid into your draw pile."
+    ]
+  },
   "${ModID}:PromiseOfGold": {
     "NAME": "Promise of Gold",
     "FLAVOR": "It will all be worth it.",
