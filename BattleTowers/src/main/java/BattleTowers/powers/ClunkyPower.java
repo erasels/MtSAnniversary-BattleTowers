@@ -30,6 +30,7 @@ public class ClunkyPower extends AbstractPower {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
+        this.amount = 3;
         this.updateDescription();
         this.type = PowerType.DEBUFF;
         Texture normalTexture = TextureLoader.getTexture(makePowerPath("ClunkyPower32.png"));
@@ -49,6 +50,7 @@ public class ClunkyPower extends AbstractPower {
     {
         if(this.amount > 0) {
             --this.amount;
+            this.updateDescription();
             if (this.amount == 0) {
                 this.flash();
             }
