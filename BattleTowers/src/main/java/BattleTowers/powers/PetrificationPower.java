@@ -18,7 +18,7 @@ public class PetrificationPower extends AbstractPower {
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    private static final int THRESHOLD = 10;
+    private static final int THRESHOLD = 5;
     private static final int TEMP_STRENGTH_LOSS = 4;
     private static final int TEMP_DEX_LOSS = 4;
 
