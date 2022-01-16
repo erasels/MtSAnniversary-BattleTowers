@@ -12,6 +12,10 @@ import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.blue.FTL;
+import com.megacrit.cardcrawl.cards.green.Dash;
+import com.megacrit.cardcrawl.cards.purple.ForeignInfluence;
+import com.megacrit.cardcrawl.cards.red.Uppercut;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.CardStrings;
@@ -23,6 +27,7 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Map;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -58,6 +63,14 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
         this.tips.add(new PowerTip(relicStrings.NAME, description));
     }
 
+    private static boolean realCheck(AbstractCard c, String letter) {
+        if (cardsENG.containsKey(c.cardID)) {
+            String s = cardsENG.get(c.cardID).NAME.toLowerCase();
+            return s.startsWith(letter.toLowerCase());
+        }
+        return false;
+    }
+
     @Override
     public void atBattleStart() {
         if (letter != "") {
@@ -77,12 +90,19 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
             }
             //In case there are no cards of the letter in the entire pool.
             if (set.size() == 0) {
-                ArrayList<AbstractCard> valid3 = CardboardHeart.getCardsMatchingPredicate(c -> {
-                    return c.rarity != AbstractCard.CardRarity.SPECIAL && c.type != AbstractCard.CardType.STATUS && c.rarity != AbstractCard.CardRarity.CURSE && c.type != AbstractCard.CardType.CURSE;
-                }, true);
-                set.add(valid3.get(0));
-                set.add(valid3.get(1));
-                set.add(valid3.get(2));
+                ArrayList<AbstractCard> fakeCards = new ArrayList<>();
+                fakeCards.add(new Dash());
+                fakeCards.add(new Uppercut());
+                fakeCards.add(new ForeignInfluence());
+                fakeCards.add(new FTL());
+                for (AbstractCard c : fakeCards) {
+                    c.color = AbstractCard.CardColor.COLORLESS;
+                    c.name = letter.toUpperCase() + c.name.substring(1) + "???";
+                }
+                Collections.shuffle(fakeCards);
+                for (int i = 0; i < 3; i++) {
+                    set.add(fakeCards.get(i));
+                }
             }
             atb(new SelectCardsCenteredAction(set, DESCRIPTIONS[4], (cards) -> {
                 att(new MakeTempCardInHandAction(cards.get(0).makeCopy()));
@@ -93,9 +113,8 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
     @Override
     public void onPlayCard(AbstractCard c, AbstractMonster m) {
         if (letter != "") {
-            if (c.name.toLowerCase().startsWith(letter.toLowerCase())) {
+            if (c.name.toLowerCase().startsWith(letter.toLowerCase()) || realCheck(c, letter)) {
                 flash();
-                atb(new GainBlockAction(UC.p(), 4));
                 atb(new GainEnergyAction(1));
             }
         }
