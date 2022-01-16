@@ -1,12 +1,15 @@
 package BattleTowers.powers;
 
+import BattleTowers.BattleTowers;
 import BattleTowers.util.TextureLoader;
+import BattleTowers.util.UC;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makePowerPath;
@@ -24,19 +27,9 @@ public class NotificationPower extends AbstractPower {
         this.amount = -1;
         canGoNegative = false;
         type = PowerType.BUFF;
-        Texture normalTexture = TextureLoader.getTexture(makePowerPath("CardEater_32.png"));
-        Texture hiDefImage = TextureLoader.getTexture(makePowerPath("CardEater_84.png"));
-        if (hiDefImage != null) {
-            region128 = new TextureAtlas.AtlasRegion(hiDefImage, 0, 0, hiDefImage.getWidth(), hiDefImage.getHeight());
-            if (normalTexture != null)
-                region48 = new TextureAtlas.AtlasRegion(normalTexture, 0, 0, normalTexture.getWidth(), normalTexture.getHeight());
-        } else if (normalTexture != null) {
-            this.img = normalTexture;
-            region48 = new TextureAtlas.AtlasRegion(normalTexture, 0, 0, normalTexture.getWidth(), normalTexture.getHeight());
-        }
+        BattleTowers.LoadPowerImage(this);
         updateDescription();
     }
-
 
     @Override
     public void updateDescription() {

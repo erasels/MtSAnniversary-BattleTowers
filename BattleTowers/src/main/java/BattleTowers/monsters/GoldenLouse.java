@@ -50,7 +50,7 @@ public class GoldenLouse extends AbstractBTMonster {
 
     public GoldenLouse(final float x, final float y) {
         super(NAME, ID, 140, 0.0F, 0.0f, 180.0f, 140.0f, null, x, y);
-        this.loadAnimation("battleTowersResources/img/monsters/MetalLouses/GoldenLouse/skeleton.atlas", "battleTowersResources/img/monsters/MetalLouses/GoldenLouse/skeleton.json", 1.2F);
+        this.loadAnimation("battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.json", 1.2F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));

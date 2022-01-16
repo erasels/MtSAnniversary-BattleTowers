@@ -1,5 +1,6 @@
 package BattleTowers.powers;
 
+import BattleTowers.BattleTowers;
 import BattleTowers.util.UC;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
@@ -27,7 +28,7 @@ public class EnrageStopPower extends AbstractPower {
         this.owner = owner;
         this.amount = amount;
         this.updateDescription();
-        this.loadRegion("anger");
+        BattleTowers.LoadPowerImage(this);
         this.type = PowerType.BUFF;
     }
 

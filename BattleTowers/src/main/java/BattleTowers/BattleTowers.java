@@ -9,6 +9,7 @@ import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.chess.queen.customintents.QueenDrainIntent;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
+import BattleTowers.monsters.executiveslime.Slimeling;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -46,6 +47,8 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
+
+import static basemod.BaseMod.addMonster;
 
 @SpireInitializer
 public class BattleTowers implements
@@ -168,6 +171,11 @@ public class BattleTowers implements
                         new Cultist(100.0F, 0.0F)
                 }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
+        BaseMod.addMonster(Encounters.NINJA_LOUSES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new NinjaLouse(-150.0F, 0.0F, false),
+                        new NinjaLouse(100.0F, 0.0F, true),
+                }));
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -182,12 +190,26 @@ public class BattleTowers implements
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
         BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
+
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
-        BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
+        BaseMod.addMonster(ExecutiveSlime.ID, () -> new MonsterGroup(
+                    new AbstractMonster[] {
+                            new Slimeling(ExecutiveSlime.POS_X[0], ExecutiveSlime.POS_Y[0]).setMinionIndex(0),
+                            new Slimeling(ExecutiveSlime.POS_X[1], ExecutiveSlime.POS_Y[1]).setMinionIndex(1),
+                            new ExecutiveSlime()
+                    }));
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
+        BaseMod.addMonster(GiantArm.ID, () -> new GiantArm(0.0F, 0.0F));
+        BaseMod.addMonster(PrismGuardian.ID, () -> new PrismGuardian(0.0F, 0.0F));
+        BaseMod.addMonster(Encounters.MAGUS_AND_ASSASSIN, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new Assassin(-120.0F, 0.0F),
+                        new Magus(120.0F, 0.0F),
+                }));
+
 
     }
 
@@ -198,6 +220,7 @@ public class BattleTowers implements
         BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
+        BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
     }
 
@@ -339,6 +362,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
         BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
+        BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {

@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 
@@ -59,11 +60,11 @@ public class Slimeling extends AbstractBTMonster implements ExecutiveMinion {
         e.setTime(e.getEndTime() * MathUtils.random());
         this.state.addListener(new com.megacrit.cardcrawl.helpers.SlimeAnimListener());
 
-        setHp(AbstractDungeon.ascensionLevel >= 19 ? 13 : 9, AbstractDungeon.ascensionLevel >= 19 ? 16 : 11);
+        setHp(AbstractDungeon.ascensionLevel >= 19 ? 14 : 8, AbstractDungeon.ascensionLevel >= 19 ? 17 : 11);
 
-        addMove(SMACK, Intent.ATTACK, calcAscensionDamage(7));
-        addMove(WEAK, Intent.ATTACK_DEBUFF, calcAscensionDamage(6));
-        addMove(SLIME, Intent.ATTACK_DEBUFF, calcAscensionDamage(5));
+        addMove(SMACK, Intent.ATTACK, 8);
+        addMove(WEAK, Intent.ATTACK_DEBUFF, AbstractDungeon.ascensionLevel >= 2 ? 7 : 6);
+        addMove(SLIME, Intent.ATTACK_DEBUFF, AbstractDungeon.ascensionLevel >= 2 ? 6 : 5);
     }
 
     @Override
@@ -71,6 +72,7 @@ public class Slimeling extends AbstractBTMonster implements ExecutiveMinion {
         super.setUpMisc();
         // we set the enemy type here so the calcAscensionMethods are called after the enemy type is set
         this.type = EnemyType.NORMAL;
+
     }
 
     @Override
@@ -106,8 +108,13 @@ public class Slimeling extends AbstractBTMonster implements ExecutiveMinion {
 
     @Override
     protected void getMove(final int num) {
-        if (AbstractDungeon.ascensionLevel >= 17) {
-            byte move = (byte) ((GameActionManager.turn + minionIndex) % 3);
+        if (AbstractDungeon.ascensionLevel >= 17 || GameActionManager.turn == 1) {
+            byte move;
+            if (this.moveHistory.isEmpty()) {
+                move = (byte) (((GameActionManager.turn == 1 ? 1 : 2) + GameActionManager.turn + minionIndex) % 3);
+            } else {
+                move = (byte) ((this.moveHistory.get(this.moveHistory.size() - 1) + 1) % 3);
+            }
             setMoveShortcut(move, MOVES[move]);
         }
         else {
@@ -130,8 +137,9 @@ public class Slimeling extends AbstractBTMonster implements ExecutiveMinion {
 
     private int minionIndex = 0;
     @Override
-    public void setMinionIndex(int index) {
+    public AbstractMonster setMinionIndex(int index) {
         this.minionIndex = index;
+        return this;
     }
 
     @Override
