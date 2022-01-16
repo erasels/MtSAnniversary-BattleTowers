@@ -201,6 +201,12 @@ public class BattleTowers implements
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
         BaseMod.addMonster("GiantArm", () -> new GiantArm(0.0F, 0.0F));
         BaseMod.addMonster("PrismGuardian", () -> new PrismGuardian(0.0F, 0.0F));
+        BaseMod.addMonster("Magus_and_Assassin", () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new Assassin(-120.0F, 0.0F),
+                        new Magus(120.0F, 0.0F),
+                }));
+
 
     }
 

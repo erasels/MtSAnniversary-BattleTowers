@@ -357,5 +357,17 @@
       "Poison Shot"
     ],
     "NAME": "Ninja Louse"
+  },
+  "${ModID}:Magus": {
+    "NAME": "Magus",
+    "DIALOG": [
+      "Get ready!"
+    ]
+  },
+  "${ModID}:Assassin": {
+    "NAME": "Assassin",
+    "DIALOG": [
+      ""
+    ]
   }
 }
