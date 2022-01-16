@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
@@ -64,21 +65,26 @@ public class GiantArm extends CustomMonster {
             smashDmg = 20;
         }
 
-        if (AbstractDungeon.ascensionLevel >= 17){
+        if (AbstractDungeon.ascensionLevel >= 18){
             this.wrathTurn = 2;
             this.count = wrathTurn;
         }
+
+        this.dialogX = (this.hb_x - 70.0F) * Settings.scale;
+        this.dialogY -= (this.hb_y - 55.0F) * Settings.scale;
 
         this.damage.add(new DamageInfo(this, this.pummelDmg));
         this.damage.add(new DamageInfo(this, this.smashDmg));
         this.animation = null;
     }
 
-    public void takeTurn() {
-        if (count == wrathTurn){
-            AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[0], 0.8f, 0.8f));
-            playSfx();
-        }
+    @Override
+    public void usePreBattleAction() {
+        AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[0], 1.2f, 1.6f));
+        playSfx();
+    }
+
+        public void takeTurn() {
         switch(this.nextMove) {
             case PUMMEL:
                 for (int i = 0;i<pummelAmount; i++) {
@@ -96,7 +102,7 @@ public class GiantArm extends CustomMonster {
             case WRATH:
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new WrathPower(this, this, 1), 1));
                 AbstractDungeon.actionManager.addToBottom(new SFXAction("STANCE_ENTER_WRATH"));
-                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[2], 0.8f, 0.8f));
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[2], 1.2f, 1.6f));
                 playSfx();
                 break;
 
@@ -112,9 +118,10 @@ public class GiantArm extends CustomMonster {
     public void damage(DamageInfo var1){
         int num = (int)(Math.random() * 100);
         if (num <= 15){
-            AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 0.8f, 0.8f));
+            AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
             playSfx();
         }
+        super.damage(var1);
     }
 
     private void playSfx() {
