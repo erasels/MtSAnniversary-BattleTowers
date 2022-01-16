@@ -165,6 +165,7 @@ public class BattleTowers implements
                         new Cultist(100.0F, 0.0F)
                 }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
+        BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
