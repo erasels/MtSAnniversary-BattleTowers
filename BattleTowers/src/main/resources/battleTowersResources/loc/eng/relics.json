@@ -149,6 +149,12 @@
     "NAME": "Slime-Filled Flask",
     "FLAVOR": "Is this even safe to drink?",
     "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand."]
+  },
+  "${ModID}:SentryOrb": {
+    "NAME": "Sentry Core",
+    "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
+    "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
+      "Damage dealt: "," NL Per combat: "," NL Per turn: "]
   }
 }
 
