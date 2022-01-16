@@ -36,7 +36,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         return phases.get(key);
     }
     public void transitionPhase(EventPhase next) {
-        if (currentPhase == null) {
+        if (!started && currentPhase == null) {
             if (next instanceof TextPhase) {
                 currentPhase = next;
                 this.body = ((TextPhase) next).getBody();
@@ -46,7 +46,9 @@ public abstract class PhasedEvent extends AbstractImageEvent {
             }
         }
         else {
-            currentPhase.hide(this);
+            if (currentPhase != null)
+                currentPhase.hide(this);
+
             currentPhase = next;
             next.transition(this);
         }
