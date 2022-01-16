@@ -41,7 +41,7 @@ public class TrenchcoatPower extends AbstractPower {
 
     @Override
     public void atStartOfTurn() {
-        this.amount = 20;
+        this.amount = 30;
     }
 
     @Override
