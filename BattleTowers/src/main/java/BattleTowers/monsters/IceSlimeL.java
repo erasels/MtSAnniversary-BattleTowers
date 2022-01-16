@@ -70,8 +70,8 @@ public class IceSlimeL extends AbstractBTMonster {
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(DEBUFF, Intent.DEBUFF);
-        addMove(STATUSHIT, Intent.ATTACK_DEBUFF, calcAscensionDamage(11));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(16));
+        addMove(STATUSHIT, Intent.ATTACK_DEBUFF, calcAscensionDamage(7));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(12));
         addMove(SPLIT, Intent.UNKNOWN);
 
         this.splitTriggered = false;
