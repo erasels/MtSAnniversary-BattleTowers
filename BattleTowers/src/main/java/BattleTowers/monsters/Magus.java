@@ -84,11 +84,11 @@ public class Magus extends CustomMonster {
             case COLORSPRAY:
                 AbstractDungeon.actionManager.addToBottom(new SFXAction("ATTACK_MAGIC_BEAM_SHORT", 0.9F));
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new BorderFlashEffect(Color.RED)));
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.RED.cpy()), 0.3F));
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.BLUE.cpy()), 0.3F));
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.YELLOW.cpy()), 0.3F));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.RED.cpy()), 0.1F));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.BLUE.cpy()), 0.1F));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredSmallLaserEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, this.hb.cX, this.hb.cY, Color.YELLOW.cpy()), 0.1F));
 
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDrawPileAction(new Dazed(), this.colorSprayAmount, true, false));
+                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInDiscardAction(new Dazed(), this.colorSprayAmount));
                 appliedColorSpray = true;
                 break;
             case HEATMETAL:

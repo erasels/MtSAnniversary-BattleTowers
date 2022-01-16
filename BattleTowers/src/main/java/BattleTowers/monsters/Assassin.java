@@ -35,7 +35,7 @@ import java.util.Iterator;
 
 public class Assassin extends CustomMonster {
     public static final String ID = BattleTowers.makeID(Assassin.class.getSimpleName());
-    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/Assassin.png");
+    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/assassin.png");
     private static final MonsterStrings monsterStrings;
     public static final String NAME;
     public static final String[] MOVES;
@@ -101,6 +101,9 @@ public class Assassin extends CustomMonster {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new BarricadePower(this)));
             hidingCount = 0;
             firstTurn = false;
+            this.setMove(HIDE, Intent.DEFEND_BUFF);
+            this.createIntent();
+
         }
     }
 
@@ -124,11 +127,8 @@ public class Assassin extends CustomMonster {
                     AbstractDungeon.actionManager.addToBottom(new AnimateHopAction(this));
                     AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.SLASH_DIAGONAL));
                 }
-                hidingCount = 0;
-                if (this.hasPower(HidePower.POWER_ID)) {
-                    HidePower h = (HidePower) this.getPower(HidePower.POWER_ID);
-                    h.removeHide();
-                }
+                AbstractDungeon.actionManager.addToBottom(new RemoveAllBlockAction(this, this));
+                hidingCount = -1;
                 break;
             case STUNNED:
                 AbstractDungeon.actionManager.addToBottom(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.STUNNED));
@@ -141,6 +141,7 @@ public class Assassin extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new AddCardToDeckAction(new Injury()));
                 break;
             case ESCAPE:
+                AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(this));
                 break;
 
