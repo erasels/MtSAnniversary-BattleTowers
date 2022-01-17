@@ -79,7 +79,6 @@ public abstract class PhasedEvent extends AbstractImageEvent {
             }
             else {
                 AbstractDungeon.resetPlayer();
-                AbstractDungeon.player.preBattlePrep();
                 this.finishCombat();
                 ((CombatPhase) currentPhase).postCombat(this);
             }
