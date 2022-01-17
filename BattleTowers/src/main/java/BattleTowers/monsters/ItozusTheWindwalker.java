@@ -1,6 +1,8 @@
 package BattleTowers.monsters;
 
 import BattleTowers.powers.AgainstTheWhirlwindPower;
+import BattleTowers.powers.GatheringStormPower;
+import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.TemporaryDeEnergizePower;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
@@ -74,6 +76,7 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
     }
     public void usePreBattleAction() {
        addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new AgainstTheWhirlwindPower(AbstractDungeon.player)));
+        addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
     }
     @Override
     public void takeTurn() {
@@ -146,10 +149,10 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
                 break;
             }
             case DEATHTOUCH:{
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DrawReductionPower(AbstractDungeon.player,calcAscensionSpecial(3))));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new TemporaryDeEnergizePower(AbstractDungeon.player,calcAscensionSpecial(3))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DrawReductionPower(AbstractDungeon.player,calcAscensionSpecial(1))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new TemporaryDeEnergizePower(AbstractDungeon.player,calcAscensionSpecial(1))));
                 if (Flurry != null){
                     addMove(STORMSTRIKE,Intent.ATTACK_DEBUFF,calcAscensionDamage(4),2+Flurry.amount2);
                     addMove(FLURRYOFBLOWS,Intent.ATTACK,calcAscensionDamage(5),4+Flurry.amount2);
@@ -185,7 +188,7 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
         if (!this.lastMove(STORMSTRIKE) && (lastMove(DEATHTOUCH) || lastMove(AIRCUTTER))) {
             possibilities.add(STORMSTRIKE);
         }
-        if (this.lastMove(BREWINGSTORM) || this.lastMove(FLURRYOFBLOWS) || lastMove(AIRCUTTER)) {
+        if ((this.lastMove(BREWINGSTORM) || this.lastMove(FLURRYOFBLOWS) || lastMove(AIRCUTTER)) && !lastMove(DEATHTOUCH)&& !lastMoveBefore(DEATHTOUCH)) {
             possibilities.add(DEATHTOUCH);
         }
         //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),

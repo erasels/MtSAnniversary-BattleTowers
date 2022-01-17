@@ -160,7 +160,7 @@
   "${ModID}:TimeStop": {
     "NAME": "Time Stop",
     "DESCRIPTIONS": [
-      "Your first card each turn has no effect and #yPurges when played."
+      "Your first card each turn #yPurges when played and deals #b40% less damage and gains #b40% less block."
     ]
   }
 }

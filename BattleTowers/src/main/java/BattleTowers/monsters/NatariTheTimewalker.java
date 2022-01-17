@@ -1,8 +1,7 @@
 package BattleTowers.monsters;
 
-import BattleTowers.powers.DoubleTimePower;
-import BattleTowers.powers.HalfTime;
-import BattleTowers.powers.TimeStop;
+import BattleTowers.powers.*;
+import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -16,7 +15,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
+import com.megacrit.cardcrawl.powers.FrailPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.VulnerablePower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 
@@ -40,10 +42,12 @@ public class NatariTheTimewalker extends AbstractBTMonster {
     private static final byte THEWORLD = 5;
     private static final byte BULLETTIME = 6;
     private static final byte HOLDINGTIME = 7;
+    private static final byte MIRRORSHOT = 8;
+    private static final byte CHECKMATE = 9;
     private static int TimewindTimer = 0;
     private TimeState Timestate = TimeState.NORMAL;
-    private static InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(90F, 180F);
-    private static InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(0F, 220F);
+    private final InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(90F, 180F);
+    private final InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(0F, 220F);
     public enum TimeState{
         NORMAL,HALFTIME,DOUBLETIME,TIMESTOP
     }
@@ -67,10 +71,9 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
         setHp(calcAscensionTankiness(310));
-        loadAnimation(BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.atlas"), BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.json"), 1.0F);
-        AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
+        loadAnimation(BattleTowers.BattleTowers.makeMonsterPath("NatariTheTimewalker/TheTimewalker.atlas"), BattleTowers.BattleTowers.makeMonsterPath("NatariTheTimewalker/TheTimewalker.json"), 1.0F);
+        AnimationState.TrackEntry e = this.state.setAnimation(0, "animtion0", true);
         e.setTime(e.getEndTime() * MathUtils.random());
-        AnimationState.TrackEntry e1 = state.setAnimation(1, "WingFlap", true);
         addMove(FASTERTHANLIGHT, Intent.ATTACK, calcAscensionDamage(15));
         addMove(SANDBURST, Intent.ATTACK_DEFEND, calcAscensionDamage(12));
         addMove(KILLINGDOLL, Intent.ATTACK_DEBUFF, calcAscensionDamage(4), 5);
@@ -79,15 +82,18 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         addMove(THEWORLD, Intent.STRONG_DEBUFF);
         addMove(BULLETTIME, Intent.DEBUFF);
         addMove(HOLDINGTIME, Intent.UNKNOWN);
+        addMove(MIRRORSHOT, Intent.ATTACK_DEBUFF,calcAscensionDamage(8),2);
+        addMove(CHECKMATE, Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
     }
 
     public void usePreBattleAction() {
         firstMove = true;
-        firstOne = new InvisibleIntentDisplayer(90F, 180F);
-        secondOne = new InvisibleIntentDisplayer(0F, 220F);
+        firstOne.shouldRenderIntent = false;
+        secondOne.shouldRenderIntent = false;
         Timestate = TimeState.NORMAL;
+        addToBot(new ApplyPowerAction(this,this,new TimewalkingPower(this)));
         //AbstractDungeon.scene.fadeOutAmbiance();
         //CardCrawlGame.music.playTempBgmInstantly("TimewalkerBattle.ogg");
     }
@@ -102,21 +108,83 @@ public class NatariTheTimewalker extends AbstractBTMonster {
     @Override
     public void takeTurn() {
         //Automatically grabs the damage values and number of hits value from the moves hashmap based on the currently set move
-        DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
-        if (firstMove){
-            addToBot(new TalkAction(this,DIALOG[0]));
-        }
-        takeTurnActions(nextMove,info);
+        DamageInfo info;
+        info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
-        if (Timestate == TimeState.DOUBLETIME && moves.get(secondOne.nextMove) != null){
-            info = new DamageInfo(this,moves.get(secondOne.nextMove).baseDamage);
-            takeTurnActions(secondOne.nextMove,info);
+        switch (this.nextMove) {
+            case FASTERTHANLIGHT:{
+                addToTop(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
+                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                break;
+            }
+            case SANDBURST : {
+                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                addToTop(new GainBlockAction(this,calcAscensionSpecial(10)));
+                break;
+            }
+            case KILLINGDOLL : {
+                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
+                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                }
+                break;
+            }
+            case SHOREUP : {
+                addToTop(new HealAction(this,this, calcAscensionSpecial(8)));
+                addToTop(new ApplyPowerAction(this,this,new StrengthPower(this,calcAscensionSpecial(2))));
+                break;
+            }
+            case FASTFORWARD : {
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, HalfTime.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(this,this, HalfTime.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, TimeStop.POWER_ID));
+                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new DoubleTimePower(AbstractDungeon.player)));
+                addToTop(new ApplyPowerAction(this,this,new DoubleTimePower(AbstractDungeon.player)));
+                Timestate = TimeState.DOUBLETIME;
+                break;
+            }
+            case BULLETTIME : {
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(this,this, DoubleTimePower.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, TimeStop.POWER_ID));
+                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new HalfTime(AbstractDungeon.player)));
+                addToTop(new ApplyPowerAction(this,this,new HalfTime(AbstractDungeon.player)));
+                Timestate = TimeState.HALFTIME;
+                break;
+            }
+            case THEWORLD : {
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(this,this, DoubleTimePower.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, HalfTime.POWER_ID));
+                addToTop(new RemoveSpecificPowerAction(this,this, HalfTime.POWER_ID));
+                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new TimeStop(AbstractDungeon.player)));
+                Timestate = TimeState.TIMESTOP;
+                break;
+            }
+            case MIRRORSHOT: {
+                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                }
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new FrailPower(AbstractDungeon.player,1,true)));
+                break;
+            }
+            case CHECKMATE: {
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new WeakPower(AbstractDungeon.player,2,true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new VulnerablePower(AbstractDungeon.player,2,true)));
+                break;
+            }
+        }
+        if (firstMove){
+            addToBot(new TalkAction(this,DIALOG[0]));
         }
         if (Timestate != TimeState.HALFTIME && moves.get(firstOne.nextMove) != null){
             info = new DamageInfo(this,moves.get(firstOne.nextMove).baseDamage);
             takeTurnActions(firstOne.nextMove,info);
+        }
+        if (Timestate == TimeState.DOUBLETIME && moves.get(secondOne.nextMove) != null){
+            info = new DamageInfo(this,moves.get(secondOne.nextMove).baseDamage);
+            takeTurnActions(secondOne.nextMove,info);
         }
         //carries out actions based on the current move
         //useFastAttackAnimation causes the monster to jump forward when it attacks
@@ -164,6 +232,18 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                 addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, calcAscensionSpecial(2))));
                 break;
             }
+            case MIRRORSHOT: {
+                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                }
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new FrailPower(AbstractDungeon.player,1,true)));
+                break;
+            }
+            case CHECKMATE: {
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new WeakPower(AbstractDungeon.player,2,true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new VulnerablePower(AbstractDungeon.player,2,true)));
+                break;
+            }
         }
         addToBot(new RollMoveAction(this));
     }
@@ -172,9 +252,9 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         //This is where we determine what move the monster should do next
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
-        firstOne = new InvisibleIntentDisplayer(90F, 180F);
-        secondOne = new InvisibleIntentDisplayer(0F, 220F);
         byte move = 0;
+        firstOne.shouldRenderIntent = false;
+        secondOne.shouldRenderIntent = false;
         if (firstMove){
             possibilities.add(FASTERTHANLIGHT);
             firstOne.setIntent(Intent.BUFF,-1);
@@ -185,6 +265,7 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         if (!firstMove){
             if (Timestate == TimeState.TIMESTOP || (Timestate == TimeState.DOUBLETIME && AbstractDungeon.ascensionLevel >= 19)){
               possibilities.add(KILLINGDOLL);
+              possibilities.add(CHECKMATE);
             }
             if (Timestate == TimeState.HALFTIME){
                 possibilities.add(THEWORLD);
@@ -193,8 +274,11 @@ public class NatariTheTimewalker extends AbstractBTMonster {
             if (!lastTwoMoves(FASTERTHANLIGHT)){
                 possibilities.add(FASTERTHANLIGHT);
             }
-            if (!lastMove(SANDBURST)){
+            if (!lastTwoMoves(SANDBURST)){
                 possibilities.add(SANDBURST);
+            }
+            if (!lastTwoMoves(MIRRORSHOT)){
+                possibilities.add(MIRRORSHOT);
             }
             if (AbstractDungeon.ascensionLevel < 19) {
                 if (!lastMove(SHOREUP) && (!lastMoveBefore(SHOREUP))) {
@@ -237,8 +321,11 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                 if (!lastTwoMoves(FASTERTHANLIGHT)){
                     possibilities.add(FASTERTHANLIGHT);
                 }
-                if (!lastMove(SANDBURST)){
+                if (!lastTwoMoves(SANDBURST)){
                     possibilities.add(SANDBURST);
+                }
+                if (!lastTwoMoves(MIRRORSHOT)){
+                    possibilities.add(MIRRORSHOT);
                 }
                 if (!lastMove(SHOREUP) && !lastMoveBefore(SHOREUP)){
                     possibilities.add(SHOREUP);
@@ -249,6 +336,9 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                 }
                 if (infobyte.nextMove == SANDBURST) {
                     secondOne.setIntent(Intent.ATTACK_DEFEND, calcAscensionDamage(12));
+                }
+                if (infobyte.nextMove == MIRRORSHOT) {
+                    secondOne.setIntent(Intent.ATTACK_DEBUFF, calcAscensionDamage(8),2);
                 }
                 if (infobyte.nextMove == SHOREUP) {
                     secondOne.setIntent(Intent.BUFF, -1);

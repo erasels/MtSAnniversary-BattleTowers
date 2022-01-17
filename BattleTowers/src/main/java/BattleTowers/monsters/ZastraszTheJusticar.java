@@ -73,7 +73,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
     }
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
-        addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new InquisitorPower(this)));
+        addToBot(new ApplyPowerAction(this,this,new InquisitorPower(this)));
     }
     @Override
     protected void setUpMisc() {
@@ -252,8 +252,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             xshift = 160;
         } else xshift = -160;
         DivineOrbs.add(new InvisibleIntentDisplayer((-80 * xmod)+xshift, 250.0f));
-        if (DivineOrbs.size() < 2){
-            addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
+        if (DivineOrbs.size() >= 2){
+            addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player,JudgementPower.POWER_ID));
         }
         addToBot(new RollMoveAction(this));
     }
