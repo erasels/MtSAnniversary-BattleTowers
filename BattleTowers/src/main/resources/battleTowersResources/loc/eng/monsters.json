@@ -369,5 +369,8 @@
     "DIALOG": [
       ""
     ]
+  },
+  "${ModID}:Paladin": {
+    "NAME": "Paladin"
   }
 }
