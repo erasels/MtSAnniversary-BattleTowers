@@ -359,6 +359,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
         BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
+        BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
