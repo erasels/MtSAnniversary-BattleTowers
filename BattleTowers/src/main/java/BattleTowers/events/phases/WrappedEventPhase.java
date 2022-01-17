@@ -114,6 +114,7 @@ public class WrappedEventPhase extends ImageEventPhase {
     @Override
     public boolean reopen(PhasedEvent phasedEvent) {
         if (baseEvent != null) {
+            baseEvent.waitTimer = phasedEvent.waitTimer;
             baseEvent.reopen();
             if (baseEvent != null) {
                 phasedEvent.waitTimer = baseEvent.waitTimer;
