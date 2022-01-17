@@ -14,8 +14,10 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.*;
 import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
@@ -125,6 +127,14 @@ public class TowerEvent extends PhasedEvent {
         return sb.toString();
     }
 
+    public void dropReward(AbstractRoom room) {
+        //Could also handle elite/boss relic rewards using this.
+        if (currentPhase instanceof CombatPhase && ((CombatPhase) currentPhase).isBoss()) {
+            room.addGoldToRewards(AbstractDungeon.ascensionLevel >= 13 ? 100 : 150);
+            room.rewards.add(new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)));
+        }
+    }
+
     private static class MapHandler implements InteractionPhase.InteractionHandler {
         private final TowerEvent event;
         private final Minimap map;
@@ -162,6 +172,10 @@ public class TowerEvent extends PhasedEvent {
                     fadeTimer = 0.0F;
                     fadingOut = false;
                     AbstractDungeon.fadeColor.a = 1.0F;
+                    if (map.mapCircleEffect != null) {
+                        map.mapCircleEffect.isDone = true;
+                        map.mapCircleEffect = null;
+                    }
                     if (map.current != null) {
                         map.current.taken = true;
                         this.transition(map.current);
@@ -188,15 +202,17 @@ public class TowerEvent extends PhasedEvent {
             dynamicBanner.hide();
             player.resetControllerValues();
             resetPlayer();
+            event.noCardsInRewards = false;
 
             event.pathTaken.add(new Pair<>(target.mapX, target.mapY));
 
             event.save();
 
             //multiply by value between -1 and 1 based on tower position
-            float mod = (((((target.mapX + 3) * 467) + ((target.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            double mod = (((((target.mapX + 3) * 467) + ((target.mapY + 7) * 311)) % 100) / 50.0f) - 1;
             logger.info("SeedMod: " + mod);
             long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
+            logger.info("Floor seed: " + seed);
             monsterHpRng = new Random(seed);
             aiRng = new Random(seed);
             shuffleRng = new Random(seed);
@@ -241,9 +257,10 @@ public class TowerEvent extends PhasedEvent {
             resetPlayer();
 
             //multiply by value between -1 and 1 based on tower position
-            float mod = (((((current.mapX + 3) * 467) + ((current.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            double mod = (((((current.mapX + 3) * 467) + ((current.mapY + 7) * 311)) % 100) / 50.0f) - 1;
             logger.info("SeedMod: " + mod);
             long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
+            logger.info("Floor seed: " + seed);
             monsterHpRng = new Random(seed);
             aiRng = new Random(seed);
             shuffleRng = new Random(seed);
@@ -270,7 +287,11 @@ public class TowerEvent extends PhasedEvent {
             }
 
             //Can do rich presence or something here if you want
-            event.transitionPhase(getPhase(current));
+            EventPhase next = getPhase(current);
+            if (isComplete && next instanceof CombatPhase) {
+                ((CombatPhase) next).completed();
+            }
+            event.transitionPhase(next);
         }
 
         private EventPhase getPhase(Minimap.MinimapNode target) {
@@ -284,8 +305,9 @@ public class TowerEvent extends PhasedEvent {
                     return new MiniRestPhase().setNextKey(followup);
                 case MONSTER:
                 case ELITE:
+                    return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
                 case BOSS:
-                    return new CombatPhase(target.getKey(), true).setNextKey(followup);
+                    return new CombatPhase(target.getKey(), true, true).boss().setNextKey(followup);
             }
             return null;
         }

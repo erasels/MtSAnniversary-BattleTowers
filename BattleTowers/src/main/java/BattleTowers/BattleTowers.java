@@ -31,7 +31,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.purple.Alpha;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -57,12 +56,18 @@ public class BattleTowers implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
+        AddAudioSubscriber,
         EditCardsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
 
     public static final String modid = "battleTowers"; //same as pom, for keywords
+
+    public static final String WHARGH_KEY = makeID("WHARGH");
+    private static final String WHARGH_OGG = "battleTowersResources/Audio/WHARGH.ogg";
+    public static final String PEW_KEY = makeID("Pew");
+    private static final String PEW_OGG = "battleTowersResources/Audio/Pew.ogg";
 
     public static void initialize() {
         BaseMod.subscribe(new BattleTowers());
@@ -173,6 +178,7 @@ public class BattleTowers implements
                         new NinjaLouse(-150.0F, 0.0F, false),
                         new NinjaLouse(100.0F, 0.0F, true),
                 }));
+        BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -206,8 +212,7 @@ public class BattleTowers implements
                         new Assassin(-120.0F, 0.0F),
                         new Magus(120.0F, 0.0F),
                 }));
-
-
+        BaseMod.addMonster(Necrototem.ID, (BaseMod.GetMonster) Necrototem::new);
     }
 
     private static void addEvents() {
@@ -218,6 +223,7 @@ public class BattleTowers implements
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
+        BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
     }
 
@@ -386,5 +392,11 @@ public class BattleTowers implements
         BaseMod.addCard(new Knowledge());
         BaseMod.addCard(new AvertYourGaze());
         BaseMod.addCard(new SlimeElixir());
+    }
+
+    @Override
+    public void receiveAddAudio() {
+        BaseMod.addAudio(WHARGH_KEY, WHARGH_OGG);
+        BaseMod.addAudio(PEW_KEY, PEW_OGG);
     }
 }
