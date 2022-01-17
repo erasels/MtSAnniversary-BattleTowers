@@ -90,7 +90,7 @@ public class Cawcawrot extends AbstractBTMonster
         //useFastAttackAnimation causes the monster to jump forward when it attacks
         switch (nextMove) {
             case RITUAL: {
-                addToBot(new WharghAction(this));
+                addToBot(new WharghAction(this, DIALOG[0]));
                 addToBot(new ApplyPowerAction(this, this, new SuperRitualPower(this, ritualAmount, false)));
                 break;
             }

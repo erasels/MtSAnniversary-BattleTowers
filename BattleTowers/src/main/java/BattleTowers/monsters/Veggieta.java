@@ -1,6 +1,8 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.actions.PepperSprayAction;
+import BattleTowers.actions.PewcumberAction;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -78,14 +80,11 @@ public class Veggieta extends AbstractBTMonster
         //useFastAttackAnimation causes the monster to jump forward when it attacks
         switch (nextMove) {
             case PEWCUMBER: {
-                useFastAttackAnimation();
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_DIAGONAL));
+                addToBot(new PewcumberAction(this, info));
                 break;
             }
             case PEPPER_SPRAY: {
-                for (int i = 0; i < multiplier; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-                }
+                addToBot(new PepperSprayAction(this, info));
                 break;
             }
         }

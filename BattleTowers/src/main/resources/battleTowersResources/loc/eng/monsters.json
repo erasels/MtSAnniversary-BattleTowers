@@ -21,10 +21,11 @@
   "${ModID}:Cawcawrot": {
     "MOVES": [
       "Super Ritual",
-      ""
+      "Tank n Spank"
     ],
     "NAME": "Cawcawrot",
     "DIALOG": [
+      "I'm powering up!  WHAAAAARGH!"
     ]
   },
   "${ModID}:Veggieta": {
