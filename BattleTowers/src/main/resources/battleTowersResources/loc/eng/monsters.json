@@ -21,10 +21,11 @@
   "${ModID}:Cawcawrot": {
     "MOVES": [
       "Super Ritual",
-      ""
+      "Tank n Spank"
     ],
     "NAME": "Cawcawrot",
     "DIALOG": [
+      "I'm powering up!  WHAAAAARGH!"
     ]
   },
   "${ModID}:Veggieta": {
@@ -351,6 +352,14 @@
     "DIALOG": [
       ""
     ]
+  },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
   },
   "${ModID}:Magus": {
     "NAME": "Magus",

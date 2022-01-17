@@ -1,6 +1,7 @@
 package BattleTowers.monsters;
 
 import BattleTowers.powers.VengeancePower;
+import BattleTowers.relics.SentryOrb;
 import BattleTowers.vfx.ColoredSmallLaserEffect;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,6 +20,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.ArtifactPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 
@@ -72,6 +74,7 @@ public class SentryHuge extends AbstractBTMonster {
                 addToBot(new ApplyPowerAction(m, this, new VengeancePower(m, this, VENGEANCE)));
             }
         }
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SentryOrb()));
     }
 
     @Override

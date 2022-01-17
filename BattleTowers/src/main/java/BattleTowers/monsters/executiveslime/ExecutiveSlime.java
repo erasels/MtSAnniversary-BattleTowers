@@ -5,7 +5,6 @@ import BattleTowers.monsters.AbstractBTMonster;
 import BattleTowers.powers.ExpendablePower;
 import BattleTowers.powers.OnusPower;
 import BattleTowers.relics.BucketOfSlime;
-import BattleTowers.relics.CardboardHeart;
 import BattleTowers.vfx.CustomWeightyImpactEffect;
 import basemod.animations.SpriterAnimation;
 import com.badlogic.gdx.graphics.Color;
@@ -54,15 +53,16 @@ public class ExecutiveSlime extends AbstractBTMonster
 
     private static final byte PUNISHMENT = 7; //Strong Hit
 
-    private static final int INITIAL_SLIMED = 2;
+    private final int INITIAL_SLIMED = 3;
     private final int STRENGTH_GROW = AbstractDungeon.ascensionLevel >= 19 ? 3 : 2;
     private static final int DEBUFF = 2; //Turn 0 Weak, Swipe Vuln
-    private static final int SPLASH_SLIME = 2;
+    private static final int SPLASH_SLIME = AbstractDungeon.ascensionLevel >= 19 ? 4 : 3;
     private final int MINION_COUNT = 2; //Three is a No NO. No. Bad. AbstractDungeon.ascensionLevel >= 19 ? 3 : 2;
     private final int WEAK_ONUS_SLIME = AbstractDungeon.ascensionLevel >= 19 ? 2 : 1;
+    private final int PREPARE_BLOCK = AbstractDungeon.ascensionLevel >= 9 ? 30 : 20;
 
-    private static final float[] POS_X = new float[] { -431.0F, -255.0F, -607.0F };
-    private static final float[] POS_Y = new float[] { -2.0F, 4.0F, 0.0F };
+    public static final float[] POS_X = new float[] { -431.0F, -255.0F, -607.0F };
+    public static final float[] POS_Y = new float[] { -2.0F, 4.0F, 0.0F };
 
     //Stuff
     private boolean firstTurn = true;
@@ -70,7 +70,7 @@ public class ExecutiveSlime extends AbstractBTMonster
 
     //default positioning
     public ExecutiveSlime() {
-        this(40.0f, 0.0f);
+        this(55.0f, 0.0f);
     }
 
     public ExecutiveSlime(final float x, final float y) {
@@ -78,12 +78,12 @@ public class ExecutiveSlime extends AbstractBTMonster
 
         this.animation = new SpriterAnimation(BattleTowers.makeMonsterPath("ExecutiveSlime/ExecutiveSlime.scml"));
 
-        setHp(AbstractDungeon.ascensionLevel >= 9 ? 200 : 180);
+        setHp(AbstractDungeon.ascensionLevel >= 9 ? 220 : 200);
 
         addMove(ONUS, Intent.STRONG_DEBUFF);
-        addMove(OUTRAGE, Intent.ATTACK_BUFF, AbstractDungeon.ascensionLevel >= 4 ? 16 : 13);
-        addMove(WEAK_ONUS, Intent.ATTACK_DEBUFF, calcAscensionDamage(12));
-        addMove(SWIPE, Intent.ATTACK_DEBUFF, calcAscensionDamage(10));
+        addMove(OUTRAGE, Intent.ATTACK_BUFF, AbstractDungeon.ascensionLevel >= 4 ? 18 : 16);
+        addMove(WEAK_ONUS, Intent.ATTACK_DEBUFF, calcAscensionDamage(15));
+        addMove(SWIPE, Intent.ATTACK_DEBUFF, calcAscensionDamage(15));
         addMove(SPLASH, Intent.DEBUFF); //, calcAscensionDamage(12));
         addMove(SWARM, Intent.UNKNOWN);
         addMove(PREPARE, Intent.UNKNOWN);
@@ -100,6 +100,13 @@ public class ExecutiveSlime extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new BucketOfSlime()));
+
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (m instanceof ExecutiveMinion) {
+                //addToBot(new ApplyPowerAction(m, m, new MinionPower(this)));
+                addToBot(new ApplyPowerAction(m, this, new ExpendablePower(m, 10, false), 10));
+            }
+        }
     }
 
     @Override
@@ -125,45 +132,47 @@ public class ExecutiveSlime extends AbstractBTMonster
                 addToBot(new MakeTempCardInDrawPileAction(new Slimed(), INITIAL_SLIMED, true, true));
                 break;
             case OUTRAGE:
-                AbstractDungeon.actionManager.addToBottom(new AnimateSlowAttackAction(this));
+                addToBot(new AnimateSlowAttackAction(this));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new StrengthPower(this, STRENGTH_GROW), STRENGTH_GROW));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, STRENGTH_GROW), STRENGTH_GROW));
                 break;
             case WEAK_ONUS:
-                AbstractDungeon.actionManager.addToBottom(new AnimateSlowAttackAction(this));
+                addToBot(new AnimateSlowAttackAction(this));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
                 if (!AbstractDungeon.player.hasPower(OnusPower.POWER_ID))
                     addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new OnusPower(AbstractDungeon.player, this), 0));
                 addToBot(new MakeTempCardInDrawPileAction(new Slimed(), WEAK_ONUS_SLIME, true, true));
                 break;
             case SWIPE:
-                AbstractDungeon.actionManager.addToBottom(new AnimateFastAttackAction(this));
+                addToBot(new AnimateFastAttackAction(this));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, DEBUFF, true), DEBUFF));
                 break;
             case SPLASH:
-                AbstractDungeon.actionManager.addToBottom(new AnimateFastAttackAction(this));
+                addToBot(new AnimateFastAttackAction(this));
                 //addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.POISON));
                 addToBot(new MakeTempCardInDrawPileAction(new Slimed(), SPLASH_SLIME, true, true));
                 break;
             case SWARM:
-                AbstractDungeon.actionManager.addToBottom(new AnimateShakeAction(this, 1.0f, 0.1f));
-                AbstractDungeon.actionManager.addToBottom(new SFXAction("SLIME_SPLIT"));
+                addToBot(new AnimateShakeAction(this, 1.0f, 0.1f));
+                addToBot(new SFXAction("SLIME_SPLIT"));
+                addToBot(new GainBlockAction(this, this, PREPARE_BLOCK));
                 spawnSlimes();
                 break;
             case PREPARE:
                 if (MathUtils.randomBoolean()) {
-                    AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_SLIMEBOSS_1A", 0.3f, true));
+                    addToBot(new SFXAction("VO_SLIMEBOSS_1A", 0.3f, true));
                 } else {
-                    AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_SLIMEBOSS_1B", 0.3f, true));
+                    addToBot(new SFXAction("VO_SLIMEBOSS_1B", 0.3f, true));
                 }
+                addToBot(new GainBlockAction(this, this, PREPARE_BLOCK));
                 break;
             case PUNISHMENT:
-                AbstractDungeon.actionManager.addToBottom(new AnimateJumpAction(this));
-                AbstractDungeon.actionManager.addToBottom(new VFXAction(new CustomWeightyImpactEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, new Color(0.7F, 0.55F, 0.8F, 0.0F), Color.WHITE.cpy())));
-                AbstractDungeon.actionManager.addToBottom(new WaitAction(0.4F)); //A bit longer on fast mode than just 1 action
-                AbstractDungeon.actionManager.addToBottom(new WaitAction(0.4F));
-                AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.POISON));
+                addToBot(new AnimateJumpAction(this));
+                addToBot(new VFXAction(new CustomWeightyImpactEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, new Color(0.7F, 0.55F, 0.8F, 0.0F), Color.WHITE.cpy())));
+                addToBot(new WaitAction(0.4F)); //A bit longer on fast mode than just 1 action
+                addToBot(new WaitAction(0.4F));
+                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.POISON));
                 break;
         }
 
@@ -184,8 +193,8 @@ public class ExecutiveSlime extends AbstractBTMonster
         for (int i : shouldSpawn) {
             Slimeling newMinion = new Slimeling(POS_X[i], POS_Y[i]);
             newMinion.setMinionIndex(i);
-            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(newMinion, true));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(newMinion, this, new ExpendablePower(newMinion, this, 10, true), 10));
+            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(newMinion, false));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(newMinion, this, new ExpendablePower(newMinion, 10, true), 10));
         }
     }
 
@@ -247,11 +256,11 @@ public class ExecutiveSlime extends AbstractBTMonster
     public void die() {
         super.die();
 
-        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+        /*for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
             if (!m.isDeadOrEscaped() && m instanceof ExecutiveMinion) {
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
             }
-        }
+        }*/
     }
 
     @Override

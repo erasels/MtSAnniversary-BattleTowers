@@ -9,6 +9,7 @@ import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.chess.queen.customintents.QueenDrainIntent;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
+import BattleTowers.monsters.executiveslime.Slimeling;
 import BattleTowers.relics.*;
 import BattleTowers.subscribers.PetrifyingGazeApplyPowerSubscriber;
 import BattleTowers.subscribers.TriggerSlimeFilledRoomPowerPostExhaustSubscriber;
@@ -30,7 +31,6 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.purple.Alpha;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
@@ -56,12 +56,18 @@ public class BattleTowers implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
+        AddAudioSubscriber,
         EditCardsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
 
     public static final String modid = "battleTowers"; //same as pom, for keywords
+
+    public static final String WHARGH_KEY = makeID("WHARGH");
+    private static final String WHARGH_OGG = "battleTowersResources/Audio/WHARGH.ogg";
+    public static final String PEW_KEY = makeID("Pew");
+    private static final String PEW_OGG = "battleTowersResources/Audio/Pew.ogg";
 
     public static void initialize() {
         BaseMod.subscribe(new BattleTowers());
@@ -167,6 +173,11 @@ public class BattleTowers implements
                         new Cultist(100.0F, 0.0F)
                 }));
         BaseMod.addMonster(tneisnarT.ID, (BaseMod.GetMonster) tneisnarT::new);
+        BaseMod.addMonster(Encounters.NINJA_LOUSES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new NinjaLouse(-150.0F, 0.0F, false),
+                        new NinjaLouse(100.0F, 0.0F, true),
+                }));
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -181,11 +192,17 @@ public class BattleTowers implements
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
         BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
+
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
         BaseMod.addMonster(AlphabetBoss.ID, (BaseMod.GetMonster) AlphabetBoss::new);
-        BaseMod.addMonster(ExecutiveSlime.ID, (BaseMod.GetMonster) ExecutiveSlime::new);
+        BaseMod.addMonster(ExecutiveSlime.ID, () -> new MonsterGroup(
+                    new AbstractMonster[] {
+                            new Slimeling(ExecutiveSlime.POS_X[0], ExecutiveSlime.POS_Y[0]).setMinionIndex(0),
+                            new Slimeling(ExecutiveSlime.POS_X[1], ExecutiveSlime.POS_Y[1]).setMinionIndex(1),
+                            new ExecutiveSlime()
+                    }));
         BaseMod.addMonster(Queen.ID, (BaseMod.GetMonster) Queen::new);
         BaseMod.addMonster(GiantArm.ID, () -> new GiantArm(0.0F, 0.0F));
         BaseMod.addMonster(PrismGuardian.ID, () -> new PrismGuardian(0.0F, 0.0F));
@@ -347,6 +364,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
         BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
+        BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
@@ -373,5 +391,11 @@ public class BattleTowers implements
         BaseMod.addCard(new Knowledge());
         BaseMod.addCard(new AvertYourGaze());
         BaseMod.addCard(new SlimeElixir());
+    }
+
+    @Override
+    public void receiveAddAudio() {
+        BaseMod.addAudio(WHARGH_KEY, WHARGH_OGG);
+        BaseMod.addAudio(PEW_KEY, PEW_OGG);
     }
 }

@@ -1,10 +1,13 @@
 package BattleTowers.monsters;
 
 import BattleTowers.powers.ProtectedPower;
+import basemod.ReflectionHacks;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
+import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -13,13 +16,14 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.vfx.combat.FlyingDaggerEffect;
 
 import java.util.ArrayList;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class GoldenLouse extends AbstractBTMonster {
-    public static final String ID = makeID(GoldenLouse.class.getSimpleName());
+public class NinjaLouse extends AbstractBTMonster {
+    public static final String ID = makeID(NinjaLouse.class.getSimpleName());
     private static final MonsterStrings monsterStrings = CardCrawlGame.languagePack.getMonsterStrings(ID);
     public static final String NAME = monsterStrings.NAME;
     public static final String[] MOVES = monsterStrings.MOVES;
@@ -30,38 +34,49 @@ public class GoldenLouse extends AbstractBTMonster {
     //name of the monster's moves
     private static final byte BITE = 0;
     private static final byte BUFF = 1;
-    private static final byte HEAL = 2;
+    private static final byte SCRATCH = 2;
     private static final String CLOSED_STATE = "CLOSED";
     private static final String OPEN_STATE = "OPEN";
     private static final String REAR_IDLE = "REAR_IDLE";
     private static final String REAR = "REAR";
 
     //Monster stats
-    private static final int MIN_HP = 26;
-    private static final int MAX_HP = 32;
-    private static final int BITE_DAMAGE = 4;
-    private final int BUFF_AMOUNT = calcAscensionSpecial(1);
-    private final int HEAL_AMOUNT = calcAscensionSpecial(10);
+    private static final int MIN_HP = 36;
+    private static final int MAX_HP = 42;
+    private static final int BITE_DAMAGE = 16;
+    private static final int SCRATCH_DAMAGE = 4;
+    private static final int HITS = 3;
+    private final int BLOCK_AMOUNT = calcAscensionSpecial(10);
     private final int WEAK_AMOUNT = calcAscensionSpecial(1);
-    private final int CURL_AMOUNT = AbstractDungeon.monsterHpRng.random(calcAscensionSpecial(6), calcAscensionSpecial(8));
-    private int buffStacks = 0;
-    private int maxBuffStacks = 3;
+    private final int POISON_AMOUNT = calcAscensionSpecial(3);
+    private final int STRENGTH = calcAscensionSpecial(1);
+    private final int CURL_AMOUNT = AbstractDungeon.monsterHpRng.random(calcAscensionSpecial(calcAscensionTankiness(10)), calcAscensionSpecial(calcAscensionTankiness(14)));
+    private final boolean START_INVIS;
 
+    public NinjaLouse() {
+        this(0.0F, 0.0F, false);
+    }
 
-    public GoldenLouse(final float x, final float y) {
-        super(NAME, ID, 140, 0.0F, 0.0f, 180.0f, 140.0f, null, x, y);
-        this.loadAnimation("battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.json", 1.2F);
+    public NinjaLouse(final float x, final float y, boolean startInvis) {
+        super(NAME, ID, 140, 0.0F, -5.0F, 180.0F, 140.0F, null, x, y);
+        this.START_INVIS = startInvis;
+        this.loadAnimation("battleTowersResources/img/monsters/Louses/NinjaLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/NinjaLouse/skeleton.json", 1.0F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));
         addMove(BITE, Intent.ATTACK_DEBUFF, calcAscensionDamage(BITE_DAMAGE));
-        addMove(BUFF, Intent.BUFF);
-        addMove(HEAL, Intent.MAGIC);
+        addMove(BUFF, Intent.DEFEND_BUFF);
+        addMove(SCRATCH, Intent.ATTACK, calcAscensionDamage(SCRATCH_DAMAGE), 3);
     }
 
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
-        addToBot(new ApplyPowerAction(this, this, new ProtectedPower(this)));
+        addToBot(new ApplyPowerAction(this, this, new EnvenomPower(this, 1)));
+        if (START_INVIS) {
+            IntangiblePower p = new IntangiblePower(this, 1);
+            ReflectionHacks.setPrivate(p, IntangiblePower.class, "justApplied", false);
+            addToBot(new ApplyPowerAction(this, this, p));
+        }
     }
 
     @Override
@@ -95,7 +110,6 @@ public class GoldenLouse extends AbstractBTMonster {
                 break;
             }
             case BUFF: {
-                buffStacks++;
                 if (!this.isOpen) {
                     addToBot(new ChangeStateAction(this, REAR));
                     addToBot(new WaitAction(1.2F));
@@ -103,60 +117,54 @@ public class GoldenLouse extends AbstractBTMonster {
                     addToBot(new ChangeStateAction(this, REAR_IDLE));
                     addToBot(new WaitAction(0.9F));
                 }
-                for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-                    addToBot(new ApplyPowerAction(m, this, new BufferPower(m, BUFF_AMOUNT)));
-                }
-                addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
+                addToBot(new GainBlockAction(this, this, BLOCK_AMOUNT));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, STRENGTH)));
                 break;
             }
-            case HEAL: {
+            case SCRATCH: {
                 if (!this.isOpen) {
-                    addToBot(new ChangeStateAction(this, REAR));
-                    addToBot(new WaitAction(1.2F));
-                } else {
-                    addToBot(new ChangeStateAction(this, REAR_IDLE));
-                    addToBot(new WaitAction(0.9F));
+                    addToBot(new ChangeStateAction(this, OPEN_STATE));
+                    addToBot(new WaitAction(0.5F));
                 }
-                for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-                    addToBot(new HealAction(m, this, HEAL_AMOUNT));
+                for (int i = 0; i < multiplier; i++) {
+                    addToBot(new AbstractGameAction() {
+                        @Override
+                        public void update() {
+                            NinjaLouse.this.useFastAttackAnimation();
+                            isDone = true;
+                        }
+                    });
+                    addToBot(new VFXAction(new FlyingDaggerEffect(this.hb.cX, this.hb.cY-this.hb_h/4, 0, this.hb.cX > AbstractDungeon.player.hb.cX), 0.15F));
+                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, true));
                 }
                 break;
             }
+        }
+
+        if (!this.hasPower(IntangiblePower.POWER_ID)) {
+            addToBot(new ApplyPowerAction(this, this, new IntangiblePower(this, 1)));
         }
         addToBot(new RollMoveAction(this));
     }
 
     @Override
     protected void getMove(int i) {
-        //This is where we determine what move the monster should do next
-        //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
-        boolean needHeal = false;
-        boolean canBuff = buffStacks < maxBuffStacks && !firstMove;
-        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-            if (m.maxHealth - m.currentHealth >= HEAL_AMOUNT) {
-                needHeal = true;
-                break;
-            }
-        }
-
-        //HEAL if we need to, but not more than twice in a row, else alternate BUFF and BITE if we can BUFF
-        if (!this.lastTwoMoves(HEAL) && needHeal) {
-            possibilities.add(HEAL);
+        if (firstMove) {
+            firstMove = false;
+            possibilities.add(START_INVIS ? BUFF : SCRATCH);
         } else {
-            if (!this.lastMove(BUFF) && canBuff) {
+            if (GameActionManager.turn % 2 == (START_INVIS ? 0 : 1)) {
                 possibilities.add(BUFF);
-            }
-
-            if (!this.lastMove(BITE) || (!canBuff)) {
-                possibilities.add(BITE);
+                //possibilities.add(BITE);
+            } else {
+                possibilities.add(SCRATCH);
             }
         }
 
         //randomly choose one with each possibility having equal weight
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
         setMoveShortcut(move, MOVES[move]);
-        firstMove = false;
     }
 
     public void changeState(String stateName) {
@@ -182,6 +190,16 @@ public class GoldenLouse extends AbstractBTMonster {
                 this.state.addAnimation(0, "idle", true, 0.0F);
                 this.isOpen = true;
                 break;
+        }
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (m != this && !m.isDeadOrEscaped() && m instanceof GoldenLouse && m.hasPower(ProtectedPower.POWER_ID)) {
+                addToTop(new RemoveSpecificPowerAction(m, this, ProtectedPower.POWER_ID));
+            }
         }
     }
 }
