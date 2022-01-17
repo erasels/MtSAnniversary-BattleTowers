@@ -199,9 +199,10 @@ public class TowerEvent extends PhasedEvent {
             event.save();
 
             //multiply by value between -1 and 1 based on tower position
-            float mod = (((((target.mapX + 3) * 467) + ((target.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            double mod = (((((target.mapX + 3) * 467) + ((target.mapY + 7) * 311)) % 100) / 50.0f) - 1;
             logger.info("SeedMod: " + mod);
             long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
+            logger.info("Floor seed: " + seed);
             monsterHpRng = new Random(seed);
             aiRng = new Random(seed);
             shuffleRng = new Random(seed);
@@ -246,9 +247,10 @@ public class TowerEvent extends PhasedEvent {
             resetPlayer();
 
             //multiply by value between -1 and 1 based on tower position
-            float mod = (((((current.mapX + 3) * 467) + ((current.mapY + 7) * 311)) % 100) / 50.0f) - 1;
+            double mod = (((((current.mapX + 3) * 467) + ((current.mapY + 7) * 311)) % 100) / 50.0f) - 1;
             logger.info("SeedMod: " + mod);
             long seed = Math.round((Settings.seed + (long)floorNum) * (mod));
+            logger.info("Floor seed: " + seed);
             monsterHpRng = new Random(seed);
             aiRng = new Random(seed);
             shuffleRng = new Random(seed);
