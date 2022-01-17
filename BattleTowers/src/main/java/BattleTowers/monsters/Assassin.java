@@ -29,33 +29,22 @@ import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.BarricadePower;
 import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.vfx.combat.BlockImpactLineEffect;
-import com.megacrit.cardcrawl.vfx.combat.BlockedNumberEffect;
-import com.megacrit.cardcrawl.vfx.combat.BlockedWordEffect;
-import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
+import com.megacrit.cardcrawl.vfx.combat.*;
 
 import java.util.Iterator;
 
 public class Assassin extends CustomMonster {
     public static final String ID = BattleTowers.makeID(Assassin.class.getSimpleName());
-    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/Assassin.png");
+    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/assassin.png");
     private static final MonsterStrings monsterStrings;
     public static final String NAME;
     public static final String[] MOVES;
     public static final String[] DIALOG;
-    private static final int HP_MIN = 46;
-    private static final int HP_MAX = 50;
-    private static final int A_2_HP_MIN = 48;
-    private static final int A_2_HP_MAX = 52;
-    private static final int STAB_DMG = 12;
-    private static final int A_2_STAB_DMG = 13;
-    private static final int RAKE_DMG = 7;
-    private static final int A_2_RAKE_DMG = 8;
     private int backstabDmg = 8;
     private int backstabAmount = 3;
     private int patienceBuff = 2;
-    private int smokeBombBlock = 30;
-    private int hideBlock = 20;
+    private int smokeBombBlock = 25;
+    private int hideBlock = 15;
     private int injuryDmg = 11;
     private static final byte SMOKEBOMB = 1;
     private static final byte HIDE = 2;
@@ -69,7 +58,23 @@ public class Assassin extends CustomMonster {
     public Assassin(float x, float y) {
         super(NAME, ID, 60, 0.0F, 0.0F, 120.0F, 150.0F, IMG, x, y);
 
-        this.setHp(48, 52);
+        if (AbstractDungeon.ascensionLevel >= 7) {
+            this.setHp(48, 52);
+            smokeBombBlock = 30;
+            hideBlock = 20;
+        }
+        else {
+            this.setHp(52, 56);
+        }
+
+        if (AbstractDungeon.ascensionLevel >= 2) {
+            this.backstabDmg = 8;
+            this.injuryDmg = 11;
+        } else {
+            this.backstabDmg = 7;
+            this.injuryDmg = 9;
+        }
+
         firstTurn = true;
         this.damage.add(new DamageInfo(this, this.backstabDmg));
         this.damage.add(new DamageInfo(this, this.injuryDmg));
@@ -88,9 +93,24 @@ public class Assassin extends CustomMonster {
         return super.decrementBlock(info, damageAmount);
     }
 
+    public void usePreBattleAction(){
+        if (AbstractDungeon.ascensionLevel >= 17){
+            AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
+            AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, smokeBombBlock));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new HidePower(this, this, 0), 0));
+            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new BarricadePower(this)));
+            hidingCount = 0;
+            firstTurn = false;
+            this.setMove(HIDE, Intent.DEFEND_BUFF);
+            this.createIntent();
+
+        }
+    }
+
     public void takeTurn() {
         switch (this.nextMove) {
             case SMOKEBOMB:
+                AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
                 AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, smokeBombBlock));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new HidePower(this, this, 0), 0));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new BarricadePower(this)));
@@ -107,11 +127,8 @@ public class Assassin extends CustomMonster {
                     AbstractDungeon.actionManager.addToBottom(new AnimateHopAction(this));
                     AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.SLASH_DIAGONAL));
                 }
-                hidingCount = 0;
-                if (this.hasPower(HidePower.POWER_ID)) {
-                    HidePower h = (HidePower) this.getPower(HidePower.POWER_ID);
-                    h.removeHide();
-                }
+                AbstractDungeon.actionManager.addToBottom(new RemoveAllBlockAction(this, this));
+                hidingCount = -1;
                 break;
             case STUNNED:
                 AbstractDungeon.actionManager.addToBottom(new TextAboveCreatureAction(this, TextAboveCreatureAction.TextType.STUNNED));
@@ -124,6 +141,7 @@ public class Assassin extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new AddCardToDeckAction(new Injury()));
                 break;
             case ESCAPE:
+                AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(this));
                 break;
 
