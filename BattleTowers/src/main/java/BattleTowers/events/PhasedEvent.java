@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
@@ -155,7 +156,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         this.hasFocus = true;
         this.combatTime = false;
         this.noCardsInRewards = false;
-        CardCrawlGame.fadeIn(1.5F);
+        CardCrawlGame.fadeIn(Settings.FAST_MODE ? 0.5F : 1.5F);
     }
 
     //see patches.EventPlayerRender
