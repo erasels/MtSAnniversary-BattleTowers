@@ -11,7 +11,9 @@ import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
@@ -22,6 +24,9 @@ public class LouseHorde extends AbstractMonster {
     private static int BASE_DAMAGE = 20;
     private static int BASE_DEFEND = 15;
 
+    private static final MonsterStrings STRINGS = CardCrawlGame.languagePack.getMonsterStrings(ID);
+    private static final String NAME = STRINGS.NAME;
+
     private boolean curled = false;
 
     private final LouseMonsterParticleEmitter particleEmitter;
@@ -29,7 +34,7 @@ public class LouseHorde extends AbstractMonster {
     private int atkDamage = BASE_DAMAGE;
 
     public LouseHorde() {
-        super("Temp", ID, 80, 0f, 0f, 200f, 200f, null, 0f, 0f);
+        super(NAME, ID, 80, 0f, 0f, 200f, 200f, null, 0f, 0f);
 
         img = TextureLoader.getTexture("battleTowersResources/img/ui/emptyTexture.png");
         particleEmitter = new LouseMonsterParticleEmitter(5, new Vector2(hb.cX, hb.cY));
