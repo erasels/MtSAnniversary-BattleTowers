@@ -73,7 +73,7 @@ public class ArmorerEvent extends PhasedEvent {
         registerPhase(0, new TextPhase(DESCRIPTIONS[14]).addOption(OPTIONS[0], null).addOption(OPTIONS[7], null, new ArmorersMask()));
 
         registerPhase("CombatEnd", new TextPhase(DESCRIPTIONS[22]).addOption(OPTIONS[6], (t) -> this.openMap()));
-        registerPhase("fight", new CombatPhase(Encounters.CULTIST_ARMORER, true).setNextKey("CombatEnd"));
+        registerPhase("fight", new CombatPhase(Encounters.CULTIST_ARMORER, true).noCard().setNextKey("CombatEnd"));
 
         transitionKey(0);
 

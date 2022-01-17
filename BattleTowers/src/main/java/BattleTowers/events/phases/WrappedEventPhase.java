@@ -101,6 +101,7 @@ public class WrappedEventPhase extends ImageEventPhase {
             if (baseEvent != null) { //becomes null when openMap is called
                 event.combatTime = baseEvent.combatTime;
                 event.hasFocus = baseEvent.hasFocus;
+                event.noCardsInRewards = baseEvent.noCardsInRewards;
                 if (baseEvent instanceof PhasedEvent) {
                     event.allowRarityAltering = ((PhasedEvent) baseEvent).allowRarityAltering;
                 }
@@ -118,6 +119,7 @@ public class WrappedEventPhase extends ImageEventPhase {
                 phasedEvent.waitTimer = baseEvent.waitTimer;
                 phasedEvent.combatTime = baseEvent.combatTime;
                 phasedEvent.hasFocus = baseEvent.hasFocus;
+                event.noCardsInRewards = baseEvent.noCardsInRewards;
             }
             else if (followupKey != null) { //base event opened map, called finish and is now done
                 AbstractDungeon.resetPlayer();

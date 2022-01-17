@@ -2,6 +2,7 @@ package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
 import BattleTowers.patches.saveload.CombatPhaseOptions;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
@@ -14,12 +15,16 @@ public class CombatPhase extends EventPhase {
     //For combat rewards: See AbstractRoom's update method.
     private final String encounterKey;
     private final boolean allowRewards;
+    private boolean cardReward;
     private final boolean postCombatSave;
     public boolean waitingRewards;
     private EventPhase followup = null;
     private Object key = null;
 
+    private boolean completed = false; //For save loading
+
     private FollowupType followupType;
+
     private enum FollowupType {
         NONE,
         PHASE,
@@ -32,12 +37,20 @@ public class CombatPhase extends EventPhase {
     public CombatPhase(String encounterKey, boolean allowRewards, boolean postCombatSave) {
         this.encounterKey = encounterKey;
         this.allowRewards = allowRewards;
+        this.cardReward = true;
         this.postCombatSave = postCombatSave;
 
         waitingRewards = false;
         followupType = FollowupType.NONE;
     }
-
+    public CombatPhase noCard() {
+        cardReward = false;
+        return this;
+    }
+    public CombatPhase completed() {
+        this.completed = true;
+        return this;
+    }
     public CombatPhase setNextPhase(EventPhase postCombat) {
         followup = postCombat;
         if (followup != null)
@@ -82,6 +95,7 @@ public class CombatPhase extends EventPhase {
         AbstractEvent.type = AbstractEvent.EventType.ROOM;
         event.resetCardRarity();
         event.allowRarityAltering = true;
+        event.noCardsInRewards = !cardReward;
 
         AbstractDungeon.getCurrRoom().rewards.clear();
         AbstractDungeon.getCurrRoom().rewardAllowed = allowRewards;
@@ -92,7 +106,21 @@ public class CombatPhase extends EventPhase {
             AbstractDungeon.player.movePosition((float)Settings.WIDTH * 0.25F, AbstractDungeon.floorY);
             AbstractDungeon.player.flipHorizontal = false;
         }
-        event.enterCombat(); //sets rs
+        if (!completed) {
+            event.enterCombat(); //sets rs
+        }
+        else {
+            AbstractDungeon.getCurrRoom().smoked = false;
+            AbstractDungeon.player.isEscaping = false;
+            AbstractDungeon.getCurrRoom().isBattleOver = false;
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
+            AbstractDungeon.getCurrRoom().monsters.init();
+            AbstractRoom.waitTimer = 0.1F;
+            event.hasFocus = false;
+            CardCrawlGame.fadeIn(1.5F);
+            AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+            event.combatTime = true;
+        }
 
         if (allowRewards) {
             //has a followup and has rewards
@@ -130,5 +158,6 @@ public class CombatPhase extends EventPhase {
         AbstractDungeon.getCurrRoom().cannotLose = false;
         AbstractDungeon.getCurrRoom().isBattleOver = false;
         AbstractDungeon.getCurrRoom().rewardTime = false;
+        event.noCardsInRewards = false;
     }
 }

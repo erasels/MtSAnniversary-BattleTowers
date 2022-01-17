@@ -154,6 +154,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
         this.hasFocus = true;
         this.combatTime = false;
+        this.noCardsInRewards = false;
         CardCrawlGame.fadeIn(1.5F);
     }
 

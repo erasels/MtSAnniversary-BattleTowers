@@ -192,6 +192,7 @@ public class TowerEvent extends PhasedEvent {
             dynamicBanner.hide();
             player.resetControllerValues();
             resetPlayer();
+            event.noCardsInRewards = false;
 
             event.pathTaken.add(new Pair<>(target.mapX, target.mapY));
 
@@ -310,7 +311,7 @@ public class TowerEvent extends PhasedEvent {
                 case MONSTER:
                 case ELITE:
                 case BOSS:
-                    return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
+                    return new CombatPhase(target.getKey(), true, true).completed().setNextKey(followup);
             }
             return null;
         }
