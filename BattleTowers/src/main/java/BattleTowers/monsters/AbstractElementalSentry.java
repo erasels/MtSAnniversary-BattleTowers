@@ -63,7 +63,7 @@ public abstract class AbstractElementalSentry extends AbstractBTMonster {
     protected void setUpMisc() {
         super.setUpMisc();
         // we set the enemy type here so the calcAscensionMethods are called after the enemy type is set
-        this.type = EnemyType.NORMAL;
+        this.type = EnemyType.ELITE;
     }
 
     @Override

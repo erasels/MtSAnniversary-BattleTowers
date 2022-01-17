@@ -1,6 +1,8 @@
 package BattleTowers.monsters.executiveslime;
 
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+
 public interface ExecutiveMinion {
-    void setMinionIndex(int index);
+    AbstractMonster setMinionIndex(int index);
     int getMinionIndex();
 }

@@ -19,7 +19,6 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.vfx.combat.HeartBuffEffect;
 
 public class GiantArm extends CustomMonster {
     public static final String ID = BattleTowers.makeID(GiantArm.class.getSimpleName());
