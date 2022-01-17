@@ -155,6 +155,7 @@ public class BattleTower {
                 .addBoss(Dijinn.ID)
                 .addBoss(AlphabetBoss.ID)
                 .addBoss(Queen.ID)
+                .addBoss(Necrototem.ID)
         );
     }
 

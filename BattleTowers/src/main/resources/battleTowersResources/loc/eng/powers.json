@@ -246,5 +246,17 @@
     "DESCRIPTIONS": [
       "When this creature's block is broken, it is stunned and loses all Strength and Barricade."
     ]
+  },
+  "${ModID}:CursedTotemPower": {
+    "NAME": "Cursed Totem",
+    "DESCRIPTIONS": [
+      "Reduce ALL damage taken and HP loss to #b1."
+    ]
+  },
+  "${ModID}:StrengthTotemPower": {
+    "NAME": "Strength Totem",
+    "DESCRIPTIONS": [
+      "While %1$s is alive, #yNecrototem has #b%2$d additional #yStrength."
+    ]
   }
 }
