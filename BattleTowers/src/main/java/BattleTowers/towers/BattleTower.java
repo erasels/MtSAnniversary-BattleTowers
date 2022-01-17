@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
+import BattleTowers.events.phases.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -150,6 +151,7 @@ public class BattleTower {
                 .addEvent(VoidShrine.ID)
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
+                .addEvent(GentlemanEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
