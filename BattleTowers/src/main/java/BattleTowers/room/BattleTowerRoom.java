@@ -49,6 +49,13 @@ public class BattleTowerRoom extends AbstractRoom {
         AbstractDungeon.rs = originalRs;
     }
 
+    @Override
+    public void dropReward() {
+        if (event instanceof TowerEvent) {
+            ((TowerEvent) event).dropReward(this);
+        }
+    }
+
     public void update() {
         if (intendedRs != null) {
             AbstractDungeon.rs = intendedRs;
