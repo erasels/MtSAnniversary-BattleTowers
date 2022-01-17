@@ -25,7 +25,7 @@ public class ArmorersMask extends CustomRelic {
     public static final String ID = makeID(ArmorersMask.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
-    private boolean hatLoaded;
+   // private boolean hatLoaded;
 
     public ArmorersMask() {
         super(ID, TextureLoader.getTexture(makeRelicPath("ArmorersMask.png")), RelicTier.SPECIAL, LandingSound.FLAT);
@@ -33,7 +33,7 @@ public class ArmorersMask extends CustomRelic {
     }
 
 
-    //Doing this on update() instead of onEquip() since onEquip won't trigger on a game load.
+  /*
     @Override
     public void update() {
         super.update();
@@ -49,6 +49,8 @@ public class ArmorersMask extends CustomRelic {
         }
     }
 
+   */
+
     public void atBattleStart() {
         flash();
         addToBot(new RelicAboveCreatureAction(com.megacrit.cardcrawl.dungeons.AbstractDungeon.player, this));
@@ -57,6 +59,7 @@ public class ArmorersMask extends CustomRelic {
         UC.doPow(new DexterityPower(UC.p(), 1));
     }
 
+    /*
     public void loadHat() {
         super.onEquip();
 
@@ -65,6 +68,8 @@ public class ArmorersMask extends CustomRelic {
                 "armorersMask",
                 makeRelicPath("ArmorersMask_Hat.png"));
     }
+
+     */
 
     @Override
     public String getUpdatedDescription() {
