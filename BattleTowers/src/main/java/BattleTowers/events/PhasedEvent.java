@@ -68,22 +68,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     @Override
     public void reopen() {
-        if (currentPhase instanceof CombatPhase) {
-            if (((CombatPhase) currentPhase).waitingRewards) {
-                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
-                ((CombatPhase) currentPhase).waitingRewards = false;
-                waitTimer = 69; //will not reopen again until reward screen is finished
-                if (!((CombatPhase) currentPhase).hasFollowup()) {
-                    currentPhase = null;
-                }
-            }
-            else {
-                AbstractDungeon.resetPlayer();
-                this.finishCombat();
-                ((CombatPhase) currentPhase).postCombat(this);
-            }
-        }
-        else {
+        if (currentPhase == null || !currentPhase.reopen(this)) {
             AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
             openMap();
         }
@@ -94,7 +79,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     public void update() {
         if (!this.combatTime) {
             this.hasFocus = true;
-            if (MathUtils.randomBoolean(0.1F)) {
+            if (MathUtils.randomBoolean(0.1F) && currentPhase instanceof ImageEventPhase) {
                 AbstractDungeon.effectList.add(new EventBgParticle());
             }
 

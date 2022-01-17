@@ -274,7 +274,12 @@ public class TowerEvent extends PhasedEvent {
             }
 
             //Can do rich presence or something here if you want
-            event.transitionPhase(getPhase(current));
+            if (isComplete) {
+                event.transitionPhase(getCompletedPhase(current));
+            }
+            else {
+                event.transitionPhase(getPhase(current));
+            }
         }
 
         private EventPhase getPhase(Minimap.MinimapNode target) {
@@ -289,7 +294,23 @@ public class TowerEvent extends PhasedEvent {
                 case MONSTER:
                 case ELITE:
                 case BOSS:
-                    return new CombatPhase(target.getKey(), true).setNextKey(followup);
+                    return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
+            }
+            return null;
+        }
+        private EventPhase getCompletedPhase(Minimap.MinimapNode target) {
+            Object followup = getFollowup(target);
+            switch (target.getType()) { //*should* only be a fight, the others don't save afterwards.
+                case SHOP:
+                    return new ShopPhase().setNextKey(followup);
+                case EVENT:
+                    return new WrappedEventPhase(target.getKey()).setNextKey(followup);
+                case REST:
+                    return new MiniRestPhase().setNextKey(followup);
+                case MONSTER:
+                case ELITE:
+                case BOSS:
+                    return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
             }
             return null;
         }

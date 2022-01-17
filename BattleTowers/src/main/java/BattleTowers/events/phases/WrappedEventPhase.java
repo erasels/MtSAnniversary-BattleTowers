@@ -33,6 +33,9 @@ public class WrappedEventPhase extends ImageEventPhase {
     public void transition(PhasedEvent event) {
         this.event = event;
         baseEvent = EventHelper.getEvent(eventKey);
+        if (!(baseEvent instanceof AbstractImageEvent)) {
+            logger.warn("Wrapped event phase used for a non-image event");
+        }
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
 
         event.resetCardRarity();
@@ -94,13 +97,43 @@ public class WrappedEventPhase extends ImageEventPhase {
     public void optionChosen(int i) {
         try {
             buttonEffect.invoke(baseEvent, i);
+
+            if (baseEvent != null) { //becomes null when openMap is called
+                event.combatTime = baseEvent.combatTime;
+                event.hasFocus = baseEvent.hasFocus;
+                if (baseEvent instanceof PhasedEvent) {
+                    event.allowRarityAltering = ((PhasedEvent) baseEvent).allowRarityAltering;
+                }
+            }
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
 
+    @Override
+    public boolean reopen(PhasedEvent phasedEvent) {
+        if (baseEvent != null) {
+            baseEvent.reopen();
+            if (baseEvent != null) {
+                phasedEvent.waitTimer = baseEvent.waitTimer;
+                phasedEvent.combatTime = baseEvent.combatTime;
+                phasedEvent.hasFocus = baseEvent.hasFocus;
+            }
+            else if (followupKey != null) { //base event opened map, called finish and is now done
+                AbstractDungeon.resetPlayer();
+                phasedEvent.finishCombat();
+            }
+            else { //base event is finished, no followup
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
     public boolean finish() {
         if (followupKey != null && event != null) {
+            baseEvent = null;
             event.transitionKey(followupKey);
             return true;
         }

@@ -20,7 +20,7 @@ public class ProceedButtonEventPatches {
     @SpireInsertPatch(
             locator = Locator.class
     )
-    public static void ShowLater(ProceedButton __instance) {
+    public static void postCombat(ProceedButton __instance) {
         //Before line 140 of ProceedButton
         if (AbstractDungeon.getCurrRoom().event instanceof PhasedEvent) {
             AbstractDungeon.getCurrRoom().event.waitTimer = 0.0f;

@@ -1,10 +1,12 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
+import BattleTowers.patches.saveload.CombatPhaseOptions;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import static BattleTowers.BattleTowers.logger;
 
@@ -12,9 +14,8 @@ public class CombatPhase extends EventPhase {
     //For combat rewards: See AbstractRoom's update method.
     private final String encounterKey;
     private final boolean allowRewards;
+    private final boolean postCombatSave;
     public boolean waitingRewards;
-    //patch line 440 of AbstractRoom to prevent save if followup exists even if reward is allowed
-    //(Or to adjust the save to load properly mid-tower)
     private EventPhase followup = null;
     private Object key = null;
 
@@ -26,8 +27,13 @@ public class CombatPhase extends EventPhase {
     }
 
     public CombatPhase(String encounterKey, boolean allowRewards) {
+        this(encounterKey, allowRewards, false);
+    }
+    public CombatPhase(String encounterKey, boolean allowRewards, boolean postCombatSave) {
         this.encounterKey = encounterKey;
         this.allowRewards = allowRewards;
+        this.postCombatSave = postCombatSave;
+
         waitingRewards = false;
         followupType = FollowupType.NONE;
     }
@@ -49,7 +55,8 @@ public class CombatPhase extends EventPhase {
         return followupType != FollowupType.NONE;
     }
 
-    public void postCombat(PhasedEvent event) {
+    public void postCombatTransition(PhasedEvent event) {
+        CombatPhaseOptions.allowSave();
         if (hasFollowup()) {
             switch (followupType) {
                 case PHASE:
@@ -61,7 +68,7 @@ public class CombatPhase extends EventPhase {
             }
         }
         else {
-            logger.error("Reached postCombat of CombatPhase with no follow up");
+            logger.error("Reached postCombatTransition of CombatPhase with no follow up");
         }
     }
 
@@ -79,7 +86,7 @@ public class CombatPhase extends EventPhase {
         AbstractDungeon.getCurrRoom().rewards.clear();
         AbstractDungeon.getCurrRoom().rewardAllowed = allowRewards;
 
-        if (encounterKey.equals("Shield and Spear")) {
+        if (encounterKey.equals(MonsterHelper.SHIELD_SPEAR_ENC)) {
             AbstractDungeon.player.movePosition((float) Settings.WIDTH / 2.0F, AbstractDungeon.floorY);
         } else {
             AbstractDungeon.player.movePosition((float)Settings.WIDTH * 0.25F, AbstractDungeon.floorY);
@@ -91,9 +98,29 @@ public class CombatPhase extends EventPhase {
             //has a followup and has rewards
             waitingRewards = true;
         }
-        /*if (followupType == FollowupType.NONE) {
-            event.currentPhase = null;
-        }*/
+
+        if (!postCombatSave)
+            CombatPhaseOptions.preventSave();
+        else
+            CombatPhaseOptions.allowSave();
+    }
+
+    @Override
+    public boolean reopen(PhasedEvent phasedEvent) {
+        if (waitingRewards) {
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
+            waitingRewards = false;
+            phasedEvent.waitTimer = 69; //will not reopen again until reward screen is finished
+            if (!hasFollowup()) {
+                phasedEvent.currentPhase = null; //nothing to reopen to; will immediately transition to map on proceeding
+            }
+        }
+        else {
+            AbstractDungeon.resetPlayer();
+            phasedEvent.finishCombat();
+            postCombatTransition(phasedEvent);
+        }
+        return true;
     }
 
     @Override
