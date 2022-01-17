@@ -28,10 +28,11 @@ public class PetrifyingGazePower extends AbstractPower {
 
     @Override
     public int onAttacked(DamageInfo info, int damageAmount) {
-        if (!info.owner.hasPower(AvertYourGazePower.POWER_ID)) {
-            if (damageAmount < this.owner.currentHealth && damageAmount > 0 && info.owner != null && info.type == DamageInfo.DamageType.NORMAL) {
-                this.trigger(info.owner);
-            }
+        if (info.owner != null
+                && !info.owner.hasPower(AvertYourGazePower.POWER_ID)
+                && damageAmount < this.owner.currentHealth
+                && damageAmount > 0) {
+            this.trigger(info.owner);
         }
 
         return damageAmount;
