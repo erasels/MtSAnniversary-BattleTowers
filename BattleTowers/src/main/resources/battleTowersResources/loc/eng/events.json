@@ -2,11 +2,11 @@
   "${ModID}:TowerEnter": {
     "NAME": "The Tower",
     "DESCRIPTIONS": [
-      "Oh boy! A tower! I just love towers! They're so tall and thick! But thinner ones are fine too, or even short and squat ones! The variety in shapes just gets me so excited! Look at that! It's made out of rocks! Do you know what kind of rock this is? I don't! But they look really nice. Do you think they look nice?"
+      "You stand at a crossroads. Do you seek the easy mystery of an unattended treasure chest or the challenge of whatever the tower in the distance will have to offer. NL NL The choice is yours."
     ],
     "OPTIONS": [
-      "[Enter] Oh boy, I can't wait to go inside this tower!",
-      "[Leave] Don't risk it, take the treasure"
+      "[Tower] The tower's call is too alluring.",
+      "[Chest] The treasure will be yours."
     ]
   },
   "${ModID}:Example": {
