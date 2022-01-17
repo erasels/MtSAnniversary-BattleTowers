@@ -387,5 +387,10 @@
   },
   "${ModID}:Paladin": {
     "NAME": "Paladin"
+  },
+  "${ModID}:LouseHorde": {
+    "NAME": "Horde of Louse",
+    "DIALOG" : [],
+    "MOVES": []
   }
 }

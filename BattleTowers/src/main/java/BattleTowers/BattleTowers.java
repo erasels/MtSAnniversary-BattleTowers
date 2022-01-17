@@ -180,6 +180,7 @@ public class BattleTowers implements
                         new NinjaLouse(100.0F, 0.0F, true),
                 }));
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
+        BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
