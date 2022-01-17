@@ -92,19 +92,19 @@ public class Trenchcoat extends AbstractBTMonster {
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(STASIS, Intent.STRONG_DEBUFF);
-        addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8), 1, false);
+        addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10), 1, false);
         addMove(STRENGTH, Intent.BUFF);
         addMove(SPLIT, Intent.UNKNOWN);
 
         firstOne.addMove(STASIS, Intent.STRONG_DEBUFF);
-        firstOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        firstOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        firstOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        firstOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10));
         firstOne.addMove(STRENGTH, Intent.BUFF);
 
         secondOne.addMove(STASIS, Intent.STRONG_DEBUFF);
-        secondOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        secondOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        secondOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        secondOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10));
         secondOne.addMove(STRENGTH, Intent.BUFF);
 
         this.splitTriggered = false;
@@ -131,7 +131,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 break;
             }
             case BLOCK: {
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 8));
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 10));
                 break;
             }
             case DAMAGE: {
@@ -144,7 +144,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 break;
             }
             case STRENGTH: {
-                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 2), 2));
                 break;
             }
             case SPLIT: {
@@ -278,7 +278,7 @@ public class Trenchcoat extends AbstractBTMonster {
         }
 
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
-        if (move == STRENGTH) damagemodifier++;
+        if (move == STRENGTH) damagemodifier = damagemodifier + 2;
         leftmove = move;
         setMoveShortcut(move, MOVES[move]);
 
@@ -334,7 +334,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 inviso.setIntent(infobyte.intent, info.output + damagemodifier);
                 inviso.recordMove(move);
 
-                if (i == 0 && move == STRENGTH) damagemodifier++;
+                if (i == 0 && move == STRENGTH) damagemodifier = damagemodifier + 2;
                 possibilities.clear();
             }
         }
@@ -361,8 +361,8 @@ public class Trenchcoat extends AbstractBTMonster {
                 }
 
                 damagemodified = info.output;
-                if (this.nextMove == STRENGTH) damagemodified++;
-                if (i == 1 && firstOne.nextMove == STRENGTH) damagemodified++;
+                if (this.nextMove == STRENGTH) damagemodified = damagemodified + 2;
+                if (i == 1 && firstOne.nextMove == STRENGTH) damagemodified = damagemodified + 2;
 
                 inviso.updateIntent(damagemodified);
 
