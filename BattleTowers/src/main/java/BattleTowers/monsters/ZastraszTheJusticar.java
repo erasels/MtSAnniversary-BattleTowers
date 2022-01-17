@@ -1,6 +1,7 @@
 package BattleTowers.monsters;
 
 import BattleTowers.powers.BurnPower;
+import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.JudgementPower;
 import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
@@ -62,16 +63,17 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         AnimationState.TrackEntry e1 = state.setAnimation(1, "WingFlap", true);
-        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(10));
+        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(13));
         addMove(SOLEMNVIGIL,Intent.DEFEND_BUFF);
-        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(6),2);
-        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(2),6);
+        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(7),2);
+        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(3),6);
         addMove(TRIALBYFIRE,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
     }
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
+        addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new InquisitorPower(this)));
     }
     @Override
     protected void setUpMisc() {

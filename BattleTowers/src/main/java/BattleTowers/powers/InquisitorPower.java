@@ -8,20 +8,20 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class GatheringStormPower extends AbstractPower {
-    public static final String POWER_ID = makeID(GatheringStormPower.class.getSimpleName());
+public class InquisitorPower extends AbstractPower {
+    public static final String POWER_ID = makeID(InquisitorPower.class.getSimpleName());
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    public GatheringStormPower(AbstractCreature owner) {
+    public InquisitorPower(AbstractCreature owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
         this.updateDescription();
         amount = -1;
         this.type = NeutralPowertypePatch.NEUTRAL;
-        this.loadRegion("storm");
+        this.loadRegion("mantra");
     }
 
     @Override

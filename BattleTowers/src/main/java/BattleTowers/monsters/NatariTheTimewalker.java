@@ -85,6 +85,9 @@ public class NatariTheTimewalker extends AbstractBTMonster {
 
     public void usePreBattleAction() {
         firstMove = true;
+        firstOne = new InvisibleIntentDisplayer(90F, 180F);
+        secondOne = new InvisibleIntentDisplayer(0F, 220F);
+        Timestate = TimeState.NORMAL;
         //AbstractDungeon.scene.fadeOutAmbiance();
         //CardCrawlGame.music.playTempBgmInstantly("TimewalkerBattle.ogg");
     }
@@ -103,6 +106,7 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         if (firstMove){
             addToBot(new TalkAction(this,DIALOG[0]));
         }
+        takeTurnActions(nextMove,info);
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
@@ -114,84 +118,28 @@ public class NatariTheTimewalker extends AbstractBTMonster {
             info = new DamageInfo(this,moves.get(firstOne.nextMove).baseDamage);
             takeTurnActions(firstOne.nextMove,info);
         }
-        info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
         //carries out actions based on the current move
         //useFastAttackAnimation causes the monster to jump forward when it attacks
-        switch (this.nextMove) {
-            case FASTERTHANLIGHT:{
-                addToTop(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
-                break;
-            }
-            case SANDBURST : {
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                addToTop(new GainBlockAction(this,calcAscensionSpecial(10)));
-                break;
-            }
-            case KILLINGDOLL : {
-                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
-                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                break;
-            }
-            case SHOREUP : {
-                addToTop(new HealAction(this,this, calcAscensionSpecial(8)));
-                addToTop(new ApplyPowerAction(this,this,new StrengthPower(this,calcAscensionSpecial(2))));
-                break;
-            }
-            case FASTFORWARD : {
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this,this, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, TimeStop.POWER_ID));
-                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new DoubleTimePower(AbstractDungeon.player)));
-                addToTop(new ApplyPowerAction(this,this,new DoubleTimePower(AbstractDungeon.player)));
-                Timestate = TimeState.DOUBLETIME;
-                break;
-            }
-            case BULLETTIME : {
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this,this, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, TimeStop.POWER_ID));
-                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new HalfTime(AbstractDungeon.player)));
-                addToTop(new ApplyPowerAction(this,this,new HalfTime(AbstractDungeon.player)));
-                Timestate = TimeState.HALFTIME;
-                break;
-            }
-            case THEWORLD : {
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this,this, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this,this, HalfTime.POWER_ID));
-                addToTop(new ApplyPowerAction(AbstractDungeon.player,this,new TimeStop(AbstractDungeon.player)));
-                Timestate = TimeState.TIMESTOP;
-            }
-        }
     }
     public void takeTurnActions(byte move, DamageInfo info) {
         switch (move) {
             case FASTFORWARD: {
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                addToBot(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player)));
-                addToBot(new ApplyPowerAction(this, this, new DoubleTimePower(AbstractDungeon.player)));
                 Timestate = TimeState.DOUBLETIME;
                 break;
             }
             case BULLETTIME: {
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                addToBot(new RemoveSpecificPowerAction(this, this, DoubleTimePower.POWER_ID));
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new HalfTime(AbstractDungeon.player)));
-                addToBot(new ApplyPowerAction(this, this, new HalfTime(AbstractDungeon.player)));
                 Timestate = TimeState.HALFTIME;
                 break;
             }
             case THEWORLD: {
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                addToBot(new RemoveSpecificPowerAction(this, this, DoubleTimePower.POWER_ID));
                 addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                addToBot(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player)));
                 Timestate = TimeState.TIMESTOP;
             }
@@ -226,12 +174,15 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         ArrayList<Byte> possibilities = new ArrayList<>();
         firstOne = new InvisibleIntentDisplayer(90F, 180F);
         secondOne = new InvisibleIntentDisplayer(0F, 220F);
-
+        byte move = 0;
         if (firstMove){
             possibilities.add(FASTERTHANLIGHT);
             firstOne.setIntent(Intent.BUFF,-1);
             firstOne.recordMove(FASTFORWARD);
-        } else {
+            move = FASTERTHANLIGHT;
+        }
+
+        if (!firstMove){
             if (Timestate == TimeState.TIMESTOP || (Timestate == TimeState.DOUBLETIME && AbstractDungeon.ascensionLevel >= 19)){
               possibilities.add(KILLINGDOLL);
             }
@@ -254,9 +205,7 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                     possibilities.add(SHOREUP);
                 }
             }
-        }
-        byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
-        if (!firstMove) {
+            move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
             if (Timestate != TimeState.HALFTIME) {
                 possibilities.clear();
                 possibilities.add(HOLDINGTIME);
@@ -308,27 +257,7 @@ public class NatariTheTimewalker extends AbstractBTMonster {
             }
         }
         firstMove = false;
-        //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
-        // That means we only add DOUBLE HIT to the possibilities if it wasn't used for either of the last 2 turns
 
-        //randomly choose one with each possibility having equal weight
-
-        // set the monster's new move
-        // MOVES[move] is the name of the move, and is the text that appears when the monster uses the move.
-        // You can pass null instead if you don't care about the move name
-        // This system assumes that your MOVES json is in the same order as the bytes you assigned the moves, aka
-        // if your MOVES JSON looks like this:
-        /* "MOVES": [
-          "Sweep",
-          "Shriek",
-          "Double Hit"
-        ],
-        then your move bytes should look like this
-        private static final byte SWEEP = 0;
-        private static final byte SHRIEK = 1;
-        private static final byte DOUBLE_HIT = 2;
-        since it is using the value of the byte to get the corresponding text from the MOVES array
-        */
         setMoveShortcut(move, MOVES[move]);
 
     }

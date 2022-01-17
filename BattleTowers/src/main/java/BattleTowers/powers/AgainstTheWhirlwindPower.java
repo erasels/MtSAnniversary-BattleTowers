@@ -2,57 +2,66 @@ package BattleTowers.powers;
 
 import basemod.interfaces.CloneablePowerInterface;
 import com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch;
-import com.megacrit.cardcrawl.actions.unique.LoseEnergyAction;
+import com.evacipated.cardcrawl.mod.stslib.powers.abstracts.TwoAmountPower;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.CardQueueItem;
-import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class TimeStop extends AbstractPower implements CloneablePowerInterface {
-    public static final String POWER_ID = makeID(TimeStop.class.getSimpleName());
+public class AgainstTheWhirlwindPower extends TwoAmountPower implements CloneablePowerInterface  {
+    public static final String POWER_ID = makeID(AgainstTheWhirlwindPower.class.getSimpleName());
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
-    public static int cardsBlockedThisturn;
+    public boolean Gather = true;
 
-    public TimeStop(AbstractCreature owner) {
+    public AgainstTheWhirlwindPower(AbstractCreature owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
         this.amount = 1;
+        this.amount2 = 0;
+        canGoNegative = true;
         this.updateDescription();
         this.type = NeutralPowertypePatch.NEUTRAL;
-        this.loadRegion("time");
+        this.loadRegion("storm");
+    }
+
+    public void Storm(){
+        amount2 = 0;
+    }
+
+    public void atStartOfTurn() {
+        Gather = true;
+    }
+    public void atEndOfTurn(boolean isplayer) {
+        if (Gather){
+            amount2 += amount;
+        }
     }
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if (!card.purgeOnUse && AbstractDungeon.actionManager.cardsPlayedThisTurn.size() - cardsBlockedThisturn <= this.amount) {
-            ++cardsBlockedThisturn;
-            this.flash();
-
-            AbstractDungeon.actionManager.removeFromQueue(card);
+        if (card.type == AbstractCard.CardType.ATTACK){
+            Gather = false;
         }
-
     }
-    public void atStartOfTurn() {
-        cardsBlockedThisturn = 0;
+    @Override
+    public void onRemove() {
+        flash();
     }
 
     @Override
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0];
+        if (amount2 > 1){
+            this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[2];
+        } else this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1];
     }
 
     @Override
     public AbstractPower makeCopy() {
-        return new TimeStop(owner);
+        return new TemporaryDeEnergizePower(owner,amount);
     }
 }

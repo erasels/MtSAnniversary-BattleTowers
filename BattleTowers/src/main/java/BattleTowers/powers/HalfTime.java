@@ -1,6 +1,7 @@
 package BattleTowers.powers;
 
 import basemod.interfaces.CloneablePowerInterface;
+import com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
 import com.megacrit.cardcrawl.actions.unique.LoseEnergyAction;
@@ -25,7 +26,7 @@ public class HalfTime extends AbstractPower implements CloneablePowerInterface {
         this.owner = owner;
         this.amount = 1;
         this.updateDescription();
-        this.type = PowerType.DEBUFF;
+        this.type = NeutralPowertypePatch.NEUTRAL;
         this.loadRegion("time");
     }
     public void onInitialApplication() {

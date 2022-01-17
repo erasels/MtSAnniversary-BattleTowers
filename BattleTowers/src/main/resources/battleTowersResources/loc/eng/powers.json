@@ -109,7 +109,13 @@
   "${ModID}:GatheringStormPower": {
     "NAME": "Gathering Storm",
     "DESCRIPTIONS": [
-      "At the end of your turn if you didn't attack, this creature's next multi hit will hit #b",
+      "Itozus's multihit attacks will strike additional times after ending your turn without attacking."
+    ]
+  },
+  "${ModID}:AgainstTheWhirlwindPower": {
+    "NAME": "Against the Whirlwind",
+    "DESCRIPTIONS": [
+      "At the end of your turn if you didn't attack, Itozus's next multi hit will hit #b",
       " Extra time.", " Extra times"
     ]
   },
@@ -118,6 +124,12 @@
     "DESCRIPTIONS": [
       "At the end of your turn take #b",
       " damage and reduce this by #b1."
+    ]
+  },
+  "${ModID}:InquisitorPower": {
+    "NAME": "Inquisitor",
+    "DESCRIPTIONS": [
+      "Zarstrasz applies #yJudgement to the player, #yJudgment will grant Zarstrasz up to #b2 additional actions each turn."
     ]
   },
   "${ModID}:JudgementPower": {
@@ -131,6 +143,12 @@
     "NAME": "Double Time",
     "DESCRIPTIONS": [
       "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will take an extra action each turn."
+    ]
+  },
+  "${ModID}:TimewalkingPower": {
+    "NAME": "Timewalking",
+    "DESCRIPTIONS": [
+      "The Timewalker may alter the flow of time in addition to it's primary action each turn."
     ]
   },
   "${ModID}:HalfTime": {
