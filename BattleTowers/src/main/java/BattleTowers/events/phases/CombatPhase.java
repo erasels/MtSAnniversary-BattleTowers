@@ -67,6 +67,8 @@ public class CombatPhase extends EventPhase {
 
     @Override
     public void transition(PhasedEvent event) {
+        AbstractDungeon.getCurrRoom().cannotLose = false;
+        AbstractDungeon.getCurrRoom().rewardTime = false;
         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(encounterKey);
         AbstractDungeon.lastCombatMetricKey = encounterKey;
 

@@ -162,6 +162,10 @@ public class TowerEvent extends PhasedEvent {
                     fadeTimer = 0.0F;
                     fadingOut = false;
                     AbstractDungeon.fadeColor.a = 1.0F;
+                    if (map.mapCircleEffect != null) {
+                        map.mapCircleEffect.isDone = true;
+                        map.mapCircleEffect = null;
+                    }
                     if (map.current != null) {
                         map.current.taken = true;
                         this.transition(map.current);

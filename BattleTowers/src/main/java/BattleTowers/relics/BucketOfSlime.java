@@ -17,7 +17,7 @@ public class BucketOfSlime extends CustomRelic implements ModifyCombatCardsRelic
     //Probably a bit more reliable than checking through at start of combat.
 
     public BucketOfSlime() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("SlimeBucket.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("SlimeBucket.png")), TextureLoader.getTexture(makeRelicPath("SlimeBucketOutline.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
     }
 

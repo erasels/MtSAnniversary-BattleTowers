@@ -15,6 +15,8 @@ import java.lang.reflect.Method;
 
 import static BattleTowers.BattleTowers.logger;
 
+//Note - probably only works right for pure image events.
+//Ones with weird stuff like colosseum will probably not work right.
 public class WrappedEventPhase extends ImageEventPhase {
     private PhasedEvent event;
     private final String eventKey;
