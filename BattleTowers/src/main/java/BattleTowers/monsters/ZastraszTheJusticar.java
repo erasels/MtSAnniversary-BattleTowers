@@ -139,7 +139,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                         break;
                     }
                     case SOLEMNVIGIL:{
-                        addToBot(new ApplyPowerAction(this, this, new MetallicizePower(this, calcAscensionSpecial(4))));
+                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
                         addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
                         break;
                     }
@@ -153,15 +153,15 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     case DIVINESTORM: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                         break;
                     }
                 }
@@ -274,6 +274,22 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             for (InvisibleIntentDisplayer DivineOrb : DivineOrbs){
                 if (DivineOrb.shouldRenderIntent){
                     DivineOrb.update();
+                }
+            }
+        }
+    }
+    @Override
+    public void applyPowers() {
+        super.applyPowers();
+        int damage;
+        if (!DivineOrbs.isEmpty()) {
+            for (InvisibleIntentDisplayer DivineOrb : DivineOrbs) {
+                if (this.moves.get(DivineOrb.nextMove) != null) {
+                    DamageInfo info = new DamageInfo(this, this.moves.get(DivineOrb.nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
+                    if (info.base > -1) {
+                        info.applyPowers(this, AbstractDungeon.player);
+                    }
+                    DivineOrb.updateIntent(info.output);
                 }
             }
         }

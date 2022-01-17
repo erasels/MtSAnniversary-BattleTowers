@@ -21,6 +21,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import jdk.nashorn.internal.ir.BaseNode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,7 +47,8 @@ public class BattleTowers implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
-        EditCardsSubscriber
+        EditCardsSubscriber,
+        AddAudioSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -138,6 +141,7 @@ public class BattleTowers implements
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);
         BaseMod.addMonster(Dijinn.ID, (BaseMod.GetMonster) Dijinn::new);
+        BaseMod.addMonster(NatariTheTimewalker.ID, (BaseMod.GetMonster) NatariTheTimewalker::new);
     }
 
     private static void addEvents() {
@@ -238,7 +242,9 @@ public class BattleTowers implements
     public static String makePowerPath(String resourcePath) {
         return getModID() + "Resources/img/power/" + resourcePath;
     }
-
+    public static String makeMusicPath(String resourcePath) {
+        return getModID() + "Resources/audio/music/" + resourcePath;
+    }
     public static String makeRelicPath(String resourcePath) {
         return getModID() + "Resources/img/relics/" + resourcePath;
     }
@@ -295,5 +301,10 @@ public class BattleTowers implements
         BaseMod.addCard(new CursedTapestry());
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
+    }
+
+    @Override
+    public void receiveAddAudio() {
+        BaseMod.addAudio("TimewalkerBattle.ogg",makeMusicPath("TimewalkerBattle.ogg"));
     }
 }

@@ -72,7 +72,9 @@
       "Flurry of Blows",
       "Deathtouch"
     ],
-    "NAME": "Itozus the Windwalker"
+    "NAME": "Itozus the Windwalker",
+    "DIALOG": [
+    ]
   },
   "${ModID}:ZastraszTheJusticar": {
     "MOVES": [
@@ -82,7 +84,25 @@
       "Divine Storm",
       "Trial by Fire"
     ],
-    "NAME": "Zastrasz the Justicar"
+    "NAME": "Zastrasz the Justicar",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:NatariTheTimewalker": {
+    "MOVES": [
+      "Faster than Light",
+      "Sand Burst",
+      "Killing Doll",
+      "Shore Up",
+      "Fast-Forward!",
+      "The World",
+      "Bullet-Time",
+      "Delaying the Inevitable"
+    ],
+    "NAME": "Natari the Timewalker",
+    "DIALOG": [
+      "You wish to match wits with ~me?~ I'll show you why that's a ~grave~ error."
+    ]
   },
   "${ModID}:GoldenLouse": {
     "MOVES": [

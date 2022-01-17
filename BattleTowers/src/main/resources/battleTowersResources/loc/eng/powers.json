@@ -109,7 +109,7 @@
   "${ModID}:GatheringStormPower": {
     "NAME": "Gathering Storm",
     "DESCRIPTIONS": [
-      "When this enemy doesn't attack or attacks once, its next multihit will hit #b",
+      "At the end of your turn if you didn't attack, this creature's next multi hit will hit #b",
       " Extra time.", " Extra times"
     ]
   },
@@ -124,7 +124,25 @@
     "NAME": "Judgement",
     "DESCRIPTIONS": [
       "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
-      " NL Judgement is increased by half of unblocked damage taken."
+      " NL Judgement is increased by unblocked damage taken."
+    ]
+  },
+  "${ModID}:DoubleTimePower": {
+    "NAME": "Double Time",
+    "DESCRIPTIONS": [
+      "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will take an extra action each turn."
+    ]
+  },
+  "${ModID}:HalfTime": {
+    "NAME": "Half Time",
+    "DESCRIPTIONS": [
+      "Lose [E] and draw #b1 less cards at the start of your turn, but the Timewalker will only act once each turn."
+    ]
+  },
+  "${ModID}:TimeStop": {
+    "NAME": "Time Stop",
+    "DESCRIPTIONS": [
+      "Your first card each turn has no effect and #yPurges when played."
     ]
   }
 }
