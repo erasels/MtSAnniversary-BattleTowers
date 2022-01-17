@@ -78,7 +78,7 @@
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn"
+      "You do not gain #yPetrification from dealing damage or applying debuffs until your next turn."
     ]
   },
   "${ModID}:ProtectedPower": {

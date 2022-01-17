@@ -26,8 +26,8 @@ public class AvertYourGazePower extends AbstractPower {
     }
 
     @Override
-    public void atEndOfTurn(boolean isPlayer) {
-        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this));
+    public void atStartOfTurn() {
+        this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this));
     }
 
     @Override
