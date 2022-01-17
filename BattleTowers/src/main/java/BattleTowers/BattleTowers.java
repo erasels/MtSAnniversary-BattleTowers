@@ -218,6 +218,7 @@ public class BattleTowers implements
         BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
+        BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
     }
 
