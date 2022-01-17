@@ -373,6 +373,18 @@
       ""
     ]
   },
+  "${ModID}:Necrototem": {
+    "MOVES": [
+      "Summon",
+      "Curse",
+      "Nail Barrage"
+    ],
+    "NAME": "Necrototem"
+  },
+  "${ModID}:NecrototemMinion": {
+    "MOVES": [],
+    "NAME": "Totem"
+  },
   "${ModID}:Paladin": {
     "NAME": "Paladin"
   }

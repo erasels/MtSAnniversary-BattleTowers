@@ -212,8 +212,7 @@ public class BattleTowers implements
                         new Assassin(-120.0F, 0.0F),
                         new Magus(120.0F, 0.0F),
                 }));
-
-
+        BaseMod.addMonster(Necrototem.ID, (BaseMod.GetMonster) Necrototem::new);
     }
 
     private static void addEvents() {
