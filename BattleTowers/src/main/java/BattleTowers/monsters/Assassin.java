@@ -38,7 +38,7 @@ import java.util.Iterator;
 
 public class Assassin extends CustomMonster {
     public static final String ID = BattleTowers.makeID(Assassin.class.getSimpleName());
-    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/Assassin.png");
+    private static final String IMG = BattleTowers.makeImagePath("monsters/Assassin/assassin.png");
     private static final MonsterStrings monsterStrings;
     public static final String NAME;
     public static final String[] MOVES;
