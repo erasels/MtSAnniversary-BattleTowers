@@ -20,6 +20,7 @@ public class CombatPhase extends EventPhase {
     public boolean waitingRewards;
     private EventPhase followup = null;
     private Object key = null;
+    private boolean isBoss;
 
     private boolean completed = false; //For save loading
 
@@ -40,6 +41,8 @@ public class CombatPhase extends EventPhase {
         this.cardReward = true;
         this.postCombatSave = postCombatSave;
 
+        this.isBoss = false;
+
         waitingRewards = false;
         followupType = FollowupType.NONE;
     }
@@ -49,6 +52,10 @@ public class CombatPhase extends EventPhase {
     }
     public CombatPhase completed() {
         this.completed = true;
+        return this;
+    }
+    public CombatPhase boss() {
+        this.isBoss = true;
         return this;
     }
     public CombatPhase setNextPhase(EventPhase postCombat) {
@@ -62,6 +69,10 @@ public class CombatPhase extends EventPhase {
         if (key != null)
             followupType = FollowupType.KEY;
         return this;
+    }
+
+    public boolean isBoss() {
+        return isBoss;
     }
 
     public boolean hasFollowup() {
@@ -94,6 +105,8 @@ public class CombatPhase extends EventPhase {
 
         AbstractEvent.type = AbstractEvent.EventType.ROOM;
         event.resetCardRarity();
+        if (isBoss)
+            event.setCardRarity(0, 420);
         event.allowRarityAltering = true;
         event.noCardsInRewards = !cardReward;
 

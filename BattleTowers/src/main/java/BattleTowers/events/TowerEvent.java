@@ -14,8 +14,10 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.*;
 import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
@@ -123,6 +125,14 @@ public class TowerEvent extends PhasedEvent {
         }
         sb.delete(sb.length() - 2, sb.length());
         return sb.toString();
+    }
+
+    public void dropReward(AbstractRoom room) {
+        //Could also handle elite/boss relic rewards using this.
+        if (currentPhase instanceof CombatPhase && ((CombatPhase) currentPhase).isBoss()) {
+            room.addGoldToRewards(AbstractDungeon.ascensionLevel >= 13 ? 100 : 150);
+            room.rewards.add(new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)));
+        }
     }
 
     private static class MapHandler implements InteractionPhase.InteractionHandler {
@@ -277,12 +287,11 @@ public class TowerEvent extends PhasedEvent {
             }
 
             //Can do rich presence or something here if you want
-            if (isComplete) {
-                event.transitionPhase(getCompletedPhase(current));
+            EventPhase next = getPhase(current);
+            if (isComplete && next instanceof CombatPhase) {
+                ((CombatPhase) next).completed();
             }
-            else {
-                event.transitionPhase(getPhase(current));
-            }
+            event.transitionPhase(next);
         }
 
         private EventPhase getPhase(Minimap.MinimapNode target) {
@@ -296,24 +305,9 @@ public class TowerEvent extends PhasedEvent {
                     return new MiniRestPhase().setNextKey(followup);
                 case MONSTER:
                 case ELITE:
-                case BOSS:
                     return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
-            }
-            return null;
-        }
-        private EventPhase getCompletedPhase(Minimap.MinimapNode target) {
-            Object followup = getFollowup(target);
-            switch (target.getType()) { //*should* only be a fight, the others don't save afterwards.
-                case SHOP:
-                    return new ShopPhase().setNextKey(followup);
-                case EVENT:
-                    return new WrappedEventPhase(target.getKey()).setNextKey(followup);
-                case REST:
-                    return new MiniRestPhase().setNextKey(followup);
-                case MONSTER:
-                case ELITE:
                 case BOSS:
-                    return new CombatPhase(target.getKey(), true, true).completed().setNextKey(followup);
+                    return new CombatPhase(target.getKey(), true, true).boss().setNextKey(followup);
             }
             return null;
         }
