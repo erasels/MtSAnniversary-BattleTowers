@@ -48,6 +48,31 @@
       "[Leave]"
     ]
   },
+  "${ModID}:VoidShrine": {
+    "NAME": "Void Shrine",
+    "DESCRIPTIONS": [
+      "You come across a #pdesolate shrine pulsing with faint, #potherworldly energy. NL NL As you find yourself pulled towards it, you sense that it desired your #rblood, your #ywealth, or your very #psoul.",
+      "You offer the shrine a few drops of #rblood, and you feel a heavy wave of #pexhaustion come over you. NL NL When you wake up, the shrine is nowhere to be found.",
+      "You offer the shrine a paltry sum of #ygold, and you feel a wave of dizziness and light-headedness wash over you. NL NL When you come to your senses, the shrine is gone.",
+      "You stride forward and offer yourself up to the shrine. A wave of #pagony ~rips~ through you, #bice-cold pain coursing through your veins, tearing a part of yourself away. NL NL Finally, it ends, and you feel a deep, yawning #pvoid within yourself."
+    ],
+    "OPTIONS": [
+      "[Offer your blood] ",
+      "Lose ",
+      " HP.",
+      "Give a card in your deck Exhaust.",
+      "[Offer your wealth] ",
+      " gold.",
+      "Give a card in your deck Ethereal.",
+      "[Offer your soul] ",
+      "Remove ",
+      " cards.",
+      "Obtain a special relic.",
+      "Choose a card",
+      "[Leave]",
+      "Locked: Requires Gold"
+    ]
+  },
   "${ModID}:OttoEvent": {
     "NAME": "A Game for a Golem",
     "DESCRIPTIONS": [
@@ -75,7 +100,7 @@
       "Oddly enough, this Battle Tower houses a small shopping district. You spot a most beautiful banner of colored red silk, held by a war-torn elderly Giant. He spots you among the customers and gestures you forward with his only remaining arm. NL NL \"Greetings, friend. Name's River,\" the hulking man says. \"Can I interest you in a unique, hand-crafted battle standard?\"",
       "Never before have you seen such delicate craftsmanship! You simply must have this gorgeous war banner on offer, and happily pay the price. River thanks you for your patronage as you and your new incredible banner continue up the tower.",
       "River seems like a tough opponent, but with the other customers here, you realize he couldn't risk leaving his wares in the open. There's nothing stopping you from grabbing one and running, and that thought is just too tempting. NL NL As you make haste with your new banner in hand, the fabric becomes excruciating to touch! Suddenly, the cloth changes from a vibrant warm color to a harsh deep purple, and where once was an embroidered image now lies a horribly inked skull. It appears the Giant had some protection on his wares after all.",
-      "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse for awhile, but then continue up the Battle Tower."
+      "Although these tapestries are incredibly well-made, they aren't a smart use of your funds right now. You browse awhile, but then continue up the Battle Tower."
  ],
     "OPTIONS": [
       "[Locked] Requires 90 Gold.",
@@ -87,11 +112,11 @@
   "${ModID}:PotOfGoldEvent": {
     "NAME": "Pot of Gold",
     "DESCRIPTIONS": [
-      "You stumble upon a glimmering pot, sitting plainly in a hallway of the Battle Tower. You don't see anyone around to guard it, but gold pieces fill it to the brim! A sign next to it reads: NL NL #bGive #bto #band #bdo #bnot #btake #bfrom #bthis #bshiny #bbowl, NL #bFor #bavarice #bpoisons #band #bblackens #bthe #bsoul...",
-      "As you drain the pot of its last gold piece, the sign transforms before your eyes, the words reshaping and turning purple. It now reads: NL NL #pThough #pyour #ppockets #pare #pnow #plined #pwith #pgold, NL #pA #psteeper #ppayment #pmust #pnow #punfold. NL NL ",
+      "You stumble upon a #y~glimmering~ pot, sitting plainly in a hallway of the Battle Tower. You don't see anyone around to guard it, but #ygold pieces fill it to the brim! A sign next to it reads: NL NL #bGive #band #bnot #btake #bfrom #bthis #bshiny #bbowl, NL #bFor #bavarice #bpoisons #band #bblackens #bthe #bsoul...",
+      "As you drain the pot of its last #ygold piece, the sign transforms before your eyes, the words reshaping and turning purple. It now reads: NL NL #pThough #pyour #ppockets #pare #pnow #plined #pwith #pgold, NL #pA #psteeper #ppayment #pmust #pnow #punfold. NL NL ",
       "You leave the empty pot behind, slightly concerned that you've been inflicted with some horrible spell.",
       "Though slightly concerned that you've been inflicted with some horrible spell, you decide that the damage has already been done. No sense leaving behind this useful pot.",
-      "Heeding the words of warning on the sign, you scoop some gold coin out of your pack and drop them into the pot. The sound of the gold landing reverberates nicely in the metal chamber, creating a most enjoyable sound. NL NL Hopefully other adventurers more in need than you are will appreciate this bounty.",
+      "Heeding the words of warning on the sign, you scoop some #ygold coin out of your pack and drop them into the pot. The sound of the #ygold landing ~reverberates~ nicely in the metal chamber, creating a most enjoyable sound. NL NL Hopefully other adventurers more in need than you are will appreciate this bounty.",
       "Whoever wrote this warning surely put some sort of curse or spell upon it, inflicting something upon anyone who takes from it. That kind of magic could be useful. NL NL Like everyone, you know how to negate whatever this enchantment is. You rip the sign from the post on the ground and smash it over your head! Ow! NL NL The sign explodes into purple dust, raining down into your body and invigorating it with new power. When you recover from your head injury and look back to claim the pot, it is no longer there. The City's thieves must have been keeping an eye out for just such an opportunity to swipe the loot."
     ],
     "OPTIONS": [
@@ -106,7 +131,7 @@
   "${ModID}:GenieLamp": {
     "NAME": "A Wish",
     "DESCRIPTIONS": [
-      "#y@Clank@ \"Let's go boys, this thing is useless.\", the three #rthugs leave the room you saw on your way up. NL NL A quick peek reveals a dark room filled with indistinct shapes but for the #y~lamp~ right in the middle. NL NL As if bewitched, you reach and #psmoke #p~billows~ out. NL NL \" #p~Ki~ #p~O'Dini~ #p~will~ #p~make~ #p~your~ #p~wish~ #p~come~ #p~true.~ \",",
+      "\"Let's go boys, this thing is useless.\" You see three #rthugs leaving a room you were about to pass. NL NL A quick peek reveals a dark room filled with indistinct shapes but for a #y~lamp~ right in the middle. NL NL As if bewitched, you reach for it and #psmoke #p~billows~ out. NL NL \" #p~Ki~ #p~O'Dini~ #p~will~ #p~make~ #p~your~ #p~wish~ #p~come~ #p~true.~ \",",
       "\" #p~Knowledge~ #p~in~ #p~abundance~ .\" With those words, the #pspirit disappears.",
       "\" #p~Wealth~ #p~attracts~ #p~greed~ .\" With those words, the #pspirit disappears.",
       "@Smoke@ @envelops@ @you!@ NL NL Within the span of a blink, you stand outside the tower. A faint ~whisper~ carries on the wind, \" #pExchanging #pone #pprison #pfor #panother.\""
@@ -150,7 +175,7 @@
       "+2 Damage & Block.",
       "Choose an #yAttack or #ySkill Card to #gBoon: '",
       "'.",
-      "The faint sound of metal clanging on metal pulls you toward a hidden pathway to an alcove in the Tower. Inside, you find a #rred-cloaked #rAwakened #rCultist hammering away, forging a curved metal stick. NL NL \"You weren't supposed to see this. Our #bcult demands the outsiders think of us as dim-witted, so they may remain ignorant of our true potential. NL NL Our #bsecrecy is our #ysurvival. Our #ysurvival is our #rstrength. NL NL If you swear yourself to secrecy and forget you ever saw this place, I will use the #yforge as best I can in exchange.\"",
+      "The faint clanging of metal on metal guides you to a hidden alcove in the Tower. Inside, you find a #rred-cloaked #rAwakened #rCultist hammering away, forging a curved metal stick. NL NL \"You weren't supposed to see this. Our #bcult demands the outsiders think of us as dim-witted, so they may remain ignorant of our true potential. NL NL Our #bsecrecy is our #ysurvival. Our #ysurvival is our #rstrength. NL NL If you swear yourself to secrecy and forget you ever saw this place, I will use the #yforge as best I can in exchange.\"",
       "\"The forge demands #bbalance in all things. For one to be #ystrengthened, another must #rfalter.\"",
       "\"This one's #rsacrifice will not be in vain. Choose wisely.\"",
       "The Armorer is clearly a #ymaster of her craft, and it does not take long before the forging is complete. NL NL \"May this blessing be a #bgift for your journey. The forge remains lit for awhile longer... with payment of #rblood or #ygold, the metal can be shaped many ways.\"",
@@ -170,6 +195,19 @@
       "[Leave]",
       "[Slay] #rFight! #gGain #gArmorer's #gHeadpiece.",
       "[Locked] Can't afford."
+    ]
+  },
+  "${ModID}:GentlemanEvent": {
+    "NAME": "Mysterious Figure",
+    "DESCRIPTIONS": [
+      "A strange figure approaches you from an alleyway, his body cloaked in shadow, outline barely visible. NL #pYou #pseem #pto #pbe #pin #pa #pbit #pof #ptrouble #pfriend. #pPerhaps #pI #pcan #phelp... #pall #pit #pwill #pcost #pis #p@your@ #p@soul.@",
+      "You feel your strength returning to you... but it feels a part of you is missing. You look up, and see the figure has disappeared.",
+      "#pYou #pwill #pperish #pin #pthis #pplace. He says, before melting away into the shadows..."
+    ],
+    "OPTIONS": [
+      "[Accept] #rLose ",
+      ", #gHealth #gto #gfull #gHP.",
+      "[Decline]"
     ]
   }
 }

@@ -7,56 +7,26 @@ package BattleTowers.events;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.cardmods.*;
-import BattleTowers.cards.CursedTapestry;
 import BattleTowers.events.phases.CombatPhase;
 import BattleTowers.events.phases.TextPhase;
-import BattleTowers.monsters.BurningShambler;
-import BattleTowers.monsters.CultistArmorer;
 import BattleTowers.monsters.Encounters;
-import BattleTowers.monsters.MinotaurGladiator;
-import BattleTowers.relics.*;
+import BattleTowers.relics.ArmorersMask;
 import basemod.abstracts.AbstractCardModifier;
 import basemod.cardmods.EtherealMod;
 import basemod.cardmods.ExhaustMod;
 import basemod.cardmods.InnateMod;
 import basemod.cardmods.RetainMod;
 import basemod.helpers.CardModifierManager;
-import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.blue.Defend_Blue;
-import com.megacrit.cardcrawl.cards.blue.Strike_Blue;
-import com.megacrit.cardcrawl.cards.curses.Pain;
-import com.megacrit.cardcrawl.cards.green.Defend_Green;
-import com.megacrit.cardcrawl.cards.green.Strike_Green;
-import com.megacrit.cardcrawl.cards.red.Defend_Red;
-import com.megacrit.cardcrawl.cards.red.Strike_Red;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.AbstractImageEvent;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.MonsterGroup;
-import com.megacrit.cardcrawl.monsters.beyond.Exploder;
-import com.megacrit.cardcrawl.monsters.beyond.Repulsor;
-import com.megacrit.cardcrawl.monsters.beyond.Spiker;
-import com.megacrit.cardcrawl.monsters.exordium.Cultist;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.CultistMask;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import javax.smartcardio.Card;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static BattleTowers.BattleTowers.makeID;
 
@@ -102,14 +72,13 @@ public class ArmorerEvent extends PhasedEvent {
 
         registerPhase(0, new TextPhase(DESCRIPTIONS[14]).addOption(OPTIONS[0], null).addOption(OPTIONS[7], null, new ArmorersMask()));
 
-        registerPhase("CombatEnd", new TextPhase(DESCRIPTIONS[22]).addOption(OPTIONS[6], (t)->this.openMap()));
-        registerPhase("fight", new CombatPhase(Encounters.CULTIST_ARMORER, true).setNextKey("CombatEnd"));
+        registerPhase("CombatEnd", new TextPhase(DESCRIPTIONS[22]).addOption(OPTIONS[6], (t) -> this.openMap()));
+        registerPhase("fight", new CombatPhase(Encounters.CULTIST_ARMORER, true).noCard().setNextKey("CombatEnd"));
 
         transitionKey(0);
 
         this.imageEventText.setDialogOption(OPTIONS[0]);
         this.imageEventText.setDialogOption(OPTIONS[7], new ArmorersMask());
-
     }
 
     public ArrayList<AbstractCard> getCurrentActionValidCards(actionType action) {
@@ -120,96 +89,111 @@ public class ArmorerEvent extends PhasedEvent {
         for (AbstractCard c : allCards
         ) {
             if (c.cost > -2 && c.type == AbstractCard.CardType.ATTACK || c.type == AbstractCard.CardType.SKILL) {
-                switch (action) {
-                    case EXHAUST: {
-                        if (!c.exhaust) {
-                            validCards.add(c);
+                if (!CardModifierManager.hasModifier(c, ApplyWeakMod.ID) &&
+                        !CardModifierManager.hasModifier(c, ApplyVulnerableMod.ID) &&
+                        !CardModifierManager.hasModifier(c, DrawCardMod.ID) &&
+                        !CardModifierManager.hasModifier(c, GainFrailMod.ID) &&
+                        !CardModifierManager.hasModifier(c, GainVulnerableMod.ID) &&
+                        !CardModifierManager.hasModifier(c, GainWeakMod.ID) &&
+                        !CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
+                        !CardModifierManager.hasModifier(c, ExhaustMod.ID) &&
+                        !CardModifierManager.hasModifier(c, EtherealMod.ID) &&
+                        !CardModifierManager.hasModifier(c, InnateMod.ID) &&
+                        !CardModifierManager.hasModifier(c, RetainMod.ID) &&
+                        !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)) {
+
+
+                    switch (action) {
+                        case EXHAUST: {
+                            if (!c.exhaust) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case ETHEREAL: {
-                        if (!c.isEthereal && c.cost != 0) {
-                            validCards.add(c);
+                        case ETHEREAL: {
+                            if (!c.isEthereal && c.cost != 0) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case LOWERVALUES: {
-                        if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
-                                !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
-                                && (c.baseDamage > 0 || c.baseBlock > 0)) {
-                            validCards.add(c);
+                        case LOWERVALUES: {
+                            if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
+                                    !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
+                                    && (c.baseDamage > 0 || c.baseBlock > 0)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case GAINVULNERABLE: {
-                        if (!CardModifierManager.hasModifier(c, GainVulnerableMod.ID)) {
-                            validCards.add(c);
+                        case GAINVULNERABLE: {
+                            if (!CardModifierManager.hasModifier(c, GainVulnerableMod.ID)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case GAINWEAK: {
-                        if (!CardModifierManager.hasModifier(c, GainWeakMod.ID)) {
-                            validCards.add(c);
+                        case GAINWEAK: {
+                            if (!CardModifierManager.hasModifier(c, GainWeakMod.ID)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case GAINFRAIL: {
-                        if (!CardModifierManager.hasModifier(c, GainFrailMod.ID)) {
-                            validCards.add(c);
+                        case GAINFRAIL: {
+                            if (!CardModifierManager.hasModifier(c, GainFrailMod.ID)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case INNATE: {
-                        if (!c.isInnate) {
-                            validCards.add(c);
+                        case INNATE: {
+                            if (!c.isInnate) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case RETAIN: {
-                        if (!c.selfRetain) {
-                            validCards.add(c);
+                        case RETAIN: {
+                            if (!c.selfRetain) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case RAISEVALUES: {
-                        if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
-                                !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
-                                && (c.baseDamage > 0 || c.baseBlock > 0)) {
-                            validCards.add(c);
+                        case RAISEVALUES: {
+                            if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
+                                    !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
+                                    && (c.baseDamage > 0 || c.baseBlock > 0)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case DRAW: {
-                        if (!CardModifierManager.hasModifier(c, DrawCardMod.ID)) {
-                            validCards.add(c);
+                        case DRAW: {
+                            if (!CardModifierManager.hasModifier(c, DrawCardMod.ID)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case APPLYVULNERABLE: {
-                        if (!CardModifierManager.hasModifier(c, ApplyVulnerableMod.ID)
-                                && (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY)) {
-                            validCards.add(c);
+                        case APPLYVULNERABLE: {
+                            if (!CardModifierManager.hasModifier(c, ApplyVulnerableMod.ID)
+                                    && (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
-                    }
-                    case APPLYWEAK: {
-                        if (!CardModifierManager.hasModifier(c, ApplyWeakMod.ID)
-                                && (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY)) {
-                            validCards.add(c);
+                        case APPLYWEAK: {
+                            if (!CardModifierManager.hasModifier(c, ApplyWeakMod.ID)
+                                    && (c.target == AbstractCard.CardTarget.ENEMY || c.target == AbstractCard.CardTarget.SELF_AND_ENEMY)) {
+                                validCards.add(c);
+                                break;
+                            }
                             break;
                         }
-                        break;
                     }
                 }
             }
@@ -395,9 +379,9 @@ public class ArmorerEvent extends PhasedEvent {
             choices.addToBottom(c);
         }
         String display = DESCRIPTIONS[12] + getStringForOption(currentAction) + DESCRIPTIONS[13];
-        display = display.replace("#y","");
-        display = display.replace("#r","");
-        display = display.replace("#g","");
+        display = display.replace("#y", "");
+        display = display.replace("#r", "");
+        display = display.replace("#g", "");
         AbstractDungeon.gridSelectScreen.open(choices, 1, display, false);
     }
 
@@ -412,8 +396,9 @@ public class ArmorerEvent extends PhasedEvent {
                         this.imageEventText.updateBodyText(DESCRIPTIONS[15]);
                         return;
                     case 1:
-                      //  currentPhase = new TextPhase("");
-                        transitionPhase(new CombatPhase(Encounters.CULTIST_ARMORER, true));
+                        //  currentPhase = new TextPhase("");
+                        screenNum = 4;
+                        transitionKey("fight");
                         AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new ArmorersMask()));
                         return;
                 }
@@ -495,8 +480,6 @@ public class ArmorerEvent extends PhasedEvent {
                 return;
             case 4:
                 this.openMap();
-
-
         }
 
     }

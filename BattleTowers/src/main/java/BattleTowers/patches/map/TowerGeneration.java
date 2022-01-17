@@ -21,7 +21,6 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
 )
 public class TowerGeneration {
     private static final int TOWER_ACT_NUMBER = 2;
-    public static boolean DEBUG = true;
     public static float appearRate = 1.0f; //config option?
     public static boolean fullRowMode = true; //config option, or just make this always the behavior
 
@@ -34,7 +33,7 @@ public class TowerGeneration {
             locator = Locator.class
     )
     public static void GenerateTower() {
-        if ((DEBUG || AbstractDungeon.actNum == TOWER_ACT_NUMBER) && mapRng.randomBoolean(appearRate)) {
+        if (AbstractDungeon.actNum == TOWER_ACT_NUMBER && mapRng.randomBoolean(appearRate)) {
             if (fullRowMode) {
                 replaceFullRow();
             }

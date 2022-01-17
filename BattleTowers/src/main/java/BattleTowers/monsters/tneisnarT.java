@@ -50,7 +50,7 @@ public class tneisnarT extends AbstractBTMonster
         this.dialogX = -100.0F * Settings.scale;
         this.dialogY -= 20.0F * Settings.scale;
 
-        setHp(AbstractDungeon.ascensionLevel >= 7 ? 55 : 50);
+        setHp(AbstractDungeon.ascensionLevel >= 7 ? 60 : 55);
 
         addMove(STRIKE, Intent.ATTACK_BUFF, 0);
     }

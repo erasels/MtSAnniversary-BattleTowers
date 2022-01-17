@@ -35,9 +35,9 @@
   },
   "${ModID}:WarBannerLouse": {
     "NAME": "Louse War Banner",
-    "FLAVOR": "Be one with the snail.",
+    "FLAVOR": "Be one with the bug.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, #yBlock is not lost this turn.",
+      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, #yBlock is not lost that turn.",
       "#gGain #gLouse #gWar #gBanner."
     ]
   },
@@ -53,7 +53,7 @@
     "NAME": "Snecko War Banner",
     "FLAVOR": "This pattern. It's... mesmerizing.",
     "DESCRIPTIONS": [
-      "Start each combat #yConfused.",
+      "Start each combat #yConfused. Draw 3 cards at the start of the first turn of combat.",
       "#gGain #gSnecko #gWar #gBanner."
     ]
   },
@@ -63,8 +63,6 @@
     "DESCRIPTIONS": [
       "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
       " into your draw pile.",
-      "At the start each combat, shuffle #b2 copies of ",
-      " into your discard pile.",
       "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
       "It's just a stick."
     ]
@@ -104,6 +102,13 @@
       "Relics at shops cost #b%dx more #ygold."
     ]
   },
+  "${ModID}:VoidBlight": {
+    "NAME": "Hollow Soul",
+    "FLAVOR": "You never knew how important it was to you until it was gone.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yVoid into your draw pile."
+    ]
+  },
   "${ModID}:PromiseOfGold": {
     "NAME": "Promise of Gold",
     "FLAVOR": "It will all be worth it.",
@@ -141,7 +146,13 @@
   "${ModID}:SlimeFilledFlask": {
     "NAME": "Slime-Filled Flask",
     "FLAVOR": "Is this even safe to drink?",
-    "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand. #ySlime #yElixir is a #ySkill that costs #b0 and has the following text: NL #yRetain. Draw #b2 cards. Shuffle a #ySlimed into your draw pile. #yExhaust."]
+    "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand."]
+  },
+  "${ModID}:SentryOrb": {
+    "NAME": "Sentry Core",
+    "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
+    "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
+      "Damage dealt: "," NL Per combat: "," NL Per turn: "]
   }
 }
 

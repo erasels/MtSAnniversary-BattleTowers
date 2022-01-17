@@ -11,8 +11,6 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import static BattleTowers.BattleTowers.*;
 
 public class BattleTowerRoom extends AbstractRoom {
-    //Todo- handle save and quit mid-tower
-    //see - nextRoomTransition of AbstractDungeon used when loading a save
     public Random towerRng;
 
     private AbstractDungeon.RenderScene intendedRs = null;
@@ -38,14 +36,21 @@ public class BattleTowerRoom extends AbstractRoom {
     @Override
     public void onPlayerEntry() {
         AbstractDungeon.overlayMenu.proceedButton.hide();
-        intendedRs = AbstractDungeon.rs;
+        AbstractDungeon.RenderScene originalRs = AbstractDungeon.rs;
+        AbstractDungeon.rs = null;
+
         AbstractEvent.type = AbstractEvent.EventType.IMAGE;
         this.event.onEnterRoom();
-        if (AbstractDungeon.rs != intendedRs) {
+        if (AbstractDungeon.rs != null) {
             intendedRs = AbstractDungeon.rs;
         }
-        else {
-            intendedRs = null;
+        AbstractDungeon.rs = originalRs;
+    }
+
+    @Override
+    public void dropReward() {
+        if (event instanceof TowerEvent) {
+            ((TowerEvent) event).dropReward(this);
         }
     }
 

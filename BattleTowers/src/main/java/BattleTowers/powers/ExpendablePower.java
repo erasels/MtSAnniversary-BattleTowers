@@ -19,16 +19,14 @@ public class ExpendablePower extends AbstractPower implements HealthBarRenderPow
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
-    private AbstractCreature source;
     private Color hpColor = new Color(0.7F, 0.55F, 0.8F, 0.75F);
 
     private boolean skip;
 
-    public ExpendablePower(AbstractCreature owner, AbstractCreature source, int amount, boolean skip) {
+    public ExpendablePower(AbstractCreature owner, int amount, boolean skip) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
-        this.source = source;
         this.type = PowerType.DEBUFF;
         this.isTurnBased = false;
         BattleTowers.LoadPowerImage(this);
@@ -44,7 +42,7 @@ public class ExpendablePower extends AbstractPower implements HealthBarRenderPow
         }
         else {
             this.flashWithoutSound();
-            this.addToBot(new DamageAction(this.owner, new DamageInfo(this.source, this.amount, DamageInfo.DamageType.HP_LOSS), AbstractGameAction.AttackEffect.POISON));
+            this.addToBot(new DamageAction(this.owner, new DamageInfo(this.owner, this.amount, DamageInfo.DamageType.HP_LOSS), AbstractGameAction.AttackEffect.POISON));
         }
     }
 

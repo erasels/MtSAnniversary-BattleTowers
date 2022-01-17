@@ -15,7 +15,7 @@
   "${ModID}:DijinnWrath": {
     "NAME": "Dijinn's Wrath",
     "DESCRIPTION": "The enemy ",
-    "EXTENDED_DESCRIPTION": ["gains !M! Strength.", "shuffles !M! *Voids into your discard pile.", "deals its intended damage to you."]
+    "EXTENDED_DESCRIPTION": ["gains !B! Block and !M! Strength.", "shuffles !M! *Voids into your draw pile.", "deals its intended damage to you."]
   },
   "${ModID}:MakeAWish": {
     "NAME": "Make a Wish",
@@ -85,6 +85,6 @@
   },
   "${ModID}:SlimeElixir": {
     "NAME": "Slime Elixir",
-    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a Slimed into your draw pile. NL Exhaust."
+    "DESCRIPTION": "Retain. NL Draw !M! cards. NL Shuffle a *Slimed into your draw pile. NL Exhaust."
   }
 }

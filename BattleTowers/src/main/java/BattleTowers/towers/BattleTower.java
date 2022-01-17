@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
+import BattleTowers.events.phases.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -135,8 +136,11 @@ public class BattleTower {
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
                 .addNormalEncounter(tneisnarT.ID)
                 .addNormalEncounter(LouseHorde.ID)
+                .addNormalEncounter(PrismGuardian.ID)
+                .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addEliteEncounter(VoodooDoll.ID)
+                .addEliteEncounter(GiantArm.ID)
                 .addEliteEncounter(Gorgon.ID)
                 .addEliteEncounter(GigaSlime.ID)
                 .addEliteEncounter(ItozusTheWindwalker.ID)
@@ -145,13 +149,16 @@ public class BattleTower {
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
                 .addEvent(GenieLampEvent.ID)
+                .addEvent(VoidShrine.ID)
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
+                .addEvent(GentlemanEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)
                 .addBoss(AlphabetBoss.ID)
                 .addBoss(Queen.ID)
+                .addBoss(Necrototem.ID)
         );
     }
 

@@ -16,6 +16,7 @@ public class TrenchcoatPower extends AbstractPower {
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
+    private int storedAmount;
 
     public TrenchcoatPower(AbstractCreature owner, int amount) {
         this.name = NAME;
@@ -25,6 +26,7 @@ public class TrenchcoatPower extends AbstractPower {
         BattleTowers.LoadPowerImage(this);
         this.amount = amount;
         this.updateDescription();
+        this.storedAmount = amount;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class TrenchcoatPower extends AbstractPower {
 
     @Override
     public void atStartOfTurn() {
-        this.amount = 20;
+        this.amount = storedAmount;
     }
 
     @Override

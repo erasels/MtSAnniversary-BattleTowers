@@ -21,10 +21,11 @@
   "${ModID}:Cawcawrot": {
     "MOVES": [
       "Super Ritual",
-      ""
+      "Tank n Spank"
     ],
     "NAME": "Cawcawrot",
     "DIALOG": [
+      "I'm powering up!  WHAAAAARGH!"
     ]
   },
   "${ModID}:Veggieta": {
@@ -337,5 +338,54 @@
       "Queen's Decree"
     ],
     "NAME": "Painted Queen"
+  },
+  "${ModID}:GiantArm": {
+    "NAME": "Giant Arm",
+    "DIALOG": [
+      "Let's fight!",
+      "Is that all you got?",
+      "I'm getting fired up!"
+    ]
+  },
+  "${ModID}:PrismGuardian": {
+    "NAME": "Prism Guardian",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
+  },
+  "${ModID}:Magus": {
+    "NAME": "Magus",
+    "DIALOG": [
+      "Get ready!"
+    ]
+  },
+  "${ModID}:Assassin": {
+    "NAME": "Assassin",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:Necrototem": {
+    "MOVES": [
+      "Summon",
+      "Curse",
+      "Nail Barrage"
+    ],
+    "NAME": "Necrototem"
+  },
+  "${ModID}:NecrototemMinion": {
+    "MOVES": [],
+    "NAME": "Totem"
+  },
+  "${ModID}:Paladin": {
+    "NAME": "Paladin"
   }
 }

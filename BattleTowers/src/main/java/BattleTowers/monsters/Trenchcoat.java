@@ -21,6 +21,7 @@ import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
@@ -86,7 +87,7 @@ public class Trenchcoat extends AbstractBTMonster {
         this.saveX = x;
         this.saveY = y;
 
-        intentOffsetX = -240F;
+        intentOffsetX = -120F * Settings.scale;
 
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -112,7 +113,7 @@ public class Trenchcoat extends AbstractBTMonster {
 
     @Override
     public void usePreBattleAction() {
-        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,30), 20));
+        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,40), 40));
 
     }
 
