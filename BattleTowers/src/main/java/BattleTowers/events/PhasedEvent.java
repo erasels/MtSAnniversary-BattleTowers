@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
@@ -68,23 +69,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     @Override
     public void reopen() {
-        if (currentPhase instanceof CombatPhase) {
-            if (((CombatPhase) currentPhase).waitingRewards) {
-                AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
-                ((CombatPhase) currentPhase).waitingRewards = false;
-                waitTimer = 69; //will not reopen again until reward screen is finished
-                if (!((CombatPhase) currentPhase).hasFollowup()) {
-                    currentPhase = null;
-                }
-            }
-            else {
-                AbstractDungeon.resetPlayer();
-                AbstractDungeon.player.preBattlePrep();
-                this.finishCombat();
-                ((CombatPhase) currentPhase).postCombat(this);
-            }
-        }
-        else {
+        if (currentPhase == null || !currentPhase.reopen(this)) {
             AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMPLETE;
             openMap();
         }
@@ -95,7 +80,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
     public void update() {
         if (!this.combatTime) {
             this.hasFocus = true;
-            if (MathUtils.randomBoolean(0.1F)) {
+            if (MathUtils.randomBoolean(0.1F) && currentPhase instanceof ImageEventPhase) {
                 AbstractDungeon.effectList.add(new EventBgParticle());
             }
 
@@ -170,7 +155,8 @@ public abstract class PhasedEvent extends AbstractImageEvent {
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
         this.hasFocus = true;
         this.combatTime = false;
-        CardCrawlGame.fadeIn(1.5F);
+        this.noCardsInRewards = false;
+        CardCrawlGame.fadeIn(Settings.FAST_MODE ? 0.5F : 1.5F);
     }
 
     //see patches.EventPlayerRender

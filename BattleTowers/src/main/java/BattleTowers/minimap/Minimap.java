@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.map.Legend;
 import com.megacrit.cardcrawl.map.LegendItem;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
 import com.megacrit.cardcrawl.vfx.MapCircleEffect;
 
@@ -83,6 +84,7 @@ public class Minimap {
 
     //Tracks currently hovered node; only has an effect during controller control
     private MinimapNode hovered = null;
+    public AbstractGameEffect mapCircleEffect = null;
 
     public Minimap() {
         baseMapColor = Color.WHITE.cpy();
@@ -641,12 +643,13 @@ public class Minimap {
                             clicked = false;
                             clickTimer = 0;
 
+                            mapCircleEffect = new MapCircleEffect(hb.cX, hb.cY, this.angle);
+                            AbstractDungeon.topLevelEffects.add(mapCircleEffect);
                             if (Settings.FAST_MODE) {
                                 transitionWaitTimer = 0.1F;
                             }
                             else {
                                 transitionWaitTimer = 0.5F;
-                                AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
