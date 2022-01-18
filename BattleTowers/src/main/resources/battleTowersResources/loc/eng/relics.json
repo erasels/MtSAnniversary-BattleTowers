@@ -71,20 +71,6 @@
       "Whenever you lose HP, ALL enemies also lose twice that much HP."
     ]
   },
-  "${ModID}:JadeIdol": {
-    "NAME": "Jade Idol",
-    "FLAVOR": "Immaculately carved, and defying physics just one of these with little effort becomes very powerful given time.",
-    "DESCRIPTIONS": [
-      "Upon pickup, add a #yWind #yStrike to your deck. NL at the start of combat add a #yWind #yStrike to your hand."
-    ]
-  },
-  "${ModID}:RubyFragment": {
-    "NAME": "Ruby Fragment",
-    "FLAVOR": "Just a shard of the Justicar's power, seems offence will be rewarded by his divine.",
-    "DESCRIPTIONS": [
-      "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
-    ]
-  },
     "${ModID}:GreedBlight": {
     "NAME": "Curse of Greed",
     "FLAVOR": "Wealth attracts greed.",
@@ -143,6 +129,20 @@
     "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
     "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
       "Damage dealt: "," NL Per combat: "," NL Per turn: "]
-  }
+  },
+    "${ModID}:JadeIdol": {
+    "NAME": "Jade Idol",
+    "FLAVOR": "Immaculately carved, and defying physics just one of these with little effort becomes very powerful given time.",
+    "DESCRIPTIONS": [
+      "Upon pickup, add a #yWind #yStrike to your deck. NL at the start of combat add a #yWind #yStrike to your hand."
+    ]
+  },
+  "${ModID}:RubyFragment": {
+    "NAME": "Ruby Fragment",
+    "FLAVOR": "Just a shard of the Justicar's power, seems offence will be rewarded by his divine.",
+    "DESCRIPTIONS": [
+      "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
+    ]
+  },
 }
 
