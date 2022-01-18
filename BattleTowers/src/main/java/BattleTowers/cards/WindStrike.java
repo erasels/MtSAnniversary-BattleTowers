@@ -2,33 +2,22 @@ package BattleTowers.cards;
 
 import BattleTowers.cards.WindStrikeModes.RazorWind;
 import BattleTowers.cards.WindStrikeModes.Stormfront;
-import BattleTowers.powers.PawnBuffPower;
 import BattleTowers.util.UC;
 import basemod.abstracts.CustomCard;
-import basemod.helpers.ModalChoice;
-import basemod.helpers.ModalChoiceBuilder;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.actions.watcher.ChooseOneAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeCardPath;
+import static BattleTowers.BattleTowers.makeID;
 public class WindStrike extends CustomCard {
     public static final String ID = makeID(WindStrike.class.getSimpleName());
     public static final String NAME;
@@ -36,7 +25,7 @@ public class WindStrike extends CustomCard {
     public static final String IMG_PATH = makeCardPath("PawnsAdvance.png");
     private static final CardType TYPE = CardType.ATTACK;
     private static final CardRarity RARITY = CardRarity.BASIC;
-    private static final CardTarget TARGET = CardTarget.SELF;
+    private static final CardTarget TARGET = CardTarget.SELF_AND_ENEMY;
     private static final CardStrings cardStrings;
     private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
@@ -75,24 +64,29 @@ public class WindStrike extends CustomCard {
     }
     public void applyPowers() {
         int realBaseDamage = this.baseDamage;
-        this.baseDamage += this.magicNumber * countCards();
+        int realBaseBlock = baseBlock;
+        int inc = magicNumber * countCards();
+        this.baseDamage += inc;
+        this.baseBlock += inc;
         super.applyPowers();
         this.baseDamage = realBaseDamage;
-        this.isDamageModified = this.damage != this.baseDamage;
-
-        int realBaseBlock = baseBlock;
-        this.baseBlock += magicNumber * countCards();
-        super.applyPowers();
         baseBlock = realBaseBlock;
+        this.isDamageModified = this.damage != this.baseDamage;
         isBlockModified = block != baseBlock;
+
         this.initializeDescription();
     }
     public void calculateCardDamage(AbstractMonster mo) {
         int realBaseDamage = this.baseDamage;
-        this.baseDamage += this.magicNumber * countCards();
+        int realBaseBlock = baseBlock;
+        int inc = magicNumber * countCards();
+        this.baseDamage += inc;
+        this.baseBlock += inc;
         super.calculateCardDamage(mo);
         this.baseDamage = realBaseDamage;
+        baseBlock = realBaseBlock;
         this.isDamageModified = this.damage != this.baseDamage;
+        isBlockModified = block != baseBlock;
     }
     public int countCards() {
         UUID uid = uuid;

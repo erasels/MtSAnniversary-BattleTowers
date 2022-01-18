@@ -170,7 +170,7 @@
     "NAME": "Ruby Fragment",
     "FLAVOR": "Just a shard of the Justicar's power, seems offence will be rewarded by his divine.",
     "DESCRIPTIONS": [
-      "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
+      "After dealing #b15 unblocked damage in a combat, gain [E] and draw 2 cards, only works once per combat."
     ]
   },
   "${ModID}:ScaryNail": {

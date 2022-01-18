@@ -3,17 +3,12 @@ package BattleTowers.cards.WindStrikeModes;
 import BattleTowers.cards.WindStrike;
 import basemod.AutoAdd;
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import static BattleTowers.BattleTowers.makeCardPath;
 import static BattleTowers.BattleTowers.makeID;
@@ -52,9 +47,6 @@ public class Stormfront extends CustomCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         onChoseThisOption();
-    }
-
-    public void onChosethisCard() {
     }
 
     public AbstractCard makeCopy() {

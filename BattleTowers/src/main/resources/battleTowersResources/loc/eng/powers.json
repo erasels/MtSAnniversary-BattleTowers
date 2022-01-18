@@ -314,7 +314,7 @@
   "${ModID}:RainbowPower": {
     "NAME": "Rainbow Power",
     "DESCRIPTIONS": [
-      "Reduce ALL damage taken and HP loss to #b1."
+      "Whenever you play a card, gains a buff depending on the type. NL #rAttack: #b1 #yStrength NL #gSkill: #b4 #yTemp. #yHP NL #bPower: #b1 #yBuffer"
     ]
   },
   "${ModID}:ExtraHitsPower": {

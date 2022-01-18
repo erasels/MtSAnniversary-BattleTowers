@@ -1,19 +1,25 @@
 package BattleTowers.powers;
 
+import BattleTowers.powers.abstracts.AbstractBTPower;
+import BattleTowers.util.UC;
 import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.BufferPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import static BattleTowers.BattleTowers.makeID;
 
-public class RainbowPower extends AbstractPower implements CloneablePowerInterface {
+public class RainbowPower extends AbstractBTPower implements CloneablePowerInterface {
     public static final String POWER_ID = makeID(RainbowPower.class.getSimpleName());
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     public static final String NAME = powerStrings.NAME;
@@ -30,7 +36,7 @@ public class RainbowPower extends AbstractPower implements CloneablePowerInterfa
         this.owner = owner;
         this.updateDescription();
         this.type = PowerType.BUFF;
-        this.loadRegion("buffer");
+        setImage("Rainbow_big.png", "Rainbow_small.png");
         this.timerOffset = timerOffset;
     }
     public void updateDescription() {
@@ -49,12 +55,18 @@ public class RainbowPower extends AbstractPower implements CloneablePowerInterfa
         c.set(backup);
     }
 
-
-    public float atDamageFinalReceive(float damage, DamageInfo.DamageType type) {
-        if (damage > 1.0F) {
-            damage = 1.0F;
+    @Override
+    public void onAfterUseCard(AbstractCard card, UseCardAction action) {
+        switch (card.type) {
+            case POWER:
+                UC.doPow(owner, owner, new BufferPower(owner, 1), false);
+                break;
+            case SKILL:
+                UC.atb(new AddTemporaryHPAction(owner, owner, 4));
+                break;
+            case ATTACK:
+                UC.doPow(owner, owner, new StrengthPower(owner, 1), false);
         }
-        return damage;
     }
 
     @Override
