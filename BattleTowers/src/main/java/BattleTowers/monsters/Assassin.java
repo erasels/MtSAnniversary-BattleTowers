@@ -129,6 +129,10 @@ public class Assassin extends CustomMonster {
                     AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.SLASH_DIAGONAL));
                 }
                 AbstractDungeon.actionManager.addToBottom(new SpecialLoseAllBlockAction(this, this));
+                if (this.hasPower(HidePower.POWER_ID)){
+                HidePower h = (HidePower) this.getPower(HidePower.POWER_ID);
+                h.removeHide();
+                }
                 hidingCount = -1;
                 break;
             case STUNNED:

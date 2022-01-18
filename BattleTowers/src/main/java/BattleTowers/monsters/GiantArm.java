@@ -1,7 +1,10 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.powers.MakeAWishPower;
 import BattleTowers.powers.WrathPower;
+import BattleTowers.relics.DijinnLamp;
+import BattleTowers.relics.SweatyArmband;
 import basemod.abstracts.CustomMonster;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
@@ -19,6 +22,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 public class GiantArm extends CustomMonster {
     public static final String ID = BattleTowers.makeID(GiantArm.class.getSimpleName());
@@ -80,6 +84,7 @@ public class GiantArm extends CustomMonster {
     @Override
     public void usePreBattleAction() {
         AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[0], 1.2f, 1.6f));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SweatyArmband()));
         playSfx();
     }
 
@@ -116,8 +121,13 @@ public class GiantArm extends CustomMonster {
     @Override
     public void damage(DamageInfo var1){
         int num = (int)(Math.random() * 100);
-        if (num <= 15){
-            AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
+        if (num <= 10){
+            if (num <= 5) {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
+            }
+            else {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[3], 1.2f, 1.6f));
+            }
             playSfx();
         }
         super.damage(var1);

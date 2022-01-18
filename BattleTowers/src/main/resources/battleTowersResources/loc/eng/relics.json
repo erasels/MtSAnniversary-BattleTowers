@@ -155,6 +155,11 @@
     "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
     "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
       "Damage dealt: "," NL Per combat: "," NL Per turn: "]
+  },
+  "${ModID}:SweatyArmband": {
+    "NAME": "Sweaty Armband",
+    "FLAVOR": "No pain, no gain.",
+    "DESCRIPTIONS": ["Upon receiving attack damage, gain 1 Strength."]
   }
 }
 
