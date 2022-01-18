@@ -84,6 +84,65 @@
     "DESCRIPTIONS": [
       "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
     ]
+  },
+    "${ModID}:GreedBlight": {
+    "NAME": "Curse of Greed",
+    "FLAVOR": "Wealth attracts greed.",
+    "DESCRIPTIONS": [
+      "Relics at shops cost #b%dx more #ygold."
+    ]
+  },
+  "${ModID}:VoidBlight": {
+    "NAME": "Hollow Soul",
+    "FLAVOR": "You never knew how important it was to you until it was gone.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yVoid into your draw pile."
+    ]
+  },
+  "${ModID}:PromiseOfGold": {
+    "NAME": "Promise of Gold",
+    "FLAVOR": "It will all be worth it.",
+    "DESCRIPTIONS": ["Gain #b{0} gold when you defeat the #yBattle #yTower boss."]
+  },
+  "${ModID}:ClericsBlessing": {
+    "NAME": "Cleric's Blessing",
+    "FLAVOR": "That guy sure is friendly.",
+    "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
+  },
+  "${ModID}:ArmorersMask": {
+    "NAME": "Armorer's Headpiece",
+    "FLAVOR": "Part of the Flock!",
+    "DESCRIPTIONS": [
+      "You feel more talkative and start combat with 1 #yDexterity.",
+      "@CAW!@ NL @CAAAW@"
+    ]
+  },
+  "${ModID}:AlphabetSoup": {
+    "NAME": "Alphabet Soup",
+    "FLAVOR": "Letterlicious.",
+    "DESCRIPTIONS": [
+      "At the start of each combat, choose #b1 of #b3 cards that start with a certain letter to add into your hand. Whenever you play a card that starts with that letter, gain #b4 #yBlock and [E] .",
+      "At the start of each combat, choose #b1 of #b3 cards that start with #p",
+      " to add into your hand. Whenever you play a card that starts with #p",
+      ", gain #b4 #yBlock and [E] .",
+      "Choose a card to add into your hand."
+    ]
+  },
+  "${ModID}:GorgonHead": {
+    "NAME": "Gorgon Head",
+    "FLAVOR": "Still dangerous to look at.",
+    "DESCRIPTIONS": ["The first time each combat that each enemy intends to attack you multiple times in a turn, it loses 1 temporary #yStrength."]
+  },
+  "${ModID}:SlimeFilledFlask": {
+    "NAME": "Slime-Filled Flask",
+    "FLAVOR": "Is this even safe to drink?",
+    "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand."]
+  },
+  "${ModID}:SentryOrb": {
+    "NAME": "Sentry Core",
+    "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
+    "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
+      "Damage dealt: "," NL Per combat: "," NL Per turn: "]
   }
 }
 
