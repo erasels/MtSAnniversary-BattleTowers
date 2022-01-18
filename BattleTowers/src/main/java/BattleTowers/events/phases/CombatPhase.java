@@ -1,10 +1,14 @@
 package BattleTowers.events.phases;
 
 import BattleTowers.events.PhasedEvent;
+import BattleTowers.patches.saveload.CombatPhaseOptions;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import static BattleTowers.BattleTowers.logger;
 
@@ -12,13 +16,17 @@ public class CombatPhase extends EventPhase {
     //For combat rewards: See AbstractRoom's update method.
     private final String encounterKey;
     private final boolean allowRewards;
+    private boolean cardReward;
+    private final boolean postCombatSave;
     public boolean waitingRewards;
-    //patch line 440 of AbstractRoom to prevent save if followup exists even if reward is allowed
-    //(Or to adjust the save to load properly mid-tower)
     private EventPhase followup = null;
     private Object key = null;
+    private AbstractMonster.EnemyType type;
+
+    private boolean completed = false; //For save loading
 
     private FollowupType followupType;
+
     private enum FollowupType {
         NONE,
         PHASE,
@@ -26,12 +34,31 @@ public class CombatPhase extends EventPhase {
     }
 
     public CombatPhase(String encounterKey, boolean allowRewards) {
+        this(encounterKey, allowRewards, false);
+    }
+    public CombatPhase(String encounterKey, boolean allowRewards, boolean postCombatSave) {
         this.encounterKey = encounterKey;
         this.allowRewards = allowRewards;
+        this.cardReward = true;
+        this.postCombatSave = postCombatSave;
+
+        this.type = AbstractMonster.EnemyType.NORMAL;
+
         waitingRewards = false;
         followupType = FollowupType.NONE;
     }
-
+    public CombatPhase noCard() {
+        cardReward = false;
+        return this;
+    }
+    public CombatPhase completed() {
+        this.completed = true;
+        return this;
+    }
+    public CombatPhase setType(AbstractMonster.EnemyType type) {
+        this.type = type;
+        return this;
+    }
     public CombatPhase setNextPhase(EventPhase postCombat) {
         followup = postCombat;
         if (followup != null)
@@ -45,11 +72,20 @@ public class CombatPhase extends EventPhase {
         return this;
     }
 
+    public String getEncounterKey() {
+        return encounterKey;
+    }
+
+    public boolean isBoss() {
+        return type == AbstractMonster.EnemyType.BOSS;
+    }
+
     public boolean hasFollowup() {
         return followupType != FollowupType.NONE;
     }
 
-    public void postCombat(PhasedEvent event) {
+    public void postCombatTransition(PhasedEvent event) {
+        CombatPhaseOptions.allowSave();
         if (hasFollowup()) {
             switch (followupType) {
                 case PHASE:
@@ -61,37 +97,81 @@ public class CombatPhase extends EventPhase {
             }
         }
         else {
-            logger.error("Reached postCombat of CombatPhase with no follow up");
+            logger.error("Reached postCombatTransition of CombatPhase with no follow up");
         }
     }
 
     @Override
     public void transition(PhasedEvent event) {
+        AbstractDungeon.getCurrRoom().cannotLose = false;
+        AbstractDungeon.getCurrRoom().rewardTime = false;
         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter(encounterKey);
         AbstractDungeon.lastCombatMetricKey = encounterKey;
 
         AbstractEvent.type = AbstractEvent.EventType.ROOM;
         event.resetCardRarity();
+        if (type == AbstractMonster.EnemyType.ELITE) {
+            event.setCardRarity(40, 10);
+            AbstractDungeon.getCurrRoom().eliteTrigger = true;
+        }
+        else if (type == AbstractMonster.EnemyType.BOSS) {
+            event.setCardRarity(0, 420);
+        }
         event.allowRarityAltering = true;
+        event.noCardsInRewards = !cardReward;
 
         AbstractDungeon.getCurrRoom().rewards.clear();
         AbstractDungeon.getCurrRoom().rewardAllowed = allowRewards;
 
-        if (encounterKey.equals("Shield and Spear")) {
+        if (encounterKey.equals(MonsterHelper.SHIELD_SPEAR_ENC)) {
             AbstractDungeon.player.movePosition((float) Settings.WIDTH / 2.0F, AbstractDungeon.floorY);
         } else {
             AbstractDungeon.player.movePosition((float)Settings.WIDTH * 0.25F, AbstractDungeon.floorY);
             AbstractDungeon.player.flipHorizontal = false;
         }
-        event.enterCombat(); //sets rs
+        if (!completed) {
+            event.enterCombat(); //sets rs
+        }
+        else {
+            AbstractDungeon.getCurrRoom().smoked = false;
+            AbstractDungeon.player.isEscaping = false;
+            AbstractDungeon.getCurrRoom().isBattleOver = false;
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.COMBAT;
+            AbstractDungeon.getCurrRoom().monsters.init();
+            AbstractRoom.waitTimer = 0.1F;
+            event.hasFocus = false;
+            CardCrawlGame.fadeIn(1.5F);
+            AbstractDungeon.rs = AbstractDungeon.RenderScene.NORMAL;
+            event.combatTime = true;
+        }
 
         if (allowRewards) {
             //has a followup and has rewards
             waitingRewards = true;
         }
-        /*if (followupType == FollowupType.NONE) {
-            event.currentPhase = null;
-        }*/
+
+        if (!postCombatSave)
+            CombatPhaseOptions.preventSave();
+        else
+            CombatPhaseOptions.allowSave();
+    }
+
+    @Override
+    public boolean reopen(PhasedEvent phasedEvent) {
+        if (waitingRewards) {
+            AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
+            waitingRewards = false;
+            phasedEvent.waitTimer = 69; //will not reopen again until reward screen is finished
+            if (!hasFollowup()) {
+                phasedEvent.currentPhase = null; //nothing to reopen to; will immediately transition to map on proceeding
+            }
+        }
+        else {
+            AbstractDungeon.resetPlayer();
+            phasedEvent.finishCombat();
+            postCombatTransition(phasedEvent);
+        }
+        return true;
     }
 
     @Override
@@ -101,5 +181,7 @@ public class CombatPhase extends EventPhase {
         AbstractDungeon.getCurrRoom().cannotLose = false;
         AbstractDungeon.getCurrRoom().isBattleOver = false;
         AbstractDungeon.getCurrRoom().rewardTime = false;
+        AbstractDungeon.getCurrRoom().eliteTrigger = false;
+        event.noCardsInRewards = false;
     }
 }

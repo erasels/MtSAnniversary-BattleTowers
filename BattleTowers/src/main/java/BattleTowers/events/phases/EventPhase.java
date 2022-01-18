@@ -17,4 +17,7 @@ public abstract class EventPhase {
 
     }
 
+    public boolean reopen(PhasedEvent phasedEvent) {
+        return false;
+    }
 }

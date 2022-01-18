@@ -38,7 +38,7 @@ public class Gorgon extends AbstractBTMonster
     private static final int A3_TAIL_SLAM_DAMAGE = 20;
     private static final int PETRIFY_LIMB_DAMAGE = 9;
     private static final int A3_PETRIFY_LIMB_DAMAGE = 10;
-    private static final int PETRIFY_LIMB_WOUNDS = 1;
+    private static final int PETRIFY_LIMB_WOUNDS = 2;
     private static final int HP_MIN = 130;
     private static final int HP_MAX = 134;
     private static final int A8_HP_MIN = 143;
@@ -81,7 +81,6 @@ public class Gorgon extends AbstractBTMonster
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingGazePower(this)));
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingTouchPower(this)));
         }
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new GorgonHead()));
     }
 
     @Override

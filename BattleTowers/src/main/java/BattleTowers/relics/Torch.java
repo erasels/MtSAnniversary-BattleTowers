@@ -36,7 +36,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     }
 
     @Override
-    public void onEnterRoom(AbstractRoom room) {
+    public void justEnteredRoom(AbstractRoom room) {
         if(AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
             setTextureOutline(UC.getTexture("relics", "Torch"), UC.getTexture("relics", "Torch_Outline"));
         } else {
@@ -48,14 +48,11 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     @Override
     public void atBattleStart() {
         if(card != null) {
-            flash();
-            UC.atb(new RelicAboveCreatureAction(UC.p(), this));
             if (AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+                flash();
+                UC.atb(new RelicAboveCreatureAction(UC.p(), this));
                 UC.atb(new MakeTempCardInDrawPileAction(card.makeCopy(), 2, true, true));
-            } else {
-                UC.atb(new MakeTempCardInDiscardAction(card.makeCopy(), 2));
             }
-            resetDescriptionAndTooltip(); //Do this again here in case of save and reload in combat
         } else {
             System.err.print("Err: Torch card is null\n");
         }
@@ -65,15 +62,16 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
     public String getUpdatedDescription() {
         if(!CardCrawlGame.isInARun() || card == null)  {
             this.flavorText = relicStrings.FLAVOR;
-            return DESCRIPTIONS[4];
+            return DESCRIPTIONS[2];
         }
         if(AbstractDungeon.getCurrRoom() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+            grayscale = false;
             this.flavorText = relicStrings.FLAVOR;
-            return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
         } else {
-            this.flavorText = DESCRIPTIONS[5];
-            return DESCRIPTIONS[2] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[3];
+            grayscale = true;
+            this.flavorText = DESCRIPTIONS[3];
         }
+        return DESCRIPTIONS[0] + FontHelper.colorString(card.name, "y") + DESCRIPTIONS[1];
     }
 
     private void resetDescriptionAndTooltip() {

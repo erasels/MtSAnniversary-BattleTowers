@@ -28,15 +28,15 @@ public class JudgementPower extends TwoAmountPower implements CloneablePowerInte
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
-        this.amount = 15;
-        this.amount2 = 0;
+        this.amount = 0;
+        this.amount2 = 30;
         this.updateDescription();
         this.type = NeutralPowertypePatch.NEUTRAL;
         this.loadRegion("mantra");
     }
     public void atStartOfTurn() {
-        if (amount2 >= amount){
-            addToBot(new ReducePowerAction(owner,owner,this,15));
+        if (amount >= amount2){
+            amount -= amount2;
             for (AbstractMonster M : AbstractDungeon.getCurrRoom().monsters.monsters){
                 if (M instanceof ZastraszTheJusticar){
                     ((ZastraszTheJusticar) M).GainDivineFavor();
@@ -46,7 +46,7 @@ public class JudgementPower extends TwoAmountPower implements CloneablePowerInte
         this.flash();
     }
     public int onAttacked(DamageInfo info, int damageAmount) {
-        amount2 += damageAmount/2;
+        amount2 += damageAmount;
         return damageAmount;
     }
     @Override
