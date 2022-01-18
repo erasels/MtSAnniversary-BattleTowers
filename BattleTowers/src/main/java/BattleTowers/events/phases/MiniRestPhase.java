@@ -79,7 +79,7 @@ public class MiniRestPhase extends EventPhase {
 
     @Override
     public void hide(PhasedEvent event) {
-
+        event.allowRarityAltering = true;
     }
 
     public EventPhase setNextKey(Object key) {
@@ -461,7 +461,7 @@ public class MiniRestPhase extends EventPhase {
                 int s = this.bubbleAmt - this.bubbles.size();
 
                 for(int i = 0; i < s; ++i) {
-                    this.bubbles.add(new CampfireBubbleEffect(this.bubbleAmt == 60)); //TODO: Make this smaller too.
+                    this.bubbles.add(new CampfireBubbleEffect(this.bubbleAmt == 60));
                 }
             }
 
@@ -480,7 +480,6 @@ public class MiniRestPhase extends EventPhase {
             this.fireTimer -= Gdx.graphics.getDeltaTime();
             while (this.fireTimer < 0.0F) {
                 this.fireTimer += FIRE_INTERVAL;
-                //TODO: Make the fire smaller.
                 if (AbstractDungeon.id.equals(TheEnding.ID)) {
                     this.flameEffects.add(new CampfireEndingBurningEffect());
                     this.flameEffects.add(new CampfireEndingBurningEffect());
@@ -531,7 +530,6 @@ public class MiniRestPhase extends EventPhase {
         }
 
         private String getCampMessage() {
-            //TODO: Modify, maybe add a custom message or two, maybe just remove some
             ArrayList<String> msgs = new ArrayList<>();
             msgs.add(TEXT[0]);
             msgs.add(TEXT[1]);

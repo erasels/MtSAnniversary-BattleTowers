@@ -98,6 +98,19 @@ public class UC {
         }
     }
 
+    public static void dmg(AbstractCreature target, DamageInfo info, AbstractGameAction.AttackEffect effect, boolean top) {
+        if(top){
+            att(new DamageAction(target, info, effect));
+        }
+        else {
+            atb(new DamageAction(target, info, effect));
+        }
+    }
+
+    public static void dmg(AbstractCreature target, DamageInfo info) {
+        dmg(target, info, AbstractGameAction.AttackEffect.NONE, false);
+    }
+
     public static void doAllDmg(int amount, AbstractGameAction.AttackEffect ae, DamageInfo.DamageType dt, boolean top) {
         if (top) {
             att(new DamageAllEnemiesAction(p(), amount, dt, ae));
@@ -120,6 +133,10 @@ public class UC {
 
     public static void doDef(int amount) {
         doDef(amount, false);
+    }
+
+    public static void doDefTarget(AbstractCreature source, int amount) {
+        atb(new GainBlockAction(source, source, amount));
     }
 
     public static void doDef(int amount, boolean top) {

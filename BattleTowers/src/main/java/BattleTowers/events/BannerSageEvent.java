@@ -58,7 +58,7 @@ public class BannerSageEvent extends AbstractImageEvent {
         r2 = banners.get(AbstractDungeon.eventRng.random(0,2));
 
 
-        if (AbstractDungeon.player.gold >= 100) {
+        if (AbstractDungeon.player.gold >= 90) {
             this.imageEventText.setDialogOption(OPTIONS[1] + r1.DESCRIPTIONS[1], r1);
             this.imageEventText.setDialogOption(OPTIONS[1] + r2.DESCRIPTIONS[1], r2);
         } else {
@@ -77,7 +77,7 @@ public class BannerSageEvent extends AbstractImageEvent {
             case 0:
                 switch (buttonPressed) {
                     case 0:
-                        AbstractDungeon.player.loseGold(100);
+                        AbstractDungeon.player.loseGold(90);
                         this.imageEventText.updateBodyText(DESCRIPTIONS[1]);
                         AbstractDungeon.getCurrRoom().spawnRelicAndObtain(Settings.WIDTH / 2, Settings.HEIGHT / 2, r1);
                         this.imageEventText.clearAllDialogs();
@@ -85,7 +85,7 @@ public class BannerSageEvent extends AbstractImageEvent {
                         this.screenNum = 1;
                         return;
                     case 1:
-                        AbstractDungeon.player.loseGold(100);
+                        AbstractDungeon.player.loseGold(90);
                         this.imageEventText.updateBodyText(DESCRIPTIONS[1]);
                         AbstractDungeon.getCurrRoom().spawnRelicAndObtain(Settings.WIDTH / 2, Settings.HEIGHT / 2, r2);
                         this.imageEventText.clearAllDialogs();

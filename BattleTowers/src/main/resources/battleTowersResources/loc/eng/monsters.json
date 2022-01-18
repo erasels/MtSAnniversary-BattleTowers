@@ -18,6 +18,25 @@
     "DIALOG": [
     ]
   },
+  "${ModID}:Cawcawrot": {
+    "MOVES": [
+      "Super Ritual",
+      "Tank n Spank"
+    ],
+    "NAME": "Cawcawrot",
+    "DIALOG": [
+      "I'm powering up!  WHAAAAARGH!"
+    ]
+  },
+  "${ModID}:Veggieta": {
+    "MOVES": [
+      "Pewcumber",
+      "Pepper Spray"
+    ],
+    "NAME": "Veggieta",
+    "DIALOG": [
+    ]
+  },
   "${ModID}:CardboardGolem": {
     "MOVES": [
       "Head Bash",
@@ -26,6 +45,39 @@
       "Smith Self"
     ],
     "NAME": "Cardboard Golem",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:ExecutiveSlime": {
+    "MOVES": [
+      "Onus",
+      "Outrage",
+      "Onus",
+      "Rough Swipe",
+      "Slime Splash",
+      "Swarm",
+      "Preparing",
+      "Punishment"
+    ],
+    "NAME": "Executive Slime",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:Slimeling": {
+    "MOVES": [
+      "Tackle",
+      "Corrosive Spit",
+      "Lick"
+    ],
+    "NAME": "Slimeling",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "tneisnarT",
     "DIALOG": [
     ]
   },
@@ -248,7 +300,7 @@
       "Break",
       "Gore"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Minotaur Gladiator"
   },
   "${ModID}:BurningShambler": {
     "MOVES": [
@@ -256,6 +308,109 @@
       "Bonfire",
       "Rush"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Burning Shambler"
+  },
+  "${ModID}:AlphabetBoss": {
+    "MOVES": [
+      "A is for Amplify",
+      "D is for Deep Freeze",
+      "E is for Enrage",
+      "H is for Heat Up",
+      "J is for Jack of all Trades",
+      "K is for Killing Blow",
+      "L is for Lash Out",
+      "M is for Multistrike",
+      "O is for Orb Power",
+      "R is for Rapidfire",
+      "S is for Slice and Dice",
+      "U is for Unstable",
+      "Z is for Zap",
+      "B is for Blur",
+      "C is for Chaos",
+      "F is for Frail",
+      "G is for Guard",
+      "I is for Icy Skin",
+      "N is for Nullify",
+      "P is for Plated Armor",
+      "Q is for Quash",
+      "T is for Time Maze",
+      "V is for Vulnerable",
+      "W is for Weak",
+      "X is for X-Cost Spree",
+      "Y is for You Are Mine"
+    ],
+    "NAME": "Book of Spelling"
+  },
+  "${ModID}:CultistArmorer": {
+    "MOVES": [
+    ],
+    "NAME": "Cultist Armorer"
+  },
+  "${ModID}:Queen": {
+    "MOVES": [
+      "Queen's Will",
+      "Painted Mimicry",
+      "Painted Mimicry",
+      "Drain Of Colour",
+      "Distorted Mimicry",
+      "Queen's Protection",
+      "Queen's March",
+      "Queen's Decree"
+    ],
+    "NAME": "Painted Queen"
+  },
+  "${ModID}:GiantArm": {
+    "NAME": "Giant Arm",
+    "DIALOG": [
+      "Let's fight!",
+      "Is that all you got?",
+      "I'm getting fired up!"
+    ]
+  },
+  "${ModID}:PrismGuardian": {
+    "NAME": "Prism Guardian",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:NinjaLouse": {
+    "MOVES": [
+      "Tackle",
+      "Prepare",
+      "Poison Shot"
+    ],
+    "NAME": "Ninja Louse"
+  },
+  "${ModID}:Magus": {
+    "NAME": "Magus",
+    "DIALOG": [
+      "Get ready!"
+    ]
+  },
+  "${ModID}:Assassin": {
+    "NAME": "Assassin",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "${ModID}:Necrototem": {
+    "MOVES": [
+      "Summon",
+      "Curse",
+      "Nail Barrage"
+    ],
+    "NAME": "Necrototem"
+  },
+  "${ModID}:NecrototemMinion": {
+    "MOVES": [],
+    "NAME": "Totem"
+  },
+  "${ModID}:Paladin": {
+    "NAME": "Paladin"
+  },
+  "${ModID}:LouseHorde": {
+    "NAME": "Horde of Louse",
+    "DIALOG" : [],
+    "MOVES": []
   }
 }

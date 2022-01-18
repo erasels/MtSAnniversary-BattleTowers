@@ -28,8 +28,8 @@ public class CoolExampleEvent extends PhasedEvent {
         //set up event
         registerPhase(0, new TextPhase(DESCRIPTIONS[0]).addOption(OPTIONS[0], (i)->transitionKey("Brazil")).addOption(OPTIONS[1], (i)->transitionKey("Japan")));
         registerPhase("Brazil", new TextPhase(DESCRIPTIONS[1]).addOption(OPTIONS[2], (i)->transitionKey("Antarctica")).addOption(OPTIONS[5], (i)->transitionKey(1)));
-        registerPhase("Japan", new TextPhase(DESCRIPTIONS[2]).addOption(OPTIONS[0], (i)->transitionKey("Brazil")).addOption(OPTIONS[3], (i)->transitionKey("You can also use numbers")));
-        registerPhase("Antarctica", new TextPhase(DESCRIPTIONS[3]).addOption(OPTIONS[3], (i)->transitionKey("You can also use numbers"))
+        registerPhase("Japan", new TextPhase(DESCRIPTIONS[2]).addOption(OPTIONS[0], (i)->transitionKey("Brazil")).addOption(OPTIONS[3], (i)->transitionKey("This The End")));
+        registerPhase("Antarctica", new TextPhase(DESCRIPTIONS[3]).addOption(OPTIONS[3], (i)->transitionKey("This The End"))
                 .addOption(new TextPhase.OptionInfo(AbstractDungeon.player.masterDeck.hasUpgradableCards() ? "Upgrade Option Test" : "Can't Upgrade").enabledCondition(AbstractDungeon.player.masterDeck::hasUpgradableCards), (i)->transitionKey("UPGRADE")));
         registerPhase("This The End", new TextPhase(DESCRIPTIONS[4]).addOption(OPTIONS[4], (t)->this.openMap()));
 
