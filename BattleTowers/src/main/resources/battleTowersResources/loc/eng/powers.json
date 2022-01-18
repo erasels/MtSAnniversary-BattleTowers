@@ -264,5 +264,11 @@
     "DESCRIPTIONS": [
       "Whenever you take unblocked attack damage, your max HP is decreased by #b%d."
     ]
+  },
+  "${ModID}:Counter": {
+    "NAME": "Counter",
+    "DESCRIPTIONS": [
+      "Whenever this creature takes less than #b%d unblocked attack damage, it attacks for #b%d."
+    ]
   }
 }
