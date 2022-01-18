@@ -40,15 +40,15 @@ public class SilverLouse extends AbstractBTMonster {
     //Monster stats
     private static final int MIN_HP = 42;
     private static final int MAX_HP = 48;
-    private static final int BITE_DAMAGE = 12;
+    private static final int BITE_DAMAGE = 10;
     private static final int SCRATCH_DAMAGE = 4;
-    private final int STR_AMOUNT = calcAscensionSpecial(3);
+    private final int STR_AMOUNT = calcAscensionSpecial(2);
     private final int VULN_AMOUNT = calcAscensionSpecial(1);
     private final int CURL_AMOUNT = AbstractDungeon.monsterHpRng.random(calcAscensionSpecial(calcAscensionTankiness(10)), calcAscensionSpecial(calcAscensionTankiness(14)));
 
 
     public SilverLouse(final float x, final float y) {
-        super(NAME, ID, 140, 0.0F, 0.0f, 200.0f, 220.0f, null, x, y);
+        super(NAME, ID, 140, 0.0F, 0.0F, 180.0F/0.8F, 140.0F/0.8F, null, x, y);
         this.loadAnimation("battleTowersResources/img/monsters/Louses/SilverLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/SilverLouse/skeleton.json", 0.8F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
@@ -101,7 +101,6 @@ public class SilverLouse extends AbstractBTMonster {
                     addToBot(new WaitAction(0.9F));
                 }
                 addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, STR_AMOUNT)));
-                addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
                 break;
             }
             case SCRATCH: {

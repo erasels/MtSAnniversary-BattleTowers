@@ -1,7 +1,10 @@
 package BattleTowers.monsters;
 
 import BattleTowers.powers.BurnPower;
+import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.JudgementPower;
+import BattleTowers.relics.JadeIdol;
+import BattleTowers.relics.RubyFragment;
 import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +19,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 
@@ -62,16 +66,18 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         AnimationState.TrackEntry e1 = state.setAnimation(1, "WingFlap", true);
-        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(10));
+        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(13));
         addMove(SOLEMNVIGIL,Intent.DEFEND_BUFF);
-        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(6),2);
-        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(2),6);
+        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(7),2);
+        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(3),6);
         addMove(TRIALBYFIRE,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
     }
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
+        addToBot(new ApplyPowerAction(this,this,new InquisitorPower(this)));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new RubyFragment()));
     }
     @Override
     protected void setUpMisc() {
@@ -139,7 +145,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                         break;
                     }
                     case SOLEMNVIGIL:{
-                        addToBot(new ApplyPowerAction(this, this, new MetallicizePower(this, calcAscensionSpecial(4))));
+                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
                         addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
                         break;
                     }
@@ -153,15 +159,15 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     case DIVINESTORM: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                         break;
                     }
                 }
@@ -250,8 +256,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             xshift = 160;
         } else xshift = -160;
         DivineOrbs.add(new InvisibleIntentDisplayer((-80 * xmod)+xshift, 250.0f));
-        if (DivineOrbs.size() < 2){
-            addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
+        if (DivineOrbs.size() >= 2){
+            addToBot(new RemoveSpecificPowerAction(AbstractDungeon.player,AbstractDungeon.player,JudgementPower.POWER_ID));
         }
         addToBot(new RollMoveAction(this));
     }
@@ -274,6 +280,22 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             for (InvisibleIntentDisplayer DivineOrb : DivineOrbs){
                 if (DivineOrb.shouldRenderIntent){
                     DivineOrb.update();
+                }
+            }
+        }
+    }
+    @Override
+    public void applyPowers() {
+        super.applyPowers();
+        int damage;
+        if (!DivineOrbs.isEmpty()) {
+            for (InvisibleIntentDisplayer DivineOrb : DivineOrbs) {
+                if (this.moves.get(DivineOrb.nextMove) != null) {
+                    DamageInfo info = new DamageInfo(this, this.moves.get(DivineOrb.nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
+                    if (info.base > -1) {
+                        info.applyPowers(this, AbstractDungeon.player);
+                    }
+                    DivineOrb.updateIntent(info.output);
                 }
             }
         }

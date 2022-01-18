@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
+import BattleTowers.events.phases.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -152,6 +153,7 @@ public class BattleTower {
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
                 .addNormalEncounter(tneisnarT.ID)
+                .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
@@ -166,6 +168,7 @@ public class BattleTower {
                 .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
                 .addBoss(AlphabetBoss.ID, (room)->{}) //This one's kinda fucked and would be a pain to separate from the enemy
                 .addBoss(Queen.ID, randomRelic(AbstractRelic.RelicTier.RARE))
+                .addBoss(Necrototem.ID)
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
@@ -173,8 +176,10 @@ public class BattleTower {
                 .addEvent(VoidShrine.ID)
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
+                .addEvent(GentlemanEvent.ID)
         );
     }
+
 
     public static class TowerLayout implements Weighted {
         List<List<Node[]>> layout = new ArrayList<>();

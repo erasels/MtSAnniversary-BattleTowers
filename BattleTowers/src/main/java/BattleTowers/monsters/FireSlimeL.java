@@ -65,7 +65,7 @@ public class FireSlimeL extends AbstractBTMonster {
         // calcAscensionTankiness automatically scales HP based on ascension and enemy type
         // passing 2 values makes the game randomly select a value in between the ranges for the HP
         // if you pass only 1 value to set HP it will use that as the HP value
-        setHp(calcAscensionTankiness(67), calcAscensionTankiness(70));
+        setHp(calcAscensionTankiness(62), calcAscensionTankiness(65));
 
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
