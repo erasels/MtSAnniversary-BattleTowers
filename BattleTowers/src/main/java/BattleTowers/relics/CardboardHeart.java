@@ -1,7 +1,6 @@
 package BattleTowers.relics;
 
 import BattleTowers.util.TextureLoader;
-import basemod.BaseMod;
 import basemod.abstracts.CustomRelic;
 import basemod.abstracts.CustomSavable;
 import basemod.cardmods.RetainMod;
@@ -11,7 +10,6 @@ import com.evacipated.cardcrawl.mod.stslib.actions.common.SelectCardsCenteredAct
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.characters.CharacterManager;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
@@ -97,9 +95,9 @@ public class CardboardHeart extends CustomRelic implements CustomSavable<ArrayLi
 
     @Override
     public String getUpdatedDescription() {
-        System.out.println(card1);
-        System.out.println(card2);
-        System.out.println(card3);
+        //System.out.println(card1);
+        //System.out.println(card2);
+        //System.out.println(card3);
         if (card1 == null) {
             return DESCRIPTIONS[5];
         }
