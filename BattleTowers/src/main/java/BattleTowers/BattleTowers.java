@@ -4,7 +4,7 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
-import BattleTowers.events.phases.GentlemanEvent;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -28,7 +28,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -222,9 +221,9 @@ public class BattleTowers implements
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
+        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, "");
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
         BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");

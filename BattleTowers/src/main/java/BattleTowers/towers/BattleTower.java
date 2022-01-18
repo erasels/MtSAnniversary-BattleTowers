@@ -1,7 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
-import BattleTowers.events.phases.GentlemanEvent;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -168,7 +168,7 @@ public class BattleTower {
                 .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
                 .addBoss(AlphabetBoss.ID, (room)->{}) //This one's kinda fucked and would be a pain to separate from the enemy
                 .addBoss(Queen.ID, randomRelic(AbstractRelic.RelicTier.RARE))
-                .addBoss(Necrototem.ID)
+                .addBoss(Necrototem.ID, randomRelic(AbstractRelic.RelicTier.RARE))
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
