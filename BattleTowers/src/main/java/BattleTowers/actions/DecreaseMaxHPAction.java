@@ -1,9 +1,9 @@
 package BattleTowers.actions;
 
-import BattleTowers.util.UC;
 import BattleTowers.vfx.LoseMaxHPEffect;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 
 public class DecreaseMaxHPAction extends AbstractGameAction {
     public DecreaseMaxHPAction(AbstractCreature target, int amount) {
@@ -14,7 +14,7 @@ public class DecreaseMaxHPAction extends AbstractGameAction {
     @Override
     public void update() {
         target.decreaseMaxHealth(amount);
-        UC.doVfx(new LoseMaxHPEffect(amount));
+        AbstractDungeon.effectList.add(new LoseMaxHPEffect(target, amount));
 
         isDone = true;
     }
