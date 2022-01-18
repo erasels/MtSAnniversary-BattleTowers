@@ -157,6 +157,8 @@ public class BattleTower {
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
                 .addNormalEncounter(Romeo.ID)
+                .addNormalEncounter(Encounters.NINJA_LOUSES)
+                .addNormalEncounter(Encounters.RAINBOW_LOUSES)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
                 .addEliteEncounter(VoodooDoll.ID, addReward(CursedDoll::new))
                 .addEliteEncounter(GiantArm.ID, addReward(SweatyArmband::new))
