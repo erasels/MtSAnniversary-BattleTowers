@@ -75,7 +75,6 @@ public class Dijinn extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new MakeAWishPower(this, wishCount)));
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new DijinnLamp()));
     }
 
     @Override
