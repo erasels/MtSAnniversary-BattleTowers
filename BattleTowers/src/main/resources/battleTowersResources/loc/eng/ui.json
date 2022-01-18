@@ -24,5 +24,10 @@
       "This enemy intends to inflict a #yNegative #yEffect on ",
       "."
     ]
+  },
+  "${ModID}:LoseMaxHPEffect": {
+    "TEXT": [
+      "Max HP"
+    ]
   }
 }

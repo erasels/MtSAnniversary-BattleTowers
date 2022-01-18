@@ -258,5 +258,11 @@
     "DESCRIPTIONS": [
       "While %1$s is alive, #yNecrototem has #b%2$d additional #yStrength."
     ]
+  },
+  "${ModID}:GrievousWounds": {
+    "NAME": "Grievous Wounds",
+    "DESCRIPTIONS": [
+      "Whenever you take unblocked attack damage, your max HP is decreased by #b%d."
+    ]
   }
 }
