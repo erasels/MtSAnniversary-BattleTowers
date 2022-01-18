@@ -44,7 +44,7 @@ public class WindStrike extends CustomCard implements ModalChoice.Callback {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
         baseDamage = damage = 4;
         baseBlock = block = 4;
-        magicNumber = 3;
+        magicNumber = baseMagicNumber = 3;
         modal = new ModalChoiceBuilder()
                 .setCallback(this)
                 .setColor(CardColor.COLORLESS)
