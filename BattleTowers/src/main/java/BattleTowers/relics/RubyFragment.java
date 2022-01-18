@@ -1,18 +1,13 @@
 package BattleTowers.relics;
 
-import BattleTowers.cards.WindStrike;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainEnergyAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.RelicStrings;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
@@ -32,7 +27,7 @@ public class RubyFragment extends CustomRelic {
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         counter += damageAmount;
         if (counter > 15 && !usedUp){
-            addToBot(new GainEnergyAction(2));
+            addToBot(new GainEnergyAction(1));
             addToBot(new DrawCardAction(2));
             usedUp = true;
         }
