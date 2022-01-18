@@ -3,6 +3,8 @@ package BattleTowers.monsters;
 import BattleTowers.powers.BurnPower;
 import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.JudgementPower;
+import BattleTowers.relics.JadeIdol;
+import BattleTowers.relics.RubyFragment;
 import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,6 +19,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 
@@ -74,6 +77,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new JudgementPower(AbstractDungeon.player)));
         addToBot(new ApplyPowerAction(this,this,new InquisitorPower(this)));
+        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new RubyFragment()));
     }
     @Override
     protected void setUpMisc() {

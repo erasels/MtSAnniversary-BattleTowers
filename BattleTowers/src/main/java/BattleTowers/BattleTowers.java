@@ -47,8 +47,7 @@ public class BattleTowers implements
         EditStringsSubscriber,
         EditKeywordsSubscriber,
         EditRelicsSubscriber,
-        EditCardsSubscriber,
-        AddAudioSubscriber
+        EditCardsSubscriber
 {
     public static final Logger logger = LogManager.getLogger(BattleTowers.class);
     private static SpireConfig modConfig = null;
@@ -279,6 +278,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new Lucky(), RelicType.SHARED);
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);
         }
         
     public static String removeModId(String id) {
@@ -301,10 +302,6 @@ public class BattleTowers implements
         BaseMod.addCard(new CursedTapestry());
         BaseMod.addCard(new Greedy());
         BaseMod.addCard(new DarkEnchantment());
-    }
-
-    @Override
-    public void receiveAddAudio() {
-        BaseMod.addAudio("TimewalkerBattle.ogg",makeMusicPath("TimewalkerBattle.ogg"));
+        BaseMod.addCard(new WindStrike());
     }
 }
