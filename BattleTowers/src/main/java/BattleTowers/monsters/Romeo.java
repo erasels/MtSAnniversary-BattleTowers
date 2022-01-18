@@ -3,6 +3,7 @@ package BattleTowers.monsters;
 import BattleTowers.powers.CounterPower;
 import BattleTowers.powers.GrievousWoundsPower;
 import BattleTowers.util.UC;
+import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.city.MaskedBandits;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
@@ -126,8 +128,8 @@ public class Romeo extends AbstractBTMonster {
                 break;
             case STAB:
                 UC.atb(new ChangeStateAction(this, "STAB"));
-                UC.atb(new WaitAction(0.5f));
-                for (int i = 0; i < moves.get(STAB).multiplier; i++) {
+                UC.atb(new WaitAction(0.3f));
+                for (int i = 0; i < ((EnemyMoveInfo)ReflectionHacks.getPrivate(this, AbstractMonster.class, "move")).multiplier; i++) {
                     UC.atb(new DamageAction(UC.p(), info, MathUtils.randomBoolean()? AbstractGameAction.AttackEffect.SLASH_DIAGONAL : AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
                 }
                 break;
