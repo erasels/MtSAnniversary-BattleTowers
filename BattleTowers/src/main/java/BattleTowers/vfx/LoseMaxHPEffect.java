@@ -5,9 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
@@ -26,9 +26,9 @@ public class LoseMaxHPEffect extends AbstractGameEffect {
     private static final float FADE_Y_SPEED = 100.0F * Settings.scale;
     private static final float TEXT_DURATION = 3.0F;
 
-    public LoseMaxHPEffect(int amount) {
-        this.x = AbstractDungeon.player.hb.cX;
-        this.y = AbstractDungeon.player.hb.cY;
+    public LoseMaxHPEffect(AbstractCreature owner, int amount) {
+        this.x = owner.hb.cX;
+        this.y = owner.hb.cY;
         this.destinationY = (this.y + 150.0F * Settings.scale);
         this.duration = TEXT_DURATION;
         this.startingDuration = TEXT_DURATION;

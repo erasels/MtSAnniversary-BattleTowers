@@ -25,7 +25,7 @@
       "."
     ]
   },
-  "${ModID}:LoseMaxHPEffect": {
+  "${ModID}:LoseMHPEffect": {
     "TEXT": [
       "Max HP"
     ]
