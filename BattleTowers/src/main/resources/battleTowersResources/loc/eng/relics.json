@@ -179,6 +179,13 @@
     "DESCRIPTIONS": [
       "You have #b%d additional #yStrength for every enemy in combat."
     ]
+  },
+  "${ModID}:QueensPawn": {
+    "NAME": "Queen's Pawn",
+    "FLAVOR": "The most important and loyal of pieces.",
+    "DESCRIPTIONS": [
+      "If the first and last card you play in a turn is an attack, deal 5 damage to a random enemy. NL If the first and last card you play in a turn is a skill, gain 5 block."
+    ]
   }
 }
 
