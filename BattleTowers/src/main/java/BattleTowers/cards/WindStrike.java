@@ -3,6 +3,7 @@ package BattleTowers.cards;
 import BattleTowers.cards.WindStrikeModes.RazorWind;
 import BattleTowers.cards.WindStrikeModes.Stormfront;
 import BattleTowers.powers.PawnBuffPower;
+import BattleTowers.util.UC;
 import basemod.abstracts.CustomCard;
 import basemod.helpers.ModalChoice;
 import basemod.helpers.ModalChoiceBuilder;
@@ -21,7 +22,10 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeCardPath;
@@ -91,34 +95,11 @@ public class WindStrike extends CustomCard {
         this.isDamageModified = this.damage != this.baseDamage;
     }
     public int countCards() {
-        int count = 0;
-        Iterator var1 = AbstractDungeon.player.hand.group.iterator();
-
-        AbstractCard c;
-        while(var1.hasNext()) {
-            c = (AbstractCard)var1.next();
-            if (c instanceof WindStrike && c != this) {
-                ++count;
-            }
-        }
-
-        var1 = AbstractDungeon.player.drawPile.group.iterator();
-
-        while(var1.hasNext()) {
-            c = (AbstractCard)var1.next();
-            if (c instanceof WindStrike && c != this) {
-                ++count;
-            }
-        }
-
-        var1 = AbstractDungeon.player.discardPile.group.iterator();
-
-        while(var1.hasNext()) {
-            c = (AbstractCard)var1.next();
-            if (c instanceof WindStrike && c != this) {
-                ++count;
-            }
-        }
+        UUID uid = uuid;
+        int count = (int) Stream.of(UC.hand().group, UC.p().discardPile.group, UC.p().drawPile.group)
+                .flatMap(Collection::stream)
+                .filter(c -> c instanceof WindStrike && !uid.equals(c.uuid))
+                .count();
 
         return count;
     }
