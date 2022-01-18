@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 
 import static BattleTowers.BattleTowers.makeID;
+import static BattleTowers.BattleTowers.makePowerPath;
 
 public class GrievousWoundsPower extends AbstractBTPower {
     public static final String POWER_ID = makeID("GrievousWounds");
@@ -23,7 +24,7 @@ public class GrievousWoundsPower extends AbstractBTPower {
         this.amount = amount;
         type = PowerType.DEBUFF;
         updateDescription();
-        loadRegion("painfulStabs");
+        setImage(makePowerPath("GrievousWounds_big.png"), makePowerPath("GrievousWounds_small.png"));
     }
 
     public void updateDescription() {
