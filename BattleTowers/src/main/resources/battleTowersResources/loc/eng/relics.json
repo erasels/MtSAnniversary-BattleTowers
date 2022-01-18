@@ -157,7 +157,7 @@
   "${ModID}:SweatyArmband": {
     "NAME": "Sweaty Armband",
     "FLAVOR": "No pain, no gain.",
-    "DESCRIPTIONS": ["Upon receiving attack damage, gain 1 Strength."]
+    "DESCRIPTIONS": ["Whenever you receive unblocked attack damage, gain #b1 #yStrength."]
   },
     "${ModID}:JadeIdol": {
     "NAME": "Jade Idol",
