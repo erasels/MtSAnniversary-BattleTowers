@@ -1,11 +1,11 @@
 package BattleTowers.monsters;
 
+import BattleTowers.powers.CounterPower;
 import BattleTowers.powers.GrievousWoundsPower;
 import BattleTowers.util.UC;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.common.ChangeStateAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -46,8 +46,10 @@ public class Romeo extends AbstractBTMonster {
     private static final int MHP_DEC = 3;
 
     private boolean hadTalk1 = false, hadTalk2 = false;
+    private int turn = 1;
 
     //TODO: Make transparent and give particle effect if kill bandits was chosen in Masked Bandits event
+    public Romeo() {this(0f,0f);}
     public Romeo(final float x, final float y) {
         super(NAME, ID, 50, -10.0F, -7.0F, 180.0F, 285.0F, null, x, y);
 
@@ -64,7 +66,7 @@ public class Romeo extends AbstractBTMonster {
 
         addMove(BUFF_SELF, Intent.BUFF);
         addMove(SIDE_SLASH, Intent.ATTACK_DEFEND, MED_DMG);
-        addMove(STAB, Intent.ATTACK, SMALL_DMG, AbstractDungeon.ascensionLevel>=17 ? 3 : 2, true);
+        addMove(STAB, Intent.ATTACK, SMALL_DMG, AbstractDungeon.ascensionLevel>=17 ? 2 : 1, true);
         addMove(GRIEVOUS_WOUNDS, Intent.STRONG_DEBUFF);
     }
 
@@ -77,7 +79,7 @@ public class Romeo extends AbstractBTMonster {
 
     @Override
     public void usePreBattleAction() {
-        //TODO: Add power that makes monster attack whenever it's attacked for less than the threshold
+        UC.doPow(this, this, new CounterPower(this, 7, calcAscensionDamage(SMALL_DMG)), false);
     }
 
     @Override
@@ -123,9 +125,9 @@ public class Romeo extends AbstractBTMonster {
 
     @Override
     protected void getMove(int i) {
-        byte move = (byte) (GameActionManager.turn % 4);
+        byte move = (byte) (turn++ % 4);
         EnemyMoveInfo info = this.moves.get(move);
-        this.setMove(MOVES[move], move, info.intent, info.baseDamage, info.multiplier>0? GameActionManager.turn/3+info.multiplier : 0, info.isMultiDamage);
+        this.setMove(MOVES[move], move, info.intent, info.baseDamage, info.multiplier>0? turn/3+info.multiplier : 0, info.isMultiDamage);
     }
 
     public void changeState(String key) {
@@ -133,11 +135,8 @@ public class Romeo extends AbstractBTMonster {
             state.setAnimation(0, "Attack", false);
             state.addAnimation(0, "Idle", true, 0.0F);
         } else if ("STAB".equals(key)) {
+            state.setTimeScale(1.2f);
             state.setAnimation(0, "Attack", false);
-            //TODO: ADjust for stuff
-            for (int i = 0; i < GameActionManager.turn/3 + 1; i++) {
-                state.addAnimation(0, "Attack", false, 0);
-            }
             state.addAnimation(0, "Idle", true, 0.0F);
         }
     }

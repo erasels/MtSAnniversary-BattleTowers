@@ -1,15 +1,12 @@
 package BattleTowers.monsters;
 
 import BattleTowers.util.TextureLoader;
-import basemod.ReflectionHacks;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.BobEffect;
 
 import java.util.ArrayList;
 
@@ -30,7 +27,7 @@ public class InvisibleLetterShower extends AbstractBTMonster {
     private static String getCharForNumber(int i) {
         if (i > 0 && i < 27) {
             String blah = String.valueOf((char) (i + 64));
-            System.out.println(blah);
+            //System.out.println(blah);
             return blah;
         }
         return null;
