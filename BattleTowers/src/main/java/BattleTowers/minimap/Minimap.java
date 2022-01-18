@@ -12,26 +12,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.Hitbox;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.MathHelper;
+import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.helpers.controller.CInputActionSet;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.map.Legend;
 import com.megacrit.cardcrawl.map.LegendItem;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.FadeWipeParticle;
 import com.megacrit.cardcrawl.vfx.MapCircleEffect;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import static BattleTowers.BattleTowers.logger;
-import static BattleTowers.BattleTowers.makeUIPath;
+import static BattleTowers.BattleTowers.*;
 
 public class Minimap {
     //I Love Numbers
@@ -47,6 +43,8 @@ public class Minimap {
 
     private static final Texture smallFire = TextureLoader.getTexture(makeUIPath("smallfire.png"));
     private static final Texture smallFireOutline = TextureLoader.getTexture(makeUIPath("smallfireoutline.png"));
+
+    private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("FightPreview"));
 
     private static Field legendItemImg;
     static {
@@ -86,6 +84,7 @@ public class Minimap {
 
     //Tracks currently hovered node; only has an effect during controller control
     private MinimapNode hovered = null;
+    public AbstractGameEffect mapCircleEffect = null;
 
     public Minimap() {
         baseMapColor = Color.WHITE.cpy();
@@ -605,7 +604,12 @@ public class Minimap {
             return type;
         }
 
+        public boolean canVisit() {
+            return available.contains(this) || Settings.isDebug;
+        }
+
         public boolean update() {
+            showPreviewIfHovered();
             highlighted = false;
             this.scale = MathHelper.scaleLerpSnap(this.scale, 0.5F);
 
@@ -628,7 +632,7 @@ public class Minimap {
                     }
                 }
 
-                if (available.contains(this)) {
+                if (canVisit()) {
                     if (this.hb.hovered) {
                         if (this.hb.justHovered) {
                             playNodeHoveredSound();
@@ -639,12 +643,16 @@ public class Minimap {
                             clicked = false;
                             clickTimer = 0;
 
-                            AbstractDungeon.topLevelEffects.add(new MapCircleEffect(hb.cX, hb.cY, this.angle));
-                            if (!Settings.FAST_MODE) {
+                            mapCircleEffect = new MapCircleEffect(hb.cX, hb.cY, this.angle);
+                            AbstractDungeon.topLevelEffects.add(mapCircleEffect);
+                            if (Settings.FAST_MODE) {
+                                transitionWaitTimer = 0.1F;
+                            }
+                            else {
+                                transitionWaitTimer = 0.5F;
                                 AbstractDungeon.topLevelEffects.add(new FadeWipeParticle());
                             }
 
-                            transitionWaitTimer = 0.3F;
                             nextNode = this;
                             interactable = false;
                         }
@@ -727,6 +735,18 @@ public class Minimap {
 
                 this.hb.render(sb);
             }
+        }
+
+        protected void showPreviewIfHovered() {
+            List<BattleTower.NodeType> previewTypes = Arrays.asList(BattleTower.NodeType.MONSTER, BattleTower.NodeType.ELITE, BattleTower.NodeType.BOSS);
+            if (this.hb.hovered && previewTypes.contains(this.type)) {
+                String fightPreviewText = MonsterHelper.getEncounterName(this.getKey());
+                TipHelper.renderGenericTip(this.cx + this.getPreviewTooltipXOffset(), this.cy + offsetY, uiStrings.TEXT[0], fightPreviewText);
+            }
+        }
+
+        protected float getPreviewTooltipXOffset() {
+            return this.img.getWidth() / 4.0f;
         }
 
         private float getRenderX() {
@@ -818,6 +838,7 @@ public class Minimap {
         }
 
         public boolean update() {
+            showPreviewIfHovered();
             this.scale = Settings.scale;
 
             this.hb.move(this.cx, cy + offsetY);
@@ -834,7 +855,7 @@ public class Minimap {
                     this.color.lerp(NOT_TAKEN_COLOR, Gdx.graphics.getDeltaTime() * 8.0F);
                 }
 
-                if (available.contains(this) && this.hb.hovered && clicked) {
+                if (canVisit() && this.hb.hovered && clicked) {
                     clicked = false;
                     clickTimer = 0;
 
@@ -867,6 +888,11 @@ public class Minimap {
                     this.hb.render(sb);// 255
                 }
             }
+        }
+
+        @Override
+        protected float getPreviewTooltipXOffset() {
+            return bossImg.getWidth() / 4.0f;
         }
     }
 

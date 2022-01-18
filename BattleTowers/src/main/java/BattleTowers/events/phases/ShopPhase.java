@@ -60,6 +60,7 @@ public class ShopPhase extends EventPhase {
             dummy = null;
         }
         merchant = null;
+        event.allowRarityAltering = true;
     }
 
     public boolean finish() { //see ProceedButtonEventPatches

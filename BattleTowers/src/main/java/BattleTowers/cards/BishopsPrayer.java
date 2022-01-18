@@ -20,7 +20,7 @@ public class BishopsPrayer extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = BattleTowers.makeCardPath("BishopsPrayer.png");
     private static final CardType TYPE = CardType.SKILL;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
     private static final int COST = 1;
@@ -38,6 +38,7 @@ public class BishopsPrayer extends CustomCard {
         shuffleBackIntoDrawPile = true;
         baseBlock = 7;
         baseMagicNumber = magicNumber = 1;
+        this.setDisplayRarity(CardRarity.UNCOMMON);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {

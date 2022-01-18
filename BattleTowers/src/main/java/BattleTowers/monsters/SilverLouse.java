@@ -12,10 +12,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AngryPower;
 import com.megacrit.cardcrawl.powers.CurlUpPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.powers.VulnerablePower;
 
 import java.util.ArrayList;
 
@@ -51,7 +49,7 @@ public class SilverLouse extends AbstractBTMonster {
 
     public SilverLouse(final float x, final float y) {
         super(NAME, ID, 140, 0.0F, 0.0f, 200.0f, 220.0f, null, x, y);
-        this.loadAnimation("battleTowersResources/img/monsters/MetalLouses/SilverLouse/skeleton.atlas", "battleTowersResources/img/monsters/MetalLouses/SilverLouse/skeleton.json", 0.8F);
+        this.loadAnimation("battleTowersResources/img/monsters/Louses/SilverLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/SilverLouse/skeleton.json", 0.8F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));

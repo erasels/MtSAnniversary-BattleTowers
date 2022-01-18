@@ -3,5 +3,26 @@
     "TEXT_DICT": {
       "Test": "This does nothing."
     }
+  },
+  "${ModID}:FightPreview": {
+    "TEXT": ["Fight preview"]
+  },
+  "${ModID}:QueenDrainIntent": {
+    "TEXT": [
+      "Drain Of Colour",
+      "This enemy intends to drain their colour, causing #b",
+      " damage to those who aren't mimicking the same faction."
+    ]
+  },
+  "${ModID}:MultiIntentStrings": {
+    "TEXT": [
+      "This enemy intends to NL #yAttack ",
+      " for #b",
+      " damage.",
+      " damage #b",
+      " times.",
+      "This enemy intends to inflict a #yNegative #yEffect on ",
+      "."
+    ]
   }
 }

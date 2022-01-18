@@ -18,6 +18,13 @@
       "When obtained, picks #b3 random cards. Choose #b1 of #b3 of the set to add into your hand with #yRetain each combat."
     ]
   },
+  "${ModID}:BucketOfSlime": {
+    "NAME": "Bucket Of Slime",
+    "FLAVOR": "A bucket of slime! Useful and multipurpose! Huh? What purpose? I'm just a salesman, figure that out yourself.",
+    "DESCRIPTIONS": [
+      "The first time you play each card in your deck each combat, gain #b1 #yBlock."
+    ]
+  },
   "${ModID}:WarBannerCultist": {
     "NAME": "Cultist War Banner",
     "FLAVOR": "Caw? Caw Caw! Caw.  caw.",
@@ -28,9 +35,9 @@
   },
   "${ModID}:WarBannerLouse": {
     "NAME": "Louse War Banner",
-    "FLAVOR": "Be one with the snail.",
+    "FLAVOR": "Be one with the bug.",
     "DESCRIPTIONS": [
-      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, Block is not lost this turn.",
+      "At the start of combat, gain #b10 #yCurl #yUp. When #yCurl #yUp is triggered, #yBlock is not lost that turn.",
       "#gGain #gLouse #gWar #gBanner."
     ]
   },
@@ -38,7 +45,7 @@
     "NAME": "Nob War Banner",
     "FLAVOR": "RRrroohrrRGHHhhh!!",
     "DESCRIPTIONS": [
-      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yVulnerable.",
+      "The first #b%d enemy actions each combat that are not attacks grant you #b1 #yStrength. Start each combat with #b%d #yWeak.",
       "#gGain #gNob #gWar #gBanner."
     ]
   },
@@ -46,23 +53,107 @@
     "NAME": "Snecko War Banner",
     "FLAVOR": "This pattern. It's... mesmerizing.",
     "DESCRIPTIONS": [
-      "Start each combat #yConfused.",
+      "Start each combat #yConfused. Draw 3 cards at the start of the first turn of combat.",
       "#gGain #gSnecko #gWar #gBanner."
+    ]
+  },
+  "${ModID}:Torch": {
+    "NAME": "Torch",
+    "FLAVOR": "A simple torch that glows with an emerald fire. It seems to weaken the further it travels.",
+    "DESCRIPTIONS": [
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of ",
+      " into your draw pile.",
+      "While in the #yBattle #yTower, at the start of combat, shuffle #b2 copies of your chosen card into your draw pile.",
+      "It's just a stick."
     ]
   },
   "${ModID}:Lucky": {
     "NAME": "Lucky",
     "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
     "DESCRIPTIONS": [
-      "At the start of the Boss combat of this Battle Tower, gain 2 #yStrength and 2 #yDexterity."
+      "At the start of the Boss combat of this Battle Tower, gain 1 #yStrength and 1 #yDexterity."
     ]
   },
   "${ModID}:IronPotHelmet": {
     "NAME": "Iron Pot Helmet",
     "FLAVOR": "It once was special and enchanted. Now it's just a big hunk of metal.",
     "DESCRIPTIONS": [
-      "When you play a #yDefend, gain 3 Block."
+      "When you play a #yDefend, gain #b3 #yBlock."
     ]
+  },
+  "${ModID}:DijinnLamp": {
+    "NAME": "Dijinn Lamp",
+    "FLAVOR": "As you rub it, you can feel the faintest echoes of infinite power.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yWish #yGranted into your draw pile."
+    ]
+  },
+  "${ModID}:CursedDoll": {
+    "NAME": "Cursed Doll",
+    "FLAVOR": "It's filled with pins and needles . . . and it looks surprisingly like you.",
+    "DESCRIPTIONS": [
+      "Whenever you lose HP, ALL enemies also lose twice that much HP."
+    ]
+  },
+  "${ModID}:GreedBlight": {
+    "NAME": "Curse of Greed",
+    "FLAVOR": "Wealth attracts greed.",
+    "DESCRIPTIONS": [
+      "Relics at shops cost #b%dx more #ygold."
+    ]
+  },
+  "${ModID}:VoidBlight": {
+    "NAME": "Hollow Soul",
+    "FLAVOR": "You never knew how important it was to you until it was gone.",
+    "DESCRIPTIONS": [
+      "At the start of combat, shuffle a #yVoid into your draw pile."
+    ]
+  },
+  "${ModID}:PromiseOfGold": {
+    "NAME": "Promise of Gold",
+    "FLAVOR": "It will all be worth it.",
+    "DESCRIPTIONS": ["Gain #b{0} gold when you defeat the #yBattle #yTower boss."]
+  },
+  "${ModID}:ClericsBlessing": {
+    "NAME": "Cleric's Blessing",
+    "FLAVOR": "That guy sure is friendly.",
+    "DESCRIPTIONS": ["While in the #yBattle #yTower, at the start of each combat, gain #b{0} #yDexterity."]
+  },
+  "${ModID}:ArmorersMask": {
+    "NAME": "Armorer's Headpiece",
+    "FLAVOR": "Part of the Flock!",
+    "DESCRIPTIONS": [
+      "You feel more talkative and start combat with 1 #yDexterity.",
+      "@CAW!@ NL @CAAAW@"
+    ]
+  },
+  "${ModID}:AlphabetSoup": {
+    "NAME": "Alphabet Soup",
+    "FLAVOR": "Letterlicious.",
+    "DESCRIPTIONS": [
+      "At the start of each combat, choose #b1 of #b3 cards that start with a certain letter to add into your hand. Whenever you play a card that starts with that letter, gain #b4 #yBlock and [E] .",
+      "At the start of each combat, choose #b1 of #b3 cards that start with #p",
+      " to add into your hand. Whenever you play a card that starts with #p",
+      ", gain #b4 #yBlock and [E] .",
+      "Choose a card to add into your hand."
+    ]
+  },
+  "${ModID}:GorgonHead": {
+    "NAME": "Gorgon Head",
+    "FLAVOR": "Still dangerous to look at.",
+    "DESCRIPTIONS": ["The first time each combat that each enemy intends to attack you multiple times in a turn, it loses 1 temporary #yStrength."]
+  },
+  "${ModID}:SlimeFilledFlask": {
+    "NAME": "Slime-Filled Flask",
+    "FLAVOR": "Is this even safe to drink?",
+    "DESCRIPTIONS": ["At the start of each combat, add a #ySlime #yElixir to your hand."]
+  },
+  "${ModID}:SentryOrb": {
+    "NAME": "Sentry Core",
+    "FLAVOR": "An ominous energy still pulses inside, long after removing it.",
+    "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
+      "Damage dealt: "," NL Per combat: "," NL Per turn: "]
   }
 }
+
 

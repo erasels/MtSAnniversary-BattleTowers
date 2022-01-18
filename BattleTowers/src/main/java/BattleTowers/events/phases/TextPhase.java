@@ -3,6 +3,7 @@ package BattleTowers.events.phases;
 import BattleTowers.events.PhasedEvent;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -26,6 +27,7 @@ public class TextPhase extends ImageEventPhase {
     public void transition(PhasedEvent event) {
         AbstractDungeon.rs = AbstractDungeon.RenderScene.EVENT;
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+        AbstractEvent.type = AbstractEvent.EventType.IMAGE;
 
         event.resetCardRarity();
         event.allowRarityAltering = true;
@@ -35,6 +37,12 @@ public class TextPhase extends ImageEventPhase {
         setOptions(event);
     }
 
+    public TextPhase addOption(String optionText, Consumer<Integer> onClick, AbstractRelic relicReward) {
+        options.add(new OptionInfo(optionText, relicReward));
+        optionResults.add(onClick);
+        return this;
+    }
+
     public TextPhase addOption(String optionText, Consumer<Integer> onClick) {
         options.add(new OptionInfo(optionText));
         optionResults.add(onClick);
@@ -42,6 +50,12 @@ public class TextPhase extends ImageEventPhase {
     }
     public TextPhase addOption(OptionInfo option, Consumer<Integer> onClick) {
         options.add(option);
+        optionResults.add(onClick);
+        return this;
+    }
+
+    public TextPhase addOption(String optionText, AbstractRelic previewRelic, Consumer<Integer> onClick) {
+        options.add(new OptionInfo(optionText, previewRelic));
         optionResults.add(onClick);
         return this;
     }

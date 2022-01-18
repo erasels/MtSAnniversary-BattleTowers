@@ -3,6 +3,7 @@ package BattleTowers.powers;
 import BattleTowers.BattleTowers;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -33,7 +34,12 @@ public class SlimeFilledRoomPower extends AbstractPower {
     @Override
     public void onInitialApplication() {
         int slimes = (int)AbstractDungeon.player.masterDeck.group.stream().filter(c -> c.rarity != AbstractCard.CardRarity.CURSE && c.rarity != AbstractCard.CardRarity.BASIC).count();
-        this.addToBot(new MakeTempCardInDrawPileAction(new Slimed(), slimes, true, true));
+        int slimesPerBatch = 5;
+        while (slimes > 0) {
+            this.addToBot(new MakeTempCardInDrawPileAction(new Slimed(), Math.min(slimes, slimesPerBatch), true, true));
+            this.addToBot(new WaitAction(0.1f));
+            slimes -= slimesPerBatch;
+        }
     }
 
     public void onPlayerExhaust(AbstractCard c) {
