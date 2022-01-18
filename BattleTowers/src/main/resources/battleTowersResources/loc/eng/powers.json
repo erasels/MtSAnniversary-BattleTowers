@@ -120,7 +120,7 @@
   "${ModID}:SlimeFilledRoomPower": {
     "NAME": "Slime Filled Room",
     "DESCRIPTIONS": [
-      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1 #yStrength."
+      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for every #b2 cards in your deck. Whenever a #ySlimed is #yExhausted, this enemy loses #b1 #yStrength."
     ]
   },
   "${ModID}:PlayerCurlUpPower": {
