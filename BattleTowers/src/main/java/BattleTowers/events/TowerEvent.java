@@ -14,9 +14,11 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.GenericEventDialog;
 import com.megacrit.cardcrawl.localization.EventStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.WhiteBeast;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.*;
 import com.megacrit.cardcrawl.saveAndContinue.SaveAndContinue;
@@ -40,11 +42,12 @@ public class TowerEvent extends PhasedEvent {
     private static final String MAP_PHASE = "MAP";
     private static final String CHEST_PHASE = "CHEST";
 
-    private static final int NUM_OPTIONS = 3; //it seems like it'll probably just be 1.
+    private static final int NUM_OPTIONS = 1; //it seems like it'll probably just be 1.
     public int chosenTower = -1; //For saving?
     public List<Pair<Integer, Integer>> pathTaken = new ArrayList<>();
     private boolean finishedRoom = false; //For loading
 
+    private BattleTower tower;
     private MapHandler mapHandler;
 
     public TowerEvent(BattleTowerRoom room) {
@@ -57,6 +60,7 @@ public class TowerEvent extends PhasedEvent {
         for (int i = 0; i < NUM_OPTIONS; ++i) {
             BattleTower t = new BattleTower(room.towerRng);
             choice.addOption(OPTIONS[0] + " " + t.getTitle(), (index)->{
+                this.tower = t;
                 this.mapHandler.setTower(t, room.towerRng);
                 this.transitionKey(MAP_PHASE);
                 if (chosenTower == -1) {
@@ -129,17 +133,22 @@ public class TowerEvent extends PhasedEvent {
 
     public void dropReward(AbstractRoom room) {
         //Could also handle elite/boss relic rewards using this.
-        if (currentPhase instanceof CombatPhase && ((CombatPhase) currentPhase).isBoss()) {
-            room.addGoldToRewards(AbstractDungeon.ascensionLevel >= 13 ? 100 : 150);
-            room.rewards.add(new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)));
+        if (currentPhase instanceof CombatPhase) {
+            CombatPhase combatPhase = (CombatPhase) currentPhase;
+
+            tower.getContents().addReward(room, combatPhase.getEncounterKey());
+
+            if (combatPhase.isBoss()) {
+                room.addGoldToRewards(AbstractDungeon.ascensionLevel >= 13 ? 100 : 150);
+                if (!player.hasRelic(WhiteBeast.ID))
+                    room.rewards.add(new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)));
+            }
         }
     }
 
     private static class MapHandler implements InteractionPhase.InteractionHandler {
         private final TowerEvent event;
         private final Minimap map;
-
-        private BattleTower tower;
 
         private float fadeTimer = 0, fadeTime = 0;
         private boolean fadingOut = false;
@@ -304,10 +313,11 @@ public class TowerEvent extends PhasedEvent {
                 case REST:
                     return new MiniRestPhase().setNextKey(followup);
                 case MONSTER:
-                case ELITE:
                     return new CombatPhase(target.getKey(), true, true).setNextKey(followup);
+                case ELITE:
+                    return new CombatPhase(target.getKey(), true, true).setType(AbstractMonster.EnemyType.ELITE).setNextKey(followup);
                 case BOSS:
-                    return new CombatPhase(target.getKey(), true, true).boss().setNextKey(followup);
+                    return new CombatPhase(target.getKey(), true, true).setType(AbstractMonster.EnemyType.BOSS).setNextKey(followup);
             }
             return null;
         }
@@ -341,8 +351,7 @@ public class TowerEvent extends PhasedEvent {
         }
 
         public void setTower(BattleTower t, Random towerRng) {
-            this.tower = t;
-            map.generate(tower, towerRng);
+            map.generate(t, towerRng);
         }
     }
 

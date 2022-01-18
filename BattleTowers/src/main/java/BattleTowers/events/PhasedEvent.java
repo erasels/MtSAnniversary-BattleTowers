@@ -153,6 +153,7 @@ public abstract class PhasedEvent extends AbstractImageEvent {
 
     public void finishCombat() {
         AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.EVENT;
+        AbstractDungeon.getCurrRoom().eliteTrigger = false;
         this.hasFocus = true;
         this.combatTime = false;
         this.noCardsInRewards = false;

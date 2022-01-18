@@ -66,7 +66,7 @@ public class Queen extends AbstractCardChessMonster {
     }
 
     public Queen(final float x, final float y) {
-        super(NAME, ID, 450, 0.0F, 0, 230.0f, 400.0f, null, x, y);
+        super(NAME, ID, 300, 0.0F, 0, 230.0f, 400.0f, null, x, y);
         this.animation = new BetterSpriterAnimation(makeMonsterPath("Chess/Queen/Spriter/Queen.scml"));
         this.setHp(calcAscensionTankiness(this.maxHealth));
         this.type = EnemyType.BOSS;

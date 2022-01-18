@@ -72,7 +72,6 @@ public class VoodooDoll extends AbstractBTMonster
         if (AbstractDungeon.ascensionLevel >= 18) {
             curse.upgrade();
         }
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new CursedDoll()));
     }
 
     @Override
@@ -96,9 +95,9 @@ public class VoodooDoll extends AbstractBTMonster
 
                 addToBot(new LoseHPAction(this, this, CURSE_HP_LOSS));
                 if (curseCount == 0) {
-                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, CURSE_DEBUFF, true), CURSE_DEBUFF));
-                } else if (curseCount == 1) {
                     addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, CURSE_DEBUFF, true), CURSE_DEBUFF));
+                } else if (curseCount == 1) {
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, CURSE_DEBUFF, true), CURSE_DEBUFF));
                 } else {
                     addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, CURSE_DEBUFF, true), CURSE_DEBUFF));
                 }

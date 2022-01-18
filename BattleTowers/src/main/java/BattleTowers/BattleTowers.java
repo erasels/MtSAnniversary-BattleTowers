@@ -4,7 +4,7 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
-import BattleTowers.events.phases.GentlemanEvent;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -28,7 +28,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -49,8 +48,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
-import static basemod.BaseMod.addMonster;
 
 @SpireInitializer
 public class BattleTowers implements
@@ -163,12 +160,7 @@ public class BattleTowers implements
                         new Cawcawrot(-250.0F, 0.0F),
                         new Veggieta(100.0F, 0.0F)
                 }));
-        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
-            @Override
-            public AbstractMonster get() {
-                return new CardboardGolem();
-            }
-        });
+        BaseMod.addMonster(makeID("CardboardGolem"), () -> new CardboardGolem());
         BaseMod.addMonster(Encounters.CULTIST_ARMORER, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new CultistArmorer(-250.0F, 0.0F),
@@ -182,6 +174,7 @@ public class BattleTowers implements
                 }));
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
         BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
+        BaseMod.addMonster(Romeo.ID, (BaseMod.GetMonster) Romeo::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -222,9 +215,9 @@ public class BattleTowers implements
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
+        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, "");
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
         BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");

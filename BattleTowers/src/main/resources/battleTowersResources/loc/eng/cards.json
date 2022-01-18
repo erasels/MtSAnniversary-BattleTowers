@@ -20,11 +20,11 @@
   "${ModID}:MakeAWish": {
     "NAME": "Make a Wish",
     "DESCRIPTION": "Use a *Wish to ",
-    "EXTENDED_DESCRIPTION": ["gain !M! Strength.", "put !M! *Miracles into your hand.", "gain !M! Temporary_HP."]
+    "EXTENDED_DESCRIPTION": ["gain !M! Strength.", "put !M! *Miracle into your hand.", "gain !M! Temporary_HP."]
   },
   "${ModID}:Prick": {
     "NAME": "Prick",
-    "DESCRIPTION": "If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
+    "DESCRIPTION": "Retain. NL If this card is Exhausted, ALL characters lose !M! HP. NL Exhaust."
   },
   "${ModID}:AvertYourGaze": {
     "NAME": "Avert Your Gaze",

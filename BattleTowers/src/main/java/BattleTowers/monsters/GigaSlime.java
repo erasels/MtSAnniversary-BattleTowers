@@ -108,7 +108,6 @@ public class GigaSlime extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         this.addToBot(new ApplyPowerAction(this, this, new SlimeFilledRoomPower(this)));
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SlimeFilledFlask()));
     }
 
     @Override

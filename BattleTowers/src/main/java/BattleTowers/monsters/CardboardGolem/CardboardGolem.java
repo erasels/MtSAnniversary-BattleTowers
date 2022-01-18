@@ -88,7 +88,6 @@ public class CardboardGolem extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new CardEaterPower(this, 10), 10));
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new CardboardHeart()));
     }
 
     @Override
