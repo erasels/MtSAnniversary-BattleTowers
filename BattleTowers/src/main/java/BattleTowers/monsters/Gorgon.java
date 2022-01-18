@@ -81,7 +81,6 @@ public class Gorgon extends AbstractBTMonster
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingGazePower(this)));
             this.addToBot(new ApplyPowerAction(this, this, new PetrifyingTouchPower(this)));
         }
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new GorgonHead()));
     }
 
     @Override
