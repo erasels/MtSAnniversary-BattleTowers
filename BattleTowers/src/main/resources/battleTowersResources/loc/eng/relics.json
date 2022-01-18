@@ -71,7 +71,7 @@
       "Whenever you lose HP, ALL enemies also lose twice that much HP."
     ]
   },
-   "${ModID}:GreedBlight": {
+"${ModID}:GreedBlight": {
     "NAME": "Curse of Greed",
     "FLAVOR": "Wealth attracts greed.",
     "DESCRIPTIONS": [
