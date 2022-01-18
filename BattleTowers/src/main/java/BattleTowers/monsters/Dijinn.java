@@ -48,9 +48,9 @@ public class Dijinn extends AbstractBTMonster
     private static final byte GOLDEN_CRUCIBLE = 2;
 
     private final int VOIDS = calcAscensionSpecial(2);
-    private final int MIRACLES = 2;
+    private final int MIRACLES = 1;
     private final int ENEMY_STR = calcAscensionSpecial(4);
-    private final int PLAYER_STR = 3;
+    private final int PLAYER_STR = 2;
     private int wishCount = 3;
     public int BLOCK = calcAscensionTankiness(12);
 
@@ -63,7 +63,7 @@ public class Dijinn extends AbstractBTMonster
         setHp(calcAscensionTankiness(300));
         addMove(EMPOWER, Intent.DEFEND_BUFF);
         addMove(CORRUPTION, Intent.STRONG_DEBUFF);
-        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(14), 2);
+        addMove(GOLDEN_CRUCIBLE, Intent.ATTACK, calcAscensionDamage(15), 2);
     }
 
     @Override
