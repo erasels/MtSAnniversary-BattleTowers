@@ -21,17 +21,21 @@ import com.megacrit.cardcrawl.powers.WeakPower;
 public class LouseHorde extends AbstractMonster {
 
     public static String ID = BattleTowers.makeID("LouseHorde");
-    private static int BASE_DAMAGE = 20;
-    private static int BASE_DEFEND = 15;
 
     private static final MonsterStrings STRINGS = CardCrawlGame.languagePack.getMonsterStrings(ID);
     private static final String NAME = STRINGS.NAME;
+    private static final int BASE_DAMAGE = 20;
+    private static final int BASE_DEFEND = 15;
+    private static final int BASE_POWER = 2;
+    private static final int BASE_BUFF = 5;
 
     private boolean curled = false;
 
     private final LouseMonsterParticleEmitter particleEmitter;
     private int defend = BASE_DEFEND;
     private int atkDamage = BASE_DAMAGE;
+    private int powerAmount = BASE_POWER;
+    private int buffAmount = BASE_BUFF;
 
     public LouseHorde() {
         super(NAME, ID, 80, 0f, 0f, 200f, 200f, null, 0f, 0f);
@@ -42,11 +46,15 @@ public class LouseHorde extends AbstractMonster {
         this.setHp(78, 82);
 
         if (AbstractDungeon.ascensionLevel >= 2) {
-            atkDamage = 18;
+            atkDamage += 2;
         }
 
         if (AbstractDungeon.ascensionLevel >= 7) {
-            defend = 20;
+            defend += 5;
+        }
+
+        if (AbstractDungeon.ascensionLevel >= 17) {
+            powerAmount += 1;
         }
 
         this.damage.add(new DamageInfo(this, atkDamage));
@@ -76,19 +84,20 @@ public class LouseHorde extends AbstractMonster {
                 this.curled = true;
 
                 addToBot(new GainBlockAction(this, defend));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, powerAmount), powerAmount));
                 break;
             case 1:
                 particleEmitter.setAnimation(atkType);
                 particleEmitter.throwLouse();
 
                 addToBot(new DamageAction(AbstractDungeon.player, damage.get(0), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 2), 2));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, powerAmount, true), powerAmount));
                 break;
             case 2:
                 particleEmitter.setAnimation(atkType);
 
-                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 5), 5));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true), 2));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, buffAmount), buffAmount));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, powerAmount, true), powerAmount));
                 break;
         }
 
@@ -111,16 +120,15 @@ public class LouseHorde extends AbstractMonster {
 
     @Override
     protected void getMove(int i) {
-        if (!lastMove(MoveBytes.DEFEND)) {
-            setMove(MoveBytes.DEFEND, Intent.DEFEND);
+        if (!lastMove(MoveBytes.ATTACK)) {
+            setMove(MoveBytes.ATTACK, Intent.ATTACK_DEBUFF, this.damage.get(0).base);
         } else {
             if (i > 50) {
-                setMove(MoveBytes.ATTACK, Intent.ATTACK_BUFF, this.damage.get(0).base);
+                setMove(MoveBytes.DEFEND, Intent.DEFEND_BUFF);
             } else {
                 setMove(MoveBytes.DEBUFF, Intent.MAGIC);
             }
         }
-
     }
 
     private static class MoveBytes {
