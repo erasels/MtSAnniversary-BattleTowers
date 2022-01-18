@@ -196,5 +196,18 @@
       "[Slay] #rFight! #gGain #gArmorer's #gHeadpiece.",
       "[Locked] Can't afford."
     ]
+  },
+  "${ModID}:GentlemanEvent": {
+    "NAME": "Mysterious Figure",
+    "DESCRIPTIONS": [
+      "A strange figure approaches you from an alleyway, his body cloaked in shadow, outline barely visible. NL #pYou #pseem #pto #pbe #pin #pa #pbit #pof #ptrouble #pfriend. #pPerhaps #pI #pcan #phelp... #pall #pit #pwill #pcost #pis #p@your@ #p@soul.@",
+      "You feel your strength returning to you... but it feels a part of you is missing. You look up, and see the figure has disappeared.",
+      "#pYou #pwill #pperish #pin #pthis #pplace. He says, before melting away into the shadows..."
+    ],
+    "OPTIONS": [
+      "[Accept] #rLose ",
+      ", #gHealth #gto #gfull #gHP.",
+      "[Decline]"
+    ]
   }
 }

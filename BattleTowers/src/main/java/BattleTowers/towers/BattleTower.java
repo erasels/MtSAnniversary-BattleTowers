@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
+import BattleTowers.events.phases.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -134,6 +135,7 @@ public class BattleTower {
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
                 .addNormalEncounter(tneisnarT.ID)
+                .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
@@ -150,6 +152,7 @@ public class BattleTower {
                 .addEvent(VoidShrine.ID)
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
+                .addEvent(GentlemanEvent.ID)
                 .addBoss(CardboardGolem.ID)
                 .addBoss(ExecutiveSlime.ID)
                 .addBoss(Dijinn.ID)

@@ -4,6 +4,7 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
+import BattleTowers.events.phases.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -179,6 +180,7 @@ public class BattleTowers implements
                         new NinjaLouse(100.0F, 0.0F, true),
                 }));
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
+        BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -225,6 +227,7 @@ public class BattleTowers implements
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
         BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
         BaseMod.addEvent(RoarOfTheCrowd.ID, RoarOfTheCrowd.class, "");
+        BaseMod.addEvent(GentlemanEvent.ID, GentlemanEvent.class, "");
     }
 
     @Override
