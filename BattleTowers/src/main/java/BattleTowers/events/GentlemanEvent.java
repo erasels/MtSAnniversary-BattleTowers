@@ -1,21 +1,12 @@
-package BattleTowers.events.phases;
+package BattleTowers.events;
 
 import BattleTowers.BattleTowers;
-import BattleTowers.events.PhasedEvent;
-import BattleTowers.events.phases.CombatPhase;
 import BattleTowers.events.phases.TextPhase;
-import com.megacrit.cardcrawl.actions.common.HealAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.events.shrines.UpgradeShrine;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
-import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 import static BattleTowers.BattleTowers.makeID;
 
@@ -41,7 +32,7 @@ public class GentlemanEvent extends PhasedEvent {
                 if (i != words.length-1){
                     newRelicName.append(" ");
                 }
-                System.out.println(newRelicName.toString());
+                System.out.println(newRelicName);
             }
             relicName = newRelicName.toString();
         }

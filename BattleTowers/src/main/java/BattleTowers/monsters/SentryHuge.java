@@ -74,7 +74,6 @@ public class SentryHuge extends AbstractBTMonster {
                 addToBot(new ApplyPowerAction(m, this, new VengeancePower(m, this, VENGEANCE)));
             }
         }
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SentryOrb()));
     }
 
     @Override

@@ -72,7 +72,6 @@ public class VoodooDoll extends AbstractBTMonster
         if (AbstractDungeon.ascensionLevel >= 18) {
             curse.upgrade();
         }
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new CursedDoll()));
     }
 
     @Override
