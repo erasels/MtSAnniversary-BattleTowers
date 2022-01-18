@@ -68,8 +68,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         AnimationState.TrackEntry e1 = state.setAnimation(1, "WingFlap", true);
         addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(13));
         addMove(SOLEMNVIGIL,Intent.DEFEND_BUFF);
-        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(7),2);
-        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(3),6);
+        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(8),2);
+        addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),6);
         addMove(TRIALBYFIRE,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -99,19 +99,19 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             case DIVINESMITE: {
                 addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(2))));
                 break;
             }
             case SOLEMNVIGIL:{
-                addToBot(new ApplyPowerAction(this, this, new MetallicizePower(this, calcAscensionSpecial(4))));
-                addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
+                addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(5))));
+                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
                 break;
             }
             case JUDGEMENTOFJUSTICE:{
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
-                addToBot(new HealAction(this,this,calcAscensionSpecial(5)));
+                addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
                 break;
             }
             case DIVINESTORM: {
@@ -126,11 +126,12 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
+                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
                 break;
             }
             case TRIALBYFIRE:{
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(3))));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(5))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
                 break;
             }
         }
@@ -141,19 +142,19 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     case DIVINESMITE: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
+                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(2))));
                         break;
                     }
                     case SOLEMNVIGIL:{
                         addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
-                        addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
                         break;
                     }
                     case JUDGEMENTOFJUSTICE:{
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.NONE));
-                        addToBot(new HealAction(this,this,calcAscensionSpecial(5)));
+                        addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
                         break;
                     }
                     case DIVINESTORM: {
@@ -168,6 +169,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
                         break;
                     }
                 }
