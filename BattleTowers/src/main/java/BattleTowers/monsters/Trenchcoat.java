@@ -58,6 +58,8 @@ public class Trenchcoat extends AbstractBTMonster {
     private final float saveX;
     private final float saveY;
 
+    private boolean noDamageLastTurn;
+
     private final InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(0F, 180F);
     private final InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(120F, 180F);
 
@@ -247,6 +249,7 @@ public class Trenchcoat extends AbstractBTMonster {
     @Override
     protected void getMove(final int num) {
         int damagemodifier = 0;
+        boolean pickedDmg = false;
         byte leftmove;
         //This is where we determine what move the monster should do next
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
@@ -278,6 +281,7 @@ public class Trenchcoat extends AbstractBTMonster {
         }
 
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
+        if (move == DAMAGE) pickedDmg = true;
         if (move == STRENGTH) damagemodifier = damagemodifier + 2;
         leftmove = move;
         setMoveShortcut(move, MOVES[move]);
@@ -307,21 +311,29 @@ public class Trenchcoat extends AbstractBTMonster {
                             possibilities.add(BLOCK);
                         }
                     } else {
-                        if (!inviso.returnLastTwoMoves(BLOCK)) {
-                            possibilities.add(BLOCK);
-                        }
-
-                        if (!inviso.returnLastTwoMoves(DAMAGE)) {
+                        if (i == 1 && noDamageLastTurn && !pickedDmg) {
                             possibilities.add(DAMAGE);
-                        }
+                            noDamageLastTurn = false;
+                            pickedDmg = true;
+                        } else {
+                            if (!inviso.returnLastTwoMoves(BLOCK)) {
+                                possibilities.add(BLOCK);
+                            }
 
-                        if (!inviso.returnLastTwoMoves(STRENGTH)) {
-                            possibilities.add(STRENGTH);
+                            if (!inviso.returnLastTwoMoves(DAMAGE)) {
+                                possibilities.add(DAMAGE);
+                            }
+
+                            if (!inviso.returnLastTwoMoves(STRENGTH)) {
+                                possibilities.add(STRENGTH);
+                            }
                         }
                     }
 
 
                 move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
+
+                if (move == DAMAGE) pickedDmg = true;
                 if (i == 0 && move == leftmove) forceRightToChange = true;
 
                 EnemyMoveInfo infobyte = this.moves.get(move);
@@ -333,11 +345,15 @@ public class Trenchcoat extends AbstractBTMonster {
 
                 inviso.setIntent(infobyte.intent, info.output + damagemodifier);
                 inviso.recordMove(move);
+                if (move == DAMAGE) pickedDmg = true;
+                if (!pickedDmg) {noDamageLastTurn = true;}
 
                 if (i == 0 && move == STRENGTH) damagemodifier = damagemodifier + 2;
                 possibilities.clear();
             }
         }
+
+
 
     }
 
