@@ -142,19 +142,19 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     case DIVINESMITE: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
+                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(2))));
                         break;
                     }
                     case SOLEMNVIGIL:{
                         addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
-                        addToBot(new GainBlockAction(this,calcAscensionSpecial(8)));
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
                         break;
                     }
                     case JUDGEMENTOFJUSTICE:{
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.NONE));
-                        addToBot(new HealAction(this,this,calcAscensionSpecial(5)));
+                        addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
                         break;
                     }
                     case DIVINESTORM: {
