@@ -79,6 +79,10 @@
     "NAME": "Dark Enchantment",
     "DESCRIPTION": "Draw !M! cards. NL Gain [E] [E]. NL Increase all numbers that can be increased on cards in hand by 1 this combat. NL Exhaust."
   },
+  "${ModID}:WindStrike": {
+    "NAME": "Wind Strike",
+    "DESCRIPTION": "*Choose *One - Deal !D! damage, Gain !B! Block or shuffle a copy of this into your draw pile. NL Each *Wind *Strike increases the damage and block gain by !M!"
+  },
   "${ModID}:Knowledge": {
     "NAME": "Wish for Knowledge",
     "DESCRIPTION": "Soulbound. NL Autoplay. NL Add a copy of a random card that you only have 1 copy of in your deck to it. "
