@@ -206,7 +206,7 @@
     ],
     "OPTIONS": [
       "[Accept] #rLose ",
-      ", #gHealth #gto #gfull #gHP.",
+      ": #gHeal #gto #gfull #gHP.",
       "[Decline]"
     ]
   }

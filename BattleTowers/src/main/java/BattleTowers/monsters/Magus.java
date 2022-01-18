@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import com.megacrit.cardcrawl.actions.animations.*;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Dazed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -101,8 +102,9 @@ public class Magus extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[0], 1.5F, 3.0F));
                 break;
             case BLAST:
-                AbstractDungeon.effectsQueue.add(new FlameBarrierEffect(this.hb.cX, this.hb.cY));
-                AbstractDungeon.actionManager.addToBottom(new AnimateShakeAction(this, 0.4f, 0.8f));
+                this.addToBot(new VFXAction(this, new FlameBarrierEffect(this.hb.cX, this.hb.cY), 0.1F));
+                AbstractDungeon.actionManager.addToBottom(new WaitAction(0.25f));
+                AbstractDungeon.actionManager.addToBottom(new AnimateShakeAction(this, 0.4f, 0.6f));
                 AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(1), AttackEffect.FIRE));
                 break;
         }

@@ -28,6 +28,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.google.gson.Gson;
@@ -209,6 +210,7 @@ public class BattleTowers implements
                         new Magus(120.0F, 0.0F),
                 }));
         BaseMod.addMonster(Necrototem.ID, (BaseMod.GetMonster) Necrototem::new);
+        BaseMod.addMonster(NatariTheTimewalker.ID, (BaseMod.GetMonster) NatariTheTimewalker::new);
     }
 
     private static void addEvents() {
@@ -317,7 +319,9 @@ public class BattleTowers implements
     public static String makePowerPath(String resourcePath) {
         return getModID() + "Resources/img/power/" + resourcePath;
     }
-
+    public static String makeMusicPath(String resourcePath) {
+        return getModID() + "Resources/audio/music/" + resourcePath;
+    }
     public static String makeRelicPath(String resourcePath) {
         return getModID() + "Resources/img/relics/" + resourcePath;
     }
@@ -356,6 +360,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);      
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
@@ -376,21 +382,30 @@ public class BattleTowers implements
 
     @Override
     public void receiveEditCards() {
-        BaseMod.addCard(new BishopsPrayer());
-        BaseMod.addCard(new KingsCommand());
-        BaseMod.addCard(new KnightsManeuver());
-        BaseMod.addCard(new PawnsAdvance());
-        BaseMod.addCard(new QueensGrace());
-        BaseMod.addCard(new RooksCharge());
-        BaseMod.addCard(new CursedTapestry());
-        BaseMod.addCard(new Greedy());
-        BaseMod.addCard(new DarkEnchantment());
-        BaseMod.addCard(new Granted());
-        BaseMod.addCard(new Knowledge());
-        BaseMod.addCard(new AvertYourGaze());
-        BaseMod.addCard(new SlimeElixir());
+        BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        BaseMod.addRelic(new BucketOfSlime(), RelicType.SHARED);
+        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
+        BaseMod.addRelic(new Torch(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(Torch.ID);
+        BaseMod.addRelic(new Lucky(), RelicType.SHARED);
+        BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
+        BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);      
+        BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
+        BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
+        BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
+        BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
+        BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
+        BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
+        BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
+        BaseMod.addCard(new WindStrike());
     }
-
     @Override
     public void receiveAddAudio() {
         BaseMod.addAudio(WHARGH_KEY, WHARGH_OGG);

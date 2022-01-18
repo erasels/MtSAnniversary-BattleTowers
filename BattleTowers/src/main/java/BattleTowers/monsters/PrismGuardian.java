@@ -37,7 +37,7 @@ public class PrismGuardian extends CustomMonster {
     private static final byte STASIS = 1;
     private static final byte LASER = 2;
     private static final byte NULLBEAM = 3;
-    private static final int NULLBEAMTURN = 5;
+    private static final int NULLBEAMTURN = 4;
     private int count = 0;
     private boolean firstMove;
 
@@ -116,11 +116,13 @@ public class PrismGuardian extends CustomMonster {
                 this.firstMove = false;
             }
             else {
-                this.setMove(STASIS, Intent.STRONG_DEBUFF);
+                changeLaserDamage(0);
+                this.createIntent();
+                this.count++;
                 this.firstMove = false;
             }
         }
-        else if (this.count == NULLBEAMTURN){
+        else if (this.count >= NULLBEAMTURN){
             this.setMove(NULLBEAM, Intent.STRONG_DEBUFF);
             this.count = -1;
         }
