@@ -1,5 +1,6 @@
 package BattleTowers.monsters;
 
+import BattleTowers.powers.GrievousWoundsPower;
 import BattleTowers.util.UC;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
@@ -42,6 +43,9 @@ public class Romeo extends AbstractBTMonster {
     private static final int SMALL_DMG = 7;
     private static final int MED_DMG = 12;
     private static final int BLK = 8;
+    private static final int MHP_DEC = 3;
+
+    private boolean hadTalk1 = false, hadTalk2 = false;
 
     //TODO: Make transparent and give particle effect if kill bandits was chosen in Masked Bandits event
     public Romeo(final float x, final float y) {
@@ -87,8 +91,11 @@ public class Romeo extends AbstractBTMonster {
 
         switch (nextMove) {
             case GRIEVOUS_WOUNDS:
-                UC.atb(new TalkAction(this, DIALOG[0]));
-                //TODO: Add debuff that makes player lose amount max HP whenever they take unblocked attack damage
+                if(!hadTalk1) {
+                    UC.atb(new TalkAction(this, DIALOG[0]));
+                    hadTalk1 = true;
+                }
+                UC.doPow(this, UC.p(), new GrievousWoundsPower(UC.p(), calcAscensionSpecial(MHP_DEC)), false);
                 break;
             case SIDE_SLASH:
                 UC.atb(new ChangeStateAction(this, "SLASH"));
@@ -104,7 +111,10 @@ public class Romeo extends AbstractBTMonster {
                 }
                 break;
             case BUFF_SELF:
-                UC.atb(new TalkAction(this, DIALOG[1]));
+                if(!hadTalk2) {
+                    UC.atb(new TalkAction(this, DIALOG[1]));
+                    hadTalk2 = true;
+                }
                 UC.doPow(this, this, new StrengthPower(this, calcAscensionSpecial(2)), false);
         }
 
