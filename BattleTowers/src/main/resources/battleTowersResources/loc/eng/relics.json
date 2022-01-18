@@ -154,6 +154,11 @@
     "DESCRIPTIONS": ["At the start of every #bodd turn, deal #b"," damage to a random enemy.",
       "Damage dealt: "," NL Per combat: "," NL Per turn: "]
   },
+  "${ModID}:SweatyArmband": {
+    "NAME": "Sweaty Armband",
+    "FLAVOR": "No pain, no gain.",
+    "DESCRIPTIONS": ["Upon receiving attack damage, gain 1 Strength."]
+  },
     "${ModID}:JadeIdol": {
     "NAME": "Jade Idol",
     "FLAVOR": "Immaculately carved, and defying physics just one of these with little effort becomes very powerful given time.",
