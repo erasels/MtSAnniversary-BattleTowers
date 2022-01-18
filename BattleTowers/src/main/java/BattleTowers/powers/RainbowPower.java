@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.BufferPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import static BattleTowers.BattleTowers.makeID;
 
@@ -58,13 +59,13 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
     public void onAfterUseCard(AbstractCard card, UseCardAction action) {
         switch (card.type) {
             case POWER:
-                UC.doPow(owner, owner, new ExtraHitsPower(owner, 1), false);
+                UC.doPow(owner, owner, new BufferPower(owner, 1), false);
                 break;
             case SKILL:
                 UC.atb(new AddTemporaryHPAction(owner, owner, 4));
                 break;
             case ATTACK:
-                UC.doPow(owner, owner, new BufferPower(owner, 1), false);
+                UC.doPow(owner, owner, new StrengthPower(owner, 1), false);
         }
     }
 
