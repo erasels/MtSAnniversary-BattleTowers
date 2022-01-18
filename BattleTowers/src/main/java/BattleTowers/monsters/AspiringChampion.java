@@ -2,9 +2,11 @@ package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.powers.ClunkyPower;
+import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.MalleablePower;
 import com.megacrit.cardcrawl.powers.ReactivePower;
@@ -22,8 +24,9 @@ public class AspiringChampion extends AbstractBTMonster{
     public static final String[] DIALOG = monsterStrings.DIALOG;
     private static final int MAX_HEALTH = 225;
     private static final String IMG = BattleTowers.makeImagePath("monsters/AspiringChampion/AspiringChampion.png");
-    
-    
+    private static final String IMG_FALLEN = BattleTowers.makeImagePath("monsters/AspiringChampion/AspiringChampionFallen.png");
+    protected Texture imgFallen;
+    protected Texture imgUp;
     private static final byte COPYCAT_A = 0;
     private static final byte COPYCAT_B = 1;
     private static final byte HEAVY_BLOWS = 2;
@@ -42,6 +45,8 @@ public class AspiringChampion extends AbstractBTMonster{
         addMove(COPYCAT_B, Intent.ATTACK, calcAscensionDamage(0), 2);
         addMove(HEAVY_BLOWS, Intent.ATTACK, calcAscensionDamage(15), 2);
         addMove(RECOVER, Intent.BUFF);
+        imgFallen = ImageMaster.loadImage(IMG_FALLEN);
+        imgUp = ImageMaster.loadImage(IMG);
     }
     
     public void usePreBattleAction() {
@@ -50,7 +55,14 @@ public class AspiringChampion extends AbstractBTMonster{
     
     @Override
     public void takeTurn() {
-    
+        if(img == imgFallen)
+        {
+            img = imgUp;
+        }
+        else
+        {
+            img = imgFallen;
+        }
     }
     
     @Override
