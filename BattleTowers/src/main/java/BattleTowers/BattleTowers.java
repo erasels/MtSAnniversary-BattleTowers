@@ -175,6 +175,12 @@ public class BattleTowers implements
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
         BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
         BaseMod.addMonster(Romeo.ID, (BaseMod.GetMonster) Romeo::new);
+        BaseMod.addMonster(Encounters.RAINBOW_LOUSES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new RainbowLouse(-400.0F, 25.0F),
+                        new RainbowLouse(-125.0F, 10.0F),
+                        new RainbowLouse(120.0F, 30.0F)
+                }));
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -360,7 +366,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
         BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
-        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);      
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
@@ -370,6 +376,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
         BaseMod.addRelic(new SweatyArmband(), RelicType.SHARED);
         BaseMod.addRelic(new QueensPawn(), RelicType.SHARED);
+        BaseMod.addRelic(new ScaryNail(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
@@ -397,7 +404,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
         BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
-        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);      
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);

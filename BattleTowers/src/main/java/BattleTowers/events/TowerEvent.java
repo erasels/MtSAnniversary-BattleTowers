@@ -59,7 +59,7 @@ public class TowerEvent extends PhasedEvent {
 
         for (int i = 0; i < NUM_OPTIONS; ++i) {
             BattleTower t = new BattleTower(room.towerRng);
-            choice.addOption(OPTIONS[0] + " " + t.getTitle(), (index)->{
+            choice.addOption(OPTIONS[0], (index)->{
                 this.tower = t;
                 this.mapHandler.setTower(t, room.towerRng);
                 this.transitionKey(MAP_PHASE);

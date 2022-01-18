@@ -366,16 +366,16 @@ public class GrantedAction extends AbstractGameAction {
                 if (addSuperMultiple) {
                     for (int i = 0; i < 10; i++) {
                         finalList.add(card);
-                        System.out.println(card.name);
+                        //System.out.println(card.name);
                     }
                 } else if (addMultiple) {
                     for (int i = 0; i < 5; i++) {
                         finalList.add(card);
-                        System.out.println(card.name);
+                        //System.out.println(card.name);
                     }
                 } else {
                     finalList.add(card);
-                    System.out.println(card.name);
+                    //System.out.println(card.name);
                 }
             }
         }
@@ -459,9 +459,9 @@ public class GrantedAction extends AbstractGameAction {
                 }
             }
         }
-        System.out.println("Total incoming damage of " + totalDamage + " with " + numHits + " hits");
+        //System.out.println("Total incoming damage of " + totalDamage + " with " + numHits + " hits");
         int playerTotalMitigation = AbstractDungeon.player.currentBlock + TempHPField.tempHp.get(AbstractDungeon.player);
-        System.out.println("Total player mitigation: " + playerTotalMitigation);
+        //System.out.println("Total player mitigation: " + playerTotalMitigation);
     }
 
     private boolean isLethal(AbstractCard card) {

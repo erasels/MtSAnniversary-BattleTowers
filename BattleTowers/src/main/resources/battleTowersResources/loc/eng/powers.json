@@ -310,5 +310,17 @@
     "DESCRIPTIONS": [
       "Whenever this creature takes less than #b%d unblocked attack damage, it attacks for #b%d."
     ]
+  },
+  "${ModID}:RainbowPower": {
+    "NAME": "Rainbow Power",
+    "DESCRIPTIONS": [
+      "Whenever you play a card, gains a buff depending on the type. NL #rAttack: #b1 #yStrength NL #gSkill: #b4 #yTemp. #yHP NL #bPower: #b1 #yBuffer"
+    ]
+  },
+  "${ModID}:ExtraHitsPower": {
+    "NAME": "Struggling",
+    "DESCRIPTIONS": [
+      "When this creature intends to attack, it will attack #b"," additional time."," additional times."
+    ]
   }
 }

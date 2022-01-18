@@ -81,7 +81,15 @@
   },
   "${ModID}:WindStrike": {
     "NAME": "Wind Strike",
-    "DESCRIPTION": "*Choose *One - Deal !D! damage, Gain !B! Block or shuffle a copy of this into your draw pile. NL Each *Wind *Strike increases the damage and block gain by !M!"
+    "DESCRIPTION": "*Choose *One - Deal !D! damage Gain !B! Block or shuffle a copy of this into your draw pile. NL Each *Wind *Strike increases the damage and block gain by !M!"
+  },
+  "${ModID}:RazorWind": {
+    "NAME": "Razor Wind",
+    "DESCRIPTION": "Deal !D! damage NL Gain !B! Block."
+  },
+  "${ModID}:Stormfront": {
+    "NAME": "Stormfront",
+    "DESCRIPTION": "Shuffle a *Wind *Strike into your draw pile."
   },
   "${ModID}:Knowledge": {
     "NAME": "Wish for Knowledge",
