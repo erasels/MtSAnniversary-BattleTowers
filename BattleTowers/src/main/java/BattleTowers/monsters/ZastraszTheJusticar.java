@@ -69,7 +69,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(13));
         addMove(SOLEMNVIGIL,Intent.DEFEND_BUFF);
         addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(7),2);
-        addMove(DIVINESTORM,Intent.ATTACK,calcAscensionDamage(3),6);
+        addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(3),6);
         addMove(TRIALBYFIRE,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -168,6 +168,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
                         break;
                     }
                 }
