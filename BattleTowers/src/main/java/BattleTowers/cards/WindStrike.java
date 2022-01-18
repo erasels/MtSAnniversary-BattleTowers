@@ -1,5 +1,7 @@
 package BattleTowers.cards;
 
+import BattleTowers.cards.WindStrikeModes.RazorWind;
+import BattleTowers.cards.WindStrikeModes.Stormfront;
 import BattleTowers.powers.PawnBuffPower;
 import basemod.abstracts.CustomCard;
 import basemod.helpers.ModalChoice;
@@ -9,6 +11,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
+import com.megacrit.cardcrawl.actions.watcher.ChooseOneAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -17,11 +20,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeCardPath;
-public class WindStrike extends CustomCard implements ModalChoice.Callback {
+public class WindStrike extends CustomCard {
     public static final String ID = makeID(WindStrike.class.getSimpleName());
     public static final String NAME;
     public static final String DESCRIPTION;
@@ -32,7 +36,6 @@ public class WindStrike extends CustomCard implements ModalChoice.Callback {
     private static final CardStrings cardStrings;
     private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
-    private ModalChoice modal;
     static {
         cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
         NAME = cardStrings.NAME;
@@ -45,22 +48,13 @@ public class WindStrike extends CustomCard implements ModalChoice.Callback {
         baseDamage = damage = 4;
         baseBlock = block = 4;
         magicNumber = baseMagicNumber = 3;
-        modal = new ModalChoiceBuilder()
-                .setCallback(this)
-                .setColor(CardColor.COLORLESS)
-                .setTitle("Razor Wind")
-                .addOption("Deal " + (damage) + " damage increased by 3 for each Wind Strike",CardTarget.ENEMY)
-                .setColor(CardColor.COLORLESS)
-                .setTitle("Tranquility")
-                .addOption("Gain " + (block) + " Block increased by 3 for each Wind Strike",CardTarget.SELF)
-                .setColor(CardColor.COLORLESS)
-                .setTitle("Storm Front")
-                .addOption("Shuffle a copy of this into your draw pile",CardTarget.SELF)
-                .create();
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        modal.open();
+        ArrayList<AbstractCard> choices = new ArrayList<>();
+        choices.add(new RazorWind(damage,block,m));
+        choices.add(new Stormfront());
+        addToBot(new ChooseOneAction(choices));
     }
 
     public AbstractCard makeCopy() {
@@ -73,22 +67,6 @@ public class WindStrike extends CustomCard implements ModalChoice.Callback {
             upgradeMagicNumber(1);
             upgradeDamage(1);
             upgradeBlock(1);
-        }
-    }
-    @Override
-    public void optionSelected(AbstractPlayer abstractPlayer, AbstractMonster abstractMonster, int i) {
-        switch (i) {
-            case 0:
-                addToBot(new DamageAction(abstractMonster,new DamageInfo(abstractPlayer,damage+(magicNumber*countCards()), DamageInfo.DamageType.NORMAL)));
-                break;
-            case 1:
-                addToBot(new GainBlockAction(abstractPlayer,block+(magicNumber*countCards())));
-                break;
-            case 2:
-                addToBot(new MakeTempCardInDrawPileAction(this.makeStatEquivalentCopy(),1,true,false));
-                break;
-                default:
-                    return;
         }
     }
     public void applyPowers() {
