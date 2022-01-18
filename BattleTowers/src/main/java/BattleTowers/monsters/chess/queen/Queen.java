@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.status.VoidCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -53,9 +54,9 @@ public class Queen extends AbstractCardChessMonster {
     private int turn = 1;
 
     public final int willDamage = calcAscensionDamage(5);
-    public final int willStrength = 1;
+    public final int willStrength = 2;
 
-    public final int waveDamage = calcAscensionDamage(15);
+    public final int waveDamage = calcAscensionDamage(30);
     public final int marchDamage = calcAscensionDamage(20);
 
     public final int protectionBlock = calcAscensionTankiness(15);
@@ -80,7 +81,7 @@ public class Queen extends AbstractCardChessMonster {
         addMove(MIMIC_WHITE, Intent.UNKNOWN);
         addMove(DRAIN_OF_COLOUR, IntentEnums.QUEEN_DRAIN_ATTACK, waveDamage);
         addMove(MIMIC_INVERT, Intent.UNKNOWN);
-        addMove(QUEENS_PROTECTION, Intent.DEFEND, protectionBlock);
+        addMove(QUEENS_PROTECTION, Intent.DEFEND_DEBUFF, protectionBlock);
         addMove(QUEENS_MARCH, Intent.ATTACK, marchDamage);
     }
 
@@ -146,6 +147,7 @@ public class Queen extends AbstractCardChessMonster {
             }
             case QUEENS_PROTECTION: {
                 atb(new GainBlockAction(this, protectionBlock));
+                atb(new MakeTempCardInDrawPileAction(new VoidCard(), 1, true, false));
                 break;
             }
             case QUEENS_MARCH: {
