@@ -169,7 +169,7 @@ public class BattleTower {
                 .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
                 .addBoss(AlphabetBoss.ID, (room)->{}) //This one's kinda fucked and would be a pain to separate from the enemy
                 .addBoss(Queen.ID, randomRelic(AbstractRelic.RelicTier.RARE))
-                .addBoss(Necrototem.ID, randomRelic(AbstractRelic.RelicTier.RARE))
+                .addBoss(Necrototem.ID, addReward(ScaryNail::new))
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
