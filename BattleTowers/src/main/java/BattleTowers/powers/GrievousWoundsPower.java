@@ -32,10 +32,11 @@ public class GrievousWoundsPower extends AbstractBTPower {
     }
 
     @Override
-    public float atDamageFinalReceive(float damage, DamageInfo.DamageType type) {
-        if (damage > 0 && type != DamageInfo.DamageType.THORNS && type != DamageInfo.DamageType.HP_LOSS) {
+    public int onAttacked(DamageInfo info, int damageAmount) {
+        if (damageAmount > 0 && info.type != DamageInfo.DamageType.THORNS && info.type != DamageInfo.DamageType.HP_LOSS) {
+            flashWithoutSound();
             UC.atb(new DecreaseMaxHPAction(owner, amount));
         }
-        return super.atDamageFinalReceive(damage, type);
+        return super.onAttacked(info, damageAmount);
     }
 }
