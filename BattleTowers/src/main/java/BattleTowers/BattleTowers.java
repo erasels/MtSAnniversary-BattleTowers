@@ -49,8 +49,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
-import static basemod.BaseMod.addMonster;
-
 @SpireInitializer
 public class BattleTowers implements
         PostInitializeSubscriber,
@@ -162,12 +160,7 @@ public class BattleTowers implements
                         new Cawcawrot(-250.0F, 0.0F),
                         new Veggieta(100.0F, 0.0F)
                 }));
-        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
-            @Override
-            public AbstractMonster get() {
-                return new CardboardGolem();
-            }
-        });
+        BaseMod.addMonster(makeID("CardboardGolem"), () -> new CardboardGolem());
         BaseMod.addMonster(Encounters.CULTIST_ARMORER, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new CultistArmorer(-250.0F, 0.0F),
@@ -181,6 +174,7 @@ public class BattleTowers implements
                 }));
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
         BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
+        BaseMod.addMonster(Romeo.ID, (BaseMod.GetMonster) Romeo::new);
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
