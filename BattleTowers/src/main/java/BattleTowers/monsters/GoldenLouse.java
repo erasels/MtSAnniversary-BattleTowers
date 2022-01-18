@@ -55,8 +55,8 @@ public class GoldenLouse extends AbstractBTMonster {
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));
         addMove(BITE, Intent.ATTACK_DEBUFF, calcAscensionDamage(BITE_DAMAGE));
-        addMove(BUFF, Intent.BUFF);
-        addMove(HEAL, Intent.MAGIC);
+        addMove(BUFF, Intent.MAGIC);
+        addMove(HEAL, Intent.BUFF);
     }
 
     public void usePreBattleAction() {
@@ -106,7 +106,6 @@ public class GoldenLouse extends AbstractBTMonster {
                 for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
                     addToBot(new ApplyPowerAction(m, this, new BufferPower(m, BUFF_AMOUNT)));
                 }
-                addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
                 break;
             }
             case HEAL: {

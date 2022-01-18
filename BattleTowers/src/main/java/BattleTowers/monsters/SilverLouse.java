@@ -101,7 +101,6 @@ public class SilverLouse extends AbstractBTMonster {
                     addToBot(new WaitAction(0.9F));
                 }
                 addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, STR_AMOUNT)));
-                addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
                 break;
             }
             case SCRATCH: {
