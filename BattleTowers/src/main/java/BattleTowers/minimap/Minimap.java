@@ -302,86 +302,52 @@ public class Minimap {
                         }
                     }
 
-                    if (hovered == null && !map.isEmpty()) {
-                        //set to center node of current available nodes
+                    if (hovered == null && !available.isEmpty()) {
+                        //nothing currently hovered, set to a "default" from available nodes
+                        //should be the middle of the lowest available nodes
+                        List<MinimapNode> sorted = organize(available);
+
+                        hovered = sorted.get(sorted.size() / 2);
+                        Gdx.input.setCursorPosition((int)hovered.hb.cX, Settings.HEIGHT - (int)hovered.hb.cY);
                     }
-                    //TODO TODO TODO
-                    /*
-                    ArrayList<MapRoomNode> nodes = new ArrayList();// 182
-                    Iterator var2;
-                    MapRoomNode n;
-                    if (!AbstractDungeon.firstRoomChosen) {// 183
-                        var2 = this.visibleMapNodes.iterator();// 184
-
-                        while(var2.hasNext()) {
-                            n = (MapRoomNode)var2.next();
-                            if (n.y == 0) {// 185
-                                nodes.add(n);// 186
-                            }
+                    else if (!available.isEmpty()) {
+                        //check currently hovered
+                        if (CInputActionSet.right.isJustPressed() || CInputActionSet.altRight.isJustPressed()) {
+                            List<MinimapNode> sorted = organize(available);
+                            hovered = sorted.get((sorted.indexOf(hovered) + 1) % sorted.size());
+                            Gdx.input.setCursorPosition((int)hovered.hb.cX, Settings.HEIGHT - (int)hovered.hb.cY);
                         }
-                    } else {
-                        var2 = this.visibleMapNodes.iterator();// 190
-
-                        label116:
-                        while(true) {
-                            boolean flightMatters;
-                            do {
-                                if (!var2.hasNext()) {
-                                    break label116;
-                                }
-
-                                n = (MapRoomNode)var2.next();
-                                flightMatters = AbstractDungeon.player.hasRelic("WingedGreaves") || ModHelper.isModEnabled("Flight");// 191
-                            } while(!AbstractDungeon.currMapNode.isConnectedTo(n) && (!flightMatters || !AbstractDungeon.currMapNode.wingedIsConnectedTo(n)));// 193 194
-
-                            nodes.add(n);// 195
+                        else if (CInputActionSet.left.isJustPressed() || CInputActionSet.altLeft.isJustPressed()) {
+                            List<MinimapNode> sorted = organize(available);
+                            int index = sorted.indexOf(hovered) - 1;
+                            if (index < 0)
+                                index = sorted.size() - 1;
+                            hovered = sorted.get(index);
+                            Gdx.input.setCursorPosition((int)hovered.hb.cX, Settings.HEIGHT - (int)hovered.hb.cY);
                         }
                     }
-
-                    boolean anyHovered = false;// 200
-                    int index = 0;// 201
-
-                    for(Iterator var8 = nodes.iterator(); var8.hasNext(); ++index) {// 202 207
-                        MapRoomNode n = (MapRoomNode)var8.next();
-                        if (n.hb.hovered) {// 203
-                            anyHovered = true;// 204
-                            break;// 205
-                        }
+                    else {
+                        hovered = null;
                     }
-
-                    if (!anyHovered && this.mapNodeHb == null && !nodes.isEmpty()) {// 211
-                        Gdx.input.setCursorPosition((int)((MapRoomNode)nodes.get(nodes.size() / 2)).hb.cX, Settings.HEIGHT - (int)((MapRoomNode)nodes.get(nodes.size() / 2)).hb.cY);// 212 213 214
-                        this.mapNodeHb = ((MapRoomNode)nodes.get(nodes.size() / 2)).hb;// 215
-                    } else if (!anyHovered && nodes.isEmpty()) {// 218
-                        Gdx.input.setCursorPosition((int)AbstractDungeon.dungeonMapScreen.map.bossHb.cX, Settings.HEIGHT - (int)AbstractDungeon.dungeonMapScreen.map.bossHb.cY);// 219
-                        this.mapNodeHb = null;// 222
-                    } else if (!CInputActionSet.left.isJustPressed() && !CInputActionSet.altLeft.isJustPressed()) {// 226
-                        if (CInputActionSet.right.isJustPressed() || CInputActionSet.altRight.isJustPressed()) {// 236
-                            ++index;// 237
-                            if (index > nodes.size() - 1) {// 238
-                                index = 0;// 239
-                            }
-
-                            Gdx.input.setCursorPosition((int)((MapRoomNode)nodes.get(index)).hb.cX, Settings.HEIGHT - (int)((MapRoomNode)nodes.get(index)).hb.cY);// 241 242 243
-                            this.mapNodeHb = ((MapRoomNode)nodes.get(index)).hb;// 244
-                        }
-                    } else {
-                        --index;// 227
-                        if (index < 0) {// 228
-                            index = nodes.size() - 1;// 229
-                        }
-
-                        Gdx.input.setCursorPosition((int)((MapRoomNode)nodes.get(index)).hb.cX, Settings.HEIGHT - (int)((MapRoomNode)nodes.get(index)).hb.cY);// 231 232 233
-                        this.mapNodeHb = ((MapRoomNode)nodes.get(index)).hb;// 235
-                    }*/
-
-                } else {
+                } else { //up/down scroll control
                     this.targetOffsetY -= Settings.SCROLL_SPEED * 4.0F;
                 }
             } else {
                 this.targetOffsetY += Settings.SCROLL_SPEED * 4.0F;
             }
         }
+    }
+
+    private List<MinimapNode> organize(Set<MinimapNode> available) {
+        List<MinimapNode> sorted = new ArrayList<>(available);
+        sorted.sort((a, b)->{
+            int result = Integer.compare(a.mapY, b.mapY);
+            if (result == 0) {
+                return Integer.compare(a.mapX, b.mapX);
+            }
+            return result;
+        });
+        return sorted;
     }
 
     public void render(SpriteBatch sb) {
