@@ -156,6 +156,7 @@ public class BattleTower {
                 .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
+                .addNormalEncounter(Romeo.ID)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
                 .addEliteEncounter(VoodooDoll.ID, addReward(CursedDoll::new))
                 .addEliteEncounter(GiantArm.ID, randomRelic(AbstractRelic.RelicTier.UNCOMMON))

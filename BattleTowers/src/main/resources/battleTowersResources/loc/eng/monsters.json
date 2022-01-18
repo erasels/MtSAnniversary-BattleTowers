@@ -412,5 +412,16 @@
     "NAME": "Horde of Louse",
     "DIALOG" : [],
     "MOVES": []
+  },
+  "${ModID}:Romeo": {
+    "NAME": "Romeo",
+    "DIALOG" : ["You'll regret taking facing me, @chump@ !",
+      "Heh, can't embarrass myself when Bear's watching...",
+      "~I'm~ ~here~ ~for~ #r@payback@"
+    ],
+    "MOVES": ["Training Montage",
+    "High Stakes",
+    "Chump Prodder",
+    "Shank Time"]
   }
 }

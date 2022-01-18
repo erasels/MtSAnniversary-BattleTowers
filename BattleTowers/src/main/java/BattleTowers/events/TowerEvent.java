@@ -42,7 +42,7 @@ public class TowerEvent extends PhasedEvent {
     private static final String MAP_PHASE = "MAP";
     private static final String CHEST_PHASE = "CHEST";
 
-    private static final int NUM_OPTIONS = 3; //it seems like it'll probably just be 1.
+    private static final int NUM_OPTIONS = 1; //it seems like it'll probably just be 1.
     public int chosenTower = -1; //For saving?
     public List<Pair<Integer, Integer>> pathTaken = new ArrayList<>();
     private boolean finishedRoom = false; //For loading
