@@ -148,6 +148,7 @@ public class BattleTower {
                 .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
+                .addNormalEncounter(Romeo.ID)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
                 .addEliteEncounter(VoodooDoll.ID)
                 .addEliteEncounter(GiantArm.ID)
