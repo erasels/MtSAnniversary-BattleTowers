@@ -157,7 +157,7 @@
   "${ModID}:SweatyArmband": {
     "NAME": "Sweaty Armband",
     "FLAVOR": "No pain, no gain.",
-    "DESCRIPTIONS": ["Upon receiving attack damage, gain 1 Strength."]
+    "DESCRIPTIONS": ["Upon receiving unblocked attack damage, gain 1 Strength."]
   },
     "${ModID}:JadeIdol": {
     "NAME": "Jade Idol",
@@ -171,6 +171,13 @@
     "FLAVOR": "Just a shard of the Justicar's power, seems offence will be rewarded by his divine.",
     "DESCRIPTIONS": [
       "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
+    ]
+  },
+  "${ModID}:QueensPawn": {
+    "NAME": "Queen's Pawn",
+    "FLAVOR": "The most important and loyal of pieces.",
+    "DESCRIPTIONS": [
+      "If the first and last card you play in a turn is an attack, deal 5 damage to a random enemy. NL If the first and last card you play in a turn is a skill, gain 5 block."
     ]
   }
 }

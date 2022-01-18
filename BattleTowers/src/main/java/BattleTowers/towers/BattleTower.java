@@ -159,7 +159,7 @@ public class BattleTower {
                 .addNormalEncounter(Romeo.ID)
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
                 .addEliteEncounter(VoodooDoll.ID, addReward(CursedDoll::new))
-                .addEliteEncounter(GiantArm.ID, randomRelic(AbstractRelic.RelicTier.UNCOMMON))
+                .addEliteEncounter(GiantArm.ID, addReward(SweatyArmband::new))
                 .addEliteEncounter(Gorgon.ID, addReward(GorgonHead::new))
                 .addEliteEncounter(GigaSlime.ID, addReward(SlimeFilledFlask::new))
                 .addEliteEncounter(ItozusTheWindwalker.ID, randomRelic(AbstractRelic.RelicTier.UNCOMMON))
@@ -168,7 +168,7 @@ public class BattleTower {
                 .addBoss(ExecutiveSlime.ID, addReward(BucketOfSlime::new))
                 .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
                 .addBoss(AlphabetBoss.ID, (room)->{}) //This one's kinda fucked and would be a pain to separate from the enemy
-                .addBoss(Queen.ID, randomRelic(AbstractRelic.RelicTier.RARE))
+                .addBoss(Queen.ID, addReward(QueensPawn::new))
                 .addBoss(Necrototem.ID, randomRelic(AbstractRelic.RelicTier.RARE))
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
