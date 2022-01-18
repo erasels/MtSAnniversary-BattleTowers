@@ -2,22 +2,21 @@ package BattleTowers.monsters;
 
 import BattleTowers.powers.AgainstTheWhirlwindPower;
 import BattleTowers.powers.GatheringStormPower;
-import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.TemporaryDeEnergizePower;
-import BattleTowers.relics.CardboardHeart;
-import BattleTowers.relics.JadeIdol;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.*;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.*;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 
@@ -80,7 +79,6 @@ public class ItozusTheWindwalker extends AbstractBTMonster {
     public void usePreBattleAction() {
        addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new AgainstTheWhirlwindPower(AbstractDungeon.player)));
         addToBot(new ApplyPowerAction(this,this,new GatheringStormPower(this)));
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new JadeIdol()));
     }
     @Override
     public void takeTurn() {

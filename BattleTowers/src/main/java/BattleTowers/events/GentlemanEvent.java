@@ -32,7 +32,7 @@ public class GentlemanEvent extends PhasedEvent {
                 if (i != words.length-1){
                     newRelicName.append(" ");
                 }
-                System.out.println(newRelicName);
+                //System.out.println(newRelicName);
             }
             relicName = newRelicName.toString();
         }
