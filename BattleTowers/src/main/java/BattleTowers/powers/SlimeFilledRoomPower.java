@@ -33,7 +33,7 @@ public class SlimeFilledRoomPower extends AbstractPower {
 
     @Override
     public void onInitialApplication() {
-        int slimes = (int)AbstractDungeon.player.masterDeck.group.stream().filter(c -> c.rarity != AbstractCard.CardRarity.CURSE && c.rarity != AbstractCard.CardRarity.BASIC).count();
+        int slimes = AbstractDungeon.player.masterDeck.group.size() / 2;
         int slimesPerBatch = 5;
         while (slimes > 0) {
             this.addToBot(new MakeTempCardInDrawPileAction(new Slimed(), Math.min(slimes, slimesPerBatch), true, true));
