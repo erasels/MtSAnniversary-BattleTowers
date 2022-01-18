@@ -17,7 +17,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
-import com.megacrit.cardcrawl.powers.NoBlockPower;
+import com.megacrit.cardcrawl.powers.WeakPower;
 
 import java.util.ArrayList;
 
@@ -43,26 +43,25 @@ public class RainbowLouse extends AbstractBTMonster {
     private static final String REAR = "REAR";
 
     //Monster stats
-    private static final int MIN_HP = 6;
-    private static final int MAX_HP = 8;
-    private static final int STRUGGLE_DAMAGE = 4;
+    private static final int MIN_HP = 17;
+    private static final int MAX_HP = 23;
+    private static final int STRUGGLE_DAMAGE = 2;
     private static final int BASE_STRUGGLE_HITS = 2;
     private final int STR_AMOUNT = calcAscensionSpecial(1);
-    private final int DEBUFF_AMOUNT = calcAscensionSpecial(1);
+    private final int DEBUFF_AMOUNT = 1;
     private boolean didDebuff;
     private final int timerOffset;
 
 
-
     public RainbowLouse(final float x, final float y) {
-        super(NAME, ID, 1, 0.0F, 0.0f, 180.0F/0.8F, 140.0F/0.8F, null, x, y);
+        super(NAME, ID, 1, 0.0F, 0.0f, 180.0F / 0.8F, 140.0F / 0.8F, null, x, y);
         this.loadAnimation("battleTowersResources/img/monsters/Louses/WhiteLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/WhiteLouse/skeleton.json", 0.8F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));
         addMove(BUFF, Intent.BUFF);
         addMove(STRUGGLE, Intent.ATTACK, calcAscensionDamage(STRUGGLE_DAMAGE));
-        addMove(DEBUFF, Intent.STRONG_DEBUFF);
+        addMove(DEBUFF, Intent.DEBUFF);
         timerOffset = AbstractDungeon.miscRng.random(0, 5000);
     }
 
@@ -83,7 +82,7 @@ public class RainbowLouse extends AbstractBTMonster {
         DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
         int multiplier = this.moves.get(nextMove).multiplier;
 
-        if(info.base > -1) {
+        if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
 
@@ -120,7 +119,7 @@ public class RainbowLouse extends AbstractBTMonster {
                     addToBot(new ChangeStateAction(this, REAR_IDLE));
                     addToBot(new WaitAction(0.9F));
                 }
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new NoBlockPower(AbstractDungeon.player, DEBUFF_AMOUNT, true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, DEBUFF_AMOUNT, true)));
                 break;
             }
         }
@@ -137,8 +136,8 @@ public class RainbowLouse extends AbstractBTMonster {
             if (!this.lastMove(BUFF) && !this.lastMove(DEBUFF)) {
                 possibilities.add(BUFF);
             }
-            possibilities.add(STRUGGLE);
         }
+        possibilities.add(STRUGGLE);
 
         //randomly choose one with each possibility having equal weight
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
@@ -184,21 +183,13 @@ public class RainbowLouse extends AbstractBTMonster {
     public void render(SpriteBatch sb) {
         if (!isDeadOrEscaped()) {
             this.tint.color.set(
-                    (MathUtils.cosDeg((float)((System.currentTimeMillis() + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
-                    (MathUtils.cosDeg((float)((System.currentTimeMillis() + 1000L + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
-                    (MathUtils.cosDeg((float)((System.currentTimeMillis() + 2000L + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
+                    (MathUtils.cosDeg((float) ((System.currentTimeMillis() + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
+                    (MathUtils.cosDeg((float) ((System.currentTimeMillis() + 1000L + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
+                    (MathUtils.cosDeg((float) ((System.currentTimeMillis() + 2000L + timerOffset) / 10L % 360L)) + 1.25F) / 2.3F,
                     this.tint.color.a);
         } else {
             this.tint.color.set(1.0F, 1.0F, 1.0F, this.tint.color.a);
         }
         super.render(sb);
-    }
-
-    @Override
-    public void damage(DamageInfo info) {
-        if (info.output > 1 && hasPower(RainbowPower.POWER_ID)) {
-            info.output = 1;
-        }
-        super.damage(info);
     }
 }

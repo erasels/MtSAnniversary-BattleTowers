@@ -1,10 +1,7 @@
 package BattleTowers.cards.WindStrikeModes;
 
-import BattleTowers.cards.WindStrike;
 import basemod.AutoAdd;
 import basemod.abstracts.CustomCard;
-import basemod.helpers.ModalChoice;
-import basemod.helpers.ModalChoiceBuilder;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -19,7 +16,7 @@ import static BattleTowers.BattleTowers.makeCardPath;
 import static BattleTowers.BattleTowers.makeID;
 @AutoAdd.Ignore
 public class RazorWind extends CustomCard {
-    public static final String ID = makeID(WindStrike.class.getSimpleName());
+    public static final String ID = makeID(RazorWind.class.getSimpleName());
     public static final String NAME;
     public static final String DESCRIPTION;
     public static final String IMG_PATH = makeCardPath("PawnsAdvance.png");
