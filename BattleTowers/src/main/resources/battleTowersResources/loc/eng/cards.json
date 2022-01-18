@@ -85,11 +85,11 @@
   },
   "${ModID}:RazorWind": {
     "NAME": "Razor Wind",
-    "DESCRIPTION": "Deal !D! damage NL Gain !B! Block NL Each *Wind *Strike increases the damage and block gain by !M!"
+    "DESCRIPTION": "Deal !D! damage NL Gain !B! Block."
   },
   "${ModID}:Stormfront": {
     "NAME": "Stormfront",
-    "DESCRIPTION": "Shuffle a #yRazor #yWind into your draw pile."
+    "DESCRIPTION": "Shuffle a *Wind *Strike into your draw pile."
   },
   "${ModID}:Knowledge": {
     "NAME": "Wish for Knowledge",
