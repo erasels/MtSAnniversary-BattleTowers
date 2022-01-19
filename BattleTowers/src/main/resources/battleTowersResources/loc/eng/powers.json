@@ -165,7 +165,7 @@
   "${ModID}:InquisitorPower": {
     "NAME": "Inquisitor",
     "DESCRIPTIONS": [
-      "Zarstrasz applies #yJudgement to the player, #yJudgment will grant Zarstrasz up to #b2 additional actions each turn."
+      "Whenever Zarstrasz deals #b%d unblocked attack damage, it gains an additional action every turn for the rest of combat. (Up to 2)"
     ]
   },
   "${ModID}:JudgementPower": {
