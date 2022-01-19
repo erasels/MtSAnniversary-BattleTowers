@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.BufferPower;
+import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -25,6 +26,10 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
     public static final String NAME = powerStrings.NAME;
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     private final int timerOffset;
+
+    private static final int BUFFER = 1;
+    private static final int STR = 2;
+    private static final int TEMP_HP = 3;
 
     public RainbowPower(AbstractCreature owner) {
         this(owner, AbstractDungeon.miscRng.random(0, 5000));
@@ -40,7 +45,7 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
         this.timerOffset = timerOffset;
     }
     public void updateDescription() {
-        description = DESCRIPTIONS[0];
+        description = String.format(DESCRIPTIONS[0], STR, TEMP_HP, BUFFER);
     }
 
     @Override
@@ -59,13 +64,14 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
     public void onAfterUseCard(AbstractCard card, UseCardAction action) {
         switch (card.type) {
             case POWER:
-                UC.doPow(owner, owner, new BufferPower(owner, 1), false);
+                UC.doPow(owner, owner, new BufferPower(owner, BUFFER), false);
                 break;
             case SKILL:
-                UC.atb(new AddTemporaryHPAction(owner, owner, 4));
+                UC.atb(new AddTemporaryHPAction(owner, owner, TEMP_HP));
                 break;
             case ATTACK:
-                UC.doPow(owner, owner, new StrengthPower(owner, 1), false);
+                UC.doPow(owner, owner, new StrengthPower(owner, STR), false);
+                UC.doPow(owner, owner, new LoseStrengthPower(owner, STR), false);
         }
     }
 
