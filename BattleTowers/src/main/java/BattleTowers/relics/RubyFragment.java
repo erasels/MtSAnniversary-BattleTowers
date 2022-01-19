@@ -18,20 +18,29 @@ public class RubyFragment extends CustomRelic {
     public RubyFragment() {
         super(ID, TextureLoader.getTexture(makeRelicPath("RubyFragment.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
-        counter = 0;
+        counter = -1;
     }
     public void atBattleStart() {
         counter = 0;
         usedUp = false;
     }
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        counter += damageAmount;
+        if(!usedUp)
+            counter += damageAmount;
         if (counter > 15 && !usedUp){
             addToBot(new GainEnergyAction(1));
             addToBot(new DrawCardAction(2));
             usedUp = true;
+            counter = -1;
+            grayscale = true;
         }
     }
+
+    @Override
+    public void onVictory() {
+        grayscale = false;
+    }
+
     @Override
     public String getUpdatedDescription() {
         return DESCRIPTIONS[0];
