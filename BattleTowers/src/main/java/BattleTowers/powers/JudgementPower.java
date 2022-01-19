@@ -56,7 +56,7 @@ public class JudgementPower extends TwoAmountPower implements CloneablePowerInte
 
     @Override
     public void updateDescription() {
-        this.description = DESCRIPTIONS[0] + amount + DESCRIPTIONS[1] + amount + DESCRIPTIONS[2] + DESCRIPTIONS[3];
+        this.description = DESCRIPTIONS[0] + amount2 + DESCRIPTIONS[1] + amount2 + DESCRIPTIONS[2] + DESCRIPTIONS[3];
     }
 
     @Override
