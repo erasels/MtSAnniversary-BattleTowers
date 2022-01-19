@@ -23,7 +23,7 @@ public class JadeIdol extends CustomRelic {
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
     public JadeIdol() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("Lucky.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("JadeIdol.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
     }
 
