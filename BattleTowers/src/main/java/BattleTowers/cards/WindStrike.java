@@ -54,12 +54,14 @@ public class WindStrike extends CustomCard {
         return new WindStrike();
     }
 
+    @Override
+    public boolean canUpgrade() {
+        return false;
+    }
+
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
-            upgradeDamage(1);
-            upgradeBlock(1);
         }
     }
     public void applyPowers() {
