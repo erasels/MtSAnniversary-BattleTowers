@@ -308,7 +308,7 @@
   "${ModID}:Counter": {
     "NAME": "Counter",
     "DESCRIPTIONS": [
-      "Whenever this creature takes less than #b%d unblocked attack damage, it attacks for #b%d."
+      "Whenever this creature takes less than #b%d unblocked damage from an attack, it attacks for #b%d."
     ]
   },
   "${ModID}:RainbowPower": {
