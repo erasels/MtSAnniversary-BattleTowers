@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.cards.green.Dash;
 import com.megacrit.cardcrawl.cards.purple.ForeignInfluence;
 import com.megacrit.cardcrawl.cards.red.Uppercut;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.RelicStrings;
@@ -115,6 +116,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
         if (letter != "") {
             if (c.name.toLowerCase().startsWith(letter.toLowerCase()) || realCheck(c, letter)) {
                 flash();
+                atb(new GainBlockAction(AbstractDungeon.player, 2));
                 atb(new GainEnergyAction(1));
             }
         }
