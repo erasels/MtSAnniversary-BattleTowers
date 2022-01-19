@@ -413,6 +413,13 @@ public class BattleTowers implements
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
         BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
         BaseMod.addCard(new WindStrike());
+        BaseMod.addCard(new PawnsAdvance());
+        BaseMod.addCard(new KnightsManeuver());
+        BaseMod.addCard(new BishopsPrayer());
+        BaseMod.addCard(new RooksCharge());
+        BaseMod.addCard(new KingsCommand());
+        BaseMod.addCard(new QueensGrace());
+
     }
     @Override
     public void receiveAddAudio() {
