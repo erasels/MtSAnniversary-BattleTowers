@@ -124,7 +124,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             }
             case TRIALBYFIRE:{
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(5))));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(2), true)));
                 break;
             }
         }
