@@ -16,7 +16,7 @@ public class RubyFragment extends CustomRelic {
     public static final String ID = makeID(RubyFragment.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
     public RubyFragment() {
-        super(ID, TextureLoader.getTexture(makeRelicPath("Lucky.png")), RelicTier.SPECIAL, LandingSound.FLAT);
+        super(ID, TextureLoader.getTexture(makeRelicPath("RubyFragment.png")), RelicTier.SPECIAL, LandingSound.FLAT);
         description = getUpdatedDescription();
         counter = 0;
     }
