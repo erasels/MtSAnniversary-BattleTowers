@@ -20,10 +20,13 @@ public class RubyFragment extends CustomRelic {
         description = getUpdatedDescription();
         counter = -1;
     }
-    public void atBattleStart() {
+
+    @Override
+    public void atPreBattle() {
         counter = 0;
         usedUp = false;
     }
+
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
         if(!usedUp)
             counter += damageAmount;
