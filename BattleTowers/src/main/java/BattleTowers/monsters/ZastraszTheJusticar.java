@@ -40,6 +40,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
     private static final byte TRIALBYFIRE = 4;
     private static boolean firsturn = true;
 
+    private static final int DS_AMT = 5;
+
     //defaults enemy placement to 0, 0
     public ZastraszTheJusticar() {
         this(0.0f, 0.0f);
@@ -58,16 +60,16 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         super(NAME, ID, 171, 0.0F, 0.0f, 270f, 400.0f, null, x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
-        setHp(calcAscensionTankiness(171));
+        setHp(calcAscensionTankiness(152));
         loadAnimation(BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.atlas"), BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.json"), 1.0F);
 
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         AnimationState.TrackEntry e1 = state.setAnimation(1, "WingFlap", true);
-        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(13));
+        addMove(DIVINESMITE,Intent.ATTACK_DEBUFF,calcAscensionDamage(11));
         addMove(SOLEMNVIGIL,Intent.DEFEND_BUFF);
-        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(8),2);
-        addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),6);
+        addMove(JUDGEMENTOFJUSTICE,Intent.ATTACK_BUFF,calcAscensionDamage(7),2);
+        addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),DS_AMT);
         addMove(TRIALBYFIRE,Intent.STRONG_DEBUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
@@ -113,22 +115,16 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             }
             case DIVINESTORM: {
                 addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
-                addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
-                addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
-                addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
-                addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
-                addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
+                for (int i = 0; i < DS_AMT; i++) {
+                    addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
+                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
+                }
                 addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
                 break;
             }
             case TRIALBYFIRE:{
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(5))));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(3), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(2), true)));
                 break;
             }
         }
