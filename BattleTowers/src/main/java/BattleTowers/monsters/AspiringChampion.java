@@ -17,7 +17,8 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.powers.MetallicizePower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.StarBounceEffect;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
 
@@ -182,13 +183,13 @@ public class AspiringChampion extends AbstractBTMonster{
                 setMoveShortcut(COPYCAT_B, MOVES[COPYCAT_B]);
             }
             if(PLAYED_2_COST) {
-                setMoveShortcut(COPYCAT_B, MOVES[COPYCAT_B_ON_2_COST]);
+                setMoveShortcut(COPYCAT_B_ON_2_COST, MOVES[COPYCAT_B]);
                 PLAYED_2_COST = false;
             }
         }
         else if(lastMove(HEAVY_BLOWS) || lastMove(HEAVY_BLOWS_DEBUFFED))
         {
-            setMoveShortcut(RECOVER);
+            setMoveShortcut(RECOVER, MOVES[RECOVER]);
         }
         else if(nextMoveToDo == HEAVY_BLOWS)
         {
@@ -206,11 +207,11 @@ public class AspiringChampion extends AbstractBTMonster{
     {
         if(this.nextMove == COPYCAT_B || this.nextMove == COPYCAT_B_ON_2_COST)
         {
-            setMoveShortcut(COPYCAT_B_DEBUFFED);
+            setMoveShortcut(COPYCAT_B_DEBUFFED, MOVES[COPYCAT_B]);
         }
         if(this.nextMove == HEAVY_BLOWS)
         {
-            setMoveShortcut(HEAVY_BLOWS_DEBUFFED);
+            setMoveShortcut(HEAVY_BLOWS_DEBUFFED, MOVES[HEAVY_BLOWS]);
         }
         this.createIntent();
     }

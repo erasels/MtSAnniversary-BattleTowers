@@ -21,24 +21,24 @@ public class CopyCatPower extends AbstractPower {
         this.ID = POWER_ID;
         this.owner = owner;
         this.amount = amount;
-        this.updateDescription();
         this.loadRegion("vigor");
         this.type = PowerType.BUFF;
         this.isTurnBased = false;
         this.justApplied = true;
         this.card = card;
+        updateDescription();
     }
     
     public void updateDescription() {
-        this.description = powerStrings.DESCRIPTIONS[0] + this.card.name + powerStrings.DESCRIPTIONS[1] + this.amount + powerStrings.DESCRIPTIONS[2];
+        this.description = powerStrings.DESCRIPTIONS[0] + CardCrawlGame.languagePack.getCardStrings(card.cardID).NAME + powerStrings.DESCRIPTIONS[1] + this.amount + powerStrings.DESCRIPTIONS[2];
     }
     
     public float atDamageGive(float damage, DamageInfo.DamageType type) {
         return type == DamageInfo.DamageType.NORMAL ? damage + (float)this.amount : damage;
     }
     
-    public void atStartOfTurn() {
-        if(!justApplied) {
+    public void atEndOfRound() {
+        if (!justApplied) {
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this));
         }
         justApplied = false;
