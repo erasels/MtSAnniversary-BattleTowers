@@ -30,7 +30,7 @@ public class CopyCatPower extends AbstractPower {
     }
     
     public void updateDescription() {
-        this.description = powerStrings.DESCRIPTIONS[0] + this.card + powerStrings.DESCRIPTIONS[1] + this.amount + powerStrings.DESCRIPTIONS[2];
+        this.description = powerStrings.DESCRIPTIONS[0] + this.card.name + powerStrings.DESCRIPTIONS[1] + this.amount + powerStrings.DESCRIPTIONS[2];
     }
     
     public float atDamageGive(float damage, DamageInfo.DamageType type) {
