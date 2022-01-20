@@ -106,6 +106,7 @@ public class LouseHorde extends AbstractMonster {
 
     @Override
     public void applyStartOfTurnPowers() {
+        super.applyStartOfTurnPowers();
         if (curled) {
             particleEmitter.setAnimation("open");
             this.curled = false;
