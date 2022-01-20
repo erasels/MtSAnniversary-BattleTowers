@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import static BattleTowers.BattleTowers.makeID;
 
 public class CopyCatPower extends AbstractPower {
-    public static final String POWER_ID = makeID(TimeWarpStopPower.class.getSimpleName());
+    public static final String POWER_ID = makeID(CopyCatPower.class.getSimpleName());
     private static final PowerStrings powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
     private boolean justApplied = false;
     private AbstractCard card;
