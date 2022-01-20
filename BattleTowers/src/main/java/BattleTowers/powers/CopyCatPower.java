@@ -1,7 +1,6 @@
 package BattleTowers.powers;
 
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
-import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -19,7 +18,7 @@ public class CopyCatPower extends AbstractPower {
     
     public CopyCatPower(AbstractCreature owner, int amount, AbstractCard card) {
         this.name = powerStrings.NAME;
-        this.ID = "Vigor";
+        this.ID = POWER_ID;
         this.owner = owner;
         this.amount = amount;
         this.updateDescription();
