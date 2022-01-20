@@ -39,7 +39,7 @@ public class PetrifyingGazePower extends AbstractPower {
     }
 
     public void onPowerApplied(AbstractPower power, AbstractCreature source) {
-        if (power.type == AbstractPower.PowerType.DEBUFF) {
+        if (power.type == AbstractPower.PowerType.DEBUFF && source != owner) {
             this.trigger(source);
         }
     }
