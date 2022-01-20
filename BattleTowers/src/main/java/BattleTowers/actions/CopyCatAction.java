@@ -1,6 +1,7 @@
 package BattleTowers.actions;
 
 import BattleTowers.monsters.AspiringChampion;
+import BattleTowers.powers.CopyCatPower;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -40,29 +41,30 @@ public class CopyCatAction extends AbstractGameAction {
     
     @Override
     public void update() {
-    if(!this.used) {
-        this.used = true;
-        List<AbstractCard> abstractCardList =
-                AbstractDungeon.actionManager.cardsPlayedThisTurn.stream()
-                        .filter(abstractCard -> abstractCard.type == AbstractCard.CardType.ATTACK).collect(Collectors.toList());
-    
-        if (abstractCardList.size() == 0) {
-            this.addToTop(new ApplyPowerAction(owner, owner, new StrengthPower(owner, 4)));
-            AbstractDungeon.effectList.add(new MegaSpeechBubble(this.source.hb.cX + this.source.dialogX, this.source.hb.cY + this.source.dialogY, 2.0f, this.msgNoAttacks, false));
-        } else {
-            CardGroup Attacks = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-            for (AbstractCard card : abstractCardList) {
-                Attacks.addToTop(card);
+        if(!this.used) {
+            this.used = true;
+            List<AbstractCard> abstractCardList =
+                    AbstractDungeon.actionManager.cardsPlayedThisTurn.stream()
+                            .filter(abstractCard -> abstractCard.type == AbstractCard.CardType.ATTACK).collect(Collectors.toList());
+        
+            if (abstractCardList.size() == 0) {
+                this.addToTop(new ApplyPowerAction(owner, owner, new StrengthPower(owner, 4)));
+                AbstractDungeon.effectList.add(new MegaSpeechBubble(this.source.hb.cX + this.source.dialogX, this.source.hb.cY + this.source.dialogY, 2.0f, this.msgNoAttacks, false));
+            } else
+            {
+                CardGroup Attacks = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
+                for (AbstractCard card : abstractCardList) {
+                        Attacks.addToTop(card);
+                }
+                AbstractCard card = Attacks.getRandomCard(AbstractDungeon.cardRandomRng);
+                if (card.cost > 1) {
+                    owner.setPLAYED_2_COST(true);
+                }
+                AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(card.makeStatEquivalentCopy()));
+                this.addToTop(new ApplyPowerAction(owner, owner, new CopyCatPower(owner, card.baseDamage, card)));
+                AbstractDungeon.effectList.add(new MegaSpeechBubble(this.source.hb.cX + this.source.dialogX, this.source.hb.cY + this.source.dialogY, 2.0f, this.msg, false));
             }
-            AbstractCard card = Attacks.getRandomCard(AbstractDungeon.cardRandomRng);
-            if (card.cost > 1) {
-                owner.setPLAYED_2_COST(true);
-            }
-            AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(card.makeStatEquivalentCopy()));
-            this.addToTop(new ApplyPowerAction(owner, owner, new VigorPower(owner, card.baseDamage)));
-            AbstractDungeon.effectList.add(new MegaSpeechBubble(this.source.hb.cX + this.source.dialogX, this.source.hb.cY + this.source.dialogY, 2.0f, this.msg, false));
         }
-    }
         this.tickDuration();
     }
 }

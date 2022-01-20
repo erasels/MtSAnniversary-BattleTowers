@@ -265,5 +265,13 @@
     "DESCRIPTIONS": [
       "While %1$s is alive, #yNecrototem has #b%2$d additional #yStrength."
     ]
+  },
+  "${ModID}:CopyCatPower": {
+    "NAME": "Copycat",
+    "DESCRIPTIONS": [
+      "This elite feels inspired by your ",
+      "! NL The enemies will deal ",
+      " additional damage next turn."
+    ]
   }
 }
