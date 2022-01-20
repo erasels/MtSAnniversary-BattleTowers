@@ -50,12 +50,12 @@ public class ClunkyPower extends AbstractPower {
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action)
     {
-        if(this.amount > 0) {
+        if(this.amount > 0 && card.type == AbstractCard.CardType.ATTACK) {
             --this.amount;
             this.updateDescription();
-            this.addToBot(new BonkChampionAction((AspiringChampion) this.owner));
             if (this.amount == 0) {
                 this.flash();
+                this.addToBot(new BonkChampionAction((AspiringChampion) this.owner));
             }
         }
     }

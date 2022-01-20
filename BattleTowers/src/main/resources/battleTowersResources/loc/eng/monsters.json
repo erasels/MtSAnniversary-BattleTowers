@@ -288,7 +288,7 @@
       "Bonfire",
       "Rush"
     ],
-    "NAME": "Giga Slime"
+    "NAME": "Burning Shambler"
   },
   "${ModID}:AspiringChampion": {
     "MOVES": [
@@ -307,8 +307,7 @@
       "DIE FUTILE WEAK... oops!",
       "What, are you too scared to play attacks?",
       "Hrmpf"
-    ],
-    "NAME": "Burning Shambler"
+    ]
   },
   "${ModID}:AlphabetBoss": {
     "MOVES": [

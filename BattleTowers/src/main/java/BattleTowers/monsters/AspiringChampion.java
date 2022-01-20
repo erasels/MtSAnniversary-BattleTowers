@@ -10,6 +10,8 @@ import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.RollMoveAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -17,7 +19,6 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.StarBounceEffect;
-import com.megacrit.cardcrawl.vfx.WallopEffect;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class AspiringChampion extends AbstractBTMonster{
     private static final byte COPYCAT_B_DEBUFFED = 5;
     private static final byte COPYCAT_B_ON_2_COST = 6;
     private boolean PLAYED_2_COST;
+    private int nextMoveToDo;
     public void setPLAYED_2_COST(boolean PLAYED_2_COST) {
         this.PLAYED_2_COST = PLAYED_2_COST;
     }
@@ -75,6 +77,11 @@ public class AspiringChampion extends AbstractBTMonster{
     
     @Override
     public void takeTurn() {
+        DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
+        int multiplier = this.moves.get(nextMove).multiplier;
+        if(info.base > -1) {
+            info.applyPowers(this, AbstractDungeon.player);
+        }
         float vfxSpeed = 0.1F;
         if (Settings.FAST_MODE) {
             vfxSpeed = 0.0F;
@@ -90,7 +97,7 @@ public class AspiringChampion extends AbstractBTMonster{
                 for(int i = 0; i <((AbstractDungeon.ascensionLevel >= 18) ? 4 : 3); i++)
                 {
                     addToBot(new VFXAction(new GoldenSlashEffect(AbstractDungeon.player.hb.cX - 60.0F * Settings.scale, AbstractDungeon.player.hb.cY, true), vfxSpeed));
-                    addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(COPYCAT_B), AbstractGameAction.AttackEffect.NONE));
+                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
                 }
                 break;
             }
@@ -101,34 +108,34 @@ public class AspiringChampion extends AbstractBTMonster{
                 for(int i = 0; i <((AbstractDungeon.ascensionLevel >= 18) ? 3 : 2); i++)
                 {
                     addToBot(new VFXAction(new GoldenSlashEffect(AbstractDungeon.player.hb.cX - 60.0F * Settings.scale, AbstractDungeon.player.hb.cY, true), vfxSpeed));
-                    addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(COPYCAT_B), AbstractGameAction.AttackEffect.NONE));
+                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
                 }
                 break;
             }
             case COPYCAT_B_DEBUFFED: {
                 useFastAttackAnimation();
                 addToBot(new TalkAction(this, DIALOG[1]));
-                addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(COPYCAT_B), AbstractGameAction.AttackEffect.SLASH_DIAGONAL));
+                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_DIAGONAL));
                 break;
             }
             case HEAVY_BLOWS: {
                 useFastAttackAnimation();
                 for (int i = 0; i < 2; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(HEAVY_BLOWS), AbstractGameAction.AttackEffect.SLASH_VERTICAL));
+                    addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_VERTICAL));
                 }
                 addToBot(new ChangeChampionImageAndDoDialogueAction(this, DIALOG[2]));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
                 break;
             }
             case HEAVY_BLOWS_DEBUFFED: {
                 useFastAttackAnimation();
-                addToBot(new DamageAction(AbstractDungeon.player, this.damage.get(HEAVY_BLOWS), AbstractGameAction.AttackEffect.SLASH_VERTICAL));
+                addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_VERTICAL));
                 addToBot(new ChangeChampionImageAndDoDialogueAction(this, DIALOG[2]));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
-                addToBot(new VFXAction(new StarBounceEffect(this.hb_x, this.hb_y)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
+                addToBot(new VFXAction(new StarBounceEffect(this.hb.cX, this.hb.cY)));
                 break;
             }
             case RECOVER:
@@ -137,6 +144,7 @@ public class AspiringChampion extends AbstractBTMonster{
                 addToBot(new ChangeChampionImageAndDoDialogueAction(this, DIALOG[4]));
             }
         }
+        addToBot(new RollMoveAction(this));
     }
     public void swapImage()
     {
@@ -159,6 +167,14 @@ public class AspiringChampion extends AbstractBTMonster{
             possibilities.add(HEAVY_BLOWS);
             byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
             setMoveShortcut(move, MOVES[move]);
+            if(move == COPYCAT_A)
+            {
+                nextMoveToDo = HEAVY_BLOWS;
+            }
+            else
+            {
+                nextMoveToDo = COPYCAT_A;
+            }
         }
         else if(lastMove(COPYCAT_A))
         {
@@ -174,13 +190,15 @@ public class AspiringChampion extends AbstractBTMonster{
         {
             setMoveShortcut(RECOVER);
         }
-        else if(!(lastTwoMoves(HEAVY_BLOWS) || lastTwoMoves(HEAVY_BLOWS_DEBUFFED)))
+        else if(nextMoveToDo == HEAVY_BLOWS)
         {
             setMoveShortcut(HEAVY_BLOWS, MOVES[HEAVY_BLOWS]);
+            nextMoveToDo = COPYCAT_A;
         }
         else
         {
             setMoveShortcut(COPYCAT_A, MOVES[COPYCAT_A]);
+            nextMoveToDo = HEAVY_BLOWS;
         }
     }
     
@@ -194,5 +212,6 @@ public class AspiringChampion extends AbstractBTMonster{
         {
             setMoveShortcut(HEAVY_BLOWS_DEBUFFED);
         }
+        this.createIntent();
     }
 }
