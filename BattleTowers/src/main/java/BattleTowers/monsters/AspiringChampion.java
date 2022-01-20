@@ -70,17 +70,22 @@ public class AspiringChampion extends AbstractBTMonster{
     
     public void usePreBattleAction() {
         addToBot(new ApplyPowerAction(this, this, new ClunkyPower(this)));
-        if(AbstractDungeon.ascensionLevel >= 8)
-        {
+        if (AbstractDungeon.ascensionLevel >= 8) {
             addToBot(new ApplyPowerAction(this, this, new MetallicizePower(this, 6)));
         }
+    }
+    
+    @Override
+    protected void setUpMisc() {
+        super.setUpMisc();
+        this.type = EnemyType.ELITE;
     }
     
     @Override
     public void takeTurn() {
         DamageInfo info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
         int multiplier = this.moves.get(nextMove).multiplier;
-        if(info.base > -1) {
+        if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
         float vfxSpeed = 0.1F;
