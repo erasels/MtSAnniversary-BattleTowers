@@ -25,6 +25,6 @@ public class BonkChampionAction extends AbstractGameAction {
     
     @Override
     public void update() {
-    
+        this.owner.debuffAttack();
     }
 }

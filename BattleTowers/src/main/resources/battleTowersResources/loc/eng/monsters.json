@@ -303,9 +303,10 @@
     "NAME": "Aspiring Champion",
     "DIALOG": [
       "Oooh... I like this one!",
-      "Watch this!",
+      "Get out of my way!",
       "DIE FUTILE WEAK... oops!",
-      "What, are you too scared to play attacks?"
+      "What, are you too scared to play attacks?",
+      "Hrmpf"
     ],
     "NAME": "Burning Shambler"
   },
