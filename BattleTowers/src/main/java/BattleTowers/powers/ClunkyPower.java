@@ -1,5 +1,7 @@
 package BattleTowers.powers;
 
+import BattleTowers.actions.BonkChampionAction;
+import BattleTowers.monsters.AspiringChampion;
 import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,7 +28,7 @@ public class ClunkyPower extends AbstractPower {
     
     private boolean triggeredThisTurn = false;
     
-    public ClunkyPower(AbstractCreature owner) {
+    public ClunkyPower(AspiringChampion owner) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
@@ -51,6 +53,7 @@ public class ClunkyPower extends AbstractPower {
         if(this.amount > 0) {
             --this.amount;
             this.updateDescription();
+            this.addToBot(new BonkChampionAction((AspiringChampion) this.owner));
             if (this.amount == 0) {
                 this.flash();
             }
