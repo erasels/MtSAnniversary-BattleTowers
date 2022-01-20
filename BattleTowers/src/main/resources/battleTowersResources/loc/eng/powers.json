@@ -135,13 +135,6 @@
       " more this combat."
     ]
   },
-  "${ModID}:ClunkyPower": {
-    "NAME": "Clunky",
-    "DESCRIPTIONS": [
-      "After you play #b",
-      " more attacks this turn, this enemy will only attack once."
-    ]
-  },
   "${ModID}:TemporaryDeEnergizePower": {
     "NAME": "De-Energized",
     "DESCRIPTIONS": [
@@ -272,6 +265,30 @@
       "This elite feels inspired by your ",
       "! NL The enemies will deal ",
       " additional damage next turn."
+    ]
+  },
+  "${ModID}:GrievousWounds": {
+    "NAME": "Grievous Wounds",
+    "DESCRIPTIONS": [
+      "Whenever you take unblocked attack damage, your max HP is decreased by #b%d."
+    ]
+  },
+  "${ModID}:Counter": {
+    "NAME": "Counter",
+    "DESCRIPTIONS": [
+      "Whenever this creature takes less than #b%d unblocked damage from an attack, it attacks for #b%d."
+    ]
+  },
+  "${ModID}:RainbowPower": {
+    "NAME": "Rainbow Power",
+    "DESCRIPTIONS": [
+      "Whenever you play a card, gains a buff depending on the type. NL #rAttack: #b%d Temporary #yStrength NL #gSkill: #b%d #yTemporary #yHP NL #bPower: #b%d #yBuffer"
+    ]
+  },
+  "${ModID}:ExtraHitsPower": {
+    "NAME": "Struggling",
+    "DESCRIPTIONS": [
+      "When this creature intends to attack, it will attack #b"," additional time."," additional times."
     ]
   }
 }

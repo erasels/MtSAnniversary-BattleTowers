@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import com.megacrit.cardcrawl.actions.animations.AnimateFastAttackAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
 import com.megacrit.cardcrawl.actions.animations.TalkAction;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
@@ -116,8 +115,13 @@ public class GiantArm extends CustomMonster {
     @Override
     public void damage(DamageInfo var1){
         int num = (int)(Math.random() * 100);
-        if (num <= 15){
-            AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
+        if (num <= 10){
+            if (num <= 5) {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
+            }
+            else {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[3], 1.2f, 1.6f));
+            }
             playSfx();
         }
         super.damage(var1);

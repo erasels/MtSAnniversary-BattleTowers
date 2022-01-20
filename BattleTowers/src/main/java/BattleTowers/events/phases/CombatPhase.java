@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import static BattleTowers.BattleTowers.logger;
@@ -20,7 +21,7 @@ public class CombatPhase extends EventPhase {
     public boolean waitingRewards;
     private EventPhase followup = null;
     private Object key = null;
-    private boolean isBoss;
+    private AbstractMonster.EnemyType type;
 
     private boolean completed = false; //For save loading
 
@@ -41,7 +42,7 @@ public class CombatPhase extends EventPhase {
         this.cardReward = true;
         this.postCombatSave = postCombatSave;
 
-        this.isBoss = false;
+        this.type = AbstractMonster.EnemyType.NORMAL;
 
         waitingRewards = false;
         followupType = FollowupType.NONE;
@@ -54,8 +55,8 @@ public class CombatPhase extends EventPhase {
         this.completed = true;
         return this;
     }
-    public CombatPhase boss() {
-        this.isBoss = true;
+    public CombatPhase setType(AbstractMonster.EnemyType type) {
+        this.type = type;
         return this;
     }
     public CombatPhase setNextPhase(EventPhase postCombat) {
@@ -71,8 +72,12 @@ public class CombatPhase extends EventPhase {
         return this;
     }
 
+    public String getEncounterKey() {
+        return encounterKey;
+    }
+
     public boolean isBoss() {
-        return isBoss;
+        return type == AbstractMonster.EnemyType.BOSS;
     }
 
     public boolean hasFollowup() {
@@ -105,8 +110,13 @@ public class CombatPhase extends EventPhase {
 
         AbstractEvent.type = AbstractEvent.EventType.ROOM;
         event.resetCardRarity();
-        if (isBoss)
+        if (type == AbstractMonster.EnemyType.ELITE) {
+            event.setCardRarity(40, 10);
+            AbstractDungeon.getCurrRoom().eliteTrigger = true;
+        }
+        else if (type == AbstractMonster.EnemyType.BOSS) {
             event.setCardRarity(0, 420);
+        }
         event.allowRarityAltering = true;
         event.noCardsInRewards = !cardReward;
 
@@ -171,6 +181,7 @@ public class CombatPhase extends EventPhase {
         AbstractDungeon.getCurrRoom().cannotLose = false;
         AbstractDungeon.getCurrRoom().isBattleOver = false;
         AbstractDungeon.getCurrRoom().rewardTime = false;
+        AbstractDungeon.getCurrRoom().eliteTrigger = false;
         event.noCardsInRewards = false;
     }
 }

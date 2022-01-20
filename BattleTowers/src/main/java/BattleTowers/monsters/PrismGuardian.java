@@ -2,6 +2,7 @@ package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.actions.PrismStasisAction;
+import BattleTowers.powers.PrismPower;
 import BattleTowers.powers.PrismShield;
 import BattleTowers.vfx.ColoredLargeLaserEffect;
 import basemod.abstracts.CustomMonster;
@@ -37,7 +38,7 @@ public class PrismGuardian extends CustomMonster {
     private static final byte STASIS = 1;
     private static final byte LASER = 2;
     private static final byte NULLBEAM = 3;
-    private static final int NULLBEAMTURN = 5;
+    private static final int NULLBEAMTURN = 4;
     private int count = 0;
     private boolean firstMove;
 
@@ -66,14 +67,21 @@ public class PrismGuardian extends CustomMonster {
 
     public void usePreBattleAction() {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new PrismShield(this, this, 0)));
+        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new PrismPower(this, this, 0)));
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new ArtifactPower(this, 1)));
     }
 
     public void changeLaserDamage(int l){
         this.damage.set(0, new DamageInfo(this, laserDmg + l));
         this.setMove(LASER, Intent.ATTACK, ((DamageInfo) this.damage.get(0)).base);
+        if (this.hasPower(PrismPower.POWER_ID) && this.hasPower(PrismShield.POWER_ID)){
+            if (this.getPower(PrismShield.POWER_ID).amount > 20) {
+                this.getPower(PrismPower.POWER_ID).amount = this.getPower(PrismShield.POWER_ID).amount - 20;
+                this.getPower(PrismPower.POWER_ID).flash();
+                this.getPower(PrismPower.POWER_ID).updateDescription();
+            }
+        }
         this.createIntent();
-
     }
 
     public void takeTurn() {
@@ -92,7 +100,6 @@ public class PrismGuardian extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new VFXAction(new ColoredLargeLaserEffect(this.hb.cX, this.hb.cY + 60.0F * Settings.scale, Color.LIME.cpy()), 1.5F));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new DexterityPower(AbstractDungeon.player, -2),-2));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, this, new FocusPower(AbstractDungeon.player, -2),-2));
-
                 break;
         }
 
@@ -116,11 +123,13 @@ public class PrismGuardian extends CustomMonster {
                 this.firstMove = false;
             }
             else {
-                this.setMove(STASIS, Intent.STRONG_DEBUFF);
+                changeLaserDamage(0);
+                this.createIntent();
+                this.count++;
                 this.firstMove = false;
             }
         }
-        else if (this.count == NULLBEAMTURN){
+        else if (this.count >= NULLBEAMTURN){
             this.setMove(NULLBEAM, Intent.STRONG_DEBUFF);
             this.count = -1;
         }

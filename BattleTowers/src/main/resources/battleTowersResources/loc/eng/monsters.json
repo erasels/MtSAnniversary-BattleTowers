@@ -124,7 +124,9 @@
       "Flurry of Blows",
       "Deathtouch"
     ],
-    "NAME": "Itozus the Windwalker"
+    "NAME": "Itozus the Windwalker",
+    "DIALOG": [
+    ]
   },
   "${ModID}:ZastraszTheJusticar": {
     "MOVES": [
@@ -134,7 +136,25 @@
       "Divine Storm",
       "Trial by Fire"
     ],
-    "NAME": "Zastrasz the Justicar"
+    "NAME": "Zastrasz the Justicar",
+    "DIALOG": [
+    ]
+  },
+  "${ModID}:NatariTheTimewalker": {
+    "MOVES": [
+      "Faster than Light",
+      "Sand Burst",
+      "Killing Doll",
+      "Shore Up",
+      "Fast-Forward!",
+      "The World",
+      "Bullet-Time",
+      "Delaying the Inevitable"
+    ],
+    "NAME": "Natari the Timewalker",
+    "DIALOG": [
+      "You wish to match wits with ~me?~ I'll show you why that's a ~grave~ error."
+    ]
   },
   "${ModID}:GoldenLouse": {
     "MOVES": [
@@ -363,7 +383,8 @@
     "DIALOG": [
       "Let's fight!",
       "Is that all you got?",
-      "I'm getting fired up!"
+      "I'm getting fired up!",
+      "My grandma hits harder!"
     ]
   },
   "${ModID}:PrismGuardian": {
@@ -411,5 +432,24 @@
     "NAME": "Horde of Louse",
     "DIALOG" : [],
     "MOVES": []
+  },
+  "${ModID}:Romeo": {
+    "NAME": "Romeo",
+    "DIALOG" : ["You'll regret taking facing me, @chump@ !",
+      "Heh, can't embarrass myself when Bear's watching...",
+      "~I'm~ ~here~ ~for~ #r@payback@"
+    ],
+    "MOVES": ["Training Montage",
+    "High Stakes",
+    "Chump Prodder",
+    "Shank Time"]
+  },
+  "${ModID}:RainbowLouse": {
+    "MOVES": [
+      "Intensify",
+      "Struggle",
+      "Debilitate"
+    ],
+    "NAME": "Invincible Louse"
   }
 }

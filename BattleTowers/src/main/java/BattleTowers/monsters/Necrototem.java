@@ -21,7 +21,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.helpers.SeedHelper;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.DrawReductionPower;
@@ -60,7 +59,7 @@ public class Necrototem extends AbstractBTMonster
 
         faceImg = ImageMaster.loadImage(makeImagePath("monsters/Necrototem/necromanticTotemFace.png"));
 
-        setHp(calcAscensionTankiness(50));
+        setHp(AbstractDungeon.ascensionLevel>=9? 30 : 25);
 
         addMove(SUMMON, Intent.UNKNOWN);
         addMove(CURSE, Intent.ATTACK_DEBUFF, calcAscensionDamage(21));

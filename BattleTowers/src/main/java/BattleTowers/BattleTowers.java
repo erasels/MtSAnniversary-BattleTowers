@@ -4,7 +4,7 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
-import BattleTowers.events.phases.GentlemanEvent;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -48,8 +48,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
-import static basemod.BaseMod.addMonster;
 
 @SpireInitializer
 public class BattleTowers implements
@@ -162,12 +160,7 @@ public class BattleTowers implements
                         new Cawcawrot(-250.0F, 0.0F),
                         new Veggieta(100.0F, 0.0F)
                 }));
-        BaseMod.addMonster(makeID("CardboardGolem"), new BaseMod.GetMonster() {
-            @Override
-            public AbstractMonster get() {
-                return new CardboardGolem();
-            }
-        });
+        BaseMod.addMonster(makeID("CardboardGolem"), () -> new CardboardGolem());
         BaseMod.addMonster(Encounters.CULTIST_ARMORER, () -> new MonsterGroup(
                 new AbstractMonster[] {
                         new CultistArmorer(-250.0F, 0.0F),
@@ -181,6 +174,13 @@ public class BattleTowers implements
                 }));
         BaseMod.addMonster(Paladin.ID, (BaseMod.GetMonster) Paladin::new);
         BaseMod.addMonster(LouseHorde.ID, (BaseMod.GetMonster) LouseHorde::new);
+        BaseMod.addMonster(Romeo.ID, (BaseMod.GetMonster) Romeo::new);
+        BaseMod.addMonster(Encounters.RAINBOW_LOUSES, () -> new MonsterGroup(
+                new AbstractMonster[] {
+                        new RainbowLouse(-400.0F, 25.0F),
+                        new RainbowLouse(-125.0F, 10.0F),
+                        new RainbowLouse(120.0F, 30.0F)
+                }));
 
         //Elites
         BaseMod.addMonster(Encounters.ELEMENTAL_SENTRIES, () -> new MonsterGroup(
@@ -216,14 +216,15 @@ public class BattleTowers implements
                         new Magus(120.0F, 0.0F),
                 }));
         BaseMod.addMonster(Necrototem.ID, (BaseMod.GetMonster) Necrototem::new);
+        BaseMod.addMonster(NatariTheTimewalker.ID, (BaseMod.GetMonster) NatariTheTimewalker::new);
     }
 
     private static void addEvents() {
         BaseMod.addEvent(CoolExampleEvent.ID, CoolExampleEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
         BaseMod.addEvent(EmeraldFlame.ID, EmeraldFlame.class, "");
-        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
-        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, ""); //Only appears in dungeons with the ID "", which should be none.
+        BaseMod.addEvent(OttoEvent.ID, OttoEvent.class, "");
+        BaseMod.addEvent(ArmorerEvent.ID, ArmorerEvent.class, "");
+        BaseMod.addEvent(BannerSageEvent.ID, BannerSageEvent.class, "");
         BaseMod.addEvent(GenieLampEvent.ID, GenieLampEvent.class, "");
         BaseMod.addEvent(VoidShrine.ID, VoidShrine.class, "");
         BaseMod.addEvent(PotOfGoldEvent.ID, PotOfGoldEvent.class, "");
@@ -324,7 +325,9 @@ public class BattleTowers implements
     public static String makePowerPath(String resourcePath) {
         return getModID() + "Resources/img/power/" + resourcePath;
     }
-
+    public static String makeMusicPath(String resourcePath) {
+        return getModID() + "Resources/audio/music/" + resourcePath;
+    }
     public static String makeRelicPath(String resourcePath) {
         return getModID() + "Resources/img/relics/" + resourcePath;
     }
@@ -363,6 +366,8 @@ public class BattleTowers implements
         BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
         BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
         BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);
         BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
         BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
         BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
@@ -370,6 +375,9 @@ public class BattleTowers implements
         BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
         BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
         BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
+        BaseMod.addRelic(new SweatyArmband(), RelicType.SHARED);
+        BaseMod.addRelic(new QueensPawn(), RelicType.SHARED);
+        BaseMod.addRelic(new ScaryNail(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
@@ -383,21 +391,37 @@ public class BattleTowers implements
 
     @Override
     public void receiveEditCards() {
-        BaseMod.addCard(new BishopsPrayer());
-        BaseMod.addCard(new KingsCommand());
-        BaseMod.addCard(new KnightsManeuver());
+        BaseMod.addRelic(new CardboardHeart(), RelicType.SHARED);
+        BaseMod.addRelic(new BucketOfSlime(), RelicType.SHARED);
+        BaseMod.addRelic(new OttosDeck(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerSnecko(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerCultist(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerLouse(), RelicType.SHARED);
+        BaseMod.addRelic(new WarBannerNob(), RelicType.SHARED);
+        BaseMod.addRelic(new Torch(), RelicType.SHARED);
+        UnlockTracker.markRelicAsSeen(Torch.ID);
+        BaseMod.addRelic(new Lucky(), RelicType.SHARED);
+        BaseMod.addRelic(new IronPotHelmet(), RelicType.SHARED);
+        BaseMod.addRelic(new DijinnLamp(), RelicType.SHARED);
+        BaseMod.addRelic(new CursedDoll(), RelicType.SHARED);
+        BaseMod.addRelic(new JadeIdol(), RelicType.SHARED);
+        BaseMod.addRelic(new RubyFragment(), RelicType.SHARED);
+        BaseMod.addRelic(new PromiseOfGold(), RelicType.SHARED);
+        BaseMod.addRelic(new ClericsBlessing(), RelicType.SHARED);
+        BaseMod.addRelic(new ArmorersMask(), RelicType.SHARED);
+        BaseMod.addRelic(new AlphabetSoup(), RelicType.SHARED);
+        BaseMod.addRelic(new GorgonHead(), RelicType.SHARED);
+        BaseMod.addRelic(new SlimeFilledFlask(), RelicType.SHARED);
+        BaseMod.addRelic(new SentryOrb(), RelicType.SHARED);
+        BaseMod.addCard(new WindStrike());
         BaseMod.addCard(new PawnsAdvance());
-        BaseMod.addCard(new QueensGrace());
+        BaseMod.addCard(new KnightsManeuver());
+        BaseMod.addCard(new BishopsPrayer());
         BaseMod.addCard(new RooksCharge());
-        BaseMod.addCard(new CursedTapestry());
-        BaseMod.addCard(new Greedy());
-        BaseMod.addCard(new DarkEnchantment());
-        BaseMod.addCard(new Granted());
-        BaseMod.addCard(new Knowledge());
-        BaseMod.addCard(new AvertYourGaze());
-        BaseMod.addCard(new SlimeElixir());
-    }
+        BaseMod.addCard(new KingsCommand());
+        BaseMod.addCard(new QueensGrace());
 
+    }
     @Override
     public void receiveAddAudio() {
         BaseMod.addAudio(WHARGH_KEY, WHARGH_OGG);

@@ -14,7 +14,7 @@ public class BlankColorlessCard extends CustomCard {
     public static CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(makeID("BlankCard"));
 
     public BlankColorlessCard() {
-        super(ID, cardStrings.NAME, makeCardPath("nothing.png"), 0, cardStrings.DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
+        super(ID, cardStrings.NAME, makeCardPath("nothing.png"), 0, cardStrings.DESCRIPTION, CardType.STATUS, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
     }
 
     @Override

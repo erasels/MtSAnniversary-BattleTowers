@@ -99,8 +99,6 @@ public class ExecutiveSlime extends AbstractBTMonster
 
     @Override
     public void usePreBattleAction() {
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new BucketOfSlime()));
-
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (m instanceof ExecutiveMinion) {
                 //addToBot(new ApplyPowerAction(m, m, new MinionPower(this)));

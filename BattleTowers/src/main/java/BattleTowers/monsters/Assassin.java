@@ -1,6 +1,7 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
+import BattleTowers.actions.SpecialLoseAllBlockAction;
 import BattleTowers.powers.HidePower;
 import basemod.abstracts.CustomMonster;
 import com.badlogic.gdx.math.MathUtils;
@@ -127,7 +128,11 @@ public class Assassin extends CustomMonster {
                     AbstractDungeon.actionManager.addToBottom(new AnimateHopAction(this));
                     AbstractDungeon.actionManager.addToBottom(new DamageAction(AbstractDungeon.player, (DamageInfo) this.damage.get(0), AttackEffect.SLASH_DIAGONAL));
                 }
-                AbstractDungeon.actionManager.addToBottom(new RemoveAllBlockAction(this, this));
+                AbstractDungeon.actionManager.addToBottom(new SpecialLoseAllBlockAction(this, this));
+                if (this.hasPower(HidePower.POWER_ID)){
+                HidePower h = (HidePower) this.getPower(HidePower.POWER_ID);
+                h.removeHide();
+                }
                 hidingCount = -1;
                 break;
             case STUNNED:
