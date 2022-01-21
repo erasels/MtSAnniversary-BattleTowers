@@ -2,8 +2,6 @@ package BattleTowers;
 
 import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmods.SlimyCardmod;
-import BattleTowers.cards.*;
-import BattleTowers.cards.QueenCards.*;
 import BattleTowers.events.*;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -370,21 +368,10 @@ public class BattleTowers implements
 
     @Override
     public void receiveEditCards() {
-        BaseMod.addCard(new WindStrike());
-        BaseMod.addCard(new PawnsAdvance());
-        BaseMod.addCard(new KnightsManeuver());
-        BaseMod.addCard(new BishopsPrayer());
-        BaseMod.addCard(new RooksCharge());
-        BaseMod.addCard(new KingsCommand());
-        BaseMod.addCard(new QueensGrace());
-        BaseMod.addCard(new CursedTapestry());
-        BaseMod.addCard(new Greedy());
-        BaseMod.addCard(new DarkEnchantment());
-        BaseMod.addCard(new Granted());
-        BaseMod.addCard(new Knowledge());
-        BaseMod.addCard(new AvertYourGaze());
-        BaseMod.addCard(new SlimeElixir());
-        BaseMod.addCard(new Prick());
+        new AutoAdd("BattleTowers")
+                .packageFilter("BattleTowers.cards")
+                .setDefaultSeen(true)
+                .cards();
     }
 
     @Override

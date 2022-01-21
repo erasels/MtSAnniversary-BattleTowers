@@ -1,5 +1,6 @@
 package BattleTowers.cards.CardboardGolemCards;
 
+import basemod.AutoAdd;
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -9,6 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import static BattleTowers.BattleTowers.makeCardPath;
 import static BattleTowers.BattleTowers.makeID;
 
+@AutoAdd.Ignore
 public class BlankColorlessCard extends CustomCard {
     public static final String ID = makeID(BlankColorlessCard.class.getSimpleName());
     public static CardStrings cardStrings = CardCrawlGame.languagePack.getCardStrings(makeID("BlankCard"));
