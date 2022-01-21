@@ -1,31 +1,29 @@
-package BattleTowers.cards;
+package BattleTowers.cards.QueenCards;
 
 
 import BattleTowers.BattleTowers;
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import static BattleTowers.BattleTowers.makeID;
 
 
-public class KingsCommand extends CustomCard {
-    public static final String ID = makeID(KingsCommand.class.getSimpleName());
+public class BishopsPrayer extends CustomCard {
+    public static final String ID = makeID(BishopsPrayer.class.getSimpleName());
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = BattleTowers.makeCardPath("KingsCommand.png");
+    public static final String IMG_PATH = BattleTowers.makeCardPath("BishopsPrayer.png");
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.SPECIAL;
-    private static final CardTarget TARGET = CardTarget.NONE;
+    private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
-    private static final int COST = -2;
+    private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -35,34 +33,27 @@ public class KingsCommand extends CustomCard {
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
     }
 
-    public KingsCommand() {
+    public BishopsPrayer() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
-        baseMagicNumber = magicNumber = 4;
-        this.setDisplayRarity(CardRarity.RARE);
+        shuffleBackIntoDrawPile = true;
+        baseBlock = 7;
+        baseMagicNumber = magicNumber = 1;
+        this.setDisplayRarity(CardRarity.UNCOMMON);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-    }
-
-    @Override
-    public boolean canUse(AbstractPlayer p, AbstractMonster m) {
-        cantUseMessage = UPGRADED_DESCRIPTION;
-        return false;
-    }
-
-    @Override
-    public void triggerOnOtherCardPlayed(AbstractCard c) {
-        addToBot(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, magicNumber, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+        addToBot(new GainBlockAction(p, block));
+        addToBot(new DrawCardAction(p, magicNumber));
     }
 
     public AbstractCard makeCopy() {
-        return new KingsCommand();
+        return new BishopsPrayer();
     }
 
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeMagicNumber(2);
+            upgradeBlock(3);
         }
     }
 }

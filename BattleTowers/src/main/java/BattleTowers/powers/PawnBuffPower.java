@@ -1,6 +1,6 @@
 package BattleTowers.powers;
 
-import BattleTowers.cards.PawnsAdvance;
+import BattleTowers.cards.QueenCards.PawnsAdvance;
 import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;

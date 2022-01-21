@@ -1,20 +1,15 @@
 package BattleTowers.monsters.CardboardGolem;
 
 import BattleTowers.monsters.AbstractBTMonster;
-import BattleTowers.monsters.CardboardGolem.cards.BlankColorlessCard;
+import BattleTowers.cards.CardboardGolemCards.BlankColorlessCard;
 import BattleTowers.monsters.CardboardGolem.powers.CardEaterPower;
-import BattleTowers.relics.CardboardHeart;
-import BattleTowers.util.TextureLoader;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.unique.VampireDamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.red.BodySlam;
-import com.megacrit.cardcrawl.cards.status.Dazed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -22,7 +17,6 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.combat.BiteEffect;
 
 import java.util.ArrayList;

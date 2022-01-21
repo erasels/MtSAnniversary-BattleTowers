@@ -1,4 +1,4 @@
-package BattleTowers.cards;
+package BattleTowers.cards.QueenCards;
 
 
 import BattleTowers.BattleTowers;

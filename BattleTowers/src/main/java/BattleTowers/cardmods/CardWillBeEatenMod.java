@@ -1,4 +1,4 @@
-package BattleTowers.monsters.CardboardGolem.cardmods;
+package BattleTowers.cardmods;
 
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.CardboardGolem.powers.CardEaterPower;

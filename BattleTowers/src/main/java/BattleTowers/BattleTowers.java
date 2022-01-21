@@ -3,6 +3,7 @@ package BattleTowers;
 import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmods.SlimyCardmod;
 import BattleTowers.cards.*;
+import BattleTowers.cards.QueenCards.*;
 import BattleTowers.events.*;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;

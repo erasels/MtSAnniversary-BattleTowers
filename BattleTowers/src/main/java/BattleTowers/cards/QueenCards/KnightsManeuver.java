@@ -1,7 +1,8 @@
-package BattleTowers.cards;
+package BattleTowers.cards.QueenCards;
 
 
 import BattleTowers.BattleTowers;
+import BattleTowers.cards.EasyModalChoiceCard;
 import basemod.abstracts.CustomCard;
 import com.evacipated.cardcrawl.mod.stslib.actions.common.SelectCardsCenteredAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;

@@ -1,4 +1,4 @@
-package BattleTowers.monsters.CardboardGolem.cards;
+package BattleTowers.cards.CardboardGolemCards;
 
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
