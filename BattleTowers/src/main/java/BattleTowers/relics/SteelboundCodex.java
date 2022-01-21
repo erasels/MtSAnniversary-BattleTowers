@@ -7,11 +7,8 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.watcher.FreeAttackPower;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import static BattleTowers.BattleTowers.makeID;
 import static BattleTowers.BattleTowers.makeRelicPath;
@@ -26,15 +23,10 @@ public class SteelboundCodex extends CustomRelic {
         description = getUpdatedDescription();
     }
     
-    @Override
-    public int onAttacked(DamageInfo info, int damageAmount) {
-        if (damageAmount > 0 && AbstractDungeon.getCurrRoom().phase == AbstractRoom.RoomPhase.COMBAT && info.type.equals(DamageInfo.DamageType.NORMAL)) {
-            this.flash();
-            this.addToTop(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
-        }
-        return damageAmount;
-    }
     
+    public void atTurnStart() {
+        this.counter = 0;
+    }
     
     public void onUseCard(AbstractCard card, UseCardAction action) {
         if (card.type == AbstractCard.CardType.ATTACK && !card.freeToPlayOnce) {

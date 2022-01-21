@@ -191,7 +191,7 @@
     "NAME": "Steelbound Codex",
     "FLAVOR": "Ok Intellij, why do you want to autocorrect \"Steelbound\" to \"Spellbound\"?!?",
     "DESCRIPTIONS": [
-      "Whenever you spend #b3 Energy on #yAttacks in one turn, your next Attack costs 0."
+      "Whenever you spend [E] [E] [E] on #yAttacks in one turn, your next Attack costs #b0."
     ]
   }
 }
