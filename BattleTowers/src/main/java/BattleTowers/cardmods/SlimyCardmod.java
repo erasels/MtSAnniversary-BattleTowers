@@ -1,4 +1,4 @@
-package BattleTowers.cardmod;
+package BattleTowers.cardmods;
 
 import basemod.abstracts.AbstractCardModifier;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;

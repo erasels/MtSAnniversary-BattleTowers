@@ -1,7 +1,7 @@
 package BattleTowers;
 
 import BattleTowers.RazIntent.CustomIntent;
-import BattleTowers.cardmod.SlimyCardmod;
+import BattleTowers.cardmods.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
 import BattleTowers.monsters.*;

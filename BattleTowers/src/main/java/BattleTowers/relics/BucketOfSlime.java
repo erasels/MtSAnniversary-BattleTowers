@@ -1,6 +1,6 @@
 package BattleTowers.relics;
 
-import BattleTowers.cardmod.SlimyCardmod;
+import BattleTowers.cardmods.SlimyCardmod;
 import BattleTowers.interfaces.ModifyCombatCardsRelic;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
