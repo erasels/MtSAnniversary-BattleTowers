@@ -4,7 +4,6 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
-import BattleTowers.events.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -378,6 +377,7 @@ public class BattleTowers implements
         BaseMod.addRelic(new SweatyArmband(), RelicType.SHARED);
         BaseMod.addRelic(new QueensPawn(), RelicType.SHARED);
         BaseMod.addRelic(new ScaryNail(), RelicType.SHARED);
+        BaseMod.addRelic(new SteelboundCodex(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {
