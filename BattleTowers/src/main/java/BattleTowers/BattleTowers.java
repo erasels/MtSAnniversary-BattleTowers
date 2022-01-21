@@ -4,6 +4,7 @@ import BattleTowers.RazIntent.CustomIntent;
 import BattleTowers.cardmod.SlimyCardmod;
 import BattleTowers.cards.*;
 import BattleTowers.events.*;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
@@ -192,7 +193,6 @@ public class BattleTowers implements
         BaseMod.addMonster(VoodooDoll.ID, (BaseMod.GetMonster) VoodooDoll::new);
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
-        BaseMod.addMonster(AspiringChampion.ID, (BaseMod.GetMonster) AspiringChampion::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
         BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
 
@@ -377,7 +377,6 @@ public class BattleTowers implements
         BaseMod.addRelic(new SweatyArmband(), RelicType.SHARED);
         BaseMod.addRelic(new QueensPawn(), RelicType.SHARED);
         BaseMod.addRelic(new ScaryNail(), RelicType.SHARED);
-        BaseMod.addRelic(new SteelboundCodex(), RelicType.SHARED);
     }
         
     public static String removeModId(String id) {

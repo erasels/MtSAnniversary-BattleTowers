@@ -186,13 +186,6 @@
     "DESCRIPTIONS": [
       "If the first and last card you play in a turn is an #yAttack, deal #b5 damage to a random enemy. NL If the first and last card you play in a turn is a #ySkill, gain #b5 #yBlock."
     ]
-  },
-  "${ModID}:SteelboundCodex": {
-    "NAME": "Steelbound Codex",
-    "FLAVOR": "Ok Intellij, why do you want to autocorrect \"Steelbound\" to \"Spellbound\"?!?",
-    "DESCRIPTIONS": [
-      "Whenever you spend [E] [E] [E] on #yAttacks in one turn, your next Attack costs #b0."
-    ]
   }
 }
 

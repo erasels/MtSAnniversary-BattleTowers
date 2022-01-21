@@ -78,7 +78,7 @@
   "${ModID}:AvertYourGazePower": {
     "NAME": "Avert Your Gaze",
     "DESCRIPTIONS": [
-      "You do not gain #yPetrification from dealing damage or applying debuffs this turn"
+      "You do not gain #yPetrification from dealing damage or applying debuffs until your next turn."
     ]
   },
   "${ModID}:ProtectedPower": {
@@ -120,7 +120,7 @@
   "${ModID}:SlimeFilledRoomPower": {
     "NAME": "Slime Filled Room",
     "DESCRIPTIONS": [
-      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for each card other than #yCurses and #yBasics. Whenever a #ySlimed is #yExhausted, this enemy loses #b1 #yStrength."
+      "At the start of combat, this enemy adds #b1 #ySlimed to your draw pile for every #b2 cards in your deck. Whenever a #ySlimed is #yExhausted, this enemy loses #b1 #yStrength."
     ]
   },
   "${ModID}:PlayerCurlUpPower": {
@@ -145,9 +145,14 @@
   "${ModID}:GatheringStormPower": {
     "NAME": "Gathering Storm",
     "DESCRIPTIONS": [
-      "When this enemy doesn't attack or attacks once, its next multihit will hit #b",
-      " Extra time.",
-      " Extra times"
+      "Itozus's multihit attacks will strike additional times after ending your turn without attacking."
+    ]
+  },
+  "${ModID}:AgainstTheWhirlwindPower": {
+    "NAME": "Against the Whirlwind",
+    "DESCRIPTIONS": [
+      "At the end of your turn if you didn't attack, Itozus's next multi hit will hit #b",
+      " Extra time.", " Extra times"
     ]
   },
   "${ModID}:BurnPower": {
@@ -157,13 +162,41 @@
       " damage and reduce this by #b1."
     ]
   },
+  "${ModID}:InquisitorPower": {
+    "NAME": "Inquisitor",
+    "DESCRIPTIONS": [
+      "Whenever Zarstrasz deals #b%d unblocked attack damage, it gains an additional action every turn for the rest of combat. (Up to 2)"
+    ]
+  },
   "${ModID}:JudgementPower": {
     "NAME": "Judgement",
     "DESCRIPTIONS": [
-      "At the start of your turn, if you have #b",
-      " or more #yJudgement, lose #b",
-      " #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
-      " NL Judgement is increased by half of unblocked damage taken."
+      "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
+      " NL Judgement is increased by unblocked damage taken."
+    ]
+  },
+  "${ModID}:DoubleTimePower": {
+    "NAME": "Double Time",
+    "DESCRIPTIONS": [
+      "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will take an extra action each turn."
+    ]
+  },
+  "${ModID}:TimewalkingPower": {
+    "NAME": "Timewalking",
+    "DESCRIPTIONS": [
+      "The Timewalker may alter the flow of time in addition to it's primary action each turn."
+    ]
+  },
+  "${ModID}:HalfTime": {
+    "NAME": "Half Time",
+    "DESCRIPTIONS": [
+      "Lose [E] and draw #b1 less cards at the start of your turn, but the Timewalker will only act once each turn."
+    ]
+  },
+  "${ModID}:TimeStop": {
+    "NAME": "Time Stop",
+    "DESCRIPTIONS": [
+      "Your first card each turn #yPurges when played and deals #b40% less damage and gains #b40% less block."
     ]
   },
 
@@ -232,7 +265,7 @@
   "${ModID}:PrismShield": {
     "NAME": "Prism Shield Power",
     "DESCRIPTIONS": [
-      "Any attack damage dealt to this is stored and dealt at the end of the round. All damage above 20 stored will increase the damage of this monster's attacks."
+      "Any attack damage dealt to this is stored and dealt at the end of the round."
     ]
   },
   "${ModID}:BookGrowthPower": {
@@ -244,7 +277,14 @@
   "${ModID}:HidePower": {
     "NAME": "Hide Power",
     "DESCRIPTIONS": [
-      "When this creature's block is broken, it is stunned and loses all Strength and Barricade."
+      "When this creature's block is broken it is stunned and loses all Strength and Barricade. After it attacks, it loses all Block, Strength and Barricade."
+    ]
+  },
+  "${ModID}:PrismPower": {
+    "NAME": "Prism Charge",
+    "DESCRIPTIONS": [
+      "The damage of this creature's attacks is increased by 1 for each point of damage above 20 stored in the Prism Shield. Currently dealing #b",
+      " extra damage."
     ]
   },
   "${ModID}:CursedTotemPower": {
@@ -257,14 +297,6 @@
     "NAME": "Strength Totem",
     "DESCRIPTIONS": [
       "While %1$s is alive, #yNecrototem has #b%2$d additional #yStrength."
-    ]
-  },
-  "${ModID}:CopyCatPower": {
-    "NAME": "Copycat",
-    "DESCRIPTIONS": [
-      "This elite feels inspired by your ",
-      "! NL The enemies will deal ",
-      " additional damage next turn."
     ]
   },
   "${ModID}:GrievousWounds": {
@@ -288,16 +320,7 @@
   "${ModID}:ExtraHitsPower": {
     "NAME": "Struggling",
     "DESCRIPTIONS": [
-      "When this creature intends to attack, it will attack #b",
-      " additional time.",
-      " additional times."
-    ]
-  },
-  "${ModID}:ClunkyPower": {
-    "NAME": "Clunky",
-    "DESCRIPTIONS": [
-      "After you play #b",
-      " more attacks this turn, this enemy will only attack once this turn."
+      "When this creature intends to attack, it will attack #b"," additional time."," additional times."
     ]
   }
 }

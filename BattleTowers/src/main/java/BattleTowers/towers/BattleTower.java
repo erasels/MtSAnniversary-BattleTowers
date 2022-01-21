@@ -1,6 +1,7 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
+import BattleTowers.events.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -158,7 +159,6 @@ public class BattleTower {
                 .addNormalEncounter(Romeo.ID)
                 .addNormalEncounter(Encounters.NINJA_LOUSES)
                 .addNormalEncounter(Encounters.RAINBOW_LOUSES)
-                .addEliteEncounter(AspiringChampion.ID, addReward(SteelboundCodex::new))
                 .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
                 .addEliteEncounter(VoodooDoll.ID, addReward(CursedDoll::new))
                 .addEliteEncounter(GiantArm.ID, addReward(SweatyArmband::new))
