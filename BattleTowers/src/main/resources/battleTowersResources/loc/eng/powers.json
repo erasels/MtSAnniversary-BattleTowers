@@ -320,7 +320,24 @@
   "${ModID}:ExtraHitsPower": {
     "NAME": "Struggling",
     "DESCRIPTIONS": [
-      "When this creature intends to attack, it will attack #b"," additional time."," additional times."
+      "When this creature intends to attack, it will attack #b",
+      " additional time.",
+      " additional times."
+    ]
+  },
+  "${ModID}:ClunkyPower": {
+    "NAME": "Clunky",
+    "DESCRIPTIONS": [
+      "After you play #b",
+      " more attacks this turn, this enemy will only attack once this turn."
+    ]
+  },
+  "${ModID}:CopyCatPower": {
+    "NAME": "Copycat",
+    "DESCRIPTIONS": [
+      "This elite feels inspired by your ",
+      "! NL The enemies will deal ",
+      " additional damage next turn."
     ]
   }
 }

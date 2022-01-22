@@ -1,7 +1,6 @@
 package BattleTowers.towers;
 
 import BattleTowers.events.*;
-import BattleTowers.events.GentlemanEvent;
 import BattleTowers.interfaces.Weighted;
 import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
@@ -166,6 +165,7 @@ public class BattleTower {
                 .addEliteEncounter(GigaSlime.ID, addReward(SlimeFilledFlask::new))
                 .addEliteEncounter(ItozusTheWindwalker.ID, addReward(JadeIdol::new))
                 .addEliteEncounter(ZastraszTheJusticar.ID, addReward(RubyFragment::new))
+                .addEliteEncounter(AspiringChampion.ID, addReward(SteelboundCodex::new))
                 .addBoss(CardboardGolem.ID, addReward(CardboardHeart::new))
                 .addBoss(ExecutiveSlime.ID, addReward(BucketOfSlime::new))
                 .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
