@@ -202,4 +202,11 @@ public class NinjaLouse extends AbstractBTMonster {
             }
         }
     }
+
+    @Override
+    public void damage(DamageInfo info) {
+        if (info.output > 0 && hasPower(IntangiblePower.POWER_ID))
+            info.output = 1;
+        super.damage(info);
+    }
 }

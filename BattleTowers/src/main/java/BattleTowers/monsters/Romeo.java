@@ -25,6 +25,7 @@ import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
 import com.megacrit.cardcrawl.powers.IntangiblePlayerPower;
+import com.megacrit.cardcrawl.powers.IntangiblePower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.UncommonPotionParticleEffect;
 
@@ -59,7 +60,10 @@ public class Romeo extends AbstractBTMonster {
     private int turn = 1;
     private boolean ded;
 
-    public Romeo() {this(0f,0f);}
+    public Romeo() {
+        this(0f, 0f);
+    }
+
     public Romeo(final float x, final float y) {
         super(NAME, ID, 50, -10.0F, -7.0F, 180.0F, 285.0F, null, x, y);
 
@@ -76,12 +80,12 @@ public class Romeo extends AbstractBTMonster {
 
         addMove(BUFF_SELF, Intent.BUFF);
         addMove(SIDE_SLASH, Intent.ATTACK_DEFEND, MED_DMG);
-        addMove(STAB, Intent.ATTACK, SMALL_DMG, AbstractDungeon.ascensionLevel>=17 ? 2 : 1, true);
+        addMove(STAB, Intent.ATTACK, SMALL_DMG, AbstractDungeon.ascensionLevel >= 17 ? 2 : 1, true);
         addMove(GRIEVOUS_WOUNDS, Intent.STRONG_DEBUFF);
 
-        if(CardCrawlGame.isInARun())
-            for(HashMap map : CardCrawlGame.metricData.event_choices) {
-                if(map.getOrDefault("event_name", "").equals(MaskedBandits.ID) && map.get("player_choice").equals("Fought Bandits")) {
+        if (CardCrawlGame.isInARun())
+            for (HashMap map : CardCrawlGame.metricData.event_choices) {
+                if (map.getOrDefault("event_name", "").equals(MaskedBandits.ID) && map.get("player_choice").equals("Fought Bandits")) {
                     ded = true;
                     break;
                 }
@@ -98,7 +102,7 @@ public class Romeo extends AbstractBTMonster {
     @Override
     public void usePreBattleAction() {
         UC.doPow(this, this, new CounterPower(this, 7, calcAscensionDamage(SMALL_DMG)), false);
-        if(ded) {
+        if (ded) {
             UC.doPow(this, this, new IntangiblePlayerPower(this, 1), false);
         }
     }
@@ -114,8 +118,8 @@ public class Romeo extends AbstractBTMonster {
 
         switch (nextMove) {
             case GRIEVOUS_WOUNDS:
-                if(!hadTalk1) {
-                    UC.atb(new TalkAction(this, DIALOG[ded?2:0]));
+                if (!hadTalk1) {
+                    UC.atb(new TalkAction(this, DIALOG[ded ? 2 : 0]));
                     hadTalk1 = true;
                 }
                 UC.doPow(this, UC.p(), new GrievousWoundsPower(UC.p(), calcAscensionSpecial(MHP_DEC)), false);
@@ -129,12 +133,12 @@ public class Romeo extends AbstractBTMonster {
             case STAB:
                 UC.atb(new ChangeStateAction(this, "STAB"));
                 UC.atb(new WaitAction(0.3f));
-                for (int i = 0; i < ((EnemyMoveInfo)ReflectionHacks.getPrivate(this, AbstractMonster.class, "move")).multiplier; i++) {
-                    UC.atb(new DamageAction(UC.p(), info, MathUtils.randomBoolean()? AbstractGameAction.AttackEffect.SLASH_DIAGONAL : AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                for (int i = 0; i < ((EnemyMoveInfo) ReflectionHacks.getPrivate(this, AbstractMonster.class, "move")).multiplier; i++) {
+                    UC.atb(new DamageAction(UC.p(), info, MathUtils.randomBoolean() ? AbstractGameAction.AttackEffect.SLASH_DIAGONAL : AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
                 }
                 break;
             case BUFF_SELF:
-                if(!hadTalk2) {
+                if (!hadTalk2) {
                     UC.atb(new TalkAction(this, DIALOG[1]));
                     hadTalk2 = true;
                 }
@@ -148,7 +152,7 @@ public class Romeo extends AbstractBTMonster {
     protected void getMove(int i) {
         byte move = (byte) (turn++ % 4);
         EnemyMoveInfo info = this.moves.get(move);
-        this.setMove(MOVES[move], move, info.intent, info.baseDamage, info.multiplier>0? turn/3+info.multiplier : 0, info.isMultiDamage);
+        this.setMove(MOVES[move], move, info.intent, info.baseDamage, info.multiplier > 0 ? turn / 3 + info.multiplier : 0, info.isMultiDamage);
     }
 
     public void changeState(String key) {
@@ -162,7 +166,10 @@ public class Romeo extends AbstractBTMonster {
         }
     }
 
+    @Override
     public void damage(DamageInfo info) {
+        if (info.output > 0 && (hasPower(IntangiblePower.POWER_ID) || hasPower(IntangiblePlayerPower.POWER_ID)))
+            info.output = 1;
         super.damage(info);
         if (info.owner != null && info.type != DamageInfo.DamageType.THORNS && info.output > 0) {
             state.setAnimation(0, "Hit", false);
@@ -174,25 +181,27 @@ public class Romeo extends AbstractBTMonster {
     private Color backupTintCol;
     private float particleTimer = 0f;
     private static final float PARTICLE_COOLDOWN = 0.15f;
+
     @Override
     public void render(SpriteBatch sb) {
-        if(ded) {
+        if (ded) {
             backupTintCol = tint.color.cpy();
             tint.color = oscillarator(tint.color);
             particleTimer -= UC.gt();
-            if(!Settings.DISABLE_EFFECTS && particleTimer <= 0) {
-                AbstractDungeon.effectList.add(new UncommonPotionParticleEffect(MathUtils.random(hb.x, hb.x+hb.width), MathUtils.random(hb.y, hb.y+hb.height)));
+            if (!Settings.DISABLE_EFFECTS && particleTimer <= 0) {
+                AbstractDungeon.effectList.add(new UncommonPotionParticleEffect(MathUtils.random(hb.x, hb.x + hb.width), MathUtils.random(hb.y, hb.y + hb.height)));
                 particleTimer = PARTICLE_COOLDOWN;
             }
         }
         super.render(sb);
-        if(ded) {
+        if (ded) {
             tint.color = backupTintCol;
         }
     }
 
     private static float oscillatingTimer = 0.0f;
     private static float oscillatingFader = 0.0f;
+
     public static Color oscillarator(Color c) {
         oscillatingFader += Gdx.graphics.getRawDeltaTime();
         if (oscillatingFader > 0.66F) {
