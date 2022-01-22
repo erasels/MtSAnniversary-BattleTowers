@@ -192,7 +192,8 @@ public class BattleTowers implements
         BaseMod.addMonster(Gorgon.ID, (BaseMod.GetMonster) Gorgon::new);
         BaseMod.addMonster(GigaSlime.ID, (BaseMod.GetMonster) GigaSlime::new);
         BaseMod.addMonster(ItozusTheWindwalker.ID,(BaseMod.GetMonster) ItozusTheWindwalker::new);
-        BaseMod.addMonster(ZastraszTheJusticar.ID,(BaseMod.GetMonster) ZastraszTheJusticar::new);
+        BaseMod.addMonster(ZastraszTheJusticar.ID, (BaseMod.GetMonster) ZastraszTheJusticar::new);
+        BaseMod.addMonster(AspiringChampion.ID, (BaseMod.GetMonster) AspiringChampion::new);
 
         //Bosses
         BaseMod.addMonster(CardboardGolem.ID, (BaseMod.GetMonster) CardboardGolem::new);

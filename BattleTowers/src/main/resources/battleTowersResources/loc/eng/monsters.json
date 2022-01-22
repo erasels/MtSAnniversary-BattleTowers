@@ -422,8 +422,9 @@
     ],
     "MOVES": ["Training Montage",
     "High Stakes",
-    "Chump Prodder",
-    "Shank Time"]
+      "Chump Prodder",
+      "Shank Time"
+    ]
   },
   "${ModID}:RainbowLouse": {
     "MOVES": [
@@ -432,5 +433,24 @@
       "Debilitate"
     ],
     "NAME": "Invincible Louse"
+  },
+  "${ModID}:AspiringChampion": {
+    "MOVES": [
+      "Copy Cat",
+      "Copy Cat",
+      "Heavy Blows",
+      "Recover",
+      "Heavy Blows",
+      "Copy Cat",
+      "Copy Cat"
+    ],
+    "NAME": "Aspiring Champion",
+    "DIALOG": [
+      "Oooh... I like this one!",
+      "Get out of my way!",
+      "DIE FUTILE WEAK... oops!",
+      "What, are you too scared to play attacks?",
+      "Hrmpf"
+    ]
   }
 }
