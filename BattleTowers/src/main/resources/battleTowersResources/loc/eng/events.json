@@ -2,7 +2,7 @@
   "${ModID}:TowerEnter": {
     "NAME": "The Tower",
     "DESCRIPTIONS": [
-      "You stand at a crossroads. Do you seek the easy mystery of an unattended treasure chest or the challenge of whatever the tower in the distance will have to offer. NL NL The choice is yours."
+      "You stand at a crossroads. Do you seek the #beasy mystery of an unattended treasure chest, or the #r~challenge~ of whatever the tower in the distance will have to offer? NL NL The choice is yours."
     ],
     "OPTIONS": [
       "[Tower] The tower's call is too alluring.",
@@ -200,9 +200,9 @@
   "${ModID}:GentlemanEvent": {
     "NAME": "Mysterious Figure",
     "DESCRIPTIONS": [
-      "A strange figure approaches you from an alleyway, his body cloaked in shadow, outline barely visible. NL #pYou #pseem #pto #pbe #pin #pa #pbit #pof #ptrouble #pfriend. #pPerhaps #pI #pcan #phelp... #pall #pit #pwill #pcost #pis #p@your@ #p@soul.@",
+      "A strange figure approaches you from an alleyway, his body cloaked in shadow, outline barely visible. NL #p\"You #pseem #pto #pbe #pin #pa #pbit #pof #ptrouble #pfriend. #pPerhaps #pI #pcan #phelp... #pall #pit #pwill #pcost #pis #p@your@ #p@soul.\"@",
       "You feel your strength returning to you... but it feels a part of you is missing. You look up, and see the figure has disappeared.",
-      "#pYou #pwill #pperish #pin #pthis #pplace. He says, before melting away into the shadows..."
+      "#p\"You #pwill #pperish #pin #pthis #pplace,\" he says, before melting away into the shadows..."
     ],
     "OPTIONS": [
       "[Accept] #rLose ",
