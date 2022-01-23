@@ -21,6 +21,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.MinionPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
@@ -101,7 +102,7 @@ public class ExecutiveSlime extends AbstractBTMonster
     public void usePreBattleAction() {
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (m instanceof ExecutiveMinion) {
-                //addToBot(new ApplyPowerAction(m, m, new MinionPower(this)));
+                addToBot(new ApplyPowerAction(m, m, new MinionPower(this)));
                 addToBot(new ApplyPowerAction(m, this, new ExpendablePower(m, 10, false), 10));
             }
         }
@@ -191,7 +192,7 @@ public class ExecutiveSlime extends AbstractBTMonster
         for (int i : shouldSpawn) {
             Slimeling newMinion = new Slimeling(POS_X[i], POS_Y[i]);
             newMinion.setMinionIndex(i);
-            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(newMinion, false));
+            AbstractDungeon.actionManager.addToBottom(new SpawnMonsterAction(newMinion, true));
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(newMinion, this, new ExpendablePower(newMinion, 10, true), 10));
         }
     }
@@ -254,11 +255,11 @@ public class ExecutiveSlime extends AbstractBTMonster
     public void die() {
         super.die();
 
-        /*for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
             if (!m.isDeadOrEscaped() && m instanceof ExecutiveMinion) {
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(m));
             }
-        }*/
+        }
     }
 
     @Override
