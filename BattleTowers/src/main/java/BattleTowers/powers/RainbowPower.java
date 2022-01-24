@@ -6,7 +6,7 @@ import basemod.interfaces.CloneablePowerInterface;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.evacipated.cardcrawl.mod.stslib.actions.tempHp.AddTemporaryHPAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.BufferPower;
+import com.megacrit.cardcrawl.powers.ArtifactPower;
 import com.megacrit.cardcrawl.powers.LoseStrengthPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 
@@ -27,9 +27,9 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
     public static final String[] DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     private final int timerOffset;
 
-    private static final int BUFFER = 1;
-    private static final int STR = 2;
-    private static final int TEMP_HP = 3;
+    private static final int POWER = 2;
+    private static final int ATTACK = 1;
+    private static final int SKILL = 4;
 
     public RainbowPower(AbstractCreature owner) {
         this(owner, AbstractDungeon.miscRng.random(0, 5000));
@@ -45,7 +45,7 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
         this.timerOffset = timerOffset;
     }
     public void updateDescription() {
-        description = String.format(DESCRIPTIONS[0], STR, TEMP_HP, BUFFER);
+        description = String.format(DESCRIPTIONS[0], ATTACK, SKILL, POWER);
     }
 
     @Override
@@ -64,14 +64,14 @@ public class RainbowPower extends AbstractBTPower implements CloneablePowerInter
     public void onAfterUseCard(AbstractCard card, UseCardAction action) {
         switch (card.type) {
             case POWER:
-                UC.doPow(owner, owner, new BufferPower(owner, BUFFER), false);
+                UC.doPow(owner, owner, new ArtifactPower(owner, POWER), false);
                 break;
             case SKILL:
-                UC.atb(new AddTemporaryHPAction(owner, owner, TEMP_HP));
+                UC.atb(new GainBlockAction(owner, owner, SKILL, true));
                 break;
             case ATTACK:
-                UC.doPow(owner, owner, new StrengthPower(owner, STR), false);
-                UC.doPow(owner, owner, new LoseStrengthPower(owner, STR), false);
+                UC.doPow(owner, owner, new StrengthPower(owner, ATTACK), false);
+                UC.doPow(owner, owner, new LoseStrengthPower(owner, ATTACK), false);
         }
     }
 

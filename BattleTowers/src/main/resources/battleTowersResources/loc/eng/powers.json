@@ -314,7 +314,7 @@
   "${ModID}:RainbowPower": {
     "NAME": "Rainbow Power",
     "DESCRIPTIONS": [
-      "Whenever you play a card, gains a buff depending on the type. NL #rAttack: #b%d Temporary #yStrength NL #gSkill: #b%d #yTemporary #yHP NL #bPower: #b%d #yBuffer"
+      "Whenever you play a card, gains a buff depending on the type. NL #rAttack: #b%d Temporary #yStrength NL #gSkill: #b%d #yBlock NL #bPower: #b%d #yArtifact"
     ]
   },
   "${ModID}:ExtraHitsPower": {

@@ -43,8 +43,8 @@ public class RainbowLouse extends AbstractBTMonster {
     private static final String REAR = "REAR";
 
     //Monster stats
-    private static final int MIN_HP = 20;
-    private static final int MAX_HP = 26;
+    private static final int MIN_HP = 30;
+    private static final int MAX_HP = 36;
     private static final int STRUGGLE_DAMAGE = 4;
     private static final int BASE_STRUGGLE_HITS = 2;
     private final int STR_AMOUNT = calcAscensionSpecial(1);
