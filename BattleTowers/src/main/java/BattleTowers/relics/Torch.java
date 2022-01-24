@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
+import static BattleTowers.BattleTowers.logger;
 import static BattleTowers.BattleTowers.makeID;
 
 public class Torch extends CustomRelic implements CustomSavable<CardSave> {
@@ -53,7 +54,7 @@ public class Torch extends CustomRelic implements CustomSavable<CardSave> {
                 UC.atb(new MakeTempCardInDrawPileAction(card.makeStatEquivalentCopy(), 2, true, true));
             }
         } else {
-            System.err.print("Err: Torch card is null\n");
+            logger.warn("Torch relic card is null.");
         }
     }
 
