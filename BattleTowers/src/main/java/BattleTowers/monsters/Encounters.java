@@ -11,4 +11,5 @@ public class Encounters {
     public static final String ELEMENTAL_SENTRIES = makeID("Elemental_Sentries");
     public static final String NINJA_LOUSES = makeID("Ninja_Louses");
     public static final String MAGUS_AND_ASSASSIN = makeID("Magus_and_Assassin");
+    public static final String RAINBOW_LOUSES = makeID("Rainbow_Louses");
 }

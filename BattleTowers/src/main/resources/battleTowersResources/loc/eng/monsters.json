@@ -424,5 +424,13 @@
     "High Stakes",
     "Chump Prodder",
     "Shank Time"]
+  },
+  "${ModID}:RainbowLouse": {
+    "MOVES": [
+      "Intensify",
+      "Struggle",
+      "Debilitate"
+    ],
+    "NAME": "Invincible Louse"
   }
 }

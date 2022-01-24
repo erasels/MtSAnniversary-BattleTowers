@@ -157,7 +157,7 @@
   "${ModID}:SweatyArmband": {
     "NAME": "Sweaty Armband",
     "FLAVOR": "No pain, no gain.",
-    "DESCRIPTIONS": ["Upon receiving unblocked attack damage, gain 1 Strength."]
+    "DESCRIPTIONS": ["Whenever you receive unblocked attack damage, gain #b1 #yStrength."]
   },
     "${ModID}:JadeIdol": {
     "NAME": "Jade Idol",
@@ -170,7 +170,14 @@
     "NAME": "Ruby Fragment",
     "FLAVOR": "Just a shard of the Justicar's power, seems offence will be rewarded by his divine.",
     "DESCRIPTIONS": [
-      "After dealing #b15 unblocked damage in a combat, gain [E][E] and draw 2 cards, only works once per combat."
+      "After dealing #b15 unblocked damage in a combat, gain [E] and draw 2 cards, only works once per combat."
+    ]
+  },
+  "${ModID}:ScaryNail": {
+    "NAME": "Scary Nail",
+    "FLAVOR": "Taken out of the Totem, this would fit great into a baseball bat.",
+    "DESCRIPTIONS": [
+      "You have #b%d additional #yStrength for every enemy in combat."
     ]
   },
   "${ModID}:QueensPawn": {
