@@ -14,7 +14,7 @@ public class ScrewAudioBuffersButSoftlyPleaseDontTakeMySoundAwayPleaseThanksPatc
     @SpireInsertPatch(locator = Locator.class, localvars = {"errorCode"})
     public static SpireReturn<?> patch(OpenALMusic __instance, int errorCode) {
         if(errorCode == 40963 && CardCrawlGame.isInARun() && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
-            BattleTowers.logger.info("Intercepted audio buffer crash in battle towers, Error Code: " + errorCode + "\n All sound is probably gone, please restart the game to get it back. I'm sorry :(");
+            BattleTowers.logger.error("Intercepted audio buffer crash in battle towers, Error Code: " + errorCode + "\n All sound is probably gone, please restart the game to get it back. I'm sorry :(");
             return SpireReturn.Return(null);
         }
 
