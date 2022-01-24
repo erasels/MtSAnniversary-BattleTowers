@@ -147,11 +147,11 @@ public class GiantArm extends CustomMonster {
     private void playDeathSfx() {
         int roll = MathUtils.random(2);
         if (roll == 0) {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2A");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2A"));
         } else if (roll == 1) {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2B");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2B"));
         } else {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2C");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2C"));
         }
 
     }
