@@ -111,7 +111,7 @@ public class Assassin extends CustomMonster {
     public void takeTurn() {
         switch (this.nextMove) {
             case SMOKEBOMB:
-                AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new SmokeBombEffect(this.hb.cX, this.hb.cY)));
                 AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, smokeBombBlock));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new HidePower(this, this, 0), 0));
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new BarricadePower(this)));
@@ -146,7 +146,7 @@ public class Assassin extends CustomMonster {
                 AbstractDungeon.actionManager.addToBottom(new AddCardToDeckAction(new Injury()));
                 break;
             case ESCAPE:
-                AbstractDungeon.effectsQueue.add(new SmokeBombEffect(this.hb.cX, this.hb.cY));
+                AbstractDungeon.actionManager.addToBottom(new VFXAction(new SmokeBombEffect(this.hb.cX, this.hb.cY)));
                 AbstractDungeon.actionManager.addToBottom(new EscapeAction(this));
                 break;
 
