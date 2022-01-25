@@ -13,7 +13,8 @@ import javassist.CtBehavior;
 public class ScrewAudioBuffersButSoftlyPleaseDontTakeMySoundAwayPleaseThanksPatch {
     @SpireInsertPatch(locator = Locator.class, localvars = {"errorCode"})
     public static SpireReturn<?> patch(OpenALMusic __instance, int errorCode) {
-        if(errorCode == 40963 && CardCrawlGame.isInARun() && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
+        System.err.println("OpenALMusic is about to throw an exception code: " + errorCode);
+        if(/*errorCode == 40963 &&*/ CardCrawlGame.isInARun() && AbstractDungeon.getCurrMapNode() != null && AbstractDungeon.getCurrRoom() instanceof BattleTowerRoom) {
             BattleTowers.logger.error("Intercepted audio buffer crash in battle towers, Error Code: " + errorCode + "\n All sound is probably gone, please restart the game to get it back. I'm sorry :(");
             return SpireReturn.Return(null);
         }
