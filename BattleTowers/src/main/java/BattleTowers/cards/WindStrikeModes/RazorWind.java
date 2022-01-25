@@ -37,8 +37,8 @@ public class RazorWind extends CustomCard {
 
     public RazorWind() {
         super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
-        baseDamage = damage = 4;
-        baseBlock = block = 4;
+        baseDamage = damage = 5;
+        baseBlock = block = 5;
         magicNumber = baseMagicNumber = 3;
         purgeOnUse = true;
     }
