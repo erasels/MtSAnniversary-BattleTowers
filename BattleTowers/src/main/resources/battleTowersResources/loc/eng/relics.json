@@ -163,7 +163,7 @@
     "NAME": "Jade Idol",
     "FLAVOR": "Immaculately carved, and defying physics just one of these with little effort becomes very powerful given time.",
     "DESCRIPTIONS": [
-      "Upon pickup, add a #yWind #yStrike to your deck. NL At the start of combat, add a #yWind #yStrike to your hand."
+      "At the start of combat, add a #yWind #yStrike to your hand."
     ]
   },
   "${ModID}:RubyFragment": {
