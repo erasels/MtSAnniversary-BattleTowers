@@ -41,16 +41,20 @@ public class JudgementPower extends TwoAmountPower implements CloneablePowerInte
                 }
             }
             AbstractPower p = getParentPower();
-            p.amount = amount;
-            p.updateDescription();
-            p.flash();
+            if(p != null) {
+                p.amount = amount;
+                p.updateDescription();
+                p.flash();
+            }
         }
     }
     public int onAttacked(DamageInfo info, int damageAmount) {
         amount += damageAmount;
         AbstractPower p = getParentPower();
-        p.amount = amount;
-        p.updateDescription();
+        if(p != null) {
+            p.amount = amount;
+            p.updateDescription();
+        }
         return damageAmount;
     }
     @Override
