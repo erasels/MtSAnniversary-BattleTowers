@@ -1,7 +1,6 @@
 package BattleTowers.relics;
 
 import BattleTowers.events.RoarOfTheCrowd;
-import BattleTowers.room.BattleTowerRoom;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -11,7 +10,6 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.text.MessageFormat;
 
@@ -57,18 +55,21 @@ public class QueensPawn extends CustomRelic {
 
     @Override
     public void onPlayerEndTurn() {
-        switch(stateForTurn){
-            case 1:
-                if (!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty() && ((AbstractCard)AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1)).type == AbstractCard.CardType.ATTACK) {
-                    AbstractDungeon.actionManager.addToBottom(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, 5, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-                    this.flash();
-                }
-                break;
-            case 2:
-                if (!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty() && ((AbstractCard)AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1)).type == AbstractCard.CardType.SKILL) {
-                    AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player, 5));
-                    this.flash();
-                }
+        if(!AbstractDungeon.actionManager.cardsPlayedThisCombat.isEmpty()) {
+            AbstractCard c = AbstractDungeon.actionManager.cardsPlayedThisCombat.get(AbstractDungeon.actionManager.cardsPlayedThisCombat.size() - 1);
+            switch (stateForTurn) {
+                case 1:
+                    if (c.type == AbstractCard.CardType.ATTACK) {
+                        AbstractDungeon.actionManager.addToBottom(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, 5, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                        this.flash();
+                    }
+                    break;
+                case 2:
+                    if (c.type == AbstractCard.CardType.SKILL) {
+                        AbstractDungeon.actionManager.addToBottom(new GainBlockAction(AbstractDungeon.player, 5));
+                        this.flash();
+                    }
+            }
         }
     }
 
