@@ -16,12 +16,13 @@ import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import static BattleTowers.BattleTowers.makeCardPath;
 import static BattleTowers.BattleTowers.makeID;
 public class WindStrike extends CustomCard {
     public static final String ID = makeID(WindStrike.class.getSimpleName());
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = "green/attack/quick_slash";
+    public static final String IMG_PATH = makeCardPath("WindStrike.png");
     private static final CardType TYPE = CardType.ATTACK;
     private static final CardRarity RARITY = CardRarity.BASIC;
     private static final CardTarget TARGET = CardTarget.SELF_AND_ENEMY;
@@ -53,14 +54,12 @@ public class WindStrike extends CustomCard {
         return new WindStrike();
     }
 
-    @Override
-    public boolean canUpgrade() {
-        return false;
-    }
-
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
+            upgradeDamage(3);
+            upgradeBlock(3);
+            upgradeMagicNumber(3);
         }
     }
     public void applyPowers() {
