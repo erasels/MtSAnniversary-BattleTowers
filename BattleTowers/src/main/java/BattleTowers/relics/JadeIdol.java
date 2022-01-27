@@ -6,7 +6,6 @@ import basemod.abstracts.CustomRelic;
 import basemod.helpers.CardPowerTip;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -18,10 +17,7 @@ public class JadeIdol extends CustomRelic {
 
     public JadeIdol() {
         super(ID, TextureLoader.getTexture(makeRelicPath("JadeIdol.png")), RelicTier.SPECIAL, LandingSound.FLAT);
-        this.tips.clear();
-        this.tips.add(new PowerTip(name, description));
-        this.tips.add(new CardPowerTip(new WindStrike(), relicStrings.DESCRIPTIONS[1], ""));
-        this.initializeTips();
+        this.tips.add(new CardPowerTip(new WindStrike()));
     }
 
     /*@Override
