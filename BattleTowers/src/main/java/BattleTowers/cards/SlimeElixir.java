@@ -20,7 +20,7 @@ public class SlimeElixir extends CustomCard {
     public static final String DESCRIPTION = cardStrings.DESCRIPTION;
     private static final int COST = 0;
     private static final int CARDS = 2;
-    private static final int UPGRADE_CARDS = 1;
+    private static final int UPGRADE_CARDS = 2;
 
     public SlimeElixir() {
         super(ID, NAME, IMG, COST, DESCRIPTION, CardType.SKILL, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.NONE);
