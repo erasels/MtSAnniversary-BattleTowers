@@ -1,5 +1,6 @@
 package BattleTowers.cardmods;
 
+import BattleTowers.relics.BucketOfSlime;
 import basemod.abstracts.AbstractCardModifier;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -14,7 +15,7 @@ public class SlimyCardmod extends AbstractCardModifier {
 
     @Override
     public void onUse(AbstractCard card, AbstractCreature target, UseCardAction action) {
-        AbstractDungeon.actionManager.addToTop(new GainBlockAction(AbstractDungeon.player, AbstractDungeon.player, 1));
+        AbstractDungeon.actionManager.addToTop(new GainBlockAction(AbstractDungeon.player, AbstractDungeon.player, BucketOfSlime.BLK_ADD));
     }
 
     @Override

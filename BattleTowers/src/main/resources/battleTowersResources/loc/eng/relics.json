@@ -22,7 +22,7 @@
     "NAME": "Bucket Of Slime",
     "FLAVOR": "A bucket of slime! Useful and multipurpose! Huh? What purpose? I'm just a salesman, figure that out yourself.",
     "DESCRIPTIONS": [
-      "The first time you play each card in your deck each combat, gain #b1 #yBlock."
+      "The first time you play each card in your deck each combat, gain #b%d #yBlock."
     ]
   },
   "${ModID}:WarBannerCultist": {

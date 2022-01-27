@@ -13,6 +13,7 @@ import static BattleTowers.BattleTowers.makeRelicPath;
 
 public class BucketOfSlime extends CustomRelic implements ModifyCombatCardsRelic {
     public static final String ID = makeID(BucketOfSlime.class.getSimpleName());
+    public static final int BLK_ADD = 2;
     //On combat deck initialization add a card mod that gives 1 block to each card?
     //Probably a bit more reliable than checking through at start of combat.
 
@@ -30,6 +31,6 @@ public class BucketOfSlime extends CustomRelic implements ModifyCombatCardsRelic
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0];
+        return String.format(DESCRIPTIONS[0], BLK_ADD);
     }
 }
