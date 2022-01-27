@@ -3,8 +3,10 @@ package BattleTowers.relics;
 import BattleTowers.cards.WindStrike;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
+import basemod.helpers.CardPowerTip;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.RelicStrings;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -14,10 +16,12 @@ public class JadeIdol extends CustomRelic {
     public static final String ID = makeID(JadeIdol.class.getSimpleName());
     private static RelicStrings relicStrings = CardCrawlGame.languagePack.getRelicStrings(ID);
 
-    //TODO: Add a card powertip
     public JadeIdol() {
         super(ID, TextureLoader.getTexture(makeRelicPath("JadeIdol.png")), RelicTier.SPECIAL, LandingSound.FLAT);
-        description = getUpdatedDescription();
+        this.tips.clear();
+        this.tips.add(new PowerTip(name, description));
+        this.tips.add(new CardPowerTip(new WindStrike(), relicStrings.DESCRIPTIONS[1], ""));
+        this.initializeTips();
     }
 
     /*@Override
