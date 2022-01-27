@@ -38,7 +38,7 @@ public class ScaryNail extends CustomRelic {
     @Override
     public void update() {
         super.update();
-        if(setup) {
+        if(setup && UC.isInCombat()) {
             int new_monsters = UC.getAliveMonsters().size();
             if(new_monsters != monsters) {
                 UC.doPow(new StrengthPower(UC.p(), new_monsters - monsters));
