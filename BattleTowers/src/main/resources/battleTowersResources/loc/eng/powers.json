@@ -178,7 +178,7 @@
   "${ModID}:DoubleTimePower": {
     "NAME": "Double Time",
     "DESCRIPTIONS": [
-      "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will take an extra action each turn."
+      "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will repeat his action each turn."
     ]
   },
   "${ModID}:TimewalkingPower": {
@@ -190,7 +190,7 @@
   "${ModID}:HalfTime": {
     "NAME": "Half Time",
     "DESCRIPTIONS": [
-      "Lose [E] and draw #b1 less cards at the start of your turn, but the Timewalker will only act once each turn."
+      "Lose [E] and draw #b1 less cards at the start of your turn, but the Timewalker cannot alter time in addition to is actions."
     ]
   },
   "${ModID}:TimeStop": {
