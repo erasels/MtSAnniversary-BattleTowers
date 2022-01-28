@@ -48,7 +48,6 @@ public class NatariTheTimewalker extends AbstractBTMonster {
     private TimeState Timestate = TimeState.NORMAL;
     private  boolean Roar = false;
     private  boolean justRoared = false;
-    private boolean AntiLoop = false;
     public enum TimeState{
         NORMAL,HALFTIME,DOUBLETIME,TIMESTOP
     }
@@ -110,188 +109,109 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
-        switch (this.nextMove) {
-            case FASTERTHANLIGHT: {
-                addToTop(new VFXAction(new WhirlwindEffect(Color.SKY, true)));
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
-                if (Timestate != TimeState.DOUBLETIME && Timestate != TimeState.HALFTIME){
+        int limit = 1;
+        if (Timestate == TimeState.DOUBLETIME) limit = 2;
+        for (int j=0; j<limit; j++) {
+            switch (this.nextMove) {
+                case FASTERTHANLIGHT: {
+                    addToTop(new VFXAction(new WhirlwindEffect(Color.SKY, true)));
+                    addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
+                    if (Timestate != TimeState.DOUBLETIME && Timestate != TimeState.HALFTIME) {
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
+                        addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player), 0));
+                        Timestate = TimeState.DOUBLETIME;
+                    }
+                    break;
+                }
+                case SANDBURST: {
+                    addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                    addToTop(new GainBlockAction(this, calcAscensionSpecial(10)));
+                    if (Timestate != TimeState.HALFTIME) {
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
+                        addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new HalfTime(AbstractDungeon.player), 0));
+                        Timestate = TimeState.HALFTIME;
+                    }
+                    break;
+                }
+                case CHECKMATE: {
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true)));
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
+                    for (int i = 0; i < moves.get(nextMove).multiplier; i++) {
+                        addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                    }
+                    if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME) {
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
+                        addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player), 0));
+                        Timestate = TimeState.TIMESTOP;
+                    }
+                    break;
+                }
+                case KILLINGDOLL: {
+                    for (int i = 0; i < moves.get(nextMove).multiplier; i++) {
+                        addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                    }
+                    break;
+                }
+                case SHOREUP: {
+                    addToTop(new HealAction(this, this, calcAscensionSpecial(8)));
+                    addToTop(new ApplyPowerAction(this, this, new StrengthPower(this, calcAscensionSpecial(2))));
+                    break;
+                }
+                case MIRRORSHOT: {
+                    for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                        addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                    }
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, 1, true)));
+                    break;
+                }
+                case ROAROFTIME: {
+                    for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                        addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
+                    }
+                    if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME) {
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                        addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
+                        addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player), 0));
+                        Timestate = TimeState.TIMESTOP;
+                    }
+                    if (!Roar) {
+                        addToBot(new TalkAction(this, DIALOG[1]));
+                        Roar = false;
+                    }
+                    justRoared = true;
+                    break;
+                }
+                case FASTFORWARD: {
                     addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
+                    addToTop(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
                     addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player),0));
-                    Timestate = TimeState.DOUBLETIME;
+                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player)));
+                    addToTop(new ApplyPowerAction(this, this, new DoubleTimePower(AbstractDungeon.player)));
+                    break;
                 }
-                break;
-            }
-            case SANDBURST : {
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                addToTop(new GainBlockAction(this,calcAscensionSpecial(10)));
-                if (Timestate != TimeState.HALFTIME){
+                case THEWORLD: {
                     addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new HalfTime(AbstractDungeon.player),0));
-                    Timestate = TimeState.HALFTIME;
-                }
-                break;
-            }
-            case CHECKMATE: {
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
-                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
-                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
+                    addToTop(new RemoveSpecificPowerAction(this, this, DoubleTimePower.POWER_ID));
                     addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player),0));
-                    Timestate = TimeState.TIMESTOP;
+                    addToTop(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
+                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player)));
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true)));
+                    addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
+                    break;
                 }
-                break;
-            }
-            case KILLINGDOLL : {
-                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
-                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                break;
-            }
-            case SHOREUP : {
-                addToTop(new HealAction(this,this, calcAscensionSpecial(8)));
-                addToTop(new ApplyPowerAction(this,this,new StrengthPower(this,calcAscensionSpecial(2))));
-                break;
-            }
-            case MIRRORSHOT: {
-                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new FrailPower(AbstractDungeon.player,1,true)));
-                break;
-            }
-            case ROAROFTIME: {
-                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player),0));
-                    Timestate = TimeState.TIMESTOP;
-                }
-                if (!Roar) {
-                    addToBot(new TalkAction(this, DIALOG[1]));
-                    Roar = false;
-                }
-                justRoared = true;
-                break;
-            }
-            case FASTFORWARD: {
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
-                addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player)));
-                addToTop(new ApplyPowerAction(this, this, new DoubleTimePower(AbstractDungeon.player)));
-                break;
-            }
-            case  THEWORLD: {
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this, this, DoubleTimePower.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                addToTop(new RemoveSpecificPowerAction(this, this, HalfTime.POWER_ID));
-                addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
-                break;
-            }
 
+            }
         }
         if (firstMove){
             addToBot(new TalkAction(this,DIALOG[0]));
             firstMove = false;
         }
-        if (Timestate == TimeState.DOUBLETIME && !AntiLoop){
-            takeTurnAgain();
-            AntiLoop = true;
-        }
+        addToBot(new RollMoveAction(this));
         //carries out actions based on the current move
         //useFastAttackAnimation causes the monster to jump forward when it attacks
-    }
-    public void takeTurnAgain() {
-        DamageInfo info;
-        info = new DamageInfo(this, this.moves.get(nextMove).baseDamage, DamageInfo.DamageType.NORMAL);
-        if (info.base > -1) {
-            info.applyPowers(this, AbstractDungeon.player);
-        }
-        switch (this.nextMove) {
-            case FASTERTHANLIGHT: {
-                addToTop(new VFXAction(new WhirlwindEffect(Color.SKY, true)));
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
-                if (Timestate != TimeState.DOUBLETIME && Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new DoubleTimePower(AbstractDungeon.player),0));
-                    Timestate = TimeState.DOUBLETIME;
-                }
-                break;
-            }
-            case SANDBURST : {
-                addToTop(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                addToTop(new GainBlockAction(this,calcAscensionSpecial(10)));
-                if (Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, TimeStop.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new HalfTime(AbstractDungeon.player),0));
-                    Timestate = TimeState.HALFTIME;
-                }
-                break;
-            }
-            case CHECKMATE: {
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, 2, true)));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new VulnerablePower(AbstractDungeon.player, 2, true)));
-                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
-                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player),0));
-                    Timestate = TimeState.TIMESTOP;
-                }
-                break;
-            }
-            case KILLINGDOLL : {
-                for (int i = 0; i < moves.get(nextMove).multiplier ; i++){
-                    addToTop(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                break;
-            }
-            case SHOREUP : {
-                addToTop(new HealAction(this,this, calcAscensionSpecial(8)));
-                addToTop(new ApplyPowerAction(this,this,new StrengthPower(this,calcAscensionSpecial(2))));
-                break;
-            }
-            case MIRRORSHOT: {
-                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                addToBot(new ApplyPowerAction(AbstractDungeon.player,this,new FrailPower(AbstractDungeon.player,1,true)));
-                break;
-            }
-            case ROAROFTIME: {
-                for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
-                    addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
-                }
-                if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME){
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, DoubleTimePower.POWER_ID));
-                    addToTop(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, HalfTime.POWER_ID));
-                    addToTop(new ApplyPowerAction(AbstractDungeon.player, this, new TimeStop(AbstractDungeon.player),0));
-                    Timestate = TimeState.TIMESTOP;
-                }
-                if (!Roar) {
-                    addToBot(new TalkAction(this, DIALOG[1]));
-                    Roar = false;
-                }
-                justRoared = true;
-                break;
-            }
-        }
     }
     @Override
     protected void getMove(final int num) {
@@ -300,7 +220,6 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         ArrayList<Byte> possibilities = new ArrayList<>();
         byte move = 0;
         justRoared = false;
-        AntiLoop = false;
         if (firstMove) {
             possibilities.add(FASTERTHANLIGHT);
             move = FASTERTHANLIGHT;
@@ -331,7 +250,7 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                     possibilities.add(SHOREUP);
                 }
             }
-            if ((!Roar || AbstractDungeon.ascensionLevel >= 19) && this.currentHealth >= this.maxHealth/2){
+            if ((!Roar || AbstractDungeon.ascensionLevel >= 19) && this.currentHealth <= this.maxHealth/2){
                 if (!Roar) {
                     possibilities.clear();
                 }
@@ -344,8 +263,8 @@ public class NatariTheTimewalker extends AbstractBTMonster {
             }
             move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
             setMoveShortcut(move, MOVES[move]);
-
         }
+        System.out.println(possibilities);
     }
 
 
