@@ -3,28 +3,17 @@ package BattleTowers.powers;
 import BattleTowers.BattleTowers;
 import BattleTowers.monsters.Assassin;
 import basemod.interfaces.CloneablePowerInterface;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.MathUtils;
-import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.HealthBarRenderPower;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePrefixPatch;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.*;
-import com.megacrit.cardcrawl.actions.unique.PoisonLoseHpAction;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.cards.green.Blur;
+import com.megacrit.cardcrawl.actions.common.RemoveAllBlockAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.BarricadePower;
-import com.megacrit.cardcrawl.powers.BlurPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 
 //Gain 1 dex for the turn for each card played.
@@ -96,13 +85,15 @@ public class HidePower extends AbstractPower implements CloneablePowerInterface 
     public static class fuckingMelter {
         @SpirePrefixPatch
         public static void fuckingMelterPatch(RemoveAllBlockAction __instance) {
-            if (__instance.target.hasPower(HidePower.POWER_ID)) {
-                    HidePower h = (HidePower) __instance.target.getPower(HidePower.POWER_ID);
+            if (__instance.target != null) {
+                HidePower h = (HidePower) __instance.target.getPower(HidePower.POWER_ID);
+                if (h != null) {
                     h.removeHide();
                     if (__instance.target instanceof Assassin) {
-                        Assassin a = (Assassin)__instance.target;
+                        Assassin a = (Assassin) __instance.target;
                         a.changeState("ArmorBreak");
                     }
+                }
             }
         }
     }
