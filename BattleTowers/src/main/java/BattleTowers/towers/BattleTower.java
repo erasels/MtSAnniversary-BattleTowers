@@ -155,6 +155,7 @@ public class BattleTower {
                 .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
+                .addNormalEncounter(Encounters.DBZ_PUNS)
                 .addNormalEncounter(Romeo.ID)
                 .addNormalEncounter(Encounters.NINJA_LOUSES)
                 .addNormalEncounter(Encounters.RAINBOW_LOUSES)
