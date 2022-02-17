@@ -58,6 +58,8 @@ public class Trenchcoat extends AbstractBTMonster {
     private final float saveX;
     private final float saveY;
 
+    private boolean noDamageLastTurn;
+
     private final InvisibleIntentDisplayer firstOne = new InvisibleIntentDisplayer(0F, 180F);
     private final InvisibleIntentDisplayer secondOne = new InvisibleIntentDisplayer(120F, 180F);
 
@@ -92,19 +94,19 @@ public class Trenchcoat extends AbstractBTMonster {
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
         addMove(STASIS, Intent.STRONG_DEBUFF);
-        addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8), 1, false);
+        addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10), 1, false);
         addMove(STRENGTH, Intent.BUFF);
         addMove(SPLIT, Intent.UNKNOWN);
 
         firstOne.addMove(STASIS, Intent.STRONG_DEBUFF);
-        firstOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        firstOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        firstOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        firstOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10));
         firstOne.addMove(STRENGTH, Intent.BUFF);
 
         secondOne.addMove(STASIS, Intent.STRONG_DEBUFF);
-        secondOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(8));
-        secondOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(8));
+        secondOne.addMove(BLOCK, Intent.DEFEND, calcAscensionDamage(10));
+        secondOne.addMove(DAMAGE, Intent.ATTACK, calcAscensionDamage(10));
         secondOne.addMove(STRENGTH, Intent.BUFF);
 
         this.splitTriggered = false;
@@ -113,7 +115,7 @@ public class Trenchcoat extends AbstractBTMonster {
 
     @Override
     public void usePreBattleAction() {
-        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,30), 20));
+        addToTop(new ApplyPowerAction(this, this, new TrenchcoatPower(this,40), 40));
 
     }
 
@@ -131,7 +133,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 break;
             }
             case BLOCK: {
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 8));
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 10));
                 break;
             }
             case DAMAGE: {
@@ -144,7 +146,7 @@ public class Trenchcoat extends AbstractBTMonster {
                 break;
             }
             case STRENGTH: {
-                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
+                addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 2), 2));
                 break;
             }
             case SPLIT: {
@@ -247,6 +249,7 @@ public class Trenchcoat extends AbstractBTMonster {
     @Override
     protected void getMove(final int num) {
         int damagemodifier = 0;
+        boolean pickedDmg = false;
         byte leftmove;
         //This is where we determine what move the monster should do next
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
@@ -278,7 +281,8 @@ public class Trenchcoat extends AbstractBTMonster {
         }
 
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
-        if (move == STRENGTH) damagemodifier++;
+        if (move == DAMAGE) pickedDmg = true;
+        if (move == STRENGTH) damagemodifier = damagemodifier + 2;
         leftmove = move;
         setMoveShortcut(move, MOVES[move]);
 
@@ -307,21 +311,29 @@ public class Trenchcoat extends AbstractBTMonster {
                             possibilities.add(BLOCK);
                         }
                     } else {
-                        if (!inviso.returnLastTwoMoves(BLOCK)) {
-                            possibilities.add(BLOCK);
-                        }
-
-                        if (!inviso.returnLastTwoMoves(DAMAGE)) {
+                        if (i == 1 && noDamageLastTurn && !pickedDmg) {
                             possibilities.add(DAMAGE);
-                        }
+                            noDamageLastTurn = false;
+                            pickedDmg = true;
+                        } else {
+                            if (!inviso.returnLastTwoMoves(BLOCK)) {
+                                possibilities.add(BLOCK);
+                            }
 
-                        if (!inviso.returnLastTwoMoves(STRENGTH)) {
-                            possibilities.add(STRENGTH);
+                            if (!inviso.returnLastTwoMoves(DAMAGE)) {
+                                possibilities.add(DAMAGE);
+                            }
+
+                            if (!inviso.returnLastTwoMoves(STRENGTH)) {
+                                possibilities.add(STRENGTH);
+                            }
                         }
                     }
 
 
                 move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
+
+                if (move == DAMAGE) pickedDmg = true;
                 if (i == 0 && move == leftmove) forceRightToChange = true;
 
                 EnemyMoveInfo infobyte = this.moves.get(move);
@@ -333,11 +345,15 @@ public class Trenchcoat extends AbstractBTMonster {
 
                 inviso.setIntent(infobyte.intent, info.output + damagemodifier);
                 inviso.recordMove(move);
+                if (move == DAMAGE) pickedDmg = true;
+                if (!pickedDmg) {noDamageLastTurn = true;}
 
-                if (i == 0 && move == STRENGTH) damagemodifier++;
+                if (i == 0 && move == STRENGTH) damagemodifier = damagemodifier + 2;
                 possibilities.clear();
             }
         }
+
+
 
     }
 
@@ -361,8 +377,8 @@ public class Trenchcoat extends AbstractBTMonster {
                 }
 
                 damagemodified = info.output;
-                if (this.nextMove == STRENGTH) damagemodified++;
-                if (i == 1 && firstOne.nextMove == STRENGTH) damagemodified++;
+                if (this.nextMove == STRENGTH) damagemodified = damagemodified + 2;
+                if (i == 1 && firstOne.nextMove == STRENGTH) damagemodified = damagemodified + 2;
 
                 inviso.updateIntent(damagemodified);
 

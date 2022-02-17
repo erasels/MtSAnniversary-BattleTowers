@@ -6,12 +6,20 @@ import BattleTowers.monsters.*;
 import BattleTowers.monsters.CardboardGolem.CardboardGolem;
 import BattleTowers.monsters.chess.queen.Queen;
 import BattleTowers.monsters.executiveslime.ExecutiveSlime;
+import BattleTowers.relics.*;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.random.Random;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.rooms.AbstractRoom;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import static BattleTowers.BattleTowers.makeUIPath;
 
@@ -84,11 +92,21 @@ public class BattleTower {
                 .connect(0).connect(1).connect(2)
                 .connect(3, 0, 0, 1).connect(3, 1, 1, 2)
         );
-        layouts.add(new TowerLayout("DoubleTriple", 1)
+        layouts.add(new TowerLayout("DoubleTripleA", 0.5f)
                 .addRow(NodeType.MONSTER)
-                .addRow(NodeType.EVENT).addAlternate(NodeType.EVENT).addAlternate(NodeType.MONSTER)
+                .addRow(NodeType.MONSTER)
                 .addRow(NodeType.ELITE, NodeType.ELITE)
-                .addRow(NodeType.MONSTER).addAlternate(NodeType.MONSTER).addAlternate(NodeType.EVENT)
+                .addRow(NodeType.EVENT)
+                .addRow(NodeType.REST, NodeType.SHOP, NodeType.EVENT).addAlternate(NodeType.REST, NodeType.EVENT, NodeType.SHOP)
+                .addAlternate(NodeType.SHOP, NodeType.EVENT, NodeType.REST).addAlternate(NodeType.SHOP, NodeType.REST, NodeType.EVENT)
+                .addAlternate(NodeType.EVENT, NodeType.SHOP, NodeType.REST).addAlternate(NodeType.EVENT, NodeType.REST, NodeType.SHOP)
+                .connect(0).connect(1).connect(2).connect(3)
+        );
+        layouts.add(new TowerLayout("DoubleTripleB", 0.5f)
+                .addRow(NodeType.MONSTER)
+                .addRow(NodeType.EVENT)
+                .addRow(NodeType.ELITE, NodeType.ELITE)
+                .addRow(NodeType.MONSTER)
                 .addRow(NodeType.REST, NodeType.SHOP, NodeType.EVENT).addAlternate(NodeType.REST, NodeType.EVENT, NodeType.SHOP)
                 .addAlternate(NodeType.SHOP, NodeType.EVENT, NodeType.REST).addAlternate(NodeType.SHOP, NodeType.REST, NodeType.EVENT)
                 .addAlternate(NodeType.EVENT, NodeType.SHOP, NodeType.REST).addAlternate(NodeType.EVENT, NodeType.REST, NodeType.SHOP)
@@ -134,16 +152,26 @@ public class BattleTower {
                 .addNormalEncounter(Trenchcoat.ID)
                 .addNormalEncounter(Encounters.MINOTAUR_GLADIATOR_AND_FRIEND)
                 .addNormalEncounter(tneisnarT.ID)
+                .addNormalEncounter(LouseHorde.ID)
                 .addNormalEncounter(PrismGuardian.ID)
                 .addNormalEncounter(Encounters.MAGUS_AND_ASSASSIN)
-                .addNormalEncounter(Encounters.DBZ_PUNS)
-                .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES)
-                .addEliteEncounter(VoodooDoll.ID)
-                .addEliteEncounter(GiantArm.ID)
-                .addEliteEncounter(Gorgon.ID)
-                .addEliteEncounter(GigaSlime.ID)
-                .addEliteEncounter(ItozusTheWindwalker.ID)
-                .addEliteEncounter(ZastraszTheJusticar.ID)
+                .addNormalEncounter(Romeo.ID)
+                .addNormalEncounter(Encounters.NINJA_LOUSES)
+                .addNormalEncounter(Encounters.RAINBOW_LOUSES)
+                .addEliteEncounter(Encounters.ELEMENTAL_SENTRIES, addReward(SentryOrb::new))
+                .addEliteEncounter(VoodooDoll.ID, addReward(CursedDoll::new))
+                .addEliteEncounter(GiantArm.ID, addReward(SweatyArmband::new))
+                .addEliteEncounter(Gorgon.ID, addReward(GorgonHead::new))
+                .addEliteEncounter(GigaSlime.ID, addReward(SlimeFilledFlask::new))
+                .addEliteEncounter(ItozusTheWindwalker.ID, addReward(JadeIdol::new))
+                .addEliteEncounter(ZastraszTheJusticar.ID, addReward(RubyFragment::new))
+                .addEliteEncounter(AspiringChampion.ID, addReward(SteelboundCodex::new))
+                .addBoss(CardboardGolem.ID, addReward(CardboardHeart::new))
+                .addBoss(ExecutiveSlime.ID, addReward(BucketOfSlime::new))
+                .addBoss(Dijinn.ID, addReward(DijinnLamp::new))
+                .addBoss(AlphabetBoss.ID, (room)->{}) //This one's kinda fucked and would be a pain to separate from the enemy
+                .addBoss(Queen.ID, addReward(QueensPawn::new))
+                .addBoss(Necrototem.ID, addReward(ScaryNail::new))
                 .addEvent(OttoEvent.ID)
                 .addEvent(BannerSageEvent.ID)
                 .addEvent(EmeraldFlame.ID)
@@ -151,11 +179,7 @@ public class BattleTower {
                 .addEvent(VoidShrine.ID)
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
-                .addBoss(CardboardGolem.ID)
-                .addBoss(ExecutiveSlime.ID)
-                .addBoss(Dijinn.ID)
-                .addBoss(AlphabetBoss.ID)
-                .addBoss(Queen.ID)
+                .addEvent(GentlemanEvent.ID)
         );
     }
 
@@ -242,7 +266,9 @@ public class BattleTower {
         private final List<String> srcEvents = new ArrayList<>(), events = new ArrayList<>();
         private final List<BossInfo> srcBosses = new ArrayList<>(), bosses = new ArrayList<>();
 
-        private String title;
+        private final Map<String, Consumer<AbstractRoom>> rewards = new HashMap<>();
+
+        private final String title;
 
         public TowerContents(String title) {
             this.title = title;
@@ -262,18 +288,34 @@ public class BattleTower {
             eliteEncounters.add(id);
             return this;
         }
+        public TowerContents addNormalEncounter(String id, Consumer<AbstractRoom> addRewards) {
+            srcNormalEncounters.add(id);
+            normalEncounters.add(id);
+            rewards.put(id, addRewards);
+            return this;
+        }
+        public TowerContents addEliteEncounter(String id, Consumer<AbstractRoom> addRewards) {
+            srcEliteEncounters.add(id);
+            eliteEncounters.add(id);
+            rewards.put(id, addRewards);
+            return this;
+        }
         public TowerContents addEvent(String key) {
             srcEvents.add(key);
             events.add(key);
             return this;
         }
         public TowerContents addBoss(String id) {
-            return addBoss(id, makeUIPath("OldBossIcon.png"), makeUIPath("OldBossIconOutline.png"));
+            return addBoss(id, randomRelic(AbstractRelic.RelicTier.RARE));
         }
-        public TowerContents addBoss(String id, String mapIcon, String mapIconOutline) {
+        public TowerContents addBoss(String id, Consumer<AbstractRoom> addRewards) {
+            return addBoss(id, makeUIPath("OldBossIcon.png"), makeUIPath("OldBossIconOutline.png"), addRewards);
+        }
+        public TowerContents addBoss(String id, String mapIcon, String mapIconOutline, Consumer<AbstractRoom> addRewards) {
             BossInfo info = new BossInfo(id, mapIcon, mapIconOutline);
             srcBosses.add(info);
             bosses.add(info);
+            rewards.put(id, addRewards);
             return this;
         }
 
@@ -287,6 +329,7 @@ public class BattleTower {
             copy.events.addAll(srcEvents);
             copy.srcBosses.addAll(srcBosses);
             copy.bosses.addAll(srcBosses);
+            copy.rewards.putAll(rewards);
             return copy;
         }
 
@@ -313,6 +356,20 @@ public class BattleTower {
                 bosses.addAll(srcBosses);
             return bosses.remove(rng.random(bosses.size() - 1));
         }
+
+        public void addReward(AbstractRoom room, String encounterKey) {
+            Consumer<AbstractRoom> addReward = rewards.get(encounterKey);
+            if (addReward != null) {
+                addReward.accept(room);
+            }
+        }
+    }
+
+    private static Consumer<AbstractRoom> addReward(Supplier<AbstractRelic> relic) {
+        return (room)->room.rewards.add(new RewardItem(relic.get()));
+    }
+    private static Consumer<AbstractRoom> randomRelic(AbstractRelic.RelicTier tier) {
+        return (room)->room.addRelicToRewards(tier);
     }
 
     public static class BossInfo {

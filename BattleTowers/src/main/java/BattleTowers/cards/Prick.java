@@ -28,6 +28,7 @@ public class Prick extends CustomCard {
         super(ID, NAME, IMG, COST, DESCRIPTION, CardType.CURSE, CardColor.CURSE, CardRarity.SPECIAL, CardTarget.ALL_ENEMY);
         this.magicNumber = baseMagicNumber = HP_LOSS;
         this.exhaust = true;
+        this.selfRetain = true;
     }
 
     @Override

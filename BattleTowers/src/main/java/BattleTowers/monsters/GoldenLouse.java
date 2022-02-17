@@ -29,7 +29,7 @@ public class GoldenLouse extends AbstractBTMonster {
 
     //name of the monster's moves
     private static final byte BITE = 0;
-    private static final byte BUFF = 1;
+    private static final byte PROTECT = 1;
     private static final byte HEAL = 2;
     private static final String CLOSED_STATE = "CLOSED";
     private static final String OPEN_STATE = "OPEN";
@@ -49,14 +49,14 @@ public class GoldenLouse extends AbstractBTMonster {
 
 
     public GoldenLouse(final float x, final float y) {
-        super(NAME, ID, 140, 0.0F, 0.0f, 180.0f, 140.0f, null, x, y);
+        super(NAME, ID, 140, 0.0F, 0.0f, 180.0f/1.2F, 140.0f/1.2F, null, x, y);
         this.loadAnimation("battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.atlas", "battleTowersResources/img/monsters/Louses/GoldenLouse/skeleton.json", 1.2F);
         AnimationState.TrackEntry e = this.state.setAnimation(0, "idle", true);
         e.setTime(e.getEndTime() * MathUtils.random());
         setHp(calcAscensionTankiness(MIN_HP), calcAscensionTankiness(MAX_HP));
         addMove(BITE, Intent.ATTACK_DEBUFF, calcAscensionDamage(BITE_DAMAGE));
-        addMove(BUFF, Intent.BUFF);
-        addMove(HEAL, Intent.MAGIC);
+        addMove(PROTECT, Intent.MAGIC);
+        addMove(HEAL, Intent.BUFF);
     }
 
     public void usePreBattleAction() {
@@ -94,7 +94,7 @@ public class GoldenLouse extends AbstractBTMonster {
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, WEAK_AMOUNT, true)));
                 break;
             }
-            case BUFF: {
+            case PROTECT: {
                 buffStacks++;
                 if (!this.isOpen) {
                     addToBot(new ChangeStateAction(this, REAR));
@@ -106,7 +106,6 @@ public class GoldenLouse extends AbstractBTMonster {
                 for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
                     addToBot(new ApplyPowerAction(m, this, new BufferPower(m, BUFF_AMOUNT)));
                 }
-                addToBot(new ApplyPowerAction(this, this, new CurlUpPower(this, CURL_AMOUNT)));
                 break;
             }
             case HEAL: {
@@ -144,8 +143,8 @@ public class GoldenLouse extends AbstractBTMonster {
         if (!this.lastTwoMoves(HEAL) && needHeal) {
             possibilities.add(HEAL);
         } else {
-            if (!this.lastMove(BUFF) && canBuff) {
-                possibilities.add(BUFF);
+            if (!this.lastMove(PROTECT) && canBuff) {
+                possibilities.add(PROTECT);
             }
 
             if (!this.lastMove(BITE) || (!canBuff)) {

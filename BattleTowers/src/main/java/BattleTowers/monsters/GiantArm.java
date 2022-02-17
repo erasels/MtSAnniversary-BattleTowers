@@ -7,12 +7,14 @@ import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import com.megacrit.cardcrawl.actions.animations.AnimateFastAttackAction;
 import com.megacrit.cardcrawl.actions.animations.AnimateSlowAttackAction;
+import com.megacrit.cardcrawl.actions.animations.TalkAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.RollMoveAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
@@ -46,14 +48,41 @@ public class GiantArm extends CustomMonster {
     public GiantArm(float x, float y) {
         super(NAME, ID, 60, 0.0F, 0.0F, 240.0F, 325.0F, IMG, x, y);
 
-        this.setHp(300);
+        if (AbstractDungeon.ascensionLevel >= 7) {
+            this.setHp(300);
+        }
+        else {
+            this.setHp(275);
+        }
+        if (AbstractDungeon.ascensionLevel >= 2){
+            pummelDmg = 3;
+            smashDmg = 22;
+        }
+        else {
+            pummelDmg = 2;
+            smashDmg = 20;
+        }
+
+        if (AbstractDungeon.ascensionLevel >= 18){
+            this.wrathTurn = 2;
+            this.count = wrathTurn;
+        }
+
+        this.dialogX = (this.hb_x - 70.0F) * Settings.scale;
+        this.dialogY -= (this.hb_y - 55.0F) * Settings.scale;
 
         this.damage.add(new DamageInfo(this, this.pummelDmg));
         this.damage.add(new DamageInfo(this, this.smashDmg));
         this.animation = null;
     }
 
-    public void takeTurn() {
+    @Override
+    public void usePreBattleAction() {
+        AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[0], 1.2f, 1.6f));
+        playSfx();
+    }
+
+        public void takeTurn() {
         switch(this.nextMove) {
             case PUMMEL:
                 for (int i = 0;i<pummelAmount; i++) {
@@ -71,6 +100,8 @@ public class GiantArm extends CustomMonster {
             case WRATH:
                 AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(this, this, new WrathPower(this, this, 1), 1));
                 AbstractDungeon.actionManager.addToBottom(new SFXAction("STANCE_ENTER_WRATH"));
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[2], 1.2f, 1.6f));
+                playSfx();
                 break;
 
 
@@ -79,6 +110,21 @@ public class GiantArm extends CustomMonster {
 
 
         AbstractDungeon.actionManager.addToBottom(new RollMoveAction(this));
+    }
+
+    @Override
+    public void damage(DamageInfo var1){
+        int num = (int)(Math.random() * 100);
+        if (num <= 10){
+            if (num <= 5) {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[1], 1.2f, 1.6f));
+            }
+            else {
+                AbstractDungeon.actionManager.addToBottom(new TalkAction(this, DIALOG[3], 1.2f, 1.6f));
+            }
+            playSfx();
+        }
+        super.damage(var1);
     }
 
     private void playSfx() {
@@ -96,11 +142,11 @@ public class GiantArm extends CustomMonster {
     private void playDeathSfx() {
         int roll = MathUtils.random(2);
         if (roll == 0) {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2A");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2A"));
         } else if (roll == 1) {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2B");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2B"));
         } else {
-            CardCrawlGame.sound.play("VO_GIANTHEAD_2C");
+            AbstractDungeon.actionManager.addToBottom(new SFXAction("VO_GIANTHEAD_2C"));
         }
 
     }

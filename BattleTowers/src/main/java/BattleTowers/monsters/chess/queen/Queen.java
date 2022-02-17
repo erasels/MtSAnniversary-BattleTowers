@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.status.VoidCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -53,9 +54,9 @@ public class Queen extends AbstractCardChessMonster {
     private int turn = 1;
 
     public final int willDamage = calcAscensionDamage(5);
-    public final int willStrength = 1;
+    public final int willStrength = 2;
 
-    public final int waveDamage = calcAscensionDamage(15);
+    public final int waveDamage = calcAscensionDamage(30);
     public final int marchDamage = calcAscensionDamage(20);
 
     public final int protectionBlock = calcAscensionTankiness(15);
@@ -66,7 +67,7 @@ public class Queen extends AbstractCardChessMonster {
     }
 
     public Queen(final float x, final float y) {
-        super(NAME, ID, 450, 0.0F, 0, 230.0f, 400.0f, null, x, y);
+        super(NAME, ID, 300, 0.0F, 0, 230.0f, 400.0f, null, x, y);
         this.animation = new BetterSpriterAnimation(makeMonsterPath("Chess/Queen/Spriter/Queen.scml"));
         this.setHp(calcAscensionTankiness(this.maxHealth));
         this.type = EnemyType.BOSS;
@@ -80,7 +81,7 @@ public class Queen extends AbstractCardChessMonster {
         addMove(MIMIC_WHITE, Intent.UNKNOWN);
         addMove(DRAIN_OF_COLOUR, IntentEnums.QUEEN_DRAIN_ATTACK, waveDamage);
         addMove(MIMIC_INVERT, Intent.UNKNOWN);
-        addMove(QUEENS_PROTECTION, Intent.DEFEND, protectionBlock);
+        addMove(QUEENS_PROTECTION, Intent.DEFEND_DEBUFF, protectionBlock);
         addMove(QUEENS_MARCH, Intent.ATTACK, marchDamage);
     }
 
@@ -146,6 +147,7 @@ public class Queen extends AbstractCardChessMonster {
             }
             case QUEENS_PROTECTION: {
                 atb(new GainBlockAction(this, protectionBlock));
+                atb(new MakeTempCardInDrawPileAction(new VoidCard(), 1, true, false));
                 break;
             }
             case QUEENS_MARCH: {
@@ -239,19 +241,19 @@ public class Queen extends AbstractCardChessMonster {
                         AbstractPower amIMimickingBlack = Queen.this.getPower(BlackWave.POWER_ID);
                         AbstractPower playerFactionPower = p().getPower(FactionChange.POWER_ID);
 
-                        System.out.println(((FactionChange)playerFactionPower).currentStance);
+                        //System.out.println(((FactionChange)playerFactionPower).currentStance);
                         // factionStance 0 = BLACK
                         // factionstance 1 = WHITE.
                         if(playerFactionPower != null){
 
                             if(amIMimickingWhite != null){
-                                System.out.println("mimicking white");
+                                //System.out.println("mimicking white");
                                 if(amIInverted != null){
-                                    System.out.println("inverted");
+                                    //System.out.println("inverted");
 
                                     // Mimicking black, AKA if player is mimicking WHITE, deal damage.
                                     if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.WHITE){
-                                        System.out.println("player mimicking white");
+                                        //System.out.println("player mimicking white");
                                         dmg(p(), info, AttackEffect.NONE, true);
                                     }
                                     if (!Settings.FAST_MODE) {
@@ -265,9 +267,9 @@ public class Queen extends AbstractCardChessMonster {
                                     att(new SFXAction("THUNDERCLAP"));
                                 }
                                 else {
-                                    System.out.println("mimicking WHITE still");
+                                    //System.out.println("mimicking WHITE still");
                                     if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.BLACK){
-                                        System.out.println("player mimicking black");
+                                        //System.out.println("player mimicking black");
                                         dmg(p(), info, AttackEffect.NONE, true);
                                     }
                                     if (!Settings.FAST_MODE) {
@@ -282,12 +284,12 @@ public class Queen extends AbstractCardChessMonster {
                                 }
                             }
                             else if(amIMimickingBlack != null){
-                                System.out.println("mimicking black");
+                                //System.out.println("mimicking black");
                                 if(amIInverted != null){
-                                    System.out.println("mimicking white");
+                                    //System.out.println("mimicking white");
                                     // Mimicking White, AKA if player is mimicking black, deal damage.
                                     if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.BLACK){
-                                        System.out.println("player mimicking black");
+                                        //System.out.println("player mimicking black");
                                         dmg(p(), info, AttackEffect.NONE, true);
                                     }
                                     if (!Settings.FAST_MODE) {
@@ -301,9 +303,9 @@ public class Queen extends AbstractCardChessMonster {
                                     att(new SFXAction("THUNDERCLAP"));
                                 }
                                 else {
-                                    System.out.println("mimicking white");
+                                    //System.out.println("mimicking white");
                                     if(((FactionChange)playerFactionPower).currentStance == FactionChange.STANCE.WHITE){
-                                        System.out.println("player mimicking white");
+                                        //System.out.println("player mimicking white");
                                         dmg(p(), info, AttackEffect.NONE, true);
                                     }
                                     if (!Settings.FAST_MODE) {

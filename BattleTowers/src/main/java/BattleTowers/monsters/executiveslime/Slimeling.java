@@ -60,7 +60,7 @@ public class Slimeling extends AbstractBTMonster implements ExecutiveMinion {
         e.setTime(e.getEndTime() * MathUtils.random());
         this.state.addListener(new com.megacrit.cardcrawl.helpers.SlimeAnimListener());
 
-        setHp(AbstractDungeon.ascensionLevel >= 19 ? 14 : 8, AbstractDungeon.ascensionLevel >= 19 ? 17 : 11);
+        setHp(AbstractDungeon.ascensionLevel >= 19 ? 12 : 8, AbstractDungeon.ascensionLevel >= 19 ? 16 : 10);
 
         addMove(SMACK, Intent.ATTACK, 8);
         addMove(WEAK, Intent.ATTACK_DEBUFF, AbstractDungeon.ascensionLevel >= 2 ? 7 : 6);

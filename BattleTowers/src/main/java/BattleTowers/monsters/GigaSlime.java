@@ -44,10 +44,10 @@ public class GigaSlime extends AbstractBTMonster
     private static final int GOOP_SPRAY_STRENGTH = 6;
     private static final int A3_GOOP_SPRAY_STRENGTH = 8;
     private static final int A18_GOOP_SPRAY_STRENGTH = 10;
-    private static final int LESSER_SLAM_DAMAGE = 16;
-    private static final int A3_LESSER_SLAM_DAMAGE = 16;
-    private static final int TACKLE_AND_LICK_DAMAGE = 5;
-    private static final int A3_TACKLE_AND_LICK_DAMAGE = 5;
+    private static final int LESSER_SLAM_DAMAGE = 18;
+    private static final int A3_LESSER_SLAM_DAMAGE = 18;
+    private static final int TACKLE_AND_LICK_DAMAGE = 8;
+    private static final int A3_TACKLE_AND_LICK_DAMAGE = 8;
     private static final int TACKLE_AND_LICK_WEAK_FRAIL = 1;
     private static final int A18_TACKLE_AND_LICK_WEAK_FRAIL = 2;
     private static final int HP_MIN = 163;
@@ -108,7 +108,6 @@ public class GigaSlime extends AbstractBTMonster
     @Override
     public void usePreBattleAction() {
         this.addToBot(new ApplyPowerAction(this, this, new SlimeFilledRoomPower(this)));
-        AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(new SlimeFilledFlask()));
     }
 
     @Override

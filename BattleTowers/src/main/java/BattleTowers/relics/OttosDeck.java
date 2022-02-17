@@ -1,6 +1,6 @@
 package BattleTowers.relics;
 
-import BattleTowers.cards.*;
+import BattleTowers.cards.QueenCards.*;
 import BattleTowers.util.TextureLoader;
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.cards.AbstractCard;

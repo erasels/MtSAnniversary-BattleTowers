@@ -2,6 +2,7 @@ package BattleTowers.cards.DijinnCards;
 
 import BattleTowers.BattleTowers;
 import BattleTowers.monsters.Dijinn;
+import basemod.AutoAdd;
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import static BattleTowers.BattleTowers.makeID;
 
+@AutoAdd.Ignore
 public class DijinnWrath extends CustomCard {
     public static final String ID = makeID(DijinnWrath.class.getSimpleName());
     public static final String IMG = BattleTowers.makeCardPath(DijinnWrath.class.getSimpleName() + ".png");

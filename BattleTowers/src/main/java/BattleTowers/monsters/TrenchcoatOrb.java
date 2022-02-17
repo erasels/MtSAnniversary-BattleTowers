@@ -116,7 +116,7 @@ public class TrenchcoatOrb extends AbstractBTMonster {
                 break;
             }
             case BLOCK: {
-                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 8));
+                AbstractDungeon.actionManager.addToBottom(new GainBlockAction(this, 10));
                 break;
             }
             case DAMAGE: {
@@ -129,7 +129,7 @@ public class TrenchcoatOrb extends AbstractBTMonster {
                 break;
             }
             case STRENGTH: {
-                    addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 1), 1));
+                    addToBot(new ApplyPowerAction(this, this, new StrengthPower(this, 2), 2));
             }
         }
         addToBot(new RollMoveAction(this));

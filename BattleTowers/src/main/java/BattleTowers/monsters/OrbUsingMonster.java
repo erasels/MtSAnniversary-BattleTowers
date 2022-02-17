@@ -1,11 +1,15 @@
 package BattleTowers.monsters;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import BattleTowers.actions.monsterOrbs.MonsterAnimateOrbAction;
 import BattleTowers.actions.monsterOrbs.MonsterChannelAction;
+import BattleTowers.actions.monsterOrbs.MonsterEndOfTurnTriggerOrbsAction;
 import BattleTowers.actions.monsterOrbs.MonsterEvokeOrbAction;
-import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
+import BattleTowers.util.UC;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.actions.GameActionManager;
+import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -16,6 +20,7 @@ import com.megacrit.cardcrawl.orbs.EmptyOrbSlot;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.FocusPower;
 import com.megacrit.cardcrawl.vfx.ThoughtBubble;
+import javassist.CtBehavior;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -113,9 +118,6 @@ public abstract class OrbUsingMonster extends AbstractBTMonster
     @Override
     public void applyEndOfTurnTriggers() {
         super.applyEndOfTurnTriggers();
-        for (AbstractOrb o:orbs
-             ) {o.onEndOfTurn();
-        }
     }
 
     public void evokeOrb()
@@ -219,5 +221,26 @@ public abstract class OrbUsingMonster extends AbstractBTMonster
             }
         }
         return false;
+    }
+
+    @SpirePatch2(clz = GameActionManager.class, method = "getNextAction")
+    public static class FixEndTurnOrbsTriggeringPostBlockDecay {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void patch() {
+            for(AbstractMonster m : UC.getAliveMonsters()) {
+                if(m instanceof OrbUsingMonster && !((OrbUsingMonster) m).orbs.isEmpty()) {
+                    UC.atb(new MonsterEndOfTurnTriggerOrbsAction((OrbUsingMonster) m));
+                }
+            }
+        }
+
+        //424 after monsterqueue is empty check
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.NewExprMatcher(WaitAction.class);
+                return LineFinder.findAllInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
     }
 }
