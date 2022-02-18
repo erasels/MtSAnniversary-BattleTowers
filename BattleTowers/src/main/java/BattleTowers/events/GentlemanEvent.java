@@ -51,8 +51,9 @@ public class GentlemanEvent extends PhasedEvent {
 
         registerPhase(0, new TextPhase(DESCRIPTIONS[0])
                 .addOption(OPTIONS[0] + relicName + OPTIONS[1], (i)-> {
-                    AbstractDungeon.player.relics.remove(AbstractDungeon.player.relics.get(0));
+                    AbstractDungeon.player.loseRelic(AbstractDungeon.player.relics.get(0).relicId);
                     AbstractDungeon.player.heal(AbstractDungeon.player.maxHealth);
+                    AbstractDungeon.player.reorganizeRelics();
                     transitionKey("Accepted");
                 })
                 .addOption(OPTIONS[2], (i)->transitionKey("Declined")));
