@@ -1,7 +1,6 @@
 package BattleTowers.monsters;
 
 import BattleTowers.BattleTowers;
-import BattleTowers.actions.NonStackingStasisAction;
 import BattleTowers.actions.monsterOrbs.MonsterChannelAction;
 import BattleTowers.actions.monsterOrbs.MonsterIncreaseMaxOrbAction;
 import BattleTowers.cards.Chilled;
@@ -10,44 +9,27 @@ import BattleTowers.orbs.monster.MonsterLightning;
 import BattleTowers.powers.*;
 import BattleTowers.relics.AlphabetSoup;
 import BattleTowers.relics.CardboardHeart;
-import BattleTowers.util.TextureLoader;
 import BattleTowers.util.UC;
-import basemod.helpers.VfxBuilder;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.esotericsoftware.spine.AnimationState;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.IntentFlashAction;
-import com.megacrit.cardcrawl.actions.animations.AnimateShakeAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.*;
-import com.megacrit.cardcrawl.actions.unique.ApplyStasisAction;
-import com.megacrit.cardcrawl.actions.unique.CannotLoseAction;
 import com.megacrit.cardcrawl.actions.utility.SFXAction;
-import com.megacrit.cardcrawl.actions.utility.TextAboveCreatureAction;
-import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.PowerTip;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
-import com.megacrit.cardcrawl.monsters.beyond.TimeEater;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.rewards.RewardItem;
-import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
 import com.megacrit.cardcrawl.vfx.CollectorCurseEffect;
 import com.megacrit.cardcrawl.vfx.combat.RipAndTearEffect;
-import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
 
-import java.awt.print.Book;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -398,7 +380,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             case XCOSTSPREE: {
                 UC.doPow(new StrengthPower(this, XCOSTSTRENGTH));
                 ///x cost stuff
-                ArrayList<AbstractCard> xcosts = new ArrayList<>();
+                ArrayList<AbstractCard> xcosts;
                 xcosts = CardboardHeart.getCardsMatchingPredicate(c -> c.cost == -1, true);
                 Collections.shuffle(xcosts);
                 for (int i = 0; i < XCOSTCARDS; i++) {
@@ -484,7 +466,10 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
         }
 
-        String letter = this.moveName.toString().substring(0, 1);
+        String letter = "s";
+        if(moveName != null && moveName.length() > 0) {
+            letter = moveName.substring(0, 1);
+        }
         letterShower.lastKnownLetter = letter.toLowerCase();
         letterShower.shouldRenderIntent = true;
     }
@@ -504,7 +489,10 @@ public class AlphabetBoss extends OrbUsingMonster {
 
     @Override
     public void die() {
-        String letter = this.moveName.toString().substring(0, 1);
+        String letter = "s";
+        if(moveName != null && moveName.length() > 0) {
+            letter = moveName.substring(0, 1);
+        }
         AbstractRelic r = new AlphabetSoup();
         ((AlphabetSoup)r).setLetter(letter);
         AbstractDungeon.getCurrRoom().rewards.add(new RewardItem(r));
