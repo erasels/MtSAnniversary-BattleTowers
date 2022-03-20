@@ -49,10 +49,10 @@ public class GiantArm extends CustomMonster {
         super(NAME, ID, 60, 0.0F, 0.0F, 240.0F, 325.0F, IMG, x, y);
 
         if (AbstractDungeon.ascensionLevel >= 7) {
-            this.setHp(300);
+            this.setHp(275);
         }
         else {
-            this.setHp(275);
+            this.setHp(250);
         }
         if (AbstractDungeon.ascensionLevel >= 2){
             pummelDmg = 3;
