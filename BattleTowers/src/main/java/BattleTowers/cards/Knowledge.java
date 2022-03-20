@@ -57,6 +57,8 @@ public class Knowledge extends CustomCard {
                     }
                 }
 
+                prunedDeck.removeIf(c -> c.cardID.equals(Knowledge.ID));
+
                 if (!prunedDeck.isEmpty()) {
                     AbstractCard card = UC.getRandomItem(prunedDeck, AbstractDungeon.cardRandomRng);
                     UC.att(new AddCardToDeckAction(card.makeCopy()));
