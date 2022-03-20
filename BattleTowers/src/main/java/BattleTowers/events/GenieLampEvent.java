@@ -6,7 +6,6 @@ import BattleTowers.cards.Knowledge;
 import BattleTowers.events.phases.TextPhase;
 import BattleTowers.events.phases.WrappedEventPhase;
 import BattleTowers.patches.EventWrapping;
-import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -23,7 +22,7 @@ public class GenieLampEvent extends PhasedEvent {
     private static final String[] OPTIONS = eventStrings.OPTIONS;
     private static final String title = eventStrings.NAME;
 
-    private static final int GOLD_GAIN = 200;
+    private static final int GOLD_GAIN = 250, LOWER = 200;
 
     public GenieLampEvent() {
         super(title, BattleTowers.makeImagePath("events/GenieLamp.png"));
@@ -55,7 +54,7 @@ public class GenieLampEvent extends PhasedEvent {
 
     private int getGoldGain() {
         if(AbstractDungeon.ascensionLevel >= 15) {
-            return MathUtils.round(GOLD_GAIN * 0.9f);
+            return LOWER;
         } else {
             return GOLD_GAIN;
         }
