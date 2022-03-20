@@ -1,5 +1,6 @@
 package BattleTowers.cards;
 
+import BattleTowers.actions.WishAction;
 import BattleTowers.util.UC;
 import basemod.abstracts.CustomCard;
 import com.badlogic.gdx.graphics.Color;
@@ -7,6 +8,7 @@ import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.AutoplayFie
 import com.evacipated.cardcrawl.mod.stslib.fields.cards.AbstractCard.SoulboundField;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.actions.unique.AddCardToDeckAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -62,6 +64,9 @@ public class Knowledge extends CustomCard {
                     UC.att(new VFXAction(new MiracleEffect()));
                     if (!Settings.DISABLE_EFFECTS)
                         UC.att(new VFXAction(new BorderFlashEffect(Color.GOLDENROD, true)));
+                } else {
+                    UC.att(new WishAction(Knowledge.super.uuid));
+                    UC.atb(new ExhaustSpecificCardAction(Knowledge.this, UC.p().discardPile));
                 }
                 isDone = true;
             }
