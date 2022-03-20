@@ -19,9 +19,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
-import com.megacrit.cardcrawl.powers.*;
+import com.megacrit.cardcrawl.powers.ArtifactPower;
+import com.megacrit.cardcrawl.powers.DexterityPower;
+import com.megacrit.cardcrawl.powers.FocusPower;
 import com.megacrit.cardcrawl.vfx.BorderFlashEffect;
-import com.megacrit.cardcrawl.vfx.combat.LaserBeamEffect;
 import com.megacrit.cardcrawl.vfx.combat.SmallLaserEffect;
 
 public class PrismGuardian extends CustomMonster {
@@ -31,8 +32,8 @@ public class PrismGuardian extends CustomMonster {
     public static final String NAME;
     public static final String[] MOVES;
     public static final String[] DIALOG;
-    private static final int HP = 160;
-    private static final int HP_ASC7 = 180;
+    private static final int HP = 130;
+    private static final int HP_ASC7 = 150;
     private static final int LASER_DMG = 12;
     private int laserDmg = LASER_DMG;
     private static final byte STASIS = 1;
