@@ -2,6 +2,7 @@ package BattleTowers.patches.map;
 
 import BattleTowers.room.BattleTowerRoom;
 import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
@@ -21,7 +22,7 @@ import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.mapRng;
 )
 public class TowerGeneration {
     private static final int TOWER_ACT_NUMBER = 2;
-    public static float appearRate = 1.0f; //config option?
+    //public static float appearRate = 1.0f; //config option?
     public static boolean fullRowMode = true; //config option, or just make this always the behavior
 
     /*
@@ -33,7 +34,7 @@ public class TowerGeneration {
             locator = Locator.class
     )
     public static void GenerateTower() {
-        if (AbstractDungeon.actNum == TOWER_ACT_NUMBER && mapRng.randomBoolean(appearRate)) {
+        if (AbstractDungeon.actNum == TOWER_ACT_NUMBER || (Settings.isEndless && AbstractDungeon.actNum > TOWER_ACT_NUMBER && (AbstractDungeon.actNum-TOWER_ACT_NUMBER)%3 == 0)) {
             if (fullRowMode) {
                 replaceFullRow();
             }
