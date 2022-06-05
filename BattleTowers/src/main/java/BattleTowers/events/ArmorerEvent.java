@@ -118,7 +118,8 @@ public class ArmorerEvent extends PhasedEvent {
                             }
                             break;
                         }
-                        case LOWERVALUES: {
+                        case LOWERVALUES:
+                        case RAISEVALUES: {
                             if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
                                     !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
                                     && (c.baseDamage > 0 || c.baseBlock > 0)) {
@@ -157,15 +158,6 @@ public class ArmorerEvent extends PhasedEvent {
                         }
                         case RETAIN: {
                             if (!c.selfRetain) {
-                                validCards.add(c);
-                                break;
-                            }
-                            break;
-                        }
-                        case RAISEVALUES: {
-                            if (!CardModifierManager.hasModifier(c, LowerValuesMod.ID) &&
-                                    !CardModifierManager.hasModifier(c, RaiseValuesMod.ID)
-                                    && (c.baseDamage > 0 || c.baseBlock > 0)) {
                                 validCards.add(c);
                                 break;
                             }
