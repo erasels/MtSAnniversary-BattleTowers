@@ -1,0 +1,18 @@
+{
+  "battleTowers:MonsterLightning": {
+    "NAME": "闪电",
+    "DESCRIPTION": [
+      " #y被动 ：回合结束时，拼字咒语之书对你造成 #b",
+      " 点伤害。 NL #y激发 : 拼字咒语之书对你造成 #b",
+      " 点伤害。"
+    ]
+  },
+  "battleTowers:MonsterFrost": {
+    "NAME": "冰霜",
+    "DESCRIPTION": [
+      " #y被动 ：回合结束时，拼字咒语之书获得 #b",
+      " 点 #y格挡 。 NL #y激发 ：拼字咒语之书获得 #b",
+      " 点 #y格挡 。"
+    ]
+  }
+}

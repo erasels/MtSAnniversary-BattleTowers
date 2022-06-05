@@ -1,0 +1,213 @@
+{
+  "battleTowers:TowerEnter": {
+    "NAME": "高塔脚下",
+    "DESCRIPTIONS": [
+      "你站在一个叉路口。 一边是无人看管 #b唾手可得 的财宝箱，另一边不远处是一座充满 #r~挑战~ 的高塔，你要选择哪边呢？ NL NL 选择权在你。"
+    ],
+    "OPTIONS": [
+      "[高塔] 高塔是如此的诱人。",
+      "[宝箱] 财宝是你的了。"
+    ]
+  },
+  "battleTowers:Example": {
+    "NAME": "An Event",
+    "DESCRIPTIONS": [
+      "Initial Selection",
+      "This is Brazil. You can only go to Antarctica from here.",
+      "This is Japan. You can go to Brazil or Trip and Fall.",
+      "This is Antarctica. You can Trip and Fall.",
+      "Ouch."
+    ],
+    "OPTIONS": [
+      "[Go to Brazil]",
+      "[Go to Japan]",
+      "[Go to Antarctica]",
+      "[Trip and fall]",
+      "[Bye]",
+      "[Fight your way to Japan]"
+    ]
+  },
+  "battleTowers:EmeraldFlame": {
+    "NAME": "绿宝石火",
+    "DESCRIPTIONS": [
+      "你遇到了一团篝火，周围有看上去像是 #b蓝色火精灵 的生物在 ~跳舞~ 。 NL ",
+      "精灵们把骨头和碎片丢进 #g火 里 ，每一次都会迸发出 ~明亮的火焰~ 。 NL 当你靠近时，所有的精灵都期待地看向你... NL ",
+      "同时还看中了你的一件 #y遗物 ...",
+      "你将你的牌丢进火里，并拾起一根 #g柴火 。卡片 @烧尽了@ ，灰尘 ~打着旋~ 飞向你握着的火把四周！ NL NL ",
+      "火把发出 #g明亮的绿宝石色火焰 并充满着你提供的牌的力量。 NL NL 随着你的行进，你注意到光芒正在缓慢地消逝...",
+      "选择一张牌",
+      " #b精灵们 把你的 ",
+      "丢进 #g篝火 。 NL NL #g@他们围着燃烧的火焰开始寻欢作乐！@  NL NL ...你觉得是时候离开了。"
+    ],
+    "OPTIONS": [
+      "[给出: ",
+      "] #r失去这件遗物。 #g选择一张稀有牌加入牌组。 ",
+      "[给出一张牌] #r失去 #r",
+      " #r生命。 拾起一把 #y火炬 。",
+      "选择要给出的牌",
+      "[离开]"
+    ]
+  },
+  "battleTowers:VoidShrine": {
+    "NAME": "虚空神殿",
+    "DESCRIPTIONS": [
+      "你偶然发现了一座 #p荒凉的 神殿，它微弱地散发出一种仿佛来自 #p另一个世界 的能量。 NL NL 你向前一步，发现它正渴求你的某种东西。 #r血液 ， #y财富 , 或是 #p灵魂 。",
+      "你向神殿献上了几滴 #r血液 ，突然一阵剧烈的 #p疲惫感 向你袭来。 NL NL 当你醒来时，神殿已不见踪影。",
+      "你向神殿提供了一点 #y小钱 ，突然你感到一阵晕眩，头重脚轻的感觉像你袭来。 NL NL 当你回过神来时，神殿已不见踪影。",
+      "你大步向前，将自己投身于神殿。 #p极度的痛苦 ~撕开~ 你的身体， #b冰冷 的疼痛感游走于你的经脉，撕碎你身体的某一部分。 NL NL 终于结束了，你感到内心深处有一种难以填补的 #p空虚 。"
+    ],
+    "OPTIONS": [
+      "[提供血液] ",
+      "失去 ",
+      " 生命。",
+      "使一张牌获得消耗。",
+      "[提供财富] ",
+      " 金币。",
+      "使一张牌获得虚无。",
+      "[提供灵魂] ",
+      "移除 ",
+      " 张牌。",
+      "获得一个特殊遗物。",
+      "选择牌",
+      "[离开]",
+      "锁定：需要金币"
+    ]
+  },
+  "battleTowers:OttoEvent": {
+    "NAME": "傀儡的棋局",
+    "DESCRIPTIONS": [
+      "攀爬高塔的途中，一只大得离谱的傀儡闯入了你的视线，它独自坐在一张和地面融为一体的桌子边。 NL NL \"奥托发现新朋友！要和奥托玩一把吗？奥托有奖赏！\" NL NL 你扫视桌面，发现了一副西洋棋盘，上面摆着雕刻的棋子。奥托似乎想邀请你和他玩一局。",
+      "虽然脸上看不出表情，但你察觉到傀儡很高兴你能陪它玩。",
+      " NL NL 你用尽了一切策略，但傀儡始终更胜一筹。你失去了赌注，但收获了一位新朋友。",
+      " NL NL 奥托对下棋非常在行，但你使出了一步破天荒的狂野棋招，并取得了胜利。你赢得的不只有奥托的赌注，还有它的友情。",
+      " NL NL 三个回合后，你用迅捷的手法将两颗棋子调换，并取得了胜利。 \"奥托不明白...但是你赢了。\"  你收下赢得的赌注，并在奥托察觉到自己被骗之前匆匆离开了那个地方。",
+      "傀儡看上去很友善，但你并没有空闲停下来玩别的。你还要继续爬塔呢！",
+      "傀儡花了一些时间来处理这个提议，他看向棋盘旁边的牌组。几分钟后，它伸手拿起牌组，接受了你的交换。 NL NL 尽管傀儡的脸无法做出太多表情，但你仍然感受到傀儡的失望，因为你不和他玩。"
+    ],
+    "OPTIONS": [
+      "[锁定] 需要 1 罕见牌 和 1 稀有牌。",
+      "[交换牌组] #r移除一张罕见牌和一张稀有牌。 #g获得奥托的牌组。 ",
+      "[公平游戏] #g50%: #g获得75金币。 #r50%: #r失去75金币。 ",
+      "[锁定] 需要75金币。",
+      "[出千] #g获得75金币。 #r被诅咒-羞耻。 ",
+      "[离开]",
+      "选择要移除的牌"
+    ]
+  },
+  "battleTowers:BannerSageEvent": {
+    "NAME": "旗帜哲人",    
+	"DESCRIPTIONS":[
+	  "你偶然地逛进了高塔内的一片购物区。一副由红色丝绸制成的旗帜吸引了你，一名饱受战争摧残的年迈巨人正拿着它。他在顾客群中发现了你，并举起仅存的那条手臂向   你问候。 NL NL \"你好，我的朋友，我的名字是River,\" 这个高大的人开口了， \"你对我这些独一无二的手工制作的战争军旗感兴趣吗？\"",
+      "你从来没有见过如此精妙的手艺！你非常想要这些精美的旗帜，并开心地付了钱。River感谢你的惠顾，你带着你的新旗帜继续踏上了旅途。",
+      "River看上去并不好对付，但有其他顾客在这里，你觉得他没法丢下摊子跟你纠缠。你大可以抓起一副旗帜就跑，并且这个想法是如此诱人。 NL NL 当你付诸行动的时候，你突然觉得手里的纺织品变得极其扎手！布料的颜色从生机勃勃的暖红变成了死气沉沉的暗紫，上面原本的刺绣图案也变成了可怕的骷髅。看来那个大块头早就料想到了这一手。",
+      "虽然这些旗帜都做得出奇的精致，但把钱花在这里并不明智，你逛了一会，然后继续你的高塔之旅。"
+ ],
+    "OPTIONS": [
+      "[锁定] 需要90金币。",
+      "[购买] #r花费90金币。 ",
+      "[偷窃] #g获得受诅咒的旗帜。 #r被诅咒-疼痛。 ",
+      "[离开]"
+    ]
+  },
+  "battleTowers:PotOfGoldEvent": {
+    "NAME": "Pot of Gold",
+    "DESCRIPTIONS": [
+      "You stumble upon a #y~glimmering~ pot, sitting plainly in a hallway of the Battle Tower. You don't see anyone around to guard it, but #ygold pieces fill it to the brim! A sign next to it reads: NL NL #bGive #band #bnot #btake #bfrom #bthis #bshiny #bbowl, NL #bFor #bavarice #bpoisons #band #bblackens #bthe #bsoul...",
+      "As you drain the pot of its last #ygold piece, the sign transforms before your eyes, the words reshaping and turning purple. It now reads: NL NL #pThough #pyour #ppockets #pare #pnow #plined #pwith #pgold, NL #pA #psteeper #ppayment #pmust #pnow #punfold. NL NL ",
+      "You leave the empty pot behind, slightly concerned that you've been inflicted with some horrible spell.",
+      "Though slightly concerned that you've been inflicted with some horrible spell, you decide that the damage has already been done. No sense leaving behind this useful pot.",
+      "Heeding the words of warning on the sign, you scoop some #ygold coin out of your pack and drop them into the pot. The sound of the #ygold landing ~reverberates~ nicely in the metal chamber, creating a most enjoyable sound. NL NL Hopefully other adventurers more in need than you are will appreciate this bounty.",
+      "Whoever wrote this warning surely put some sort of curse or spell upon it, inflicting something upon anyone who takes from it. That kind of magic could be useful. NL NL Like everyone, you know how to negate whatever this enchantment is. You rip the sign from the post on the ground and smash it over your head! Ow! NL NL The sign explodes into purple dust, raining down into your body and invigorating it with new power. When you recover from your head injury and look back to claim the pot, it is no longer there. The City's thieves must have been keeping an eye out for just such an opportunity to swipe the loot."
+    ],
+    "OPTIONS": [
+      "[Donate] #rLose #r20 Gold. #gGain #gLucky.",
+      "[Locked] Requires 20 Gold.",
+      "[Take Gold] #gGain #g75 Gold. #rCursed #r- #rGreedy.",
+      "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
+      "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
+      "[Leave]"
+    ]
+  },
+  "battleTowers:GenieLamp": {
+    "NAME": "一个愿望",
+    "DESCRIPTIONS": [
+      "\"走吧兄弟们，这玩意是个废品。\" 你看见三个 #r暴徒 离开了你正好要去的房间。 NL NL 你快速扫了一眼，发现里面非常黑，四周都是模糊不清的影子，房间正中间有一盏 #y~油灯~ 。 NL NL 你仿佛中了魔一样伸手去触摸，一道 #p青烟 #p~冒了出来~ 。 NL NL \" #p~伟大的灯神将实现你的愿望~ \"。",
+      "\" #p~丰富的知识！~ \" 说完， #p精灵 就消失了。",
+      "\" #p~财富使人贪婪。~ \" 说完， #p精灵 就消失了。",
+      " @烟雾包围了你！@ NL NL 一阵闪光之后，你发现自己站在高塔外面。一阵微弱的 ~低语~ 在风中响起， \" #p有请下一位受害者。\""
+    ],
+    "OPTIONS": [
+      "[知识] 获得一张 #y特殊 的牌。 ",
+      "[财富] #g获得%d金币。 #r商店遗物要价变得更高。 ",
+      "[自由] #r离开 #y高塔。 ",
+      "继续"
+    ]
+  },
+  "battleTowers:RoarOfTheCrowd": {
+    "NAME": "呼啸人群",
+    "DESCRIPTIONS": [
+      "你听见了人群的喝彩声，于是欣喜地停下了攀爬的脚步。这个地方虽不如 #b竞技场 有名，但也非常热闹。 NL NL 但其实是因为激动的人群堵住了你的去路！你现在需要利用口才开出一条路。 NL NL 你制定了两个方案：一个戴着 #p鸟面具的生物 想要你的 #r血液 但会给你 #y金币 作为奖励；还有一个 #b蓝色的人型生物 需要你的 #y捐助 ，作为回报他会赐予你一个 #g祝福 。",
+      "失去生命的感觉很 #r~痛苦~ ，但你觉得前方有 #y财富 在等着你。",
+      "看到你已经处于 #r死亡 边缘，邪教徒让你毫发无损地通过了。如果你能凯旋，那获得奖励是理所应当。",
+      "一阵柔和的绿光包围了你的身体然后消散了。 NL 这个生物咧嘴大笑： \"这是圣职者最好的祝福。 @祝你有个开心的一天！\"@ "
+    ],
+    "OPTIONS": [
+      "[邪教徒] #r失去 #r{0} #r生命。 #g当你战胜高塔首领时获得 #g{1} #g金币。 ",
+      "[圣职者] #r失去 #g{0} #g金币。 #g你在高塔内的战斗额外获得 #g{1} #g敏捷。 ",
+      "[锁定]需要 {0} 金币。",
+      "[离开]"
+    ]
+  },
+  "battleTowers:ArmorerEvent": {
+    "NAME": "锻造师",
+    "DESCRIPTIONS": [
+      "给予1层易伤。",
+      "给予1层虚弱。",
+      "抽1张牌。",
+      "获得2层脆弱。",
+      "获得1层易伤。",
+      "获得2层虚弱。",
+      "消耗。",
+      "虚无。",
+      "-2伤害&格挡。",
+      "固有。",
+      "保留。",
+      "+2伤害&格挡。",
+      "选择一张 #y攻击 或 #y技能 牌获得修正:",
+      "",
+      "微弱的金属碰撞声引领着你进入了一间隐秘的凹室。在里面你发现了一名穿着 #r红色外套 的 #r觉醒邪教徒 正埋头锻造一根弯曲的金属棒。 NL NL \"你不应该出现在这里。我们的 #b教义 要求我们在外人面前表现得愚蠢，这样他们就会一直忽视我们真正的潜力。 NL NL 如果你发誓保密并且忘记在这里看见的一切，作为回报我会尽我所能帮你 #y锻造 装备。\"",
+      "\"锻造讲究万物 #b平衡 。要想有所 #y强化 ，就必须有所 #r削弱。\"",
+      "\"你的 #r付出 不会白费。慎重选择。\"",
+      "锻造师不负其 #y大师 之名，没过多久就完成了锻造。 NL NL \"希望这对你的旅途有所 #b帮助 。 锻造台仍然发着光...支付一些 #r血液 或 #y金币 ，金属可以被铸成多种形状。\"",
+      "随着最后一次金属的沸腾声，锻造台的光芒消失了，只有锻造师手上工具散发着 #y余热 和 #y光芒 。她看上去累坏了，将装备还给你后 #r瘫倒 在椅子上， NL NL \"你走吧— #b别忘了 你的誓言。不要将你今天的见闻告诉 #r任何一个人 。\"",
+      "你拒绝让锻造师进一步锻造你的装备。 NL NL \"你走吧— #b别忘了 你的誓言。不要将你今天的见闻告诉 #r任何一个人 。\"",
+      "锻造师再次用她 #b出神入化的技艺 帮你完成了锻造。 \"锻造台的 #r燃料 正好还够进行最后一次锻造。当然...你得支付 #r代价 。\"",
+      "选择一张 #y攻击 或 #y技能 牌获得修正：",
+      "战斗结束后，你取下 #r锻造师 的面具并戴在自己头上。不管这些 #b邪教徒 在玩什么 #p把戏 —他们袭击了包括你在内的许多人，所以 #r死有余辜 。"
+    ],
+    "OPTIONS": [
+      "[保密] 给两张 #y攻击 或 #y技能 牌分别添加 #g恩惠 和 #r灾祸 修正。",
+      "[支付血液] #r失去10生命。 ",
+      "[支付金币] #r失去40金币。 ",
+      "调整更多牌。",
+      "[锁定] 没有可选的牌 ",
+      "[锁定] 已选择。 ",
+      "[离开]",
+      "[杀戮] #r战斗！ #g获得 #g锻造师的头饰。",
+      "[锁定] 无法支付。"
+    ]
+  },
+  "battleTowers:GentlemanEvent": {
+    "NAME": "神秘身影",
+    "DESCRIPTIONS": [
+      "在一个胡同中，一个奇怪的人影向你靠近，它被阴影包裹着，很难看清轮廓。 NL #p\"你似乎遇到了一些麻烦，我的朋友。或许我可以帮助你...代价只是 @你的灵魂。\"@ ",
+      "你感觉你的力量都恢复了...但同时感觉到身体中有一部分消失了。你抬头寻找那个人影，发现他已经不见了。",
+      " #p\"你将会消逝于此地。\" 说完，他随即消失在阴影中..."
+    ],
+    "OPTIONS": [
+      "[接受] #r失去 ",
+      ": #g恢复所有生命。",
+      "[拒绝]"
+    ]
+  }
+}

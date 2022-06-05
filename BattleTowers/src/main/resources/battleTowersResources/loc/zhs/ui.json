@@ -1,0 +1,33 @@
+{
+  "battleTowers:Config": {
+    "TEXT_DICT": {
+      "Test": "This does nothing."
+    }
+  },
+  "battleTowers:FightPreview": {
+    "TEXT": ["战斗预览"]
+  },
+  "battleTowers:QueenDrainIntent": {
+    "TEXT": [
+      "颜色汲取",
+      "这个敌人会改变它的颜色，对同一阵营以外的单位造成 #b",
+      " 伤害。"
+    ]
+  },
+  "battleTowers:MultiIntentStrings": {
+    "TEXT": [
+      "这个敌人将要 NL #y攻击 ",
+      " 造成 #b",
+      " 伤害。",
+      " 伤害 #b",
+      " 次。",
+      "这个敌人将要对 ",
+      " 施加一个 #y负面效果。"
+    ]
+  },
+  "battleTowers:LoseMHPEffect": {
+    "TEXT": [
+      "最大生命"
+    ]
+  }
+}

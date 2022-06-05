@@ -1,0 +1,457 @@
+{
+  "battleTowers:ApologySlime": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "Staring Abyss",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:ExampleMonster": {
+    "MOVES": [
+      "Sweep",
+      "Shriek",
+      "Double Hit"
+    ],
+    "NAME": "Example Monster",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Cawcawrot": {
+    "MOVES": [
+      "超级仪式",
+      "铁斩波"
+    ],
+    "NAME": "咔咔罗特",
+    "DIALOG": [
+      "我要变得更强！  呜嗷——!"
+    ]
+  },
+  "battleTowers:Veggieta": {
+    "MOVES": [
+      "丢黄瓜",
+      "胡椒喷射"
+    ],
+    "NAME": "萝贝吉塔",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:CardboardGolem": {
+    "MOVES": [
+      "头槌",
+      "吞食",
+      "剥皮",
+      "自锻"
+    ],
+    "NAME": "纸板傀儡",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:ExecutiveSlime": {
+    "MOVES": [
+      "职权",
+      "暴怒",
+      "职权",
+      "狂野打击",
+      "粘液喷射",
+      "蜂拥",
+      "准备",
+      "惩戒"
+    ],
+    "NAME": "执政史莱姆",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Slimeling": {
+    "MOVES": [
+      "冲撞",
+      "腐蚀喷吐",
+      "舔舔"
+    ],
+    "NAME": "幼小史莱姆",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "魔忽倏",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Dijinn": {
+    "MOVES": [
+      "强化",
+      "腐化",
+      "黄金考验"
+    ],
+    "NAME": "精灵女王",
+    "DIALOG": [
+      "谁给你的勇气挑战我？",
+      "这个愿望只能暂缓你的死期. . .",
+      "你的愿望正合我意. . .暂且如此。",
+      "小心你的愿望。",
+      "现在，我解放了！"
+    ]
+  },
+  "battleTowers:VoodooDoll": {
+    "MOVES": [
+      "诅咒",
+      "针与刺",
+      "扼杀"
+    ],
+    "NAME": "巫毒娃娃",
+    "DIALOG": [
+      "这个敌人将要失去 #b", " 生命并对你施加一个强大的 #y负面效果 。"
+    ]
+  },
+  "battleTowers:Gorgon": {
+    "MOVES": [
+      "石化凝视",
+      "毒蛇之咬",
+      "蛇尾猛击",
+      "僵化肢体"
+    ],
+    "NAME": "戈尔贡"
+  },
+  "battleTowers:ItozusTheWindwalker": {
+    "MOVES": [
+      "空气利刃",
+      "酝酿风暴",
+      "旋风打击",
+      "风吹雪飘",
+      "死亡之触"
+    ],
+    "NAME": "绿龙风行者",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:ZastraszTheJusticar": {
+    "MOVES": [
+      "圣光惩戒",
+      "肃正守夜",
+      "正义裁决",
+      "神圣暴风",
+      "烈火审判"
+    ],
+    "NAME": "红龙裁决者",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:NatariTheTimewalker": {
+    "MOVES": [
+      "Faster than Light",
+      "Sand Burst",
+      "Killing Doll",
+      "Shore Up",
+      "Fast-Forward!",
+      "The World",
+      "Bullet-Time",
+      "Delaying the Inevitable"
+    ],
+    "NAME": "Natari the Timewalker",
+    "DIALOG": [
+      "You wish to match wits with ~me?~ I'll show you why that's a ~grave~ error."
+    ]
+  },
+  "battleTowers:GoldenLouse": {
+    "MOVES": [
+      "噬咬",
+      "保护",
+      "治疗"
+    ],
+    "NAME": "黄金虱虫",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SilverLouse": {
+    "MOVES": [
+      "噬咬",
+      "强化",
+      "抓挠"
+    ],
+    "NAME": "白银虱虫",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryRed": {
+    "MOVES": [
+      "射线",
+      "灼烧"
+    ],
+    "NAME": "红色哨卫",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryGreen": {
+    "MOVES": [
+      "射线",
+      "喷吐"
+    ],
+    "NAME": "绿色哨卫",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryPurple": {
+    "MOVES": [
+      "射线",
+      "汲取"
+    ],
+    "NAME": "紫色哨卫",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryHuge": {
+    "MOVES": [
+      "双重射线",
+      "激怒"
+    ],
+    "NAME": "巨型哨卫",
+    "DIALOG": [
+    ]
+  }, 
+  "battleTowers:FireSlimeL": {
+  "MOVES": [
+    "火山吐息",
+    "冲撞",
+    "舔舔",
+    "分裂"
+  ],
+  "NAME": "火焰史莱姆(大)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "battleTowers:FireSlimeM": {
+    "MOVES": [
+      "火山吐息",
+      "冲撞",
+      "舔舔"
+    ],
+    "NAME": "火焰史莱姆(中)",
+    "DIALOG": [
+      ""
+    ]
+  }, "battleTowers:IceSlimeL": {
+  "MOVES": [
+    "冰川吐息",
+    "冲撞",
+    "舔舔",
+    "分裂"
+  ],
+  "NAME": "寒冰史莱姆(L)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "battleTowers:IceSlimeM": {
+    "MOVES": [
+      "冰川吐息",
+      "冲撞",
+      "舔舔"
+    ],
+    "NAME": "寒冰史莱姆(中)",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:Trenchcoat": {
+    "MOVES": [
+      "",
+      "",
+      "",
+      "强化",
+      "崩塌"
+    ],
+    "NAME": "青铜机械人偶",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:InvisibleIntentDisplayer": {
+    "MOVES": [
+    ],
+    "NAME": "",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:DoomedSoul": {
+    "MOVES": [
+      "贪婪",
+      "暴怒",
+      "妒忌"
+    ],
+    "NAME": "注定毁灭的灵魂"
+  },
+  "battleTowers:GigaSlime": {
+    "MOVES": [
+      "黏糊喷射",
+      "冲撞舔舔",
+      "次级压杀"
+    ],
+    "NAME": "巨型史莱姆"
+  },
+  "battleTowers:MinotaurGladiator": {
+    "MOVES": [
+      "切割",
+      "破坏",
+      "戳刺"
+    ],
+    "NAME": "牛头角斗士"
+  },
+  "battleTowers:BurningShambler": {
+    "MOVES": [
+      "火闪",
+      "营火",
+      "冲刺"
+    ],
+    "NAME": "燃烧蹒跚者"
+  },
+  "battleTowers:AlphabetBoss": {
+    "MOVES": [
+      "A - Amplify（增幅）",
+      "D - Deep Freeze（深度冻结）",
+      "E - Enrage（暴怒）",
+      "H - Heat Up（加热）",
+      "J - Jack of all Trades（万金油）",
+      "K - Killing Blow（杀戮重击）",
+      "L - Lash Out（连续攻击）",
+      "M - Multistrike（多重打击）",
+      "O - Orb Power（集中之力）",
+      "R - Rapidfire（速射）",
+      "S - Slice and Dice（切碎）",
+      "U - Unstable（不稳定）",
+      "Z - Zap（电击）",
+      "B - Blur（残影）",
+      "C - Chaos（混沌）",
+      "F - Frail（脆弱）",
+      "G - Guard（守卫）",
+      "I - Icy Skin（霜冻皮肤）",
+      "N - Nullify（纯化）",
+      "P - Plated Armor（多层护甲）",
+      "Q - Quash（阻挡）",
+      "T - Time Maze（时间迷宫）",
+      "V - Vulnerable（易伤）",
+      "W - Weak（虚弱）",
+      "X - X-Cost Spree（X费的狂欢）",
+      "Y - You Are Mine（你是我的了）"
+    ],
+    "NAME": "拼字咒语之书"
+  },
+  "battleTowers:CultistArmorer": {
+    "MOVES": [
+    ],
+    "NAME": "邪教徒锻造师"
+  },
+  "battleTowers:Queen": {
+    "MOVES": [
+      "女王意志",
+      "着色伪装",
+      "着色伪装",
+      "色彩汲取",
+      "扭曲伪装",
+      "女王庇护",
+      "女王行军",
+      "女王判决"
+    ],
+    "NAME": "黑白女王"
+  },
+  "battleTowers:GiantArm": {
+    "NAME": "巨臂",
+    "DIALOG": [
+      "我们来打一架吧！",
+      "你就这点能耐？",
+      "我要开始认真了！",
+      "我奶奶都比你用力！"
+    ]
+  },
+  "battleTowers:PrismGuardian": {
+    "NAME": "棱镜守卫",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:NinjaLouse": {
+    "MOVES": [
+      "冲撞",
+      "准备",
+      "毒针射击"
+    ],
+    "NAME": "忍者虱虫"
+  },
+  "battleTowers:Magus": {
+    "NAME": "法师",
+    "DIALOG": [
+      "大的要来咯！"
+    ]
+  },
+  "battleTowers:Assassin": {
+    "NAME": "刺客",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:Necrototem": {
+    "MOVES": [
+      "召唤",
+      "诅咒",
+      "钉刺射击"
+    ],
+    "NAME": "亡灵图腾"
+  },
+  "battleTowers:NecrototemMinion": {
+    "MOVES": [],
+    "NAME": "图腾"
+  },
+  "battleTowers:Paladin": {
+    "NAME": "帕拉丁"
+  },
+  "battleTowers:LouseHorde": {
+    "NAME": "虱虫群",
+    "DIALOG" : [],
+    "MOVES": []
+  },
+  "battleTowers:Romeo": {
+    "NAME": "罗密欧",
+    "DIALOG" : ["你会后悔遇到我， @蠢货@ ！",
+      "呵，我可不能在熊面前丢人...",
+      "~我在这里等你~ #r@偿还@ "
+    ],
+    "MOVES": [
+	  "剪辑训练",
+	  "搏命豪赌",
+	  "污言秽语",
+	  "出彩时刻"
+    ]
+  },
+  "battleTowers:RainbowLouse": {
+    "MOVES": [
+      "强化",
+      "奋进",
+      "衰弱"
+    ],
+    "NAME": "强无敌虱虫"
+  },
+  "battleTowers:AspiringChampion": {
+    "MOVES": [
+      "邯郸学步",
+      "东施效颦",
+      "沉重一击",
+      "起身",
+      "沉重一击",
+      "鹦鹉学舌",
+      "照猫画虎"
+    ],
+    "NAME": "第二勇士",
+    "DIALOG": [
+      "噢...我喜欢这个！",
+      "滚开！",
+      "去死吧弱...哎呀！",
+      "啥，你连攻击牌都不敢出了？",
+      "嗯哼"
+    ]
+  }
+}
