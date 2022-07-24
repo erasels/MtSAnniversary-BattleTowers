@@ -231,7 +231,7 @@ public class AlphabetBoss extends OrbUsingMonster {
         switch (move) {
             case AMPLIFY: {
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.FIRE);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.FIRE, false));
                 UC.doPow(new AlphabetAmplifyPower(this));
                 break;
             }
@@ -260,13 +260,13 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case DEEPFREEZE: {
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.BLUNT_LIGHT, false));
                 UC.atb(new MakeTempCardInDiscardAction(new Chilled(), DEEPFREEZECARDS));
                 break;
             }
             case ENRAGE: {
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SMASH);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SMASH, false));
                 UC.doPow(new AngerPower(this, 1));
                 UC.doPow(new EnrageStopPower(this, ENRAGESTACKS));
 
@@ -283,7 +283,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case HEATUP: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.FIRE);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.FIRE, false));
                 UC.atb(new MakeTempCardInDrawPileAction(new Burn(), HEATUPCARDS, true, true));
                 break;
             }
@@ -295,29 +295,29 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case JACKOFALLTRADES: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_DIAGONAL, false));
                 UC.doDefTarget(this,JACKOFALLTRADESDMGBLOCK);
                 UC.doPow(new StrengthPower(this, JACKOFALLTRADESSTR));
                 break;
             }
             case KILLINGBLOW: {
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_HEAVY);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HEAVY, false));
                 break;
             }
             case LASH: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_VERTICAL);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_DIAGONAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_DIAGONAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_VERTICAL, false));
                 break;
             }
             case MULTIHIT: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SMASH);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.BLUNT_LIGHT);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SMASH, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.BLUNT_LIGHT, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.BLUNT_HEAVY, false));
                 break;
             }
             case NULLIFY: {
@@ -327,7 +327,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case ORBPOWER: {
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.LIGHTNING);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.LIGHTNING, false));
                 UC.doPow(new FocusPower(this, ORBPOWERFOCUS));
                 break;
             }
@@ -342,19 +342,19 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case RAPIDFIRE: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_VERTICAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_VERTICAL);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_VERTICAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_VERTICAL, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, false));
                 break;
             }
             case SLICEANDDICE: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
                 addToBot(new VFXAction(new RipAndTearEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, Color.RED, Color.GOLD)));
 
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.NONE);
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.NONE);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.NONE, false));
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.NONE, false));
                 break;
             }
             case TIMEMAZE: {
@@ -364,7 +364,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             }
             case UNSTABLE: {
                 UC.atb(new ChangeStateAction(this, "ATTACK"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.NONE);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.NONE, false));
                 UC.doPow(new StrengthPower(this, UNSTABLESTR));
                 UC.doPow(new WeakPower(this, UNSTABLEWEAK, true));
                 break;
@@ -402,7 +402,7 @@ public class AlphabetBoss extends OrbUsingMonster {
             case ZAP: {
                 initializeOrbs();
                 UC.atb(new ChangeStateAction(this, "ATTACK_2"));
-                UC.doDmg(AbstractDungeon.player, info.output, AbstractGameAction.AttackEffect.BLUNT_HEAVY);
+                UC.atb(new DamageAction(UC.p(), new DamageInfo(this, info.output, DamageInfo.DamageType.NORMAL), AbstractGameAction.AttackEffect.BLUNT_HEAVY, false));
                 UC.atb(new MonsterChannelAction(this, new MonsterLightning(this)));
                 break;
             }

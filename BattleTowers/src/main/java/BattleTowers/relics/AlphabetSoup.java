@@ -1,7 +1,6 @@
 package BattleTowers.relics;
 
 import BattleTowers.util.TextureLoader;
-import BattleTowers.util.UC;
 import basemod.abstracts.CustomRelic;
 import basemod.abstracts.CustomSavable;
 import com.badlogic.gdx.Gdx;
@@ -28,7 +27,6 @@ import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Locale;
 import java.util.Map;
 
 import static BattleTowers.BattleTowers.makeID;
@@ -74,7 +72,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
 
     @Override
     public void atBattleStart() {
-        if (letter != "") {
+        if (!"".equals(letter)) {
             ArrayList<AbstractCard> valid = CardboardHeart.getCardsMatchingPredicate(c -> {
                 if (cardsENG.containsKey(c.cardID)) {
                     String s = cardsENG.get(c.cardID).NAME.toLowerCase();
@@ -113,7 +111,7 @@ public class AlphabetSoup extends CustomRelic implements CustomSavable<String> {
 
     @Override
     public void onPlayCard(AbstractCard c, AbstractMonster m) {
-        if (letter != "") {
+        if (!"".equals(letter)) {
             if (c.name.toLowerCase().startsWith(letter.toLowerCase()) || realCheck(c, letter)) {
                 flash();
                 atb(new GainBlockAction(AbstractDungeon.player, 2));
