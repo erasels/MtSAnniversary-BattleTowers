@@ -181,6 +181,7 @@ public class BattleTower {
                 .addEvent(RoarOfTheCrowd.ID)
                 .addEvent(ArmorerEvent.ID)
                 .addEvent(GentlemanEvent.ID)
+                .addEvent(PotOfGoldEvent.ID)
         );
     }
 
