@@ -25,6 +25,7 @@ public class Stormfront extends CustomCard {
     private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
     public AbstractMonster target;
+    private AbstractCard creatorCard;
 
     static {
         cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
@@ -39,10 +40,20 @@ public class Stormfront extends CustomCard {
         baseBlock = block = 4;
         magicNumber = baseMagicNumber = 3;
         purgeOnUse = true;
+        creatorCard = new WindStrike();
+    }
+
+    public Stormfront(AbstractCard og) {
+        super(ID, NAME, IMG_PATH, COST, DESCRIPTION, TYPE, CardColor.COLORLESS, RARITY, TARGET);
+        baseDamage = damage = 4;
+        baseBlock = block = 4;
+        magicNumber = baseMagicNumber = 3;
+        purgeOnUse = true;
+        creatorCard = og;
     }
 
     public void onChoseThisOption() {
-        addToBot(new MakeTempCardInDrawPileAction(new WindStrike(), 1, true, false));
+        addToBot(new MakeTempCardInDrawPileAction(creatorCard.makeStatEquivalentCopy(), 1, true, false));
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {

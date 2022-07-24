@@ -41,12 +41,13 @@ public class WindStrike extends CustomCard {
         baseDamage = damage = 5;
         baseBlock = block = 5;
         magicNumber = baseMagicNumber = 3;
+        tags.add(CardTags.STRIKE);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         ArrayList<AbstractCard> choices = new ArrayList<>();
         choices.add(new RazorWind(damage,block,m));
-        choices.add(new Stormfront());
+        choices.add(new Stormfront(this));
         addToBot(new ChooseOneAction(choices));
     }
 
