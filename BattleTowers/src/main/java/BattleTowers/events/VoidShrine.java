@@ -53,7 +53,7 @@ public class VoidShrine extends PhasedEvent {
                 addOption(OPTIONS[7] + FontHelper.colorString(OPTIONS[8] + CARD_REMOVAL + OPTIONS[9], "g") + " " + FontHelper.colorString(OPTIONS[10], "r"), new VoidBlight(), (i)->{
                     AbstractDungeon.getCurrRoom().spawnRelicAndObtain((Settings.WIDTH / 2f), (Settings.HEIGHT / 2f), new VoidBlight());
                     forRemoval = true;
-                    AbstractDungeon.gridSelectScreen.open(UC.p().masterDeck, CARD_REMOVAL, OPTIONS[11], false, false, false, false);
+                    AbstractDungeon.gridSelectScreen.open(UC.p().masterDeck.getPurgeableCards(), CARD_REMOVAL, OPTIONS[11], false, false, false, false);
                     transitionKey("Soul");
                 }));
 
