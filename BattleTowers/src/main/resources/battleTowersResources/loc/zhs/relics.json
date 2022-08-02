@@ -68,17 +68,17 @@
     ]
   },
   "battleTowers:Lucky": {
-    "NAME": "Lucky",
-    "FLAVOR": "Those who give back to the less fortunate always find themselves rewarded somehow.",
+    "NAME": "幸运",
+    "FLAVOR": "予人玫瑰，手有余香。",
     "DESCRIPTIONS": [
-      "At the start of the Boss combat of this Battle Tower, gain 1 #yStrength and 1 #yDexterity."
+      "高塔的首领战开始时，获得1点 #y力量 和 #y敏捷 。"
     ]
   },
   "battleTowers:IronPotHelmet": {
-    "NAME": "Iron Pot Helmet",
-    "FLAVOR": "它曾经是那么独特又迷人。现在只是一堆废铁罢了。",
+    "NAME": "铁壶头盔",
+    "FLAVOR": "它曾经是那么独特又迷人，现在也只是一块废铁罢了。",
     "DESCRIPTIONS": [
-      "When you play a #yDefend, gain #b3 #yBlock."
+      "每当你打出 #y防御 ，获得 #b3 #y格挡 。"
     ]
   },
   "battleTowers:DijinnLamp": {
@@ -163,7 +163,7 @@
     "NAME": "翡翠偶像",
     "FLAVOR": "完美的雕刻与违背物理学的造型，无论哪个都可以让你不费吹灰之力变得非常强大。",
     "DESCRIPTIONS": [
-      "战斗开始时，将一张 #y旋风打击 洗入你的抽牌堆。",
+      "战斗开始时，将一张 #y旋风打击 加入你的手牌。",
       "预览"
     ]
   },

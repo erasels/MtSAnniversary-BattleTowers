@@ -79,7 +79,7 @@
       "攀爬高塔的途中，一只大得离谱的傀儡闯入了你的视线，它独自坐在一张和地面融为一体的桌子边。 NL NL \"奥托发现新朋友！要和奥托玩一把吗？奥托有奖赏！\" NL NL 你扫视桌面，发现了一副西洋棋盘，上面摆着雕刻的棋子。奥托似乎想邀请你和他玩一局。",
       "虽然脸上看不出表情，但你察觉到傀儡很高兴你能陪它玩。",
       " NL NL 你用尽了一切策略，但傀儡始终更胜一筹。你失去了赌注，但收获了一位新朋友。",
-      " NL NL 奥托对下棋非常在行，但你使出了一步破天荒的狂野棋招，并取得了胜利。你赢得的不只有奥托的赌注，还有它的友情。",
+      " NL NL 奥托对下棋非常在行，但你使出了一步破天荒的狂野棋招，并取得了胜利。你赢得了赌注，并且收获了一位新朋友。",
       " NL NL 三个回合后，你用迅捷的手法将两颗棋子调换，并取得了胜利。 \"奥托不明白...但是你赢了。\"  你收下赢得的赌注，并在奥托察觉到自己被骗之前匆匆离开了那个地方。",
       "傀儡看上去很友善，但你并没有空闲停下来玩别的。你还要继续爬塔呢！",
       "傀儡花了一些时间来处理这个提议，他看向棋盘旁边的牌组。几分钟后，它伸手拿起牌组，接受了你的交换。 NL NL 尽管傀儡的脸无法做出太多表情，但你仍然感受到傀儡的失望，因为你不和他玩。"
@@ -110,22 +110,22 @@
     ]
   },
   "battleTowers:PotOfGoldEvent": {
-    "NAME": "Pot of Gold",
+    "NAME": "金币壶",
     "DESCRIPTIONS": [
-      "You stumble upon a #y~glimmering~ pot, sitting plainly in a hallway of the Battle Tower. You don't see anyone around to guard it, but #ygold pieces fill it to the brim! A sign next to it reads: NL NL #bGive #band #bnot #btake #bfrom #bthis #bshiny #bbowl, NL #bFor #bavarice #bpoisons #band #bblackens #bthe #bsoul...",
-      "As you drain the pot of its last #ygold piece, the sign transforms before your eyes, the words reshaping and turning purple. It now reads: NL NL #pThough #pyour #ppockets #pare #pnow #plined #pwith #pgold, NL #pA #psteeper #ppayment #pmust #pnow #punfold. NL NL ",
-      "You leave the empty pot behind, slightly concerned that you've been inflicted with some horrible spell.",
-      "Though slightly concerned that you've been inflicted with some horrible spell, you decide that the damage has already been done. No sense leaving behind this useful pot.",
-      "Heeding the words of warning on the sign, you scoop some #ygold coin out of your pack and drop them into the pot. The sound of the #ygold landing ~reverberates~ nicely in the metal chamber, creating a most enjoyable sound. NL NL Hopefully other adventurers more in need than you are will appreciate this bounty.",
-      "Whoever wrote this warning surely put some sort of curse or spell upon it, inflicting something upon anyone who takes from it. That kind of magic could be useful. NL NL Like everyone, you know how to negate whatever this enchantment is. You rip the sign from the post on the ground and smash it over your head! Ow! NL NL The sign explodes into purple dust, raining down into your body and invigorating it with new power. When you recover from your head injury and look back to claim the pot, it is no longer there. The City's thieves must have been keeping an eye out for just such an opportunity to swipe the loot."
+      "在高塔的一条走廊内，你偶然发现了一个显眼的 #y~散发着微光 的壶。壶里装满了金币，并且四下无人看管！旁边有一块告示牌写着： NL NL #b把金币放入此碗，不要拿走， NL #b因为贪婪会毒害并丑化人们的灵魂... ",
+      "当你掏空壶里的最后一枚 #y金币 时，告示牌在你眼前发生了变化，上面的字词重组并变成了紫色。现在上面写着： NL NL #p尽管现在你的口袋装满了钱， NL #p但你即将付出更大的代价。 NL NL ",
+      "你留下空荡荡的壶，有些担心刚刚被施展了什么可怕的咒语。",
+      "尽管你有些担心刚刚被施展了什么可怕的咒语，但伤害反正已经造成，不如干脆把壶也带走，或许还有用。",
+      "你遵从警告，从兜里掏出几枚 #y金币 丢进壶里。 #y金币 掉在金属罐体内不断 ~回弹~ ，发出悦耳的声响。 NL NL 但愿那些更需要它的冒险者会感谢你的慷慨。",
+      "写下这个警告的人一定施加了什么诅咒或是法术，用于惩罚那些不听话的人。这种法术或许能派上用场。 NL NL 有一种人尽皆知的破坏附魔的方式，你也不例外。 你扯下告示牌，然后狠狠地砸在头上！ 噢！ NL NL 告示牌爆炸成了紫色的烟尘，如雨点般落在你的身上，一种新的力量使你恢复活力。头上的伤恢复后，你正打算拿走壶，却发现它已经不见了。一定是那些伺机已久的小偷偷走了战利品。"
     ],
     "OPTIONS": [
-      "[Donate] #rLose #r20 Gold. #gGain #gLucky.",
-      "[Locked] Requires 20 Gold.",
-      "[Take Gold] #gGain #g75 Gold. #rCursed #r- #rGreedy.",
-      "[Take Pot] #gGain #g75 Gold #gand #gIron #gPot. #rCursed #rTwice #r- #rGreedy.",
-      "[Disenchant] #rLose #r5 #rHP. #gGain #gDark #gEnchantment.",
-      "[Leave]"
+      "[捐赠] #r失去20金币。 #g获得幸运。 ",
+      "[锁定] 需要 20 金币。",
+      "[拿走金币] #g获得75金币。 #r被诅咒—贪婪。 ",
+      "[拿走壶] #g获得75金币和铁壶。 #r被诅咒两次—贪婪。 ",
+      "[祛魔] #r失去5生命。 #g获得黑暗附魔。 ",
+      "[离开]"
     ]
   },
   "battleTowers:GenieLamp": {
@@ -191,9 +191,9 @@
       "[支付金币] #r失去40金币。 ",
       "调整更多牌。",
       "[锁定] 没有可选的牌 ",
-      "[锁定] 已选择。 ",
+      "[锁定] 已选择。",
       "[离开]",
-      "[杀戮] #r战斗！ #g获得 #g锻造师的头饰。",
+      "[杀戮] #r战斗！ #g获得 #g锻造师的头饰。 ",
       "[锁定] 无法支付。"
     ]
   },
@@ -206,7 +206,7 @@
     ],
     "OPTIONS": [
       "[接受] #r失去 ",
-      ": #g恢复所有生命。",
+      " : #g恢复所有生命。 ",
       "[拒绝]"
     ]
   }
