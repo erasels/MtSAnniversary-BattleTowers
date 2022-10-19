@@ -82,6 +82,8 @@ public class NatariTheTimewalker extends AbstractBTMonster {
         addMove(MIRRORSHOT, Intent.ATTACK_DEBUFF,calcAscensionDamage(8),2);
         addMove(ROAROFTIME, Intent.ATTACK_BUFF,calcAscensionDamage(24),calcAscensionSpecial(2));
         addMove(STUN, Intent.UNKNOWN);
+        addMove(THEWORLD, Intent.STRONG_DEBUFF);
+        addMove(FASTFORWARD, Intent.BUFF);
         // Add these moves to the move hashmap, we will be using them later in getMove
         // calc AscensionDamage automatically scales damage based on ascension and enemy type
     }
@@ -161,14 +163,14 @@ public class NatariTheTimewalker extends AbstractBTMonster {
                     break;
                 }
                 case MIRRORSHOT: {
-                    for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                    for (int i = 0; i < moves.get(nextMove).multiplier; i++) {
                         addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
                     }
                     addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, 1, true)));
                     break;
                 }
                 case ROAROFTIME: {
-                    for (int i = 0; 1 < moves.get(nextMove).multiplier; i++) {
+                    for (int i = 0; i < moves.get(nextMove).multiplier; i++) {
                         addToBot(new DamageAction(AbstractDungeon.player, info, getAttackEffectForMultiHit()));
                     }
                     if (Timestate != TimeState.TIMESTOP && Timestate != TimeState.HALFTIME) {
