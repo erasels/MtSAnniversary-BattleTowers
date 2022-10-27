@@ -148,13 +148,6 @@
       "Itozus's multihit attacks will strike additional times after ending your turn without attacking."
     ]
   },
-  "${ModID}:AgainstTheWhirlwindPower": {
-    "NAME": "Against the Whirlwind",
-    "DESCRIPTIONS": [
-      "At the end of your turn if you didn't attack, Itozus's next multi hit will hit #b",
-      " Extra time.", " Extra times"
-    ]
-  },
   "${ModID}:BurnPower": {
     "NAME": "Burned",
     "DESCRIPTIONS": [

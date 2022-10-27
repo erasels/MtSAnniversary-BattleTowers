@@ -56,10 +56,10 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         // maxHealth param doesn't matter, we will override it with setHP
         // hb_x and hb_y shifts the monster's AND its health bar's position around on the screen, usually you don't need to change these values
         // hb_w affects how wide the monster's health bar is. hb_h affects how far up the monster's intent image is. Adjust these values until they look good
-        super(NAME, ID, 171, 0.0F, 0.0f, 270f, 400.0f, null, x, y);
+        super(NAME, ID, 191, 0.0F, 0.0f, 270f, 400.0f, null, x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
-        setHp(calcAscensionTankiness(152));
+        setHp(calcAscensionTankiness(191));
         loadAnimation(BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.atlas"), BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.json"), 1.0F);
 
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
@@ -104,7 +104,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
             }
             case SOLEMNVIGIL:{
                 addToBot(new GainBlockAction(this,calcAscensionSpecial(15)));
-                addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(5))));
+                addToBot(new HealAction(this,this,calcAscensionSpecial(10)));
+                addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(8))));
                 addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,3)));
                 break;
             }
@@ -112,8 +113,8 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
-                addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(4))));
-                addToBot(new HealAction(this,this,calcAscensionSpecial(4)));
+                addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(8))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
                 break;
             }
             case DIVINESTORM: {
@@ -122,7 +123,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                     addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
                 }
-                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
+                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
                 DS_AMT += 1;
                 addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),DS_AMT);
                 break;
@@ -146,22 +147,24 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     }
                     case SOLEMNVIGIL:{
                         addToBot(new GainBlockAction(this,calcAscensionSpecial(15)));
-                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
+                        addToBot(new HealAction(this,this,calcAscensionSpecial(10)));
+                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(8))));
                         addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,3)));
                         break;
                     }
                     case JUDGEMENTOFJUSTICE:{
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.NONE));
-                        addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(4))));
-                        addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
+                        addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(8))));
+                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
                         break;
                     }
                     case DIVINESTORM: {
+                        addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         for (int i = 0; i < DS_AMT; i++) {
                             addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                            addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
+                            addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
                         }
                         addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
                         DS_AMT += 1;

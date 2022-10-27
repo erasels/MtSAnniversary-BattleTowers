@@ -24,7 +24,7 @@ public class WindStrike extends CustomCard {
     public static final String DESCRIPTION;
     public static final String IMG_PATH = makeCardPath("WindStrike.png");
     private static final CardType TYPE = CardType.ATTACK;
-    private static final CardRarity RARITY = CardRarity.BASIC;
+    private static final CardRarity RARITY = CardRarity.SPECIAL;
     private static final CardTarget TARGET = CardTarget.SELF_AND_ENEMY;
     private static final CardStrings cardStrings;
     private static final int COST = 1;
