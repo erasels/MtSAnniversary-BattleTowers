@@ -1,0 +1,200 @@
+{
+  "battleTowers:OttosDeck": {
+    "NAME": "오토의 덱",
+    "FLAVOR": "오토의 덱은 체스가 주 테마였군요. 흐음",
+    "DESCRIPTIONS": [
+      "이 유물을 획득하면, 덱에 존재하는 모든 #y타격과 #y수비를 #y폰의 #y진군 으로 변화시킵니다. 무작위 #b특별 등급 #p체스 #p카드와 #y희귀 등급 #p체스 #p카드를 얻습니다. "
+    ]
+  },
+  "battleTowers:CardboardHeart": {
+    "NAME": "카드보드 심장",
+    "FLAVOR": "살해당한 모험가의 덱들이 이 섬유판 덩어리를 이루고 있습니다.",
+    "DESCRIPTIONS": [
+      "매 전투 시작시,  ",
+      ", ",
+      ", 또는 ",
+      " 카드 중 하나를 선택하여 얻습니다. 가져온 카드는 이번 전투 동안 #y보존 효과가 부여됩니다.",
+      "손패로 생성할 카드를 선택하세요.",
+      "획득시, 무작위 카드 #b3 장이 보여집니다. 그 카드들 중 #b1 장을 선택하여 손으로 가져온 뒤 이번 전투 동안 #y보존 을 부여합니다."
+    ]
+  },
+  "battleTowers:BucketOfSlime": {
+    "NAME": "점액 한 통",
+    "FLAVOR": "점액 한 통! 유용하고 다목적입니다! 어디다 쓰이냐구요? 전 그냥 샐러리맨일 뿐이에요. 스스로 생각해보시죠.",
+    "DESCRIPTIONS": [
+      "전투 시작시, 덱에 존재하는 카드를 전투에서 처음으로 사용했다면, #y방어도를 #b%d 얻습니다."
+    ]
+  },
+  "battleTowers:WarBannerCultist": {
+    "NAME": "광신자 전쟁 깃발",
+    "FLAVOR": "카카? 카카카!! 카카.",
+    "DESCRIPTIONS": [
+      "전투 시작시, #y의식 을 #b1 얻고 #y힘을 #b2 얻습니다.",
+      "#g광신자 #g전쟁 #g깃발을 #g얻습니다."
+    ]
+  },
+  "battleTowers:WarBannerLouse": {
+    "NAME": "공벌레 전쟁 깃발",
+    "FLAVOR": "벌레와 한 몸이 되었습니다.",
+    "DESCRIPTIONS": [
+      "전투 시작시, #y몸 #y말기 를 #b10 얻습니다. #y몸 #y말기 가 발동되면, 그 턴 동안 #y방어도가 사라지지 않습니다.",
+      "#g공벌레 #g전쟁 #g깃발을 #g얻습니다."
+    ]
+  },
+  "battleTowers:WarBannerNob": {
+    "NAME": "귀족 그렘린 전쟁 깃발",
+    "FLAVOR": "그르뤄어어어어어어어어!!",
+    "DESCRIPTIONS": [
+      "전투에서 공격 의도가 아닌 적이 있다면, #y힘을 #b1 얻습니다. 이 효과는 한 전투에서 #b%d 번 발동합니다. 전투 시작시 #y약화를 #b%d 받습니다.",
+      "#g귀족 #g그렘린 #g전쟁 #g깃발을 #g얻습니다."
+    ]
+  },
+  "battleTowers:WarBannerSnecko": {
+    "NAME": "스네코 전쟁 깃발",
+    "FLAVOR": "이 무늬 패턴 좀 보세요. 이건... 매혹적이군요.",
+    "DESCRIPTIONS": [
+      "전투 시작시 #y혼란 상태가 됩니다. 첫 턴에 카드를 3 장 더 뽑습니다.",
+      "#g스네코 #g전쟁 #g깃발을 #g얻습니다."
+    ]
+  },
+  "battleTowers:Torch": {
+    "NAME": "횃불",
+    "FLAVOR": "에메랄드 빛으로 빛나는 간이 횃불입니다. 배틀 타워에서 멀어질수록 불씨가 꺼져가는 것처럼 보입니다.",
+    "DESCRIPTIONS": [
+      "#y배틀 #y타워 내부에서만 발동합니다. 전투 시작시, 선택한 ",
+      " 카드 #b2 장을 뽑을 카드 더미에 넣습니다.",
+      "#y배틀 #y타워 내부에서만 발동합니다. 덱에서 카드 1장을 선택하고, 전투 시작시 선택한 카드 #b2 장을 뽑을 카드 더미에 넣습니다.",
+      "그냥 막대기입니다."
+    ]
+  },
+  "battleTowers:Lucky": {
+    "NAME": "행운",
+    "FLAVOR": "불우한 자들을 도와주는 자들은 항상 어떻게든 보상을 받는다는 것을 알아두셔야 합니다.",
+    "DESCRIPTIONS": [
+      "#y배틀 #y타워 내부의 보스 전투에서, #y힘과 #y민첩 을 1 얻습니다."
+    ]
+  },
+  "battleTowers:IronPotHelmet": {
+    "NAME": "철제 항아리 헬멧",
+    "FLAVOR": "이전에는 분명 마법에 쓰이는 특별한 물건이었겠지만, 지금은 그냥 고철 덩어리일 뿐입니다.",
+    "DESCRIPTIONS": [
+      "#y수비 카드를 사용할 때마다, #y방어도를 #b3 얻습니다."
+    ]
+  },
+  "battleTowers:DijinnLamp": {
+    "NAME": "디진의 램프",
+    "FLAVOR": "이걸 문지르면, 무한한 힘의 원천이 희미하게 울려 퍼지는걸 느낄 수 있습니다.",
+    "DESCRIPTIONS": [
+      "전투 시작시, #y소원 #y성취 1 장을 뽑을 카드 더미에 넣습니다."
+    ]
+  },
+  "battleTowers:CursedDoll": {
+    "NAME": "저주받은 인형",
+    "FLAVOR": "핀과 가시로 박혀있습니다 . . . 그리고 정말 놀랍게도, 당신과 꼭 닮아있습니다.",
+    "DESCRIPTIONS": [
+      "체력을 잃을 때마다, 잃은 체력의 2배만큼 적 전체의 체력을 감소시킵니다."
+    ]
+  },
+  "battleTowers:GreedBlight": {
+    "NAME": "탐욕의 저주",
+    "FLAVOR": "탐욕을 이끄는 재물.",
+    "DESCRIPTIONS": [
+      "상점에서 판매하는 유물의 가격이 #b%dx 배로 비싸집니다."
+    ]
+  },
+  "battleTowers:VoidBlight": {
+    "NAME": "신성 영혼",
+    "FLAVOR": "당신은 저 영혼이 떠나가기 전까지는 저게 얼마나 중요했던건지 모르셨을 겁니다.",
+    "DESCRIPTIONS": [
+      "전투 시작시, 뽑을 카드 더미에 #y공허 1 장을 넣습니다."
+    ]
+  },
+  "battleTowers:PromiseOfGold": {
+    "NAME": "약속된 골드",
+    "FLAVOR": "이걸 얻기 위해서는 고생할만한 가치가 있죠.",
+    "DESCRIPTIONS": ["#y배틀 #y타워의 보스를 처치하면, 골드를 #b{0} 얻습니다."]
+  },
+  "battleTowers:ClericsBlessing": {
+    "NAME": "성직자의 축복",
+    "FLAVOR": "확실히 그 성직자란 인물은 정말 친절합니다.",
+    "DESCRIPTIONS": ["#y배틀 #y타워 내부에서만 발동합니다. 전투 시작시, #y민첩 을 #b{0} 얻습니다."]
+  },
+  "battleTowers:ArmorersMask": {
+    "NAME": "병기 제작가의 가면",
+    "FLAVOR": "그들의 일부!",
+    "DESCRIPTIONS": [
+      "당신은 좀 더 수다스러워집니다. 전투 시작시, #y민첩 을 1 얻습니다.",
+      "@까악!@ NL @까아아악@"
+    ]
+  },
+  "battleTowers:AlphabetSoup": {
+    "NAME": "알파벳 수프",
+    "FLAVOR": "문법 나치.",
+    "DESCRIPTIONS": [
+      "전투 시작시, 특정 알파벳으로 시작하는 #b3 장의 카드 중 1 장을 선택하여 얻습니다. 선택한 카드와 동일한 알파벳으로 시작하는 카드를 사용할 때마다, #y방어도를 #b2 얻고 [E] 를 얻습니다.",
+      "전투 시작시, 알파벳 #p",
+      " 로 시작하는 #b3 장의 카드 중 1 장을 선택하여 얻습니다. #p",
+      " 로 시작하는 카드를 사용할 때마다, 방어도를 #b2 얻고 [E] 를 얻습니다.",
+      "손으로 가져올 카드를 선택하세요."
+    ]
+  },
+  "battleTowers:GorgonHead": {
+    "NAME": "고르곤의 머리",
+    "FLAVOR": "여전히 이걸 쳐다보는 행동은 위험합니다.",
+    "DESCRIPTIONS": ["전투당 한 번, 연타 공격을 사용하려는 적이 있다면, 그 적의 #y힘을 임시로 1 감소시킵니다."]
+  },
+  "battleTowers:SlimeFilledFlask": {
+    "NAME": "점액으로 가득 찬 플라스크",
+    "FLAVOR": "지금 이걸 마시라고 만들어 놓은건가요?",
+    "DESCRIPTIONS": ["전투 시작시, #y슬라임 #y엘릭서 를 얻습니다."]
+  },
+  "battleTowers:SentryOrb": {
+    "NAME": "보초기 코어",
+    "FLAVOR": "이것을 파괴시킨 후에도 여전히 안에서 불길한 에너지가 가동하고 있습니다.",
+    "DESCRIPTIONS": ["#b짝수 턴 시작시, 무작위 적에게 피해를 #b"," 줍니다.",
+      "입힌 피해량: "," NL Per combat: "," NL Per turn: "]
+  },
+  "battleTowers:SweatyArmband": {
+    "NAME": "땀에 젖은 완장",
+    "FLAVOR": "No pain, no gain.",
+    "DESCRIPTIONS": ["막히지 않은 피해를 받을 때마다, #y힘을 #b1 얻습니다."]
+  },
+    "battleTowers:JadeIdol": {
+    "NAME": "비취 우상",
+    "FLAVOR": "흠잡을 데 없이 조각되고, 딱히 별다른 노력 없이 쉽게 물리학을 거스르는 이 우상은 시간이 지날수록 매우 강력해집니다.",
+    "DESCRIPTIONS": [
+      "전투 시작시, #y질풍 #y타격 1 장을 얻습니다.",
+      "미리보기"
+    ]
+  },
+  "battleTowers:RubyFragment": {
+    "NAME": "루비 조각",
+    "FLAVOR": "정의집행관의 조각입니다. 적에게 강한 공격성을 내보이면 그의 신성력에 보답 받을것만 같습니다.",
+    "DESCRIPTIONS": [
+      "전투당 한 번, 적에게 막히지 않은 피해를 #b15 이상 입히면, [E] 를 얻고 카드를 2 장 뽑습니다."
+    ]
+  },
+  "battleTowers:ScaryNail": {
+    "NAME": "무시무시한 못",
+    "FLAVOR": "토템에게서 빼내온 것입니다. 이건 야구 방망이에 끼우면 잘 어울릴것 같습니다.",
+    "DESCRIPTIONS": [
+      "전투에 존재하는 적 하나당, #y힘을 #b%d 얻고 시작합니다."
+    ]
+  },
+  "battleTowers:QueensPawn": {
+    "NAME": "퀸의 폰",
+    "FLAVOR": "어찌보면 가장 중요한 체스 피스들.",
+    "DESCRIPTIONS": [
+      "한 턴에서 첫번째와 마지막으로 사용한 카드가 #y공격 이었다면, 무작위 적에게 피해를 #b5 줍니다. NL 한 턴에서 첫번째와 마지막으로 사용한 카드가 #y스킬 이었다면, #y방어도를 #b5 얻습니다."
+    ]
+  },
+  "battleTowers:SteelboundCodex": {
+    "NAME": "강철로 묶인 고문서",
+    "FLAVOR": "인텔리제이 이 프로그램 쓰레깁니다. 도대체 왜 \"마법으로 묶인(Spellbound)\" 단어를 \"강철로 묶인(Steelbound)\" 으로 자동 완성 시키죠?",
+    "DESCRIPTIONS": [
+      "한 턴에 #y공격 카드로 총합 에너지를 [E] [E] [E] 만큼 사용하면, 다음에 사용하는 공격 카드의 비용이 #b0 이 됩니다."
+    ]
+  }
+}
+
+

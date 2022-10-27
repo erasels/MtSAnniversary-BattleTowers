@@ -1,0 +1,456 @@
+{
+  "battleTowers:ApologySlime": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "노려보는 공허",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:ExampleMonster": {
+    "MOVES": [
+      "휩쓸기",
+      "소리 지르기",
+      "이중 타격"
+    ],
+    "NAME": "예시용 몬스터",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Cawcawrot": {
+    "MOVES": [
+      "초 의식",
+      "흩날리는 싸대기"
+    ],
+    "NAME": "카카로트",
+    "DIALOG": [
+      "나 화났다! 플레이어!!"
+    ]
+  },
+  "battleTowers:Veggieta": {
+    "MOVES": [
+      "오잉 총",
+      "고추 스프레이"
+    ],
+    "NAME": "베지타",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:CardboardGolem": {
+    "MOVES": [
+      "머리 박치기",
+      "식사",
+      "찢긴 종이 조각",
+      "자가 정비"
+    ],
+    "NAME": "카드보드 골렘",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:ExecutiveSlime": {
+    "MOVES": [
+      "책임",
+      "개짜증내기",
+      "책임",
+      "거친 휩쓸기",
+      "슬라임 튕기기",
+      "스웜",
+      "준비",
+      "징벌"
+    ],
+    "NAME": "경영 간부 슬라임",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Slimeling": {
+    "MOVES": [
+      "태클",
+      "독액 발사",
+      "핥기"
+    ],
+    "NAME": "아기 슬라임",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:tneisnarT": {
+    "MOVES": [
+      ""
+    ],
+    "NAME": "자도과",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:Dijinn": {
+    "MOVES": [
+      "권력",
+      "부패",
+      "황금의 도가니"
+    ],
+    "NAME": "디진",
+    "DIALOG": [
+      "누가 감히 나에게 도전하는가?",
+      "이 소원은 일시적인 것에 불과하지 . . .",
+      "네 소원은 내 것이다 . . . 지금 당장은.",
+      "소원을 신중히 빌도록 해라.",
+      "이제, 난 자유다!"
+    ]
+  },
+  "battleTowers:VoodooDoll": {
+    "MOVES": [
+      "저주",
+      "핀과 가시",
+      "질식사"
+    ],
+    "NAME": "부두 인형",
+    "DIALOG": [
+      "이 적이 체력을 #b", " 잃고 당신에게 #y아주 #y강력한 #y해로운 #y효과를 부여하려고 합니다."
+    ]
+  },
+  "battleTowers:Gorgon": {
+    "MOVES": [
+      "소름끼치는 시선",
+      "뱀의 이빨",
+      "꼬리 내려치기",
+      "석화의 골격"
+    ],
+    "NAME": "고르곤"
+  },
+  "battleTowers:ItozusTheWindwalker": {
+    "MOVES": [
+      "바람 날붙이",
+      "끓어오르는 폭풍",
+      "폭풍 타격",
+      "빗발치는 일격",
+      "죽음의 손길"
+    ],
+    "NAME": "질풍보행자 이토저스",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:ZastraszTheJusticar": {
+    "MOVES": [
+      "신성 엄벌",
+      "엄숙한 맹세",
+      "정의의 심판",
+      "신성 폭풍",
+      "화염 재판"
+    ],
+    "NAME": "정의집행관 자스트라",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:NatariTheTimewalker": {
+    "MOVES": [
+      "초광속",
+      "모래 방출",
+      "살인 인형",
+      "능력치 상승",
+      "더욱 빠르게!",
+      "더 월드",
+      "불릿 타임",
+      "피할 수 없는 지연"
+    ],
+    "NAME": "나타리, 시간여행자",
+    "DIALOG": [
+      "이 ~나를~ ~상대로~ 재치와 지혜를 겨루고 싶다고? 자네가 ~중대한~ 실수를 저질렀다는걸 깨닫게 해주지."
+    ]
+  },
+  "battleTowers:GoldenLouse": {
+    "MOVES": [
+      "물기",
+      "보호",
+      "회복"
+    ],
+    "NAME": "황금 공벌레",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SilverLouse": {
+    "MOVES": [
+      "물기",
+      "버프",
+      "스크래치"
+    ],
+    "NAME": "은색 공벌레",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryRed": {
+    "MOVES": [
+      "빔",
+      "불태우기"
+    ],
+    "NAME": "빨강 보초기",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryGreen": {
+    "MOVES": [
+      "빔",
+      "튀어오르기"
+    ],
+    "NAME": "초록 보초기",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryPurple": {
+    "MOVES": [
+      "빔",
+      "흡수"
+    ],
+    "NAME": "보라 보초기",
+    "DIALOG": [
+    ]
+  },
+  "battleTowers:SentryHuge": {
+    "MOVES": [
+      "더블 빔",
+      "약올리기"
+    ],
+    "NAME": "거대 보초기",
+    "DIALOG": [
+    ]
+  }, 
+  "battleTowers:FireSlimeL": {
+  "MOVES": [
+    "발화성 타액",
+    "태클",
+    "핥기",
+    "분열"
+  ],
+  "NAME": "화염 슬라임 (대)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "battleTowers:FireSlimeM": {
+    "MOVES": [
+      "발화성 타액",
+      "태클",
+      "핥기"
+    ],
+    "NAME": "화염 슬라임 (중)",
+    "DIALOG": [
+      ""
+    ]
+  }, "battleTowers:IceSlimeL": {
+  "MOVES": [
+    "급속 냉동 타액",
+    "태클",
+    "핥기",
+    "분열"
+  ],
+  "NAME": "얼음 슬라임 (대)",
+  "DIALOG": [
+    ""
+  ]
+},
+  "battleTowers:IceSlimeM": {
+    "MOVES": [
+      "급속 냉동 타액",
+      "태클",
+      "핥기"
+    ],
+    "NAME": "얼음 슬라임 (중)",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:Trenchcoat": {
+    "MOVES": [
+      "",
+      "",
+      "",
+      "파워 업",
+      "무너짐"
+    ],
+    "NAME": "청동 자동인형?",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:InvisibleIntentDisplayer": {
+    "MOVES": [
+    ],
+    "NAME": "",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:DoomedSoul": {
+    "MOVES": [
+      "탐욕",
+      "진노",
+      "질투"
+    ],
+    "NAME": "저주받은 영혼"
+  },
+  "battleTowers:GigaSlime": {
+    "MOVES": [
+      "점액 스프레이",
+      "태클 + 핥기",
+      "내려찍기"
+    ],
+    "NAME": "기가 슬라임"
+  },
+  "battleTowers:MinotaurGladiator": {
+    "MOVES": [
+      "자르기",
+      "파쇄",
+      "박살내기"
+    ],
+    "NAME": "미노타우르스 투사"
+  },
+  "battleTowers:BurningShambler": {
+    "MOVES": [
+      "깜빡임의 불꽃",
+      "모닥불",
+      "돌격"
+    ],
+    "NAME": "기어오는 불씨"
+  },
+  "battleTowers:AlphabetBoss": {
+    "MOVES": [
+      "A is for Amplify(증폭)",
+      "D is for Deep Freeze(급속 냉동)",
+      "E is for Enrage(격분)",
+      "H is for Heat Up(열기 상승)",
+      "J is for Jack of all Trades(팔방미인)",
+      "K is for Killing Blow(살의)",
+      "L is for Lash Out(후려갈기기)",
+      "M is for Multistrike(연타 공격)",
+      "O is for Orb Power(밀집 획득)",
+      "R is for Rapidfire(고속 사격)",
+      "S is for Slice and Dice(두동강 내기)",
+      "U is for Unstable(자제불능)",
+      "Z is for Zap(파지직)",
+      "B is for Blur(흐릿함)",
+      "C is for Chaos(혼돈)",
+      "F is for Frail(손상)",
+      "G is for Guard(가드 올리기)",
+      "I is for Icy Skin(동결 피부",
+      "N is for Nullify(무효화)",
+      "P is for Plated Armor(판금 갑옷)",
+      "Q is for Quash",
+      "T is for Time Maze(시간 미로)",
+      "V is for Vulnerable(취약)",
+      "W is for Weak(약화)",
+      "X is for X-Cost Spree(X 비용 난무)",
+      "Y is for You Are Mine(넌 나의 것이다)"
+    ],
+    "NAME": "맞춤법의 책"
+  },
+  "battleTowers:CultistArmorer": {
+    "MOVES": [
+    ],
+    "NAME": "광신자 병기 제작가"
+  },
+  "battleTowers:Queen": {
+    "MOVES": [
+      "퀸의 의지",
+      "",
+      "페인트칠 모방",
+      "색상 흡수",
+      "뒤틀린 모방",
+      "퀸의 보호",
+      "퀸의 진군",
+      "퀸의 칙령"
+    ],
+    "NAME": "흑백 모방의 퀸"
+  },
+  "battleTowers:GiantArm": {
+    "NAME": "거인의 팔",
+    "DIALOG": [
+      "좋아, 덤벼라!",
+      "뭐야, 그게 다야?",
+      "더욱 불타오른다!",
+      "우리 할머니가 그것보단 더 세게 때린다고!"
+    ]
+  },
+  "battleTowers:PrismGuardian": {
+    "NAME": "프리즘 수호자",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:NinjaLouse": {
+    "MOVES": [
+      "태클",
+      "준비",
+      "독 다트"
+    ],
+    "NAME": "닌자 공벌레"
+  },
+  "battleTowers:Magus": {
+    "NAME": "매그너스",
+    "DIALOG": [
+      "각오는 됐겠지!"
+    ]
+  },
+  "battleTowers:Assassin": {
+    "NAME": "어쌔신",
+    "DIALOG": [
+      ""
+    ]
+  },
+  "battleTowers:Necrototem": {
+    "MOVES": [
+      "소환",
+      "저주",
+      "못 탄막"
+    ],
+    "NAME": "네크로토템"
+  },
+  "battleTowers:NecrototemMinion": {
+    "MOVES": [],
+    "NAME": "토템"
+  },
+  "battleTowers:Paladin": {
+    "NAME": "성기사"
+  },
+  "battleTowers:LouseHorde": {
+    "NAME": "공벌레 무리",
+    "DIALOG" : [],
+    "MOVES": []
+  },
+  "battleTowers:Romeo": {
+    "NAME": "로미오",
+    "DIALOG" : ["나랑 마주친걸 후회하게 될 거다, @멍텅구리@ !",
+      "하, 곰이 날 보고 있는데 두려울게 있나...",
+      "~네~ ~놈에게~ #r@복수를@ #r@하기@ #r@위해@ ~돌아왔다...~"
+    ],
+    "MOVES": ["몽타주 훈련",
+    "이판사판",
+      "극독 찌르기",
+      "사지 절단"
+    ]
+  },
+  "battleTowers:RainbowLouse": {
+    "MOVES": [
+      "자가 강화",
+      "투쟁의 발버둥",
+      "심신 쇠약"
+    ],
+    "NAME": "무지개빛 공벌레"
+  },
+  "battleTowers:AspiringChampion": {
+    "MOVES": [
+      "카피캣",
+      "카피캣",
+      "육중한 일격",
+      "일어나기",
+      "육중한 일격",
+      "카피캣",
+      "카피캣"
+    ],
+    "NAME": "챔피언 유망주",
+    "DIALOG": [
+      "오호... 이거 마음에 드는데!",
+      "내 앞에서 꺼져!",
+      "죽어라, 이 ㅈ... 어억!",
+      "뭐냐? 너무 겁 먹어서 공격을 안 하는거냐?",
+      "으윽"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "battleTowers:Poggers": {
+    "NAME": "PoggyWoggy",
+    "DESCRIPTION": "절대! 아무것도 안 할거다 이거야!"
+  },
+  "battleTowers:BlankCard": {
+    "NAME": "공백 카드",
+    "DESCRIPTION": ""
+  },
+  "battleTowers:Granted": {
+    "NAME": "소원 성취",
+    "DESCRIPTION": "*소원 을 빌어서 모든 캐릭터의 완벽히 강화된 희귀 카드 3장 중 1장을 선택하여 얻습니다. NL 소멸.",
+    "UPGRADE_DESCRIPTION": "보존. NL 모든 캐릭터의 완벽히 강화된 희귀 카드 3장 중 1장을 선택하여 얻습니다. NL 소멸."
+  },
+  "battleTowers:DijinnWrath": {
+    "NAME": "진의 분노",
+    "DESCRIPTION": "적이 ",
+    "EXTENDED_DESCRIPTION": ["방어도를 !B! 얻고 힘을 !M! 얻습니다.", "뽑을 카드 더미에 *공허 를 !M! 넣습니다.", "당신에게 공격 의도만큼 피해를 줍니다."]
+  },
+  "battleTowers:MakeAWish": {
+    "NAME": "소원 빌기",
+    "DESCRIPTION": "*소원 을 빌어 ",
+    "EXTENDED_DESCRIPTION": ["힘을 !M! 얻습니다.", "*기적 !M! 장을 얻습니다.", "임시_체력 을 !M! 얻습니다"]
+  },
+  "battleTowers:Prick": {
+    "NAME": "바늘 찌르기",
+    "DESCRIPTION": "보존. NL 이 카드가 소멸되면, 모든 생물이 체력을 !M! 잃습니다. NL 소멸."
+  },
+  "battleTowers:AvertYourGaze": {
+    "NAME": "시선 돌리기",
+    "DESCRIPTION": "보존. NL 이번 턴 동안 해로운 효과나 피해를 입혀도 *석화 효과를 얻지 않습니다. NL 소멸."
+  },
+  "battleTowers:Chilled": {
+    "NAME": "냉각됨",
+    "DESCRIPTION": "사용불가. NL 휘발성. NL 이 카드가 뽑히면 [E] 를 잃고, 카드를 !M! 장 뽑습니다."
+  },
+  "battleTowers:QueensGrace": {
+    "NAME": "퀸의 은총",
+    "DESCRIPTION": "방어도를 !B! 얻습니다. NL 피해를 !D! 줍니다. NL 카드를 !M! 장 뽑습니다. NL [E] 를 얻습니다. NL 소멸.",
+    "UPGRADE_DESCRIPTION": "방어도를 !B! 얻습니다. NL 피해를 !D! 줍니다. NL 카드를 !M! 장 뽑습니다. NL [E] [E] 를 얻습니다. NL 소멸."
+  },
+  "battleTowers:RooksCharge": {
+    "NAME": "룩의 돌진",
+    "DESCRIPTION": "피해를 !D! 줍니다. NL 손패에 있는 공격 카드의 수만큼 이 효과를 반복합니다."
+  },
+  "battleTowers:BishopsPrayer": {
+    "NAME": "비숍의 기도",
+    "DESCRIPTION": "방어도를 !B! 얻습니다. NL 카드를 !M! 장 뽑습니다. NL 이 카드를 뽑을 카드 더미에 다시 넣습니다."
+  },
+  "battleTowers:PawnsAdvance": {
+    "NAME": "폰의 진군",
+    "DESCRIPTION": "방어도를 !B! 얻습니다. NL 피해를 !D! 줍니다. NL 이번 턴 동안 모든 폰의 진군 카드의 획득 방어도과 피해량이 !M! 증가합니다."
+  },
+  "battleTowers:KingsCommand": {
+    "NAME": "킹의 명령",
+    "DESCRIPTION": "사용불가. NL 이 카드가 손패에 있을때 다른 카드를 사용할 때마다, 무작위 적에게 피해를 !M! 줍니다.",
+    "UPGRADE_DESCRIPTION": "이 카드는 사용할 수 없어."
+  },
+  "battleTowers:KnightsManeuver": {
+    "NAME": "나이트의 계책",
+    "DESCRIPTION": "선택 : 민첩 을 !M! 얻고 힘을 1 얻습니다. 또는 힘을 !M! 얻고 민첩 을 1 잃습니다.",
+    "EXTENDED_DESCRIPTION": [
+      "방어",
+      "민첩을 !M! 얻고 힘을 1 잃습니다.",
+      "공세",
+      "힘을 !M! 얻고 민첩을 1 잃습니다.",
+      "효과를 선택하세요."
+    ]
+  },
+  "battleTowers:CursedTapestry": {
+    "NAME": "저주받은 태피스트리",
+    "DESCRIPTION": "일회성. NL 체력을 !M! 잃습니다. NL 피해를 !D! 줍니다. NL 무작위 일반 유물 1개를 얻습니다."
+  },
+  "battleTowers:Greedy": {
+    "NAME": "탐욕심",
+    "DESCRIPTION": "사용불가. 휘발성. NL 이 카드가 뽑히면, 골드를 !M! 잃습니다."
+  },
+  "battleTowers:DarkEnchantment": {
+    "NAME": "어둠의 강화",
+    "DESCRIPTION": "카드를 !M! 뽑습니다. NL [E] [E] 를 얻습니다. NL 손패에 존재하는 모든 카드의 비용을 이번 전투동안 1 증가시킵니다. NL 소멸."
+  },
+  "battleTowers:WindStrike": {
+    "NAME": "질풍 타격",
+    "DESCRIPTION": "*하나 *선택 - 피해를 !D! 주고 방어도를 !B! 획득, 또는 이 카드를 1 장 복사하여 뽑을 카드 더미에 넣기. NL *질풍 *타격 1장당, 이 카드의 피해량과 방어도가 !M! 증가합니다."
+  },
+  "battleTowers:RazorWind": {
+    "NAME": "칼날 바람",
+    "DESCRIPTION": "피해를 !D! 줍니다. NL 방어도를 !B! 얻습니다."
+  },
+  "battleTowers:Stormfront": {
+    "NAME": "폭풍의 진격",
+    "DESCRIPTION": "뽑을 카드 더미에 *질풍 *타격 을 넣습니다."
+  },
+  "battleTowers:Knowledge": {
+    "NAME": "지식을 위한 소원",
+    "DESCRIPTION": "귀속. NL 자동사용. NL 덱의 카드 중 1장만 존재하는 카드의 복사본을 생성해 덱에 추가합니다. "
+  },
+  "battleTowers:SlimeElixir": {
+    "NAME": "슬라임 엘릭서",
+    "DESCRIPTION": "보존. NL 카드를 !M! 장 뽑습니다. NL *점액투성이 1 장을 뽑을 카드 더미에 넣습니다. NL 소멸."
+  }
+}

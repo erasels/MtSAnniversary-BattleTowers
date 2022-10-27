@@ -1,0 +1,33 @@
+{
+  "battleTowers:Config": {
+    "TEXT_DICT": {
+      "Test": "이거 아무것도 아닙니다."
+    }
+  },
+  "battleTowers:FightPreview": {
+    "TEXT": ["전투 미리보기"]
+  },
+  "battleTowers:QueenDrainIntent": {
+    "TEXT": [
+      "색상 흡수",
+      "이 적은 자신의 색을 흡수하여, 자신의 진영 색상이 아닌 적에게 #b",
+      " 의 피해로 공격하려고 합니다."
+    ]
+  },
+  "battleTowers:MultiIntentStrings": {
+    "TEXT": [
+      "이 적은 NL ",
+      " 에게 #b",
+      " 의 피해로 공격하려고 합니다.",
+      " 의 피해로 #b",
+      " 번 공격하려고 합니다.",
+      "이 적은 #y해로운 #y효과를 ",
+      " 에게 부여하려고 합니다."
+    ]
+  },
+  "battleTowers:LoseMHPEffect": {
+    "TEXT": [
+      "최대 체력"
+    ]
+  }
+}
