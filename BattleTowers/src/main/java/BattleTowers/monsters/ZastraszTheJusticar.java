@@ -3,6 +3,7 @@ package BattleTowers.monsters;
 import BattleTowers.powers.BurnPower;
 import BattleTowers.powers.InquisitorPower;
 import BattleTowers.powers.JudgementPower;
+import basemod.devcommands.power.Power;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -15,9 +16,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.MonsterStrings;
 import com.megacrit.cardcrawl.monsters.EnemyMoveInfo;
-import com.megacrit.cardcrawl.powers.FrailPower;
-import com.megacrit.cardcrawl.powers.PlatedArmorPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import com.megacrit.cardcrawl.vfx.combat.WhirlwindEffect;
 
@@ -40,7 +39,7 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
     private static final byte TRIALBYFIRE = 4;
     private static boolean firsturn = true;
 
-    private static final int DS_AMT = 5;
+    private static int DS_AMT = 4;
 
     //defaults enemy placement to 0, 0
     public ZastraszTheJusticar() {
@@ -57,10 +56,10 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         // maxHealth param doesn't matter, we will override it with setHP
         // hb_x and hb_y shifts the monster's AND its health bar's position around on the screen, usually you don't need to change these values
         // hb_w affects how wide the monster's health bar is. hb_h affects how far up the monster's intent image is. Adjust these values until they look good
-        super(NAME, ID, 171, 0.0F, 0.0f, 270f, 400.0f, null, x, y);
+        super(NAME, ID, 191, 0.0F, 0.0f, 270f, 400.0f, null, x, y);
         // HANDLE YOUR ANIMATION STUFF HERE
         // this.animation = Whatever your animation is
-        setHp(calcAscensionTankiness(152));
+        setHp(calcAscensionTankiness(191));
         loadAnimation(BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.atlas"), BattleTowers.BattleTowers.makeMonsterPath("ZastraszTheJusticar/TheDragonkin.json"), 1.0F);
 
         AnimationState.TrackEntry e = this.state.setAnimation(0, "animation", true);
@@ -91,26 +90,31 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         if (info.base > -1) {
             info.applyPowers(this, AbstractDungeon.player);
         }
-
+        if (firsturn){
+            firsturn = false;
+        }
         //carries out actions based on the current move
         //useFastAttackAnimation causes the monster to jump forward when it attacks
         switch (this.nextMove) {
             case DIVINESMITE: {
                 addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(2))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(4))));
                 break;
             }
             case SOLEMNVIGIL:{
-                addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(5))));
-                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
+                addToBot(new GainBlockAction(this,calcAscensionSpecial(15)));
+                addToBot(new HealAction(this,this,calcAscensionSpecial(10)));
+                addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(8))));
+                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,3)));
                 break;
             }
             case JUDGEMENTOFJUSTICE:{
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                 addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                 addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.NONE));
-                addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
+                addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(8))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
                 break;
             }
             case DIVINESTORM: {
@@ -119,12 +123,15 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                     addToBot(new DamageAction(AbstractDungeon.player, info, AbstractGameAction.AttackEffect.LIGHTNING));
                 }
-                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
+                addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
+                DS_AMT += 1;
+                addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),DS_AMT);
                 break;
             }
             case TRIALBYFIRE:{
-                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(5))));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(6))));
                 addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(2), true)));
+                addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new WeakPower(AbstractDungeon.player, calcAscensionSpecial(2), true)));
                 break;
             }
         }
@@ -135,34 +142,33 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
                     case DIVINESMITE: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(2))));
+                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new BurnPower(AbstractDungeon.player, calcAscensionSpecial(4))));
                         break;
                     }
                     case SOLEMNVIGIL:{
-                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(4))));
-                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
+                        addToBot(new GainBlockAction(this,calcAscensionSpecial(15)));
+                        addToBot(new HealAction(this,this,calcAscensionSpecial(10)));
+                        addToBot(new ApplyPowerAction(this, this, new PlatedArmorPower(this, calcAscensionSpecial(8))));
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,3)));
                         break;
                     }
                     case JUDGEMENTOFJUSTICE:{
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
+                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
                         addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
                         addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.NONE));
-                        addToBot(new HealAction(this,this,calcAscensionSpecial(6)));
+                        addToBot(new ApplyPowerAction(this, this, new RegenPower(this, calcAscensionSpecial(8))));
+                        addToBot(new ApplyPowerAction(AbstractDungeon.player, this, new FrailPower(AbstractDungeon.player, calcAscensionSpecial(1), true)));
                         break;
                     }
                     case DIVINESTORM: {
                         addToBot(new VFXAction(new WhirlwindEffect(Color.SKY,true)));
-                        addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                        addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
-                        addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
-                        addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.FIRE));
-                        addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
-                        addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.SLASH_HEAVY));
-                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,1)));
+                        for (int i = 0; i < DS_AMT; i++) {
+                            addToBot(new VFXAction(new LightningEffect(AbstractDungeon.player.drawX,AbstractDungeon.player.drawY)));
+                            addToBot(new DamageAction(AbstractDungeon.player, Divineinfo, AbstractGameAction.AttackEffect.LIGHTNING));
+                        }
+                        addToBot(new ApplyPowerAction(this,this,new StrengthPower(this,2)));
+                        DS_AMT += 1;
+                        addMove(DIVINESTORM,Intent.ATTACK_BUFF,calcAscensionDamage(4),DS_AMT);
                         break;
                     }
                 }
@@ -177,30 +183,26 @@ public class ZastraszTheJusticar extends AbstractBTMonster {
         //Here, we add the possibilities to a list and randomly choose one with each possibility having equal weight
         ArrayList<Byte> possibilities = new ArrayList<>();
 
-        //lastTwoMoves returns True if the move being passed was consecutively used for the last 2 turns
-        //Since we are doing !this.lastTwoMoves(SWEEP), that means only add SWEEP as a possibility if it wasn't just used twice in a row
-        if (this.lastMove(JUDGEMENTOFJUSTICE) || this.lastMove(DIVINESTORM) || lastMove(DIVINESMITE)) {
+        if (!lastMove(SOLEMNVIGIL) && (lastMove(JUDGEMENTOFJUSTICE) || lastMove(DIVINESTORM) || lastMove(DIVINESMITE))){
             possibilities.add(SOLEMNVIGIL);
         }
 
-        if ((this.lastMove(JUDGEMENTOFJUSTICE) || lastMove(DIVINESMITE))) {
+        if ((lastMove(JUDGEMENTOFJUSTICE) || lastMove(SOLEMNVIGIL))) {
             possibilities.add(DIVINESTORM);
         }
-        //lastMove returns True if the move being passed was the most recently used move.
-        if (!lastMove(DIVINESMITE)){
-            possibilities.add(DIVINESMITE);
-        }
-
-        if (!this.lastMove(JUDGEMENTOFJUSTICE) && (lastMove(TRIALBYFIRE) || lastMove(DIVINESMITE))) {
+        if ((lastMove(TRIALBYFIRE) || lastMove(DIVINESMITE))) {
             possibilities.add(JUDGEMENTOFJUSTICE);
         }
-        if ((!lastMove(TRIALBYFIRE)||!lastMoveBefore(TRIALBYFIRE))&& this.lastMove(SOLEMNVIGIL) || lastMove(DIVINESMITE)) {
+        if ((!lastMove(TRIALBYFIRE)|| !lastMoveBefore(TRIALBYFIRE)) && (lastMove(SOLEMNVIGIL) || lastMove(DIVINESTORM) || lastMove(JUDGEMENTOFJUSTICE))) {
             possibilities.add(TRIALBYFIRE);
         }
-        //Since we are doing !this.lastMove(DOUBLE_HIT) && !this.lastMoveBefore(DOUBLE_HIT),
-        // That means we only add DOUBLE HIT to the possibilities if it wasn't used for either of the last 2 turns
-
-        //randomly choose one with each possibility having equal weight
+        if (possibilities.isEmpty()){
+            possibilities.add(DIVINESMITE);
+        }
+        if (firsturn){
+            possibilities.clear();
+            possibilities.add(DIVINESMITE);
+        }
         byte move = possibilities.get(AbstractDungeon.monsterRng.random(possibilities.size() - 1));
         if (!DivineOrbs.isEmpty()){
             for (InvisibleIntentDisplayer DivineOrb : DivineOrbs){

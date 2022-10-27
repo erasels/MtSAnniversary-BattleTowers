@@ -27,7 +27,7 @@ public class JudgementPower extends TwoAmountPower implements CloneablePowerInte
         this.ID = POWER_ID;
         this.owner = owner;
         this.amount = 0;
-        this.amount2 = 30;
+        this.amount2 = 20;
         this.updateDescription();
         this.type = NeutralPowertypePatch.NEUTRAL;
         this.loadRegion("mantra");

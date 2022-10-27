@@ -144,16 +144,19 @@
     "MOVES": [
       "Faster than Light",
       "Sand Burst",
+      "Checkmate",
       "Killing Doll",
       "Shore Up",
-      "Fast-Forward!",
+      "Mirror Shot",
+      "Roar of Time",
+      "Fast-Forward",
       "The World",
-      "Bullet-Time",
-      "Delaying the Inevitable"
+      "Recharging"
     ],
     "NAME": "Natari the Timewalker",
     "DIALOG": [
-      "You wish to match wits with ~me?~ I'll show you why that's a ~grave~ error."
+      "You wish to match wits with ~me?~",
+      "@I@ won't falter so easily to a whelp like ~you.~"
     ]
   },
   "${ModID}:GoldenLouse": {

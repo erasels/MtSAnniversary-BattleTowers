@@ -26,6 +26,6 @@ public class InquisitorPower extends AbstractBTPower {
 
     @Override
     public void updateDescription() {
-        this.description = String.format(DESCRIPTIONS[0], 30);
+        this.description = String.format(DESCRIPTIONS[0], 20);
     }
 }
