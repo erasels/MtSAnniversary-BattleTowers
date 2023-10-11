@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.campfire.CampfireSmithEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
+import com.evacipated.cardcrawl.mod.stslib.relics.BetterOnSmithRelic;
 
 public class MiniCampfireSmithEffect extends AbstractGameEffect {
     private static final float DUR = 1.5F;
@@ -40,6 +41,7 @@ public class MiniCampfireSmithEffect extends AbstractGameEffect {
             for (AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
                 AbstractDungeon.effectsQueue.add(new UpgradeShineEffect((float) Settings.WIDTH / 2.0F, (float) Settings.HEIGHT / 2.0F));
                 c.upgrade();
+                AbstractDungeon.player.relics.stream().filter(r -> r instanceof BetterOnSmithRelic).forEach(r -> ((BetterOnSmithRelic)r).betterOnSmith(c));
                 AbstractDungeon.player.bottledCardUpgradeCheck(c);
                 AbstractDungeon.effectsQueue.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy()));
             }
