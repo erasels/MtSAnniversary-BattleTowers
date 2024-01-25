@@ -1,8 +1,8 @@
 {
   "battleTowers:UltimatePower": {
-    "NAME": "Ultimate Power",
+    "NAME": "无穷力量",
     "DESCRIPTIONS": [
-      "You are Very Cool and Strong."
+      "你很酷，很强壮。"
     ]
   },
   "battleTowers:SuperRitualPower": {
@@ -171,32 +171,32 @@
   "battleTowers:JudgementPower": {
     "NAME": "审判",
     "DESCRIPTIONS": [
-      "At the start of your turn, if you have #b"," or more #yJudgement, lose #b"," #yJudgement and Zastrasz the Justicar will act an additional time each turn for the rest of combat.",
+      "在你回合开始时，如果你有 #b"," 或更多 #y审判 ，那么失去 #b"," 之后的每回合 #y审判者 艾札克将额外行动一次",
       " NL Judgement is increased by unblocked damage taken."
     ]
   },
   "battleTowers:DoubleTimePower": {
-    "NAME": "Double Time",
+    "NAME": "双倍时间",
     "DESCRIPTIONS": [
-      "Gain [E] [E] and draw #b2 cards at the start of your turn, but the Timewalker will take an extra action each turn."
+      "你的回合开始时，获得 [E] [E] 并抽 #b2 张卡牌，但是时间行者将每回合多行动一次"
     ]
   },
   "battleTowers:TimewalkingPower": {
-    "NAME": "Timewalking",
+    "NAME": "时间穿梭",
     "DESCRIPTIONS": [
-      "The Timewalker may alter the flow of time in addition to it's primary action each turn."
+      "时间行者除了每回合的主要行动外，还可以改变时间流向。"
     ]
   },
   "battleTowers:HalfTime": {
-    "NAME": "Half Time",
+    "NAME": "一半时间",
     "DESCRIPTIONS": [
-      "Lose [E] and draw #b1 less cards at the start of your turn, but the Timewalker will only act once each turn."
+      "在你回合开始时，失去 [E] 并少抽 #b1 张牌，但时间行者将每回合只行动一次"
     ]
   },
   "battleTowers:TimeStop": {
-    "NAME": "Time Stop",
+    "NAME": "时间停止",
     "DESCRIPTIONS": [
-      "Your first card each turn #yPurges when played and deals #b40% less damage and gains #b40% less block."
+      "每回合你打出的第一张牌获得 #y净化 ，造成的伤害减少 #b40% 并且获得的格挡减少 #b40% "
     ]
   },
 
@@ -226,9 +226,9 @@
     ]
   },
   "battleTowers:KiteFlightPower": {
-    "NAME": "Glide",
+    "NAME": "滑翔",
     "DESCRIPTIONS": [
-      "Takes #b%d%% less damage. Decreases by #b1 whenever it is attacked. NL When this reaches #b0, you take damage equal to the creature's remaining HP."
+      "少受到 #b%d%% 伤害。每当被攻击后，降低 #b1 。 NL 当层数为 #b0 时，你受到等同该生物剩余生命值的伤害。"
     ]
   },
   "battleTowers:AlphabetAmplifyPower": {

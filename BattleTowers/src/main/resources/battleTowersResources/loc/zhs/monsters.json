@@ -3,18 +3,18 @@
     "MOVES": [
       ""
     ],
-    "NAME": "Staring Abyss",
+    "NAME": "凝视深渊",
     "DIALOG": [
       ""
     ]
   },
   "battleTowers:ExampleMonster": {
     "MOVES": [
-      "Sweep",
-      "Shriek",
-      "Double Hit"
+      "挥击",
+      "尖叫",
+      "二连击"
     ],
-    "NAME": "Example Monster",
+    "NAME": "怪物样例",
     "DIALOG": [
     ]
   },
@@ -142,18 +142,18 @@
   },
   "battleTowers:NatariTheTimewalker": {
     "MOVES": [
-      "Faster than Light",
-      "Sand Burst",
-      "Killing Doll",
-      "Shore Up",
-      "Fast-Forward!",
-      "The World",
-      "Bullet-Time",
-      "Delaying the Inevitable"
+      "比光还快",
+      "沙爆",
+      "战斗人偶",
+      "加强",
+      "快进！",
+      "咋瓦鲁多！",
+      "子弹时间",
+      "推迟"
     ],
-    "NAME": "Natari the Timewalker",
+    "NAME": "『时间行者』纳塔里",
     "DIALOG": [
-      "You wish to match wits with ~me?~ I'll show you why that's a ~grave~ error."
+      "你想和 ~我斗智斗勇吗？~ 我会告诉你为什么这是一个严重错误的。"
     ]
   },
   "battleTowers:GoldenLouse": {
