@@ -10,21 +10,21 @@
     ]
   },
   "battleTowers:Example": {
-    "NAME": "An Event",
+    "NAME": "一个事件",
     "DESCRIPTIONS": [
-      "Initial Selection",
-      "This is Brazil. You can only go to Antarctica from here.",
-      "This is Japan. You can go to Brazil or Trip and Fall.",
-      "This is Antarctica. You can Trip and Fall.",
-      "Ouch."
+      "初始选择",
+      "这里是巴西，你从这里只能去南极洲",
+      "这是日本，你可以去巴西或摔个跟头",
+      "这是南极洲，你摔了个跟头",
+      "哎哟"
     ],
     "OPTIONS": [
-      "[Go to Brazil]",
-      "[Go to Japan]",
-      "[Go to Antarctica]",
-      "[Trip and fall]",
-      "[Bye]",
-      "[Fight your way to Japan]"
+      "[去巴西]",
+      "[去日本]",
+      "[去南极洲]",
+      "[摔跟头]",
+      "[拜拜]",
+      "[奋力前往日本]"
     ]
   },
   "battleTowers:EmeraldFlame": {

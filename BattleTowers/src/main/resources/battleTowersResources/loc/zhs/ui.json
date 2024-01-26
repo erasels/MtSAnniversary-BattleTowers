@@ -1,7 +1,7 @@
 {
   "battleTowers:Config": {
     "TEXT_DICT": {
-      "Test": "This does nothing."
+      "Test": "这个没有任何用"
     }
   },
   "battleTowers:FightPreview": {
